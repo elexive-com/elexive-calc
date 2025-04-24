@@ -5,14 +5,11 @@ import {
   faChartLine, faBullseye, faPuzzlePiece, faSliders, 
   faMoneyBillWave, faGears, faCheck, faBuilding, 
   faRocket, faLightbulb, faShieldAlt, faServer,
-  faNetworkWired, faDatabase, faChartPie, faUsers,
-  faBrain, faRobot, faLaptopCode, faFileContract,
-  faGlobe, faArrowRight, faDollarSign, faChartBar,
+  faNetworkWired, faDatabase, faUsers,
+  faRobot, faFileContract,
+  faArrowRight, faChartBar,
   faCalendarDays, faInfoCircle, faUserFriends, faPlus, faMinus,
-  faSlidersH, faClock, faHandshake, faTags, faBolt,
-  faPercent, faCoins, faCreditCard, faComments, faCheckCircle,
-  faExclamationTriangle, faQuestionCircle, faWrench, faLayerGroup,
-  faArrowDown, faArrowUp, faStar, faFireAlt, faThumbsUp,
+  faSlidersH, faCoins, faCreditCard, faCheckCircle,
   faCalculator, faEnvelope
 } from '@fortawesome/free-solid-svg-icons';
 
@@ -83,12 +80,6 @@ const CalculatorApp = () => {
   // State for active pillar tab - moved from renderModuleSelector to component level
   const [activePillar, setActivePillar] = useState("Leadership");
   
-  // Create module modifiers map for easy lookup
-  const moduleEvcModifiers = calculatorConfig.modules.reduce((acc, module) => {
-    acc[module.name] = module.modifier;
-    return acc;
-  }, {});
-  
   // Create parameter modifiers map for easy lookup
   const parameterModifiers = serviceParameters.reduce((acc, param) => {
     acc[param.id] = param.modifier;
@@ -96,11 +87,7 @@ const CalculatorApp = () => {
   }, {});
   
   // Calculate pricing whenever selections change
-  useEffect(() => {
-    calculatePricing();
-  }, [selectedModules, evcTarget, effortIntensity, parameters, paymentOption]);
-  
-  const calculatePricing = () => {
+  const calculatePricing = React.useCallback(() => {
     const { intensityLevels, evcBase, modules } = calculatorConfig;
     
     // Calculate total EVCs needed based on selected modules
@@ -152,7 +139,12 @@ const CalculatorApp = () => {
     setMonthlyEvcs(adjustedEvcs);
     setEvcPricePerUnit(pricePerEvc);
     setTotalPrice(Math.round(adjustedEvcs * pricePerEvc));
-  };
+  }, [selectedModules, evcTarget, effortIntensity, parameters, paymentOption, parameterModifiers]);
+  
+  // Use the memoized callback in useEffect
+  useEffect(() => {
+    calculatePricing();
+  }, [calculatePricing]);
   
   // Toggle modules selection
   const toggleModule = (module) => {
@@ -161,14 +153,6 @@ const CalculatorApp = () => {
         ? selectedModules.filter(m => m !== module)
         : [...selectedModules, module]
     );
-  };
-  
-  // Toggle parameters
-  const toggleParameter = (param) => {
-    setParameters({
-      ...parameters,
-      [param]: !parameters[param]
-    });
   };
   
   // Onboarding Quiz
