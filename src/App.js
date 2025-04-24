@@ -1,5 +1,6 @@
 import React from 'react';
 import './App.css';
+import './custom.css';
 import CalculatorApp from './CalculatorApp';
 
 function App() {

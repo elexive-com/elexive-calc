@@ -1,0 +1,123 @@
+/* Elexive Calculator Custom Styles
+   Brand colors:
+   - Background (light): #FBFAFC
+   - Font/primary foreground: #2E2266
+   - Primary accent: #FFBD59
+   - Secondary accent: #EB8258
+*/
+
+/* Global styles */
+:root {
+  --elexive-bg: #FBFAFC;
+  --elexive-primary: #2E2266;
+  --elexive-accent: #FFBD59;
+  --elexive-secondary: #EB8258;
+  --elexive-border-radius: 12px;
+  --elexive-button-radius: 8px;
+  --elexive-transition: all 0.2s ease-in-out;
+}
+
+body {
+  background-color: var(--elexive-bg);
+  color: var(--elexive-primary);
+  font-family: 'Inter', 'Segoe UI', Roboto, sans-serif;
+}
+
+/* Container and layout enhancements */
+.min-h-screen {
+  background-color: var(--elexive-bg) !important;
+}
+
+/* Typography */
+h1, h2, h3, h4, h5, h6 {
+  color: var(--elexive-primary);
+  font-weight: 700;
+}
+
+/* Calculator specific styles */
+.calculator-container {
+  background-color: white;
+  border-radius: var(--elexive-border-radius);
+  box-shadow: 0 10px 25px rgba(46, 34, 102, 0.1);
+  overflow: hidden;
+  transition: var(--elexive-transition);
+}
+
+.calculator-display {
+  background-color: var(--elexive-primary);
+  color: white;
+  border-radius: var(--elexive-border-radius) var(--elexive-border-radius) 0 0;
+  padding: 1.5rem;
+  font-size: 1.75rem;
+  font-weight: 600;
+}
+
+.calculator-keypad {
+  padding: 1rem;
+  display: grid;
+  gap: 0.75rem;
+}
+
+/* Button styles */
+button {
+  border-radius: var(--elexive-button-radius) !important;
+  transition: var(--elexive-transition) !important;
+  font-weight: 600 !important;
+}
+
+button:hover {
+  transform: translateY(-2px);
+}
+
+.number-button {
+  background-color: var(--elexive-bg) !important;
+  color: var(--elexive-primary) !important;
+}
+
+.operation-button {
+  background-color: var(--elexive-accent) !important;
+  color: var(--elexive-primary) !important;
+}
+
+.equals-button {
+  background-color: var(--elexive-secondary) !important;
+  color: white !important;
+}
+
+.clear-button {
+  background-color: var(--elexive-primary) !important;
+  color: white !important;
+}
+
+/* Focus and active states */
+button:focus, input:focus {
+  outline: 3px solid rgba(255, 189, 89, 0.5);
+  outline-offset: 2px;
+}
+
+/* Footer styling */
+footer {
+  color: var(--elexive-primary) !important;
+  opacity: 0.8;
+}
+
+/* Additional modern touches */
+.shadow-custom {
+  box-shadow: 0 4px 12px rgba(46, 34, 102, 0.15);
+}
+
+.card {
+  border-radius: var(--elexive-border-radius);
+  overflow: hidden;
+}
+
+/* Animations */
+@keyframes subtle-pulse {
+  0% { opacity: 1; }
+  50% { opacity: 0.8; }
+  100% { opacity: 1; }
+}
+
+.animated-element {
+  animation: subtle-pulse 2s infinite;
+}
