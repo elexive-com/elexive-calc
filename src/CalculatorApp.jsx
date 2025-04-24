@@ -77,6 +77,23 @@ const CalculatorApp = () => {
     calculatorConfig.intensityLevels[defaults.effortIntensity].description
   );
   
+  // Function to toggle payment option - references setPaymentOption
+  const togglePaymentOption = (option) => {
+    if (option !== paymentOption) {
+      setPaymentOption(option);
+      // Recalculate pricing when payment option changes
+      calculatePricing();
+    }
+  };
+  
+  // Function to update parameters - references setParameters
+  const updateParameter = (paramId, value) => {
+    setParameters(prevParams => ({
+      ...prevParams,
+      [paramId]: value
+    }));
+  };
+  
   // State for active pillar tab - moved from renderModuleSelector to component level
   const [activePillar, setActivePillar] = useState("Leadership");
   
