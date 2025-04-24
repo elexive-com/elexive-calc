@@ -282,6 +282,17 @@ const CalculatorApp = () => {
                       : 'bg-gray-50 border border-gray-200 hover:border-[var(--elexive-accent)] hover:shadow'
                   }`}
                 >
+                  {/* Category label moved to top row */}
+                  <div className="flex justify-start mb-2">
+                    <span className={`text-xs px-2 py-1 rounded-full ${
+                      module.category === "Immediate Impact" 
+                        ? 'bg-[#ECE9F3] text-[var(--elexive-primary)]' 
+                        : 'bg-[#FFF0E3] text-[var(--elexive-secondary)]'
+                    }`}>
+                      {module.category}
+                    </span>
+                  </div>
+                  
                   <div className="flex items-start">
                     <div className={`w-5 h-5 rounded-md mr-3 mt-1 flex-shrink-0 flex items-center justify-center ${
                       selectedModules.includes(module.name) ? 'bg-[var(--elexive-accent)]' : 'bg-gray-200'
@@ -297,13 +308,6 @@ const CalculatorApp = () => {
                           className="text-[var(--elexive-primary)] mr-2" 
                         />
                         <h3 className="font-semibold">{module.name}</h3>
-                        <span className={`ml-2 text-xs px-2 py-1 rounded-full ${
-                          module.category === "Immediate Impact" 
-                            ? 'bg-[#ECE9F3] text-[var(--elexive-primary)]' 
-                            : 'bg-[#FFF0E3] text-[var(--elexive-secondary)]'
-                        }`}>
-                          {module.category}
-                        </span>
                       </div>
                       <p className="text-xs font-medium text-[var(--elexive-primary)] mb-1">{module.heading}</p>
                       <p className="text-xs text-gray-600 mb-2">{module.description}</p>

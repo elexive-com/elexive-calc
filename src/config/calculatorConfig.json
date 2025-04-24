@@ -38,39 +38,6 @@
   ],
   "modules": [
     {
-      "name": "Crisis Ready",
-      "pillar": "Transformation",
-      "category": "Immediate Impact",
-      "heading": "Decision Agility & Crisis Leadership",
-      "description": "High-stakes moments define great leaders—those who act decisively, communicate clearly, and turn challenges into opportunities.",
-      "evcRange": {
-        "min": 6,
-        "max": 12
-      }
-    },
-    {
-      "name": "Smart Influence",
-      "pillar": "Transformation",
-      "category": "Immediate Impact",
-      "heading": "Strategic Influence, Governance & Stakeholder Leadership",
-      "description": "Leaders who master influence and governance shape decisions, inspire action, and drive impact in the boardroom and beyond.",
-      "evcRange": {
-        "min": 8,
-        "max": 14
-      }
-    },
-    {
-      "name": "Momentum Leadership",
-      "pillar": "Transformation",
-      "category": "Immediate Impact",
-      "heading": "Driving Personal Leadership Execution & Impact",
-      "description": "The best leaders don't just plan—they execute with energy, discipline, and consistency to make things happen.",
-      "evcRange": {
-        "min": 5,
-        "max": 10
-      }
-    },
-    {
       "name": "Leading Change",
       "pillar": "Transformation",
       "category": "Immediate Impact",
@@ -115,17 +82,6 @@
       }
     },
     {
-      "name": "Boardroom Mastery",
-      "pillar": "Transformation",
-      "category": "Vested Value",
-      "heading": "Enhancing Boardroom Influence & Strategic Oversight",
-      "description": "The most effective leaders don't just participate in boardrooms—they shape conversations, drive decisions, and lead with authority.",
-      "evcRange": {
-        "min": 8,
-        "max": 14
-      }
-    },
-    {
       "name": "Strategic Leadership",
       "pillar": "Transformation",
       "category": "Vested Value",
@@ -142,39 +98,6 @@
       "category": "Vested Value",
       "heading": "Adapting & Thriving in Uncertain Environments",
       "description": "Change is the new normal—and agile leaders see it as their greatest opportunity. Today's best executives thrive on uncertainty, confidently adapt to shifting conditions, and empower their teams to pivot quickly and keep winning.",
-      "evcRange": {
-        "min": 10,
-        "max": 18
-      }
-    },
-    {
-      "name": "Market Edge",
-      "pillar": "Strategy",
-      "category": "Immediate Impact",
-      "heading": "Stay Ahead & Outmaneuver Competitors",
-      "description": "Staying ahead of the competition means spotting trends first, making smarter moves, and positioning your business for long-term success.",
-      "evcRange": {
-        "min": 8,
-        "max": 15
-      }
-    },
-    {
-      "name": "Seamless Execution",
-      "pillar": "Strategy",
-      "category": "Immediate Impact",
-      "heading": "Aligning Organizations for Fast & Effective Execution",
-      "description": "Execution is where strategy turns into results. When teams are aligned and momentum is strong, great ideas become business impact.",
-      "evcRange": {
-        "min": 9,
-        "max": 16
-      }
-    },
-    {
-      "name": "Portfolio Strategy",
-      "pillar": "Strategy",
-      "category": "Immediate Impact",
-      "heading": "Building Resilience & Winning Market Structures",
-      "description": "A smart portfolio balances risk and growth, ensuring every product and investment drives value in an evolving market.",
       "evcRange": {
         "min": 10,
         "max": 18
@@ -225,28 +148,6 @@
       }
     },
     {
-      "name": "Network Effect",
-      "pillar": "Strategy",
-      "category": "Vested Value",
-      "heading": "Scaling Business Growth Through Ecosystem Strategy",
-      "description": "Platforms and ecosystems scale faster when businesses harness partnerships, communities, and self-reinforcing growth loops.",
-      "evcRange": {
-        "min": 10,
-        "max": 18
-      }
-    },
-    {
-      "name": "Smart Capital",
-      "pillar": "Strategy",
-      "category": "Vested Value",
-      "heading": "Investing Wisely & Scaling Sustainably",
-      "description": "Smart investment decisions fuel sustainable growth, ensuring every dollar drives innovation, expansion, and resilience.",
-      "evcRange": {
-        "min": 8,
-        "max": 16
-      }
-    },
-    {
       "name": "Brand Core",
       "pillar": "Strategy",
       "category": "Immediate Impact",
@@ -291,17 +192,6 @@
       }
     },
     {
-      "name": "Seamless Systems",
-      "pillar": "Technology",
-      "category": "Immediate Impact",
-      "heading": "Smart Automation for Frictionless Operations",
-      "description": "Automation turns friction into flow, helping businesses scale effortlessly while optimizing efficiency.",
-      "evcRange": {
-        "min": 8,
-        "max": 16
-      }
-    },
-    {
       "name": "Resilient Digital",
       "pillar": "Technology",
       "category": "Immediate Impact",
@@ -310,17 +200,6 @@
       "evcRange": {
         "min": 9,
         "max": 16
-      }
-    },
-    {
-      "name": "Digital Command",
-      "pillar": "Technology",
-      "category": "Immediate Impact",
-      "heading": "IT Governance & Risk Strategy for Business Growth",
-      "description": "Great leaders don't just manage IT—they command digital strategy, ensuring technology fuels innovation and security.",
-      "evcRange": {
-        "min": 8,
-        "max": 14
       }
     },
     {
@@ -346,17 +225,6 @@
       }
     },
     {
-      "name": "Platform Leverage",
-      "pillar": "Technology",
-      "category": "Vested Value",
-      "heading": "Unlocking Revenue from Digital Ecosystems",
-      "description": "Digital platforms thrive when businesses unlock new revenue streams, optimize engagement, and scale through partnerships.",
-      "evcRange": {
-        "min": 9,
-        "max": 16
-      }
-    },
-    {
       "name": "Innovation Blueprint",
       "pillar": "Technology",
       "category": "Vested Value",
@@ -365,17 +233,6 @@
       "evcRange": {
         "min": 12,
         "max": 20
-      }
-    },
-    {
-      "name": "Connected Business",
-      "pillar": "Technology",
-      "category": "Vested Value",
-      "heading": "Enhancing Operations with IoT & Data",
-      "description": "IoT and connected systems offer massive efficiency gains, but many businesses struggle with integration, security, and monetization—leading to fragmented operations and missed opportunities.",
-      "evcRange": {
-        "min": 10,
-        "max": 18
       }
     }
   ],
