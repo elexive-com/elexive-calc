@@ -15,6 +15,18 @@ import {
   faLayerGroup, faTasks, faProjectDiagram
 } from '@fortawesome/free-solid-svg-icons';
 
+// Helper function to get discount label
+const getDiscountLabel = (priceModifier) => {
+  if (priceModifier !== 1) {
+    return (
+      <span className="ml-1 text-xs">
+        ({((1.00 - priceModifier) * 100).toFixed(0)}% off)
+      </span>
+    );
+  }
+  return null;
+};
+
 // Helper function to get icon for module
 const getModuleIcon = (pillar, name) => {
   const iconMap = {
@@ -510,11 +522,7 @@ const CalculatorApp = () => {
                   }`}
                 >
                   {details.name}
-                  {details.priceModifier !== 1 && (
-                    <span className="ml-1 text-xs">
-                      ({(1 - details.priceModifier) * 100}% off)
-                    </span>
-                  )}
+                  {getDiscountLabel(details.priceModifier)}
                 </button>
               ))}
             </div>
