@@ -10,7 +10,7 @@ import {
   faArrowRight, faChartBar,
   faCalendarDays, faInfoCircle, faUserFriends, faPlus, faMinus,
   faSlidersH, faCoins, faCreditCard, faCheckCircle,
-  faCalculator, faEnvelope
+  faCalculator, faEnvelope, faExchangeAlt, faFileAlt
 } from '@fortawesome/free-solid-svg-icons';
 
 // Helper function to get icon for module
@@ -56,6 +56,8 @@ const CalculatorApp = () => {
       : ''
   );
   const [teamSize, setTeamSize] = useState(1);
+  // Add state for EVC explainer collapse
+  const [isEvcExplainerVisible, setIsEvcExplainerVisible] = useState(false);
   
   // Get defaults from config
   const { defaults, evcBase, serviceParameters } = calculatorConfig;
@@ -676,6 +678,99 @@ const CalculatorApp = () => {
     );
   };
   
+  // Function to toggle EVC explainer visibility
+  const toggleEvcExplainer = () => {
+    setIsEvcExplainerVisible(!isEvcExplainerVisible);
+  };
+  
+  // EVC Explainer Component with collapsible functionality
+  const renderEvcExplainer = () => (
+    <div className="bg-white p-6 rounded-2xl shadow-lg mb-6">
+      <h2 
+        className="text-2xl font-bold text-[var(--elexive-primary)] mb-2 flex items-center justify-between cursor-pointer"
+        onClick={toggleEvcExplainer}
+      >
+        <div>
+          <FontAwesomeIcon icon={faCalculator} className="text-[var(--elexive-accent)] mr-2" />
+          Understanding Elastic Value Credits (EVCs)
+        </div>
+        <FontAwesomeIcon 
+          icon={isEvcExplainerVisible ? faMinus : faPlus} 
+          className="text-[var(--elexive-accent)]" 
+        />
+      </h2>
+      
+      {isEvcExplainerVisible && (
+        <>
+          <p className="text-gray-600 mb-4">
+            EVCs are Elexive's flexible service units that allow you to dynamically allocate expert resources 
+            across different strategic initiatives as your priorities shift.
+          </p>
+          
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <div className="border border-gray-200 rounded-xl p-4">
+              <div className="w-12 h-12 rounded-full bg-[var(--elexive-accent-light)] flex items-center justify-center mb-3">
+                <FontAwesomeIcon icon={faExchangeAlt} className="text-[var(--elexive-accent)] text-xl" />
+              </div>
+              <h3 className="font-bold text-[var(--elexive-primary)] mb-1">Flexibility</h3>
+              <p className="text-sm text-gray-600">
+                Shift resources between modules as your priorities change, without renegotiating contracts.
+              </p>
+            </div>
+            
+            <div className="border border-gray-200 rounded-xl p-4">
+              <div className="w-12 h-12 rounded-full bg-[var(--elexive-accent-light)] flex items-center justify-center mb-3">
+                <FontAwesomeIcon icon={faUsers} className="text-[var(--elexive-accent)] text-xl" />
+              </div>
+              <h3 className="font-bold text-[var(--elexive-primary)] mb-1">Expert Access</h3>
+              <p className="text-sm text-gray-600">
+                Each EVC represents access to our specialized consultants, tailored to your specific needs.
+              </p>
+            </div>
+            
+            <div className="border border-gray-200 rounded-xl p-4">
+              <div className="w-12 h-12 rounded-full bg-[var(--elexive-accent-light)] flex items-center justify-center mb-3">
+                <FontAwesomeIcon icon={faChartLine} className="text-[var(--elexive-accent)] text-xl" />
+              </div>
+              <h3 className="font-bold text-[var(--elexive-primary)] mb-1">Measurable Value</h3>
+              <p className="text-sm text-gray-600">
+                Track output and outcomes with clear metrics tied to each EVC investment.
+              </p>
+            </div>
+          </div>
+          
+          <div className="mt-6 p-4 bg-[#FFF6E8] rounded-lg border border-[var(--elexive-accent)] border-opacity-20">
+            <h3 className="font-medium text-[var(--elexive-primary)] mb-2">How We Calculate EVCs</h3>
+            <div className="flex items-center">
+              <div className="flex-shrink-0 w-16 h-16 mr-4">
+                <img src="/evc-calculator.svg" alt="EVC Calculator" className="w-full h-full" />
+              </div>
+              <div>
+                <p className="text-sm text-gray-700">
+                  Each service module has a recommended EVC range based on typical client needs. 
+                  Your final EVC allocation is adjusted based on your selected delivery intensity and 
+                  additional service parameters.
+                </p>
+                <p className="text-sm font-medium text-[var(--elexive-primary)] mt-2">
+                  <strong>1 EVC ≈ 0.5 consultant days</strong>, with value delivered at approximately 
+                  <strong> 1.8x traditional consulting</strong> due to our specialized expertise and methodology.
+                </p>
+              </div>
+            </div>
+          </div>
+          
+          <button 
+            onClick={() => window.open('/evc-whitepaper.pdf', '_blank')}
+            className="mt-4 text-[var(--elexive-primary)] font-medium hover:underline flex items-center"
+          >
+            <FontAwesomeIcon icon={faFileAlt} className="mr-2" />
+            Download our detailed EVC guide
+          </button>
+        </>
+      )}
+    </div>
+  );
+  
   // Desktop summary sidebar
   const renderSummarySidebar = () => (
     <div className="bg-white p-5 rounded-2xl shadow-lg h-fit sticky top-4">
@@ -782,6 +877,7 @@ const CalculatorApp = () => {
         {/* Main content area */}
         <div className="flex-grow space-y-6">
           {renderOnboardingQuiz()}
+          {renderEvcExplainer()}
           {renderModuleSelector()}
           {renderCapacitySlider()}
           {renderIntensitySlider()}
