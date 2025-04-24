@@ -9,7 +9,7 @@ import {
   faNetworkWired, faDatabase, faUsers,
   faRobot, faFileContract,
   faArrowRight, faChartBar,
-  faCalendarDays, faInfoCircle, faUserFriends, faPlus, faMinus,
+  faInfoCircle, faPlus, faMinus,
   faSlidersH, faCoins, faCreditCard, faCheckCircle,
   faCalculator, faEnvelope, faExchangeAlt, faFileAlt,
   faLayerGroup, faTasks, faProjectDiagram
@@ -52,12 +52,6 @@ const CalculatorApp = () => {
   const [evcTarget, setEvcTarget] = useState(calculatorConfig.defaults.evcTarget);
   const [capacityAllocation, setCapacityAllocation] = useState(calculatorConfig.defaults.capacityAllocation);
   const [paymentOption, setPaymentOption] = useState(calculatorConfig.defaults.paymentOption);
-  const [selectedTimeframe, setSelectedTimeframe] = useState(
-    calculatorConfig.timeframes && Object.keys(calculatorConfig.timeframes).length > 0 
-      ? Object.keys(calculatorConfig.timeframes)[0] 
-      : ''
-  );
-  const [teamSize, setTeamSize] = useState(1);
   // Add state for EVC explainer collapse
   const [isEvcExplainerVisible, setIsEvcExplainerVisible] = useState(false);
   
@@ -500,61 +494,6 @@ const CalculatorApp = () => {
                 ? 'Prepaid option offers a discount on the standard rate'
                 : 'Standard monthly billing with no long-term commitment'}
             </p>
-          </div>
-          
-          {/* Timeline */}
-          <div>
-            <label className="block text-[var(--elexive-primary)] font-medium mb-2">
-              <FontAwesomeIcon icon={faCalendarDays} className="mr-2" />
-              Engagement Timeline
-            </label>
-            <div className="flex flex-wrap gap-3">
-              {Object.entries(calculatorConfig.timeframes || {}).map(([timeframe, details]) => (
-                <button
-                  key={timeframe}
-                  onClick={() => setSelectedTimeframe(timeframe)}
-                  className={`px-4 py-2 rounded-lg transition-all duration-200 ${
-                    selectedTimeframe === timeframe
-                      ? 'bg-[var(--elexive-accent)] text-[var(--elexive-primary)] shadow-md'
-                      : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
-                  }`}
-                >
-                  {details.label}
-                </button>
-              ))}
-            </div>
-            <p className="text-sm text-gray-500 mt-2">
-              <FontAwesomeIcon icon={faInfoCircle} className="mr-1" />
-              {calculatorConfig.timeframes && calculatorConfig.timeframes[selectedTimeframe]?.description}
-            </p>
-          </div>
-          
-          {/* Team Size */}
-          <div>
-            <label className="block text-[var(--elexive-primary)] font-medium mb-2">
-              <FontAwesomeIcon icon={faUserFriends} className="mr-2" />
-              Team Size
-            </label>
-            <div className="flex space-x-2 items-center">
-              <button 
-                onClick={() => setTeamSize(Math.max(1, teamSize - 1))}
-                className="bg-gray-100 hover:bg-gray-200 text-[var(--elexive-primary)] rounded-full w-8 h-8 flex items-center justify-center"
-              >
-                <FontAwesomeIcon icon={faMinus} />
-              </button>
-              <div className="px-4 py-2 bg-[var(--elexive-accent-light)] rounded-lg text-center min-w-20">
-                <span className="font-medium text-[var(--elexive-primary)]">{teamSize}</span>
-              </div>
-              <button 
-                onClick={() => setTeamSize(Math.min(10, teamSize + 1))}
-                className="bg-gray-100 hover:bg-gray-200 text-[var(--elexive-primary)] rounded-full w-8 h-8 flex items-center justify-center"
-              >
-                <FontAwesomeIcon icon={faPlus} />
-              </button>
-              <span className="ml-2 text-gray-600">
-                {teamSize === 1 ? 'team member' : 'team members'}
-              </span>
-            </div>
           </div>
           
           {/* Custom Service Parameters - Using serviceParams variable to reference it */}
