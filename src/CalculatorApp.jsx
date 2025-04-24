@@ -466,6 +466,39 @@ const CalculatorApp = () => {
               </span>
             </div>
           </div>
+          
+          {/* Custom Service Parameters - Using serviceParams variable to reference it */}
+          <div>
+            <label className="block text-[var(--elexive-primary)] font-medium mb-2">
+              <FontAwesomeIcon icon={faGears} className="mr-2" />
+              Additional Parameters
+            </label>
+            <div className="space-y-3">
+              {serviceParams.map((param) => (
+                <div key={param.id} className="flex items-center justify-between">
+                  <div>
+                    <span className="font-medium text-[var(--elexive-primary)]">{param.label}</span>
+                    <p className="text-xs text-gray-500">{param.description}</p>
+                  </div>
+                  <button
+                    onClick={() => updateParameter(param.id, !parameters[param.id])}
+                    className={`px-4 py-2 rounded-lg transition-all duration-200 ${
+                      parameters[param.id]
+                        ? 'bg-[var(--elexive-accent)] text-[var(--elexive-primary)] shadow-sm'
+                        : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+                    }`}
+                  >
+                    {parameters[param.id] ? (
+                      <>
+                        <FontAwesomeIcon icon={faCheckCircle} className="mr-1" />
+                        Enabled
+                      </>
+                    ) : 'Disabled'}
+                  </button>
+                </div>
+              ))}
+            </div>
+          </div>
         </div>
       </div>
     );
