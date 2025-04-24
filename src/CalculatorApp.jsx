@@ -16,7 +16,7 @@ import {
 // Helper function to get icon for module
 const getModuleIcon = (pillar, name) => {
   const iconMap = {
-    'Leadership': {
+    'Transformation': {
       default: faUsers,
       'Crisis Ready': faShieldAlt,
       'Smart Influence': faChartLine,
@@ -97,7 +97,7 @@ const CalculatorApp = () => {
   };
   
   // State for active pillar tab - moved from renderModuleSelector to component level
-  const [activePillar, setActivePillar] = useState("Leadership");
+  const [activePillar, setActivePillar] = useState("Transformation");
   
   // Create parameter modifiers map for easy lookup
   const parameterModifiers = serviceParameters.reduce((acc, param) => {
@@ -224,7 +224,7 @@ const CalculatorApp = () => {
   const renderModuleSelector = () => {
     // Group modules by pillar
     const modulesByPillar = {
-      Leadership: calculatorConfig.modules.filter(module => module.pillar === "Leadership"),
+      Transformation: calculatorConfig.modules.filter(module => module.pillar === "Transformation"),
       Strategy: calculatorConfig.modules.filter(module => module.pillar === "Strategy"),
       Technology: calculatorConfig.modules.filter(module => module.pillar === "Technology")
     };

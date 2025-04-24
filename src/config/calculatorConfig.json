@@ -39,7 +39,7 @@
   "modules": [
     {
       "name": "Crisis Ready",
-      "pillar": "Leadership",
+      "pillar": "Transformation",
       "category": "Immediate Impact",
       "heading": "Decision Agility & Crisis Leadership",
       "description": "High-stakes moments define great leaders—those who act decisively, communicate clearly, and turn challenges into opportunities.",
@@ -50,7 +50,7 @@
     },
     {
       "name": "Smart Influence",
-      "pillar": "Leadership",
+      "pillar": "Transformation",
       "category": "Immediate Impact",
       "heading": "Strategic Influence, Governance & Stakeholder Leadership",
       "description": "Leaders who master influence and governance shape decisions, inspire action, and drive impact in the boardroom and beyond.",
@@ -61,7 +61,7 @@
     },
     {
       "name": "Momentum Leadership",
-      "pillar": "Leadership",
+      "pillar": "Transformation",
       "category": "Immediate Impact",
       "heading": "Driving Personal Leadership Execution & Impact",
       "description": "The best leaders don't just plan—they execute with energy, discipline, and consistency to make things happen.",
@@ -72,7 +72,7 @@
     },
     {
       "name": "Leading Change",
-      "pillar": "Leadership",
+      "pillar": "Transformation",
       "category": "Immediate Impact",
       "heading": "Effective Transformation, Agility & Organizational Growth",
       "description": "Change moves fast, and the best leaders use it to grow, adapt, and level up their teams. They know success means balancing the strategy with the people side—ditching old playbooks, embracing fresh mindsets, and leading with confidence into what's next.",
@@ -83,7 +83,7 @@
     },
     {
       "name": "Culture Core",
-      "pillar": "Leadership",
+      "pillar": "Transformation",
       "category": "Immediate Impact",
       "heading": "Leadership Culture & Performance Mastery",
       "description": "Great strategies deserve teams that move fast and think big—but even talented teams can lose momentum if culture and execution aren't aligned. High-performing companies build a culture where decisions flow easily, alignment happens naturally, and execution becomes second nature.",
@@ -94,7 +94,7 @@
     },
     {
       "name": "AI-Augmented Leadership",
-      "pillar": "Leadership",
+      "pillar": "Transformation",
       "category": "Immediate Impact",
       "heading": "Mastering Decision-Making in an AI-Driven World",
       "description": "AI is reshaping what's possible in leadership—opening doors for faster, smarter decisions and freeing leaders from routine tasks. The leaders who lean into AI can amplify their instincts, drive better outcomes, and stay ahead of what's next.",
@@ -105,7 +105,7 @@
     },
     {
       "name": "Culture Power",
-      "pillar": "Leadership",
+      "pillar": "Transformation",
       "category": "Vested Value",
       "heading": "Building the Workplace Everyone Wants to Join",
       "description": "Great companies aren't built by chance—they're powered by passionate people at every level. To keep thriving, businesses need to spot talent early, nurture everyone's potential, and create an environment where growth and purpose become everyday experiences.",
@@ -116,7 +116,7 @@
     },
     {
       "name": "Boardroom Mastery",
-      "pillar": "Leadership",
+      "pillar": "Transformation",
       "category": "Vested Value",
       "heading": "Enhancing Boardroom Influence & Strategic Oversight",
       "description": "The most effective leaders don't just participate in boardrooms—they shape conversations, drive decisions, and lead with authority.",
@@ -127,7 +127,7 @@
     },
     {
       "name": "Strategic Leadership",
-      "pillar": "Leadership",
+      "pillar": "Transformation",
       "category": "Vested Value",
       "heading": "Future Vision, Innovation & Decision-Making",
       "description": "The future belongs to leaders who think strategically, spotting opportunities before others see them. The best leaders step away from day-to-day pressures, confidently pursue bold ideas, and inspire their teams to strategically shape what's next.",
@@ -138,7 +138,7 @@
     },
     {
       "name": "Executive Agility",
-      "pillar": "Leadership",
+      "pillar": "Transformation",
       "category": "Vested Value",
       "heading": "Adapting & Thriving in Uncertain Environments",
       "description": "Change is the new normal—and agile leaders see it as their greatest opportunity. Today's best executives thrive on uncertainty, confidently adapt to shifting conditions, and empower their teams to pivot quickly and keep winning.",
