@@ -515,10 +515,10 @@ const CalculatorApp = () => {
                 <button
                   key={option}
                   onClick={() => togglePaymentOption(option)}
-                  className={`px-4 py-2 rounded-lg transition-all duration-200 ${
+                  className={`px-4 py-2 rounded-lg transition-all duration-200 border ${
                     paymentOption === option
-                      ? 'bg-[var(--elexive-accent)] text-[var(--elexive-primary)] shadow-md'
-                      : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+                      ? 'bg-[var(--elexive-accent)] text-[var(--elexive-primary)] shadow-md border-[var(--elexive-accent)]'
+                      : 'bg-gray-100 text-gray-700 hover:bg-gray-200 border-[var(--elexive-accent-light)]'
                   }`}
                 >
                   {details.name}
@@ -549,18 +549,18 @@ const CalculatorApp = () => {
                   </div>
                   <button
                     onClick={() => updateParameter(param.id, !parameters[param.id])}
-                    className={`px-4 py-2 rounded-lg transition-all duration-200 ${
+                    className={`px-4 py-2 rounded-lg transition-all duration-200 border min-w-[120px] w-[120px] flex items-center justify-center ${
                       parameters[param.id]
-                        ? 'bg-[var(--elexive-accent)] text-[var(--elexive-primary)] shadow-sm'
-                        : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+                        ? 'bg-[var(--elexive-accent)] text-[var(--elexive-primary)] shadow-sm border-[var(--elexive-accent)]'
+                        : 'bg-gray-100 text-gray-700 hover:bg-gray-200 border-[var(--elexive-accent-light)]'
                     }`}
                   >
                     {parameters[param.id] ? (
                       <>
                         <FontAwesomeIcon icon={faCheckCircle} className="mr-1" />
-                        Enabled
+                        <span>Enabled</span>
                       </>
-                    ) : 'Disabled'}
+                    ) : <span>Disabled</span>}
                   </button>
                 </div>
               ))}

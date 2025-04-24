@@ -11,6 +11,7 @@
   --elexive-bg: #FBFAFC;
   --elexive-primary: #2E2266;
   --elexive-accent: #FFBD59;
+  --elexive-accent-light: rgba(255, 189, 89, 0.5); /* Added accent-light as 50% opacity version of accent */
   --elexive-secondary: #EB8258;
   --elexive-border-radius: 12px;
   --elexive-button-radius: 8px;
