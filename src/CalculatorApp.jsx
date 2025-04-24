@@ -8,8 +8,7 @@ import {
   faMoneyBillWave, faGears, faCheck, faBuilding, 
   faRocket, faLightbulb, faShieldAlt, faServer,
   faNetworkWired, faDatabase, faUsers,
-  faRobot, 
-  faArrowRight, faChartBar,
+  faRobot, faArrowRight, faChartBar,
   faInfoCircle, faPlus, faMinus,
   faSlidersH, faCoins, faCreditCard, faCheckCircle,
   faCalculator, faEnvelope, faExchangeAlt, 
@@ -30,32 +29,28 @@ const getDiscountLabel = (priceModifier) => {
 
 // Helper function to get icon for module
 const getModuleIcon = (pillar, name) => {
+  // Import all FontAwesome icons that are used in the app
   const iconMap = {
-    'Transformation': {
-      default: faUsers,
-      'Crisis Ready': faShieldAlt,
-      'Smart Influence': faChartLine,
-      'Leading Change': faRocket,
-      'Culture Core': faBuilding,
-      'AI-Augmented Leadership': faRobot
-    },
-    'Strategy': {
-      default: faLightbulb,
-      'Market Edge': faChartLine,
-      'Revenue Levers': faMoneyBillWave,
-      'Brand Core': faBullseye,
-      'Model Shift': faPuzzlePiece
-    },
-    'Technology': {
-      default: faServer,
-      'AI Impact': faRobot,
-      'Digital Fortress': faShieldAlt,
-      'Data Advantage': faDatabase,
-      'Distributed Cloud': faNetworkWired
-    }
+    faChartLine, faBullseye, faPuzzlePiece, 
+    faMoneyBillWave, faGears, faCheck, faBuilding, 
+    faRocket, faLightbulb, faShieldAlt, faServer,
+    faNetworkWired, faDatabase, faUsers,
+    faRobot, faArrowRight
   };
-
-  return iconMap[pillar]?.[name] || iconMap[pillar]?.default || faGears;
+  
+  // Find the module in the modules array from modulesConfig
+  const moduleConfig = modulesConfig.modules.find(module => 
+    module.name === name && module.pillar === pillar
+  );
+  
+  // If the module is found, use its icon
+  if (moduleConfig && moduleConfig.icon) {
+    return iconMap[moduleConfig.icon] || faGears;
+  }
+  
+  // If module not found, use the pillar icon as default
+  const defaultPillarIcon = modulesConfig.pillarIcons[pillar];
+  return iconMap[defaultPillarIcon] || faGears;
 };
 
 const CalculatorApp = () => {
