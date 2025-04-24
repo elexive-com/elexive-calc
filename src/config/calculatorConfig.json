@@ -236,21 +236,24 @@
       }
     }
   ],
-  "intensityLevels": {
-    "1": {
-      "description": "Low",
-      "speedModifier": 0.7,
-      "label": "Steady pace"
-    },
-    "2": {
-      "description": "Standard",
+  "capacityAllocation": {
+    "focused": {
+      "description": "Focused",
       "speedModifier": 1.0,
-      "label": "Balanced approach"
+      "label": "1-2 key initiatives at a time",
+      "valueProposition": "Deep, concentrated progress on fewer priorities"
     },
-    "3": {
-      "description": "High",
+    "balanced": {
+      "description": "Balanced",
       "speedModifier": 1.5,
-      "label": "Accelerated delivery"
+      "label": "2-3 parallel initiatives",
+      "valueProposition": "Steady progress across multiple priorities"
+    },
+    "distributed": {
+      "description": "Distributed",
+      "speedModifier": 2.25,
+      "label": "3-5 concurrent initiatives",
+      "valueProposition": "Broader coverage across your strategic agenda"
     }
   },
   "serviceParameters": [
@@ -278,7 +281,7 @@
   ],
   "defaults": {
     "evcTarget": 20,
-    "effortIntensity": 2,
+    "capacityAllocation": "balanced",
     "paymentOption": "retroactive"
   }
 }

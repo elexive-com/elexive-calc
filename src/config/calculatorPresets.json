@@ -8,7 +8,7 @@
         "Innovation Blueprint"
       ],
       "evcTarget": 30,
-      "effortIntensity": 3,
+      "capacityAllocation": "distributed",
       "paymentOption": "prepaid",
       "parameters": {
         "onSitePresence": false,
@@ -24,7 +24,7 @@
         "AI Impact"
       ],
       "evcTarget": 25,
-      "effortIntensity": 3,
+      "capacityAllocation": "focused",
       "paymentOption": "prepaid",
       "parameters": {
         "onSitePresence": true,
@@ -40,7 +40,7 @@
         "Data Advantage"
       ],
       "evcTarget": 25,
-      "effortIntensity": 2,
+      "capacityAllocation": "balanced",
       "paymentOption": "retroactive",
       "parameters": {
         "onSitePresence": false,

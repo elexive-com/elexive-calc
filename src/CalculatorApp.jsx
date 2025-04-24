@@ -11,7 +11,8 @@ import {
   faArrowRight, faChartBar,
   faCalendarDays, faInfoCircle, faUserFriends, faPlus, faMinus,
   faSlidersH, faCoins, faCreditCard, faCheckCircle,
-  faCalculator, faEnvelope, faExchangeAlt, faFileAlt
+  faCalculator, faEnvelope, faExchangeAlt, faFileAlt,
+  faLayerGroup, faTasks, faProjectDiagram
 } from '@fortawesome/free-solid-svg-icons';
 
 // Helper function to get icon for module
@@ -49,7 +50,7 @@ const CalculatorApp = () => {
   const [intent, setIntent] = useState('');
   const [selectedModules, setSelectedModules] = useState([]);
   const [evcTarget, setEvcTarget] = useState(calculatorConfig.defaults.evcTarget);
-  const [effortIntensity, setEffortIntensity] = useState(calculatorConfig.defaults.effortIntensity);
+  const [capacityAllocation, setCapacityAllocation] = useState(calculatorConfig.defaults.capacityAllocation);
   const [paymentOption, setPaymentOption] = useState(calculatorConfig.defaults.paymentOption);
   const [selectedTimeframe, setSelectedTimeframe] = useState(
     calculatorConfig.timeframes && Object.keys(calculatorConfig.timeframes).length > 0 
@@ -77,7 +78,7 @@ const CalculatorApp = () => {
   const [monthlyEvcs, setMonthlyEvcs] = useState(0);
   const [evcPricePerUnit, setEvcPricePerUnit] = useState(0);
   const [deliverySpeed, setDeliverySpeed] = useState(
-    calculatorConfig.intensityLevels[defaults.effortIntensity].description
+    calculatorConfig.capacityAllocation[defaults.capacityAllocation].description
   );
   
   // Custom function to handle intent selection and apply presets
@@ -100,8 +101,8 @@ const CalculatorApp = () => {
         // Apply the preset EVC target
         setEvcTarget(preset.evcTarget);
         
-        // Apply the preset effort intensity
-        setEffortIntensity(preset.effortIntensity);
+        // Apply the preset capacity allocation
+        setCapacityAllocation(preset.capacityAllocation);
         
         // Apply the preset payment option
         setPaymentOption(preset.paymentOption);
@@ -144,7 +145,7 @@ const CalculatorApp = () => {
   
   // Calculate pricing whenever selections change
   const calculatePricing = React.useCallback(() => {
-    const { intensityLevels, evcBase, modules } = calculatorConfig;
+    const { capacityAllocation: allocations, evcBase, modules } = calculatorConfig;
     
     // Calculate total EVCs needed based on selected modules
     let baseModuleEvcs = 0;
@@ -162,9 +163,9 @@ const CalculatorApp = () => {
       baseModuleEvcs = evcTarget; // Fallback to slider value if no modules selected
     }
     
-    // Apply intensity modifier 
-    const intensityMultiplier = intensityLevels[effortIntensity].speedModifier;
-    let adjustedEvcs = baseModuleEvcs * intensityMultiplier;
+    // Apply capacity allocation modifier 
+    const allocationMultiplier = allocations[capacityAllocation].speedModifier;
+    let adjustedEvcs = baseModuleEvcs * allocationMultiplier;
     
     // Apply parameter modifiers
     Object.entries(parameters).forEach(([paramId, isEnabled]) => {
@@ -176,8 +177,8 @@ const CalculatorApp = () => {
     // Round to avoid weird fractional EVCs
     adjustedEvcs = Math.ceil(adjustedEvcs);
     
-    // Set delivery speed descriptor
-    setDeliverySpeed(intensityLevels[effortIntensity].description);
+    // Set allocation descriptor
+    setDeliverySpeed(allocations[capacityAllocation].description);
     
     // Apply volume discount based on config
     let pricePerEvc = evcBase.basePrice;
@@ -195,7 +196,7 @@ const CalculatorApp = () => {
     setMonthlyEvcs(adjustedEvcs);
     setEvcPricePerUnit(pricePerEvc);
     setTotalPrice(Math.round(adjustedEvcs * pricePerEvc));
-  }, [selectedModules, evcTarget, effortIntensity, parameters, paymentOption, parameterModifiers]);
+  }, [selectedModules, evcTarget, capacityAllocation, parameters, paymentOption, parameterModifiers]);
   
   // Use the memoized callback in useEffect
   useEffect(() => {
@@ -405,53 +406,50 @@ const CalculatorApp = () => {
     </div>
   );
   
-  // Effort / Intensity Slider
-  const renderIntensitySlider = () => (
+  // Capacity Allocation selector
+  const renderCapacityAllocationSelector = () => (
     <div className="bg-white p-6 rounded-2xl shadow-lg mb-6">
       <h2 className="text-2xl font-bold text-[var(--elexive-primary)] mb-2">
-        <FontAwesomeIcon icon={faRocket} className="text-[var(--elexive-accent)] mr-2" />
-        Delivery Intensity
+        <FontAwesomeIcon icon={faLayerGroup} className="text-[var(--elexive-accent)] mr-2" />
+        Weekly Capacity Allocation
       </h2>
-      <p className="text-gray-600 mb-6">Control weekly EVC burn rate and delivery speed</p>
+      <p className="text-gray-600 mb-6">
+        Select how you'd like to allocate your weekly EVC capacity across your strategic initiatives. 
+        Your allocation strategy can be adjusted as your priorities evolve.
+      </p>
       
       <div className="mb-4">
-        <div className="flex justify-between mb-2 text-sm text-gray-600">
-          <span>
-            <FontAwesomeIcon icon={faChartBar} className="mr-1" />
-            Steady Pace
-          </span>
-          <span>
-            <FontAwesomeIcon icon={faGears} className="mr-1" />
-            Balanced
-          </span>
-          <span>
-            <FontAwesomeIcon icon={faRocket} className="mr-1" />
-            Accelerated
-          </span>
-        </div>
-        <div className="flex items-center space-x-4">
-          {Object.entries(calculatorConfig.intensityLevels).map(([level, details]) => (
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+          {Object.entries(calculatorConfig.capacityAllocation).map(([key, details]) => (
             <button
-              key={level}
-              onClick={() => setEffortIntensity(parseInt(level))}
-              className={`flex-1 py-4 rounded-xl transition-all duration-200 ${
-                effortIntensity === parseInt(level)
-                  ? 'bg-[var(--elexive-accent)] text-[var(--elexive-primary)] shadow'
-                  : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+              key={key}
+              onClick={() => setCapacityAllocation(key)}
+              className={`p-5 rounded-xl transition-all duration-200 ${
+                capacityAllocation === key
+                  ? 'bg-[#FFF6E8] border-2 border-[var(--elexive-accent)] shadow'
+                  : 'bg-gray-50 border border-gray-200 hover:border-[var(--elexive-accent)] hover:shadow'
               }`}
             >
-              <div className="text-center">
-                <div className="font-bold mb-1">{details.description}</div>
-                <div className="text-xs opacity-80">{details.label}</div>
+              <div className="flex flex-col items-center">
+                <FontAwesomeIcon 
+                  icon={
+                    key === "focused" ? faBullseye : 
+                    key === "balanced" ? faProjectDiagram : 
+                    faTasks
+                  } 
+                  className="text-[var(--elexive-primary)] text-2xl mb-3" 
+                />
+                <h3 className="font-bold text-lg text-[var(--elexive-primary)]">{details.description}</h3>
+                <div className="text-sm bg-[var(--elexive-accent-light)] rounded-full px-3 py-1 my-2">
+                  {details.label}
+                </div>
+                <p className="text-sm text-gray-600 text-center mt-1">{details.valueProposition}</p>
+                <div className="text-xs text-[var(--elexive-primary)] font-medium mt-3">
+                  Resource modifier: {details.speedModifier}x
+                </div>
               </div>
             </button>
           ))}
-        </div>
-        <div className="mt-4 text-center">
-          <p className="text-gray-600">
-            <FontAwesomeIcon icon={faChartLine} className="text-[var(--elexive-primary)] mr-1" />
-            Speed modifier: <span className="font-medium">{calculatorConfig.intensityLevels[effortIntensity].speedModifier}x</span>
-          </p>
         </div>
       </div>
     </div>
@@ -665,7 +663,7 @@ const CalculatorApp = () => {
             </h4>
             <div className="text-xs text-gray-600 mt-1">
               <p>Base EVC from modules: {selectedModuleDetails.reduce((sum, module) => sum + (module.evcRange.min + module.evcRange.max)/2, 0).toFixed(1)} EVCs</p>
-              <p>Intensity modifier ({deliverySpeed}): {calculatorConfig.intensityLevels[effortIntensity].speedModifier}x</p>
+              <p>Allocation modifier ({calculatorConfig.capacityAllocation[capacityAllocation].description}): {calculatorConfig.capacityAllocation[capacityAllocation].speedModifier}x</p>
               {Object.entries(parameters)
                 .filter(([, enabled]) => enabled)
                 .map(([paramId]) => {
@@ -868,11 +866,11 @@ const CalculatorApp = () => {
           <p className="font-medium">{evcTarget} EVCs</p>
         </div>
         
-        {/* Intensity */}
+        {/* Capacity Allocation */}
         <div>
-          <h4 className="text-sm font-medium text-gray-500 mb-1">Delivery Intensity</h4>
-          <p className="font-medium">{calculatorConfig.intensityLevels[effortIntensity].description}</p>
-          <p className="text-xs text-gray-600">Speed: {calculatorConfig.intensityLevels[effortIntensity].speedModifier}x</p>
+          <h4 className="text-sm font-medium text-gray-500 mb-1">Capacity Allocation</h4>
+          <p className="font-medium">{calculatorConfig.capacityAllocation[capacityAllocation].description}</p>
+          <p className="text-xs text-gray-600">{calculatorConfig.capacityAllocation[capacityAllocation].label}</p>
         </div>
         
         {/* Payment Option */}
@@ -936,7 +934,7 @@ const CalculatorApp = () => {
           {renderEvcExplainer()}
           {renderModuleSelector()}
           {renderCapacitySlider()}
-          {renderIntensitySlider()}
+          {renderCapacityAllocationSelector()}
           {renderServiceParameters()}
           {renderPricingSummary()}
         </div>
