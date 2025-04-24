@@ -1,9 +1,9 @@
 {
   "evcBase": {
-    "basePrice": 1200,
+    "basePrice": 540,
     "volumeDiscounts": [
-      { "threshold": 30, "discount": 0.9 },
-      { "threshold": 50, "discount": 0.95 }
+      { "threshold": 10, "discount": 0.9 },
+      { "threshold": 20, "discount": 0.95 }
     ],
     "paymentOptions": {
       "prepaid": {

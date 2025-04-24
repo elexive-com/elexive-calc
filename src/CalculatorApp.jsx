@@ -182,7 +182,9 @@ const CalculatorApp = () => {
         What's your primary objective?
       </h2>
       <p className="text-gray-600 mb-6">Select your strategic goal to tailor your solution</p>
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+      
+      {/* Primary Objective Options - 2 columns */}
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         {calculatorConfig.intents.map((intentOption) => (
           <button
             key={intentOption.name}
@@ -193,6 +195,17 @@ const CalculatorApp = () => {
             }`}
             onClick={() => setIntent(intentOption.name)}
           >
+            {/* Preset label at the top */}
+            {(intentOption.name === "Visionary Growth" || 
+              intentOption.name === "Turnaround" || 
+              intentOption.name === "Reinvention") && (
+              <div className="flex justify-start mb-2">
+                <span className="text-xs px-2 py-0.5 rounded-full bg-[#FFF0E3] text-[var(--elexive-secondary)]">
+                  Preset
+                </span>
+              </div>
+            )}
+            
             <div className="flex items-center mb-2">
               <FontAwesomeIcon 
                 icon={
@@ -205,13 +218,6 @@ const CalculatorApp = () => {
                 className="text-[var(--elexive-primary)] mr-2" 
               />
               <h3 className="font-bold text-lg text-[var(--elexive-primary)]">{intentOption.name}</h3>
-              {(intentOption.name === "Visionary Growth" || 
-                intentOption.name === "Turnaround" || 
-                intentOption.name === "Reinvention") && (
-                <span className="ml-2 text-xs px-2 py-0.5 rounded-full bg-[#FFF0E3] text-[var(--elexive-secondary)]">
-                  Preset
-                </span>
-              )}
             </div>
             <p className="text-gray-600 text-sm">{intentOption.description}</p>
           </button>
@@ -325,7 +331,7 @@ const CalculatorApp = () => {
         <FontAwesomeIcon icon={faSliders} className="text-[var(--elexive-accent)] mr-2" />
         Output Capacity
       </h2>
-      <p className="text-gray-600 mb-6">Set your monthly Elastic Value Credit (EVC) target</p>
+      <p className="text-gray-600 mb-6">Set your weekly Elastic Value Credit (EVC) target</p>
       
       <div className="mb-4">
         <div className="flex justify-between mb-2">
@@ -340,7 +346,7 @@ const CalculatorApp = () => {
         </div>
         <input
           type="range"
-          min="10"
+          min="1"
           max="100"
           step="1"
           value={evcTarget}
@@ -572,11 +578,11 @@ const CalculatorApp = () => {
         
         <div className="mb-6">
           <div className="flex justify-between text-lg mb-2">
-            <span className="font-medium">Monthly Price:</span>
+            <span className="font-medium">Weekly Price:</span>
             <span className="font-bold text-[var(--elexive-primary)]">€{totalPrice.toLocaleString()}</span>
           </div>
           <div className="flex justify-between text-sm text-gray-600 mb-1">
-            <span><FontAwesomeIcon icon={faChartBar} className="text-[var(--elexive-secondary)] opacity-80 mr-1" />Monthly EVCs:</span>
+            <span><FontAwesomeIcon icon={faChartBar} className="text-[var(--elexive-secondary)] opacity-80 mr-1" />Weekly EVCs:</span>
             <span>{monthlyEvcs} EVCs</span>
           </div>
           <div className="flex justify-between text-sm text-gray-600 mb-1">
@@ -716,7 +722,7 @@ const CalculatorApp = () => {
             across different strategic initiatives as your priorities shift.
           </p>
           
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div className="border border-gray-200 rounded-xl p-4">
               <div className="w-12 h-12 rounded-full bg-[var(--elexive-accent-light)] flex items-center justify-center mb-3">
                 <FontAwesomeIcon icon={faExchangeAlt} className="text-[var(--elexive-accent)] text-xl" />
@@ -788,13 +794,13 @@ const CalculatorApp = () => {
       <div className="space-y-4">
         {/* Intent */}
         <div>
-          <h4 className="text-sm font-medium text-gray-500">Core Intent</h4>
+          <h4 className="text-sm font-medium text-gray-500 mb-1">Core Intent</h4>
           <p className="font-medium">{intent || "Not selected"}</p>
         </div>
         
         {/* Selected Modules */}
         <div>
-          <h4 className="text-sm font-medium text-gray-500">Selected Modules</h4>
+          <h4 className="text-sm font-medium text-gray-500 mb-1">Selected Modules</h4>
           {selectedModules.length > 0 ? (
             <>
               <p className="font-medium">{selectedModules.length} modules</p>
@@ -817,20 +823,20 @@ const CalculatorApp = () => {
         
         {/* EVC Target */}
         <div>
-          <h4 className="text-sm font-medium text-gray-500">Monthly EVC Target</h4>
+          <h4 className="text-sm font-medium text-gray-500 mb-1">Weekly EVC Target</h4>
           <p className="font-medium">{evcTarget} EVCs</p>
         </div>
         
         {/* Intensity */}
         <div>
-          <h4 className="text-sm font-medium text-gray-500">Delivery Intensity</h4>
+          <h4 className="text-sm font-medium text-gray-500 mb-1">Delivery Intensity</h4>
           <p className="font-medium">{calculatorConfig.intensityLevels[effortIntensity].description}</p>
           <p className="text-xs text-gray-600">Speed: {calculatorConfig.intensityLevels[effortIntensity].speedModifier}x</p>
         </div>
         
         {/* Payment Option */}
         <div>
-          <h4 className="text-sm font-medium text-gray-500">Payment Method</h4>
+          <h4 className="text-sm font-medium text-gray-500 mb-1">Payment Method</h4>
           <p className="font-medium">{evcBase.paymentOptions[paymentOption].name}</p>
           <p className="text-xs text-gray-600">
             {paymentOption === 'prepaid' 
@@ -841,7 +847,7 @@ const CalculatorApp = () => {
         
         {/* Parameters */}
         <div>
-          <h4 className="text-sm font-medium text-gray-500">Custom Parameters</h4>
+          <h4 className="text-sm font-medium text-gray-500 mb-1">Custom Parameters</h4>
           {Object.entries(parameters).filter(([, value]) => value).length > 0 ? (
             <div className="text-xs space-y-1 mt-1">
               {calculatorConfig.serviceParameters
@@ -863,7 +869,7 @@ const CalculatorApp = () => {
         
         <div className="pt-3 border-t">
           <div className="flex justify-between">
-            <span className="text-sm font-medium text-gray-500">Monthly Price</span>
+            <span className="text-sm font-medium text-gray-500">Weekly Price</span>
             <span className="font-bold text-blue-600">€{totalPrice.toLocaleString()}</span>
           </div>
           <div className="flex justify-between mt-1 text-xs text-gray-500">
@@ -883,8 +889,8 @@ const CalculatorApp = () => {
   return (
     <div className="max-w-6xl mx-auto px-4 py-8">
       <div className="flex flex-col md:flex-row gap-6">
-        {/* Main content area */}
-        <div className="flex-grow space-y-6">
+        {/* Main content area - adjusted to account for wider sidebar */}
+        <div className="flex-grow space-y-6 md:max-w-[calc(100%-26rem)]">
           {renderOnboardingQuiz()}
           {renderEvcExplainer()}
           {renderModuleSelector()}
@@ -894,8 +900,8 @@ const CalculatorApp = () => {
           {renderPricingSummary()}
         </div>
         
-        {/* Sticky sidebar */}
-        <div className="md:w-80 hidden md:block">
+        {/* Sticky sidebar - make it significantly wider */}
+        <div className="md:w-96 md:min-w-[24rem] hidden md:block">
           {renderSummarySidebar()}
         </div>
       </div>
