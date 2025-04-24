@@ -198,11 +198,20 @@ const CalculatorApp = () => {
                 icon={
                   intentOption.name === "Visionary Growth" ? faChartLine :
                   intentOption.name === "Turnaround" ? faArrowRight :
+                  intentOption.name === "Reinvention" ? faRocket :
+                  intentOption.name === "Full Custom" ? faGears :
                   faRocket
                 } 
                 className="text-[var(--elexive-primary)] mr-2" 
               />
               <h3 className="font-bold text-lg text-[var(--elexive-primary)]">{intentOption.name}</h3>
+              {(intentOption.name === "Visionary Growth" || 
+                intentOption.name === "Turnaround" || 
+                intentOption.name === "Reinvention") && (
+                <span className="ml-2 text-xs px-2 py-0.5 rounded-full bg-[#FFF0E3] text-[var(--elexive-secondary)]">
+                  Preset
+                </span>
+              )}
             </div>
             <p className="text-gray-600 text-sm">{intentOption.description}</p>
           </button>
