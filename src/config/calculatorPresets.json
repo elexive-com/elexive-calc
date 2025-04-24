@@ -1,0 +1,52 @@
+{
+  "presets": {
+    "Visionary Growth": {
+      "modules": [
+        "Strategic Leadership",
+        "Revenue Levers",
+        "Brand Power",
+        "Innovation Blueprint"
+      ],
+      "evcTarget": 30,
+      "effortIntensity": 3,
+      "paymentOption": "prepaid",
+      "parameters": {
+        "onSitePresence": false,
+        "aiUsage": true,
+        "marketDataAccess": true
+      }
+    },
+    "Turnaround": {
+      "modules": [
+        "Leading Change",
+        "Executive Agility",
+        "Digital Fortress",
+        "AI Impact"
+      ],
+      "evcTarget": 25,
+      "effortIntensity": 3,
+      "paymentOption": "prepaid",
+      "parameters": {
+        "onSitePresence": true,
+        "aiUsage": true,
+        "marketDataAccess": false
+      }
+    },
+    "Reinvention": {
+      "modules": [
+        "Model Shift",
+        "Strategic Foresight",
+        "Customer Centricity",
+        "Data Advantage"
+      ],
+      "evcTarget": 25,
+      "effortIntensity": 2,
+      "paymentOption": "retroactive",
+      "parameters": {
+        "onSitePresence": false,
+        "aiUsage": true,
+        "marketDataAccess": true
+      }
+    }
+  }
+}

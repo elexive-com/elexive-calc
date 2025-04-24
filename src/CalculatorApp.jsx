@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import calculatorConfig from './config/calculatorConfig.json';
+import calculatorPresets from './config/calculatorPresets.json';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { 
   faChartLine, faBullseye, faPuzzlePiece, faSliders, 
@@ -78,6 +79,42 @@ const CalculatorApp = () => {
   const [deliverySpeed, setDeliverySpeed] = useState(
     calculatorConfig.intensityLevels[defaults.effortIntensity].description
   );
+  
+  // Custom function to handle intent selection and apply presets
+  const handleIntentSelect = (intentName) => {
+    setIntent(intentName);
+    
+    // Apply preset if this is a preset intent
+    if (intentName && intentName !== "Full Custom" && calculatorPresets.presets[intentName]) {
+      console.log("Applying preset for:", intentName);
+      const preset = calculatorPresets.presets[intentName];
+      
+      // Clear any existing selections first
+      setSelectedModules([]);
+      
+      // Apply the preset modules with a slight delay to ensure UI updates
+      setTimeout(() => {
+        console.log("Setting modules to:", preset.modules);
+        setSelectedModules([...preset.modules]);
+        
+        // Apply the preset EVC target
+        setEvcTarget(preset.evcTarget);
+        
+        // Apply the preset effort intensity
+        setEffortIntensity(preset.effortIntensity);
+        
+        // Apply the preset payment option
+        setPaymentOption(preset.paymentOption);
+        
+        // Apply the preset parameters
+        const newParameters = { ...parameters };
+        for (const [paramId, value] of Object.entries(preset.parameters)) {
+          newParameters[paramId] = value;
+        }
+        setParameters(newParameters);
+      }, 50);
+    }
+  };
   
   // Function to toggle payment option - references setPaymentOption
   const togglePaymentOption = (option) => {
@@ -193,7 +230,7 @@ const CalculatorApp = () => {
                 ? 'bg-[#FFF6E8] border-2 border-[var(--elexive-accent)] shadow-md'
                 : 'bg-gray-50 border border-gray-200 hover:border-[var(--elexive-accent)] hover:shadow'
             }`}
-            onClick={() => setIntent(intentOption.name)}
+            onClick={() => handleIntentSelect(intentOption.name)}
           >
             {/* Preset label at the top */}
             {(intentOption.name === "Visionary Growth" || 
