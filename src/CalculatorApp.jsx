@@ -3,11 +3,11 @@ import calculatorConfig from './config/calculatorConfig.json';
 import calculatorPresets from './config/calculatorPresets.json';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { 
-  faChartLine, faBullseye, faPuzzlePiece, faSliders, 
+  faChartLine, faBullseye, faPuzzlePiece, 
   faMoneyBillWave, faGears, faCheck, faBuilding, 
   faRocket, faLightbulb, faShieldAlt, faServer,
   faNetworkWired, faDatabase, faUsers,
-  faRobot, faFileContract,
+  faRobot, 
   faArrowRight, faChartBar,
   faInfoCircle, faPlus, faMinus,
   faSlidersH, faCoins, faCreditCard, faCheckCircle,
@@ -49,7 +49,6 @@ const CalculatorApp = () => {
   // State for user selections
   const [intent, setIntent] = useState('');
   const [selectedModules, setSelectedModules] = useState([]);
-  const [evcTarget, setEvcTarget] = useState(calculatorConfig.defaults.evcTarget);
   const [capacityAllocation, setCapacityAllocation] = useState(calculatorConfig.defaults.capacityAllocation);
   const [paymentOption, setPaymentOption] = useState(calculatorConfig.defaults.paymentOption);
   // Add state for EVC explainer collapse
@@ -67,6 +66,26 @@ const CalculatorApp = () => {
     return initialParameters;
   });
   
+  // Function to reset calculator to defaults
+  const resetCalculator = () => {
+    setIntent('');
+    setSelectedModules([]);
+    setCapacityAllocation("focused"); // Default to "Focused" allocation
+    setPaymentOption(defaults.paymentOption);
+    
+    // Reset parameters to defaults
+    const resetParams = {};
+    serviceParameters.forEach(param => {
+      resetParams[param.id] = param.defaultValue;
+    });
+    setParameters(resetParams);
+    
+    // Force a recalculation to set EVCs to minimum (1)
+    setTimeout(() => {
+      calculatePricing();
+    }, 50);
+  };
+
   // Calculated values
   const [totalPrice, setTotalPrice] = useState(0);
   const [monthlyEvcs, setMonthlyEvcs] = useState(0);
@@ -91,9 +110,6 @@ const CalculatorApp = () => {
       setTimeout(() => {
         console.log("Setting modules to:", preset.modules);
         setSelectedModules([...preset.modules]);
-        
-        // Apply the preset EVC target
-        setEvcTarget(preset.evcTarget);
         
         // Apply the preset capacity allocation
         setCapacityAllocation(preset.capacityAllocation);
@@ -154,7 +170,8 @@ const CalculatorApp = () => {
         return total + ((module.evcRange.min + module.evcRange.max) / 2);
       }, 0);
     } else {
-      baseModuleEvcs = evcTarget; // Fallback to slider value if no modules selected
+      // If no modules selected, use a minimum value of 1 EVC
+      baseModuleEvcs = 1; // Minimum baseline of 1 EVC
     }
     
     // Apply capacity allocation modifier 
@@ -190,7 +207,7 @@ const CalculatorApp = () => {
     setMonthlyEvcs(adjustedEvcs);
     setEvcPricePerUnit(pricePerEvc);
     setTotalPrice(Math.round(adjustedEvcs * pricePerEvc));
-  }, [selectedModules, evcTarget, capacityAllocation, parameters, paymentOption, parameterModifiers]);
+  }, [selectedModules, capacityAllocation, parameters, paymentOption, parameterModifiers]);
   
   // Use the memoized callback in useEffect
   useEffect(() => {
@@ -208,7 +225,7 @@ const CalculatorApp = () => {
   
   // Onboarding Quiz
   const renderOnboardingQuiz = () => (
-    <div className="bg-white p-6 rounded-2xl shadow-lg mb-6">
+    <div className="bg-white p-6 rounded-2xl shadow-lg mb-6 relative">
       <h2 className="text-2xl font-bold text-[var(--elexive-primary)] mb-2">
         <FontAwesomeIcon icon={faBullseye} className="text-[var(--elexive-accent)] mr-2" />
         What's your primary objective?
@@ -216,7 +233,7 @@ const CalculatorApp = () => {
       <p className="text-gray-600 mb-6">Select your strategic goal to tailor your solution</p>
       
       {/* Primary Objective Options - 2 columns */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-12">
         {calculatorConfig.intents.map((intentOption) => (
           <button
             key={intentOption.name}
@@ -254,6 +271,17 @@ const CalculatorApp = () => {
             <p className="text-gray-600 text-sm">{intentOption.description}</p>
           </button>
         ))}
+      </div>
+      
+      {/* Reset Calculator Button - positioned on its own row at the bottom */}
+      <div className="flex justify-end mt-3">
+        <button
+          onClick={resetCalculator}
+          className="px-4 py-2 text-sm bg-[var(--elexive-accent-light)] hover:bg-[var(--elexive-accent)] text-[var(--elexive-primary)] font-medium rounded-lg transition-colors flex items-center"
+        >
+          <FontAwesomeIcon icon={faArrowRight} className="mr-2 rotate-180" />
+          Reset Calculator
+        </button>
       </div>
     </div>
   );
@@ -359,46 +387,6 @@ const CalculatorApp = () => {
       </div>
     );
   };
-  
-  // Output Capacity Slider
-  const renderCapacitySlider = () => (
-    <div className="bg-white p-6 rounded-2xl shadow-lg mb-6">
-      <h2 className="text-2xl font-bold text-[var(--elexive-primary)] mb-2">
-        <FontAwesomeIcon icon={faSliders} className="text-[var(--elexive-accent)] mr-2" />
-        Output Capacity
-      </h2>
-      <p className="text-gray-600 mb-6">Set your weekly Elastic Value Credit (EVC) target</p>
-      
-      <div className="mb-4">
-        <div className="flex justify-between mb-2">
-          <span className="text-gray-600">
-            <FontAwesomeIcon icon={faChartBar} className="text-[var(--elexive-primary)] opacity-50 mr-1" />
-            Low Capacity
-          </span>
-          <span className="text-gray-600">
-            <FontAwesomeIcon icon={faChartLine} className="text-[var(--elexive-primary)] opacity-50 mr-1" />
-            High Capacity
-          </span>
-        </div>
-        <input
-          type="range"
-          min="1"
-          max="100"
-          step="1"
-          value={evcTarget}
-          onChange={(e) => setEvcTarget(parseInt(e.target.value))}
-          className="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer accent-[var(--elexive-accent)]"
-        />
-        <div className="mt-4 text-center">
-          <span className="text-3xl font-bold text-[var(--elexive-accent)]">{evcTarget} EVCs</span>
-          <p className="text-gray-500 text-sm mt-1">
-            <FontAwesomeIcon icon={faFileContract} className="mr-1" />
-            Equivalent to {evcTarget / 2} advisor days per month
-          </p>
-        </div>
-      </div>
-    </div>
-  );
   
   // Capacity Allocation selector
   const renderCapacityAllocationSelector = () => (
@@ -799,10 +787,10 @@ const CalculatorApp = () => {
           )}
         </div>
         
-        {/* EVC Target */}
+        {/* Weekly EVC Amount */}
         <div>
-          <h4 className="text-sm font-medium text-gray-500 mb-1">Weekly EVC Target</h4>
-          <p className="font-medium">{evcTarget} EVCs</p>
+          <h4 className="text-sm font-medium text-gray-500 mb-1">Weekly EVC Amount</h4>
+          <p className="font-medium">{monthlyEvcs} EVCs</p>
         </div>
         
         {/* Capacity Allocation */}
@@ -872,7 +860,6 @@ const CalculatorApp = () => {
           {renderOnboardingQuiz()}
           {renderEvcExplainer()}
           {renderModuleSelector()}
-          {renderCapacitySlider()}
           {renderCapacityAllocationSelector()}
           {renderServiceParameters()}
           {renderPricingSummary()}

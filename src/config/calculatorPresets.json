@@ -7,7 +7,6 @@
         "Brand Power",
         "Innovation Blueprint"
       ],
-      "evcTarget": 30,
       "capacityAllocation": "distributed",
       "paymentOption": "prepaid",
       "parameters": {
@@ -23,7 +22,6 @@
         "Digital Fortress",
         "AI Impact"
       ],
-      "evcTarget": 25,
       "capacityAllocation": "focused",
       "paymentOption": "prepaid",
       "parameters": {
@@ -39,7 +37,6 @@
         "Customer Centricity",
         "Data Advantage"
       ],
-      "evcTarget": 25,
       "capacityAllocation": "balanced",
       "paymentOption": "retroactive",
       "parameters": {
