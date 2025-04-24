@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import calculatorConfig from './config/calculatorConfig.json';
 import calculatorPresets from './config/calculatorPresets.json';
+import modulesConfig from './config/modulesConfig.json';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { 
   faChartLine, faBullseye, faPuzzlePiece, 
@@ -69,6 +70,9 @@ const CalculatorApp = () => {
   
   // Get defaults from config
   const { defaults, evcBase, serviceParameters, evcTiers } = calculatorConfig;
+  
+  // Get module definitions from modulesConfig
+  const { modules, variantDefinitions, pillarIcons } = modulesConfig;
   
   // Toggle function for EVC explainer visibility
   const toggleEvcExplainer = () => {
@@ -177,19 +181,21 @@ const CalculatorApp = () => {
   
   // Calculate pricing whenever selections change
   const calculatePricing = React.useCallback(() => {
-    const { resourceAllocation: allocations, evcBase, modules, evcTiers } = calculatorConfig;
+    const { resourceAllocation: allocations, evcBase, evcTiers } = calculatorConfig;
     
     // Calculate total EVCs needed based on selected modules (consumer side)
     let baseModuleEvcs = 0;
     if (selectedModules.length > 0) {
-      // Find the selected modules and sum their EVC ranges
+      // Find the selected modules and sum their EVC values from modulesConfig instead of calculatorConfig
       const selectedModuleConfigs = modules.filter(module => 
         selectedModules.includes(module.name)
       );
       
-      // Use average of min/max EVC values for each module
+      // Use average of min/max EVC values for each module from variants
       baseModuleEvcs = selectedModuleConfigs.reduce((total, module) => {
-        return total + ((module.evcRange.min + module.evcRange.max) / 2);
+        const minEvc = module.variants[0].evcValue;
+        const maxEvc = module.variants[1] ? module.variants[1].evcValue : minEvc;
+        return total + ((minEvc + maxEvc) / 2);
       }, 0);
     } else {
       // If no modules selected, use a minimum value of 1 EVC
@@ -259,7 +265,7 @@ const CalculatorApp = () => {
     setMonthlyEvcs(productionCapacity);
     setEvcPricePerUnit(pricePerEvc);
     setTotalPrice(Math.round(productionCapacity * pricePerEvc));
-  }, [selectedModules, resourceAllocation, parameters, paymentOption, parameterModifiers]);
+  }, [selectedModules, resourceAllocation, parameters, paymentOption, parameterModifiers, modules]);
   
   // Use the memoized callback in useEffect
   useEffect(() => {
@@ -342,9 +348,9 @@ const CalculatorApp = () => {
   const renderModuleSelector = () => {
     // Group modules by pillar
     const modulesByPillar = {
-      Transformation: calculatorConfig.modules.filter(module => module.pillar === "Transformation"),
-      Strategy: calculatorConfig.modules.filter(module => module.pillar === "Strategy"),
-      Technology: calculatorConfig.modules.filter(module => module.pillar === "Technology")
+      Transformation: modules.filter(module => module.pillar === "Transformation"),
+      Strategy: modules.filter(module => module.pillar === "Strategy"),
+      Technology: modules.filter(module => module.pillar === "Technology")
     };
     
     return (
@@ -369,7 +375,7 @@ const CalculatorApp = () => {
             >
               <FontAwesomeIcon 
                 icon={
-                  pillar === "Leadership" ? faUsers : 
+                  pillar === "Transformation" ? faUsers : 
                   pillar === "Strategy" ? faLightbulb : 
                   faServer
                 } 
@@ -381,10 +387,10 @@ const CalculatorApp = () => {
         </div>
         
         {/* Display modules by pillar */}
-        {Object.entries(modulesByPillar).map(([pillar, modules]) => (
+        {Object.entries(modulesByPillar).map(([pillar, pillarModules]) => (
           <div key={pillar} className={`${activePillar === pillar ? 'block' : 'hidden'}`}>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              {modules.map((module) => (
+              {pillarModules.map((module) => (
                 <div
                   key={module.name}
                   onClick={() => toggleModule(module.name)}
@@ -426,7 +432,7 @@ const CalculatorApp = () => {
                       <div className="flex justify-between text-xs text-gray-500">
                         <span>
                           <FontAwesomeIcon icon={faChartBar} className="mr-1" />
-                          EVC Range: {module.evcRange.min}-{module.evcRange.max}
+                          EVC Range: {module.variants[0].evcValue}-{module.variants[1] ? module.variants[1].evcValue : module.variants[0].evcValue}
                         </span>
                       </div>
                     </div>
@@ -574,11 +580,14 @@ const CalculatorApp = () => {
   // Final Pricing Summary
   const renderPricingSummary = () => {
     // Get selected modules with their EVC ranges for display
-    const selectedModuleDetails = calculatorConfig.modules
+    const selectedModuleDetails = modules
       .filter(module => selectedModules.includes(module.name))
       .map(module => ({
         name: module.name,
-        evcRange: module.evcRange
+        evcRange: {
+          min: module.variants[0].evcValue,
+          max: module.variants[1] ? module.variants[1].evcValue : module.variants[0].evcValue
+        }
       }));
       
     // Get payment option details
@@ -877,13 +886,15 @@ const CalculatorApp = () => {
             <>
               <p className="font-medium text-base text-[var(--elexive-primary)] mb-2.5">{selectedModules.length} modules</p>
               <div className="space-y-1.5">
-                {selectedModules.map(module => {
-                  const moduleConfig = calculatorConfig.modules.find(m => m.name === module);
+                {selectedModules.map(moduleName => {
+                  const moduleConfig = modules.find(m => m.name === moduleName);
+                  const evcMin = moduleConfig?.variants[0]?.evcValue || 0;
+                  const evcMax = moduleConfig?.variants[1]?.evcValue || evcMin;
                   return (
-                    <div key={module} className="flex justify-between items-center bg-[var(--elexive-accent-light)] bg-opacity-20 py-1.5 px-2.5 rounded">
-                      <span className="text-[var(--elexive-primary)] text-xs font-medium">{module}</span>
+                    <div key={moduleName} className="flex justify-between items-center bg-[var(--elexive-accent-light)] bg-opacity-20 py-1.5 px-2.5 rounded">
+                      <span className="text-[var(--elexive-primary)] text-xs font-medium">{moduleName}</span>
                       <span className="text-[var(--elexive-primary)] text-[10px] bg-white px-1.5 py-0.5 rounded-full font-medium">
-                        {moduleConfig.evcRange.min}-{moduleConfig.evcRange.max} EVCs
+                        {evcMin}-{evcMax} EVCs
                       </span>
                     </div>
                   );

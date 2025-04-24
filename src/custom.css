@@ -122,3 +122,92 @@ footer {
 .animated-element {
   animation: subtle-pulse 2s infinite;
 }
+
+/* Module selection UI */
+.module-option-card {
+  border: 1px solid transparent;
+  border-radius: var(--elexive-button-radius);
+  padding: 0.5rem 0.75rem;
+  cursor: pointer;
+  transition: var(--elexive-transition);
+  display: flex;
+  align-items: center;
+  background-color: white;
+}
+
+.module-option-card:hover {
+  border-color: var(--elexive-accent-light);
+  transform: translateY(-1px);
+  box-shadow: 0 2px 6px rgba(46, 34, 102, 0.08);
+}
+
+.module-option-card.selected {
+  border-color: var(--elexive-accent);
+  background-color: rgba(255, 189, 89, 0.1);
+}
+
+/* Selection indicator */
+.module-selector-indicator {
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  border: 2px solid #E5E7EB;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: var(--elexive-transition);
+  flex-shrink: 0;
+}
+
+.module-option-card.selected .module-selector-indicator {
+  border-color: var(--elexive-accent);
+  background-color: var(--elexive-accent);
+}
+
+.module-option-card.selected .module-selector-indicator:after {
+  content: "";
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background-color: white;
+  display: block;
+}
+
+/* Module variants header */
+.variant-info-panel {
+  background-color: var(--elexive-bg);
+  border-radius: var(--elexive-border-radius);
+  padding: 1rem;
+}
+
+/* Module selection animations */
+.module-option-card {
+  transition: all 0.2s ease-in-out;
+}
+
+.module-option-card.selected {
+  animation: pulse-selection 0.4s ease-out;
+}
+
+@keyframes pulse-selection {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.03); }
+  100% { transform: scale(1); }
+}
+
+/* Mobile optimizations */
+@media (max-width: 640px) {
+  .module-option-card {
+    padding: 0.75rem;
+  }
+  
+  .module-selector-indicator {
+    width: 20px;
+    height: 20px;
+  }
+  
+  .module-option-card.selected .module-selector-indicator:after {
+    width: 8px;
+    height: 8px;
+  }
+}
