@@ -412,6 +412,40 @@ const CalculatorApp = () => {
         </h2>
         
         <div className="space-y-6">
+          {/* Payment Option */}
+          <div>
+            <label className="block text-[var(--elexive-primary)] font-medium mb-2">
+              <FontAwesomeIcon icon={faCreditCard} className="mr-2" />
+              Payment Option
+            </label>
+            <div className="flex flex-wrap gap-3">
+              {Object.entries(calculatorConfig.evcBase.paymentOptions).map(([option, details]) => (
+                <button
+                  key={option}
+                  onClick={() => togglePaymentOption(option)}
+                  className={`px-4 py-2 rounded-lg transition-all duration-200 ${
+                    paymentOption === option
+                      ? 'bg-[var(--elexive-accent)] text-[var(--elexive-primary)] shadow-md'
+                      : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+                  }`}
+                >
+                  {details.name}
+                  {details.priceModifier !== 1 && (
+                    <span className="ml-1 text-xs">
+                      ({(1 - details.priceModifier) * 100}% off)
+                    </span>
+                  )}
+                </button>
+              ))}
+            </div>
+            <p className="text-sm text-gray-500 mt-2">
+              <FontAwesomeIcon icon={faInfoCircle} className="mr-1" />
+              {paymentOption === 'prepaid' 
+                ? 'Prepaid option offers a discount on the standard rate'
+                : 'Standard monthly billing with no long-term commitment'}
+            </p>
+          </div>
+          
           {/* Timeline */}
           <div>
             <label className="block text-[var(--elexive-primary)] font-medium mb-2">
