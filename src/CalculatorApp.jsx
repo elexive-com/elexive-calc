@@ -67,7 +67,7 @@ const CalculatorApp = () => {
   const { defaults, evcBase, serviceParameters, evcTiers } = calculatorConfig;
   
   // Get module definitions from modulesConfig
-  const { modules, variantDefinitions, pillarIcons } = modulesConfig;
+  const { modules } = modulesConfig;
   
   // Toggle function for EVC explainer visibility
   const toggleEvcExplainer = () => {
@@ -733,7 +733,7 @@ const CalculatorApp = () => {
       {isEvcExplainerVisible && (
         <>
           <p className="text-gray-600 mb-4">
-            EVCs represent our producer-consumer model where production resources are converted into 
+            EVCs represent our producer-consumer model where input resources are converted into 
             strategic output value for your business.
           </p>
           
@@ -742,7 +742,7 @@ const CalculatorApp = () => {
               <div className="w-12 h-12 rounded-full bg-[var(--elexive-accent-light)] flex items-center justify-center mb-3">
                 <FontAwesomeIcon icon={faUsers} className="text-[var(--elexive-accent)] text-xl" />
               </div>
-              <h3 className="font-bold text-[var(--elexive-primary)] mb-1">Production Resources</h3>
+              <h3 className="font-bold text-[var(--elexive-primary)] mb-1">Input Resources</h3>
               <p className="text-sm text-gray-600">
                 Advisory services, AI tools, and specialized data resources that generate your weekly EVC capacity.
               </p>
@@ -766,7 +766,7 @@ const CalculatorApp = () => {
             </h3>
             <div className="flex items-center justify-between">
               <div className="text-center p-3">
-                <div className="text-sm mb-1 font-medium text-[var(--elexive-primary)]">Production Resources</div>
+                <div className="text-sm mb-1 font-medium text-[var(--elexive-primary)]">Input Resources</div>
                 <div className="text-xs text-gray-600 mb-2">Weekly Commitment</div>
                 <div className="text-2xl font-bold text-[var(--elexive-accent)]">{weeklyProductionCapacity} EVCs</div>
               </div>
@@ -818,7 +818,7 @@ const CalculatorApp = () => {
           <div className="mt-6">
             <h3 className="font-medium text-[var(--elexive-primary)] mb-4">
               <FontAwesomeIcon icon={faGears} className="text-[var(--elexive-accent)] mr-2" />
-              EVC Production Resources
+              EVC Input Resources
             </h3>
             <p className="text-gray-600 mb-4">
               These resources work together to produce your weekly EVC capacity
