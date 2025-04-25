@@ -1,5 +1,4 @@
 import React from 'react';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { 
   faChartLine, faBullseye, faPuzzlePiece, 
   faMoneyBillWave, faGears, faCheck, faBuilding, 
