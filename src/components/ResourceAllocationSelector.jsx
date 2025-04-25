@@ -11,7 +11,7 @@ const ResourceAllocationSelector = ({ resourceAllocation, setResourceAllocation 
     <div className="bg-white p-6 rounded-2xl shadow-lg mb-6">
       <h2 className="text-2xl font-bold text-[var(--elexive-primary)] mb-2">
         <FontAwesomeIcon icon={faLayerGroup} className="text-[var(--elexive-accent)] mr-2" />
-        Weekly Resource Allocation
+        Weekly Burn Allocation
       </h2>
       <p className="text-gray-600 mb-6">
         Select how you'd like to distribute your EVC production capacity across your strategic initiatives.
