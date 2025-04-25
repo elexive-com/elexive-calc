@@ -2,7 +2,7 @@ import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { 
   faChartLine, faBullseye, faRocket, 
-  faGears, faArrowRight
+  faGears, faArrowRight, faStar
 } from '@fortawesome/free-solid-svg-icons';
 import calculatorConfig from '../config/calculatorConfig.json';
 
@@ -32,7 +32,11 @@ const OnboardingQuiz = ({ intent, handleIntentSelect, resetCalculator }) => {
               intentOption.name === "Turnaround" || 
               intentOption.name === "Reinvention") && (
               <div className="flex justify-start mb-2">
-                <span className="text-xs px-2 py-0.5 rounded-full bg-[#FFF0E3] text-[var(--elexive-secondary)]">
+                <span className="text-sm px-3 py-1 rounded-full bg-[#FFF0E3] text-[var(--elexive-secondary)] font-medium flex items-center">
+                  <FontAwesomeIcon 
+                    icon={faStar}
+                    className="mr-1" 
+                  />
                   Preset
                 </span>
               </div>
