@@ -10,11 +10,10 @@ export default function useCalculator() {
   const [selectedVariants, setSelectedVariants] = useState({});
   const [resourceAllocation, setResourceAllocation] = useState(calculatorConfig.defaults.resourceAllocation);
   const [paymentOption, setPaymentOption] = useState(calculatorConfig.defaults.paymentOption);
-  const [selectedEvcTier, setSelectedEvcTier] = useState('Standard');
   const [isEvcExplainerVisible, setIsEvcExplainerVisible] = useState(false);
   
   // Get defaults from config
-  const { defaults, evcBase, serviceParameters, evcTiers } = calculatorConfig;
+  const { defaults, evcBase, serviceParameters } = calculatorConfig;
   
   // Get module definitions from modulesConfig
   const { modules } = modulesConfig;
@@ -133,7 +132,7 @@ export default function useCalculator() {
   
   // Calculate pricing whenever selections change
   const calculatePricing = useCallback(() => {
-    const { resourceAllocation: allocations, evcBase, evcTiers } = calculatorConfig;
+    const { resourceAllocation: allocations, evcBase } = calculatorConfig;
     
     // Calculate total EVCs needed based on selected modules (consumer side)
     let baseModuleEvcs = 0;
@@ -196,20 +195,8 @@ export default function useCalculator() {
     // Set allocation descriptor
     setDeliverySpeed(allocation.description);
     
-    // Select EVC tier based on weekly production
-    let selectedTier = evcTiers.find(tier => 
-      productionCapacity >= tier.minWeeklyCommitment
-    );
-    
-    // If no tier matches, use the first one
-    if (!selectedTier) {
-      selectedTier = evcTiers[0];
-    }
-    
-    setSelectedEvcTier(selectedTier.name);
-    
-    // Apply tier price multiplier
-    let pricePerEvc = evcBase.basePrice * selectedTier.priceMultiplier;
+    // Calculate base price per EVC
+    let pricePerEvc = evcBase.basePrice;
     
     // Apply volume discount based on config
     evcBase.volumeDiscounts.forEach(({ threshold, discount }) => {
@@ -241,7 +228,6 @@ export default function useCalculator() {
     setSelectedVariants,
     resourceAllocation,
     paymentOption,
-    selectedEvcTier,
     isEvcExplainerVisible,
     parameters,
     weeklyProductionCapacity,
@@ -256,7 +242,6 @@ export default function useCalculator() {
     defaults,
     evcBase,
     serviceParameters,
-    evcTiers,
     modules,
     parameterModifiers,
     

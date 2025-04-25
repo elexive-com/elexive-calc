@@ -2,7 +2,7 @@ import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { 
   faBullseye, faPuzzlePiece, faChartBar,
-  faLayerGroup, faExchangeAlt, faCoins,
+  faLayerGroup, faExchangeAlt, 
   faCreditCard, faArrowRight, faEnvelope
 } from '@fortawesome/free-solid-svg-icons';
 import calculatorConfig from '../config/calculatorConfig.json';
@@ -16,8 +16,6 @@ const SummarySidebar = ({ calculator }) => {
     monthlyEvcs,
     weeklyProductionCapacity,
     monthlyOutputValue,
-    selectedEvcTier,
-    evcTiers,
     paymentOption,
     evcBase,
     totalPrice,
@@ -112,18 +110,6 @@ const SummarySidebar = ({ calculator }) => {
               <p className="text-[10px] text-[var(--elexive-primary)] mt-0.5 font-medium">Monthly output</p>
             </div>
           </div>
-        </div>
-        
-        {/* EVC Tier */}
-        <div className="bg-white bg-opacity-80 rounded-lg p-3.5 shadow-sm">
-          <h4 className="text-[13px] uppercase tracking-wide font-medium text-[var(--elexive-primary)] mb-2 flex items-center">
-            <FontAwesomeIcon icon={faCoins} className="text-[var(--elexive-accent)] mr-2 text-xs" />
-            EVC Tier
-          </h4>
-          <p className="font-medium text-base text-[var(--elexive-primary)]">{selectedEvcTier}</p>
-          <p className="text-[11px] text-[var(--elexive-primary)] mt-1 font-medium">
-            {evcTiers.find(tier => tier.name === selectedEvcTier)?.description || "Standard tier"}
-          </p>
         </div>
         
         {/* Payment Option */}
