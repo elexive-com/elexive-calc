@@ -2,8 +2,7 @@ import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { 
   faPuzzlePiece, faUsers, faLightbulb, 
-  faServer, faCheck, faChartBar,
-  faCaretDown
+  faServer, faCheck, faChartBar
 } from '@fortawesome/free-solid-svg-icons';
 import { getModuleIcon } from '../utils/iconUtils';
 
