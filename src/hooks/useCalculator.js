@@ -7,6 +7,7 @@ export default function useCalculator() {
   // State for user selections
   const [intent, setIntent] = useState('');
   const [selectedModules, setSelectedModules] = useState([]);
+  const [selectedVariants, setSelectedVariants] = useState({});
   const [resourceAllocation, setResourceAllocation] = useState(calculatorConfig.defaults.resourceAllocation);
   const [paymentOption, setPaymentOption] = useState(calculatorConfig.defaults.paymentOption);
   const [selectedEvcTier, setSelectedEvcTier] = useState('Standard');
@@ -137,16 +138,26 @@ export default function useCalculator() {
     // Calculate total EVCs needed based on selected modules (consumer side)
     let baseModuleEvcs = 0;
     if (selectedModules.length > 0) {
-      // Find the selected modules and sum their EVC values
+      // Find the selected modules and sum their EVC values based on the selected variant
       const selectedModuleConfigs = modules.filter(module => 
         selectedModules.includes(module.name)
       );
       
-      // Use average of min/max EVC values for each module from variants
+      // Instead of average, use specific variant EVC value based on user selection
       baseModuleEvcs = selectedModuleConfigs.reduce((total, module) => {
-        const minEvc = module.variants[0].evcValue;
-        const maxEvc = module.variants[1] ? module.variants[1].evcValue : minEvc;
-        return total + ((minEvc + maxEvc) / 2);
+        // Default to first variant (Insight Primer) if no specific selection
+        let variantType = selectedVariants[module.name];
+        
+        // If no variant is selected yet, default to insightPrimer
+        if (!variantType) {
+          variantType = 'insightPrimer';
+        }
+        
+        // Find the corresponding EVC value based on the variant type
+        const variantIndex = variantType === 'insightPrimer' ? 0 : 1;
+        const evcValue = module.variants[variantIndex]?.evcValue || module.variants[0].evcValue;
+        
+        return total + evcValue;
       }, 0);
     } else {
       // If no modules selected, use a minimum value of 1 EVC
@@ -215,7 +226,7 @@ export default function useCalculator() {
     setMonthlyEvcs(productionCapacity);
     setEvcPricePerUnit(pricePerEvc);
     setTotalPrice(Math.round(productionCapacity * pricePerEvc));
-  }, [selectedModules, resourceAllocation, parameters, paymentOption, parameterModifiers, modules]);
+  }, [selectedModules, resourceAllocation, parameters, paymentOption, parameterModifiers, modules, selectedVariants]);
   
   // Use the memoized callback in useEffect
   useEffect(() => {
@@ -226,6 +237,8 @@ export default function useCalculator() {
     // State
     intent,
     selectedModules,
+    selectedVariants,
+    setSelectedVariants,
     resourceAllocation,
     paymentOption,
     selectedEvcTier,

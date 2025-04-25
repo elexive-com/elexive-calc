@@ -35,6 +35,8 @@ const CalculatorApp = () => {
             toggleModule={calculator.toggleModule}
             activePillar={calculator.activePillar}
             setActivePillar={calculator.setActivePillar}
+            selectedVariants={calculator.selectedVariants}
+            setSelectedVariants={calculator.setSelectedVariants}
           />
           <ResourceAllocationSelector 
             resourceAllocation={calculator.resourceAllocation}
@@ -60,6 +62,7 @@ const CalculatorApp = () => {
             parameters={calculator.parameters}
             serviceParameters={calculator.serviceParameters}
             resourceAllocation={calculator.resourceAllocation}
+            selectedVariants={calculator.selectedVariants}
           />
         </div>
         

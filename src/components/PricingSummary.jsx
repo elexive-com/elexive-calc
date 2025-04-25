@@ -4,7 +4,7 @@ import {
   faMoneyBillWave, faChartBar, faCoins, 
   faCreditCard, faRocket, faBullseye,
   faPuzzlePiece, faCalculator, faSlidersH,
-  faCheckCircle, faEnvelope
+  faCheckCircle, faEnvelope, faLightbulb, faTools
 } from '@fortawesome/free-solid-svg-icons';
 import calculatorConfig from '../config/calculatorConfig.json';
 
@@ -20,21 +20,41 @@ const PricingSummary = ({
   evcBase,
   parameters,
   serviceParameters,
-  resourceAllocation
+  resourceAllocation,
+  selectedVariants = {}
 }) => {
-  // Get selected modules with their EVC ranges for display
+  // Get selected modules with their EVC values based on selected variant
   const selectedModuleDetails = modules
     .filter(module => selectedModules.includes(module.name))
-    .map(module => ({
-      name: module.name,
-      evcRange: {
-        min: module.variants[0].evcValue,
-        max: module.variants[1] ? module.variants[1].evcValue : module.variants[0].evcValue
-      }
-    }));
+    .map(module => {
+      // Default to insightPrimer if no variant is selected
+      const variantType = selectedVariants[module.name] || 'insightPrimer';
+      const variantIndex = variantType === 'insightPrimer' ? 0 : 1;
+      const evcValue = module.variants[variantIndex]?.evcValue || module.variants[0].evcValue;
+      
+      return {
+        name: module.name,
+        selectedVariant: variantType,
+        evcValue: evcValue,
+        evcRange: {
+          min: module.variants[0].evcValue,
+          max: module.variants[1] ? module.variants[1].evcValue : module.variants[0].evcValue
+        }
+      };
+    });
     
   // Get payment option details
   const paymentDetails = evcBase.paymentOptions[paymentOption];
+  
+  // Get variant display name
+  const getVariantDisplayName = (variantType) => {
+    return variantType === 'insightPrimer' ? 'Insight Primer' : 'Integrated Execution';
+  };
+  
+  // Get variant icon
+  const getVariantIcon = (variantType) => {
+    return variantType === 'insightPrimer' ? faLightbulb : faTools;
+  };
   
   return (
     <div className="bg-white p-6 rounded-2xl shadow-lg mb-6">
@@ -49,12 +69,12 @@ const PricingSummary = ({
           <span className="font-bold text-[var(--elexive-primary)]">€{totalPrice.toLocaleString()}</span>
         </div>
         <div className="flex justify-between text-sm text-gray-600 mb-1">
-          <span><FontAwesomeIcon icon={faChartBar} className="text-[var(--elexive-secondary)] opacity-80 mr-1" />Weekly EVCs:</span>
-          <span>{monthlyEvcs} EVCs</span>
+          <span><FontAwesomeIcon icon={faChartBar} className="text-[var(--elexive-evc)] opacity-80 mr-1" />Weekly EVCs:</span>
+          <span className="font-medium text-[var(--elexive-evc)]">{monthlyEvcs} EVCs</span>
         </div>
         <div className="flex justify-between text-sm text-gray-600 mb-1">
-          <span><FontAwesomeIcon icon={faCoins} className="text-[var(--elexive-secondary)] opacity-80 mr-1" />Price per EVC:</span>
-          <span>€{evcPricePerUnit.toFixed(2)}</span>
+          <span><FontAwesomeIcon icon={faCoins} className="text-[var(--elexive-evc)] opacity-80 mr-1" />Price per EVC:</span>
+          <span className="font-medium text-[var(--elexive-evc)]">€{evcPricePerUnit.toFixed(2)}</span>
         </div>
         <div className="flex justify-between text-sm text-gray-600 mb-1">
           <span><FontAwesomeIcon icon={faCreditCard} className="text-[var(--elexive-secondary)] opacity-80 mr-1" />Payment Option:</span>
@@ -77,20 +97,26 @@ const PricingSummary = ({
         </h3>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
           {selectedModuleDetails.map((module) => (
-            <div key={module.name} className="text-sm bg-[#FFF6E8] p-3 rounded border border-[var(--elexive-accent)] border-opacity-20">
+            <div key={module.name} className="text-sm bg-[var(--elexive-evc-light)] p-3 rounded border border-[var(--elexive-evc)] border-opacity-20">
               <div className="font-medium text-[var(--elexive-primary)]">{module.name}</div>
-              <div className="text-xs text-gray-600 mt-1">EVC Range: {module.evcRange.min}-{module.evcRange.max}</div>
+              <div className="flex items-center text-xs text-gray-700 mt-1">
+                <FontAwesomeIcon icon={getVariantIcon(module.selectedVariant)} className="mr-1 text-[var(--elexive-evc)]" />
+                <span className="font-medium">{getVariantDisplayName(module.selectedVariant)}</span>
+              </div>
+              <div className="text-xs mt-1">
+                <span className="text-[var(--elexive-evc)] font-medium">{module.evcValue} EVC</span>
+              </div>
             </div>
           ))}
         </div>
         
-        <div className="mt-4 bg-[#ECE9F3] p-3 rounded-lg">
+        <div className="mt-4 bg-[var(--elexive-evc-light)] p-3 rounded-lg">
           <h4 className="text-sm font-medium text-[var(--elexive-primary)]">
-            <FontAwesomeIcon icon={faCalculator} className="mr-1" />
+            <FontAwesomeIcon icon={faCalculator} className="mr-1 text-[var(--elexive-evc)]" />
             EVC Calculation
           </h4>
           <div className="text-xs text-gray-600 mt-1">
-            <p>Base EVC from modules: {selectedModuleDetails.reduce((sum, module) => sum + (module.evcRange.min + module.evcRange.max)/2, 0).toFixed(1)} EVCs</p>
+            <p>Base EVC from modules: <span className="text-[var(--elexive-evc)] font-medium">{selectedModuleDetails.reduce((sum, module) => sum + module.evcValue, 0)} EVCs</span></p>
             <p>Resource allocation ({calculatorConfig.resourceAllocation[resourceAllocation].description}): {calculatorConfig.resourceAllocation[resourceAllocation].outputMultiplier}x</p>
             {Object.entries(parameters)
               .filter(([, enabled]) => enabled)

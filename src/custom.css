@@ -4,6 +4,7 @@
    - Font/primary foreground: #2E2266
    - Primary accent: #FFBD59
    - Secondary accent: #EB8258
+   - EVC accent: #FF006E
 */
 
 /* Global styles */
@@ -13,6 +14,8 @@
   --elexive-accent: #FFBD59;
   --elexive-accent-light: rgba(255, 189, 89, 0.5); /* Added accent-light as 50% opacity version of accent */
   --elexive-secondary: #EB8258;
+  --elexive-evc: #FF006E; /* New EVC accent color */
+  --elexive-evc-light: rgba(255, 0, 110, 0.15); /* Light version for backgrounds */
   --elexive-border-radius: 12px;
   --elexive-button-radius: 8px;
   --elexive-transition: all 0.2s ease-in-out;

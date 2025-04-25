@@ -2,7 +2,7 @@ import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { 
   faPuzzlePiece, faUsers, faLightbulb, 
-  faServer, faCheck, faChartBar
+  faServer, faCheck
 } from '@fortawesome/free-solid-svg-icons';
 import { getModuleIcon } from '../utils/iconUtils';
 
@@ -11,8 +11,46 @@ const ModuleSelector = ({
   selectedModules, 
   toggleModule, 
   activePillar, 
-  setActivePillar 
+  setActivePillar,
+  selectedVariants = {},
+  setSelectedVariants
 }) => {
+  // Handle module variant selection
+  const handleVariantSelect = (moduleName, variantType) => {
+    // If selecting the same variant that's already selected, deselect the module
+    if (selectedModules.includes(moduleName) && selectedVariants[moduleName] === variantType) {
+      handleModuleDeselect(moduleName);
+      return;
+    }
+    
+    // Update selected variant for this module
+    const newSelectedVariants = {
+      ...selectedVariants,
+      [moduleName]: variantType
+    };
+    
+    // Pass updated variants to parent component
+    setSelectedVariants(newSelectedVariants);
+    
+    // If module wasn't selected before, toggle it on
+    if (!selectedModules.includes(moduleName)) {
+      toggleModule(moduleName);
+    }
+  };
+  
+  // Handle module deselection
+  const handleModuleDeselect = (moduleName) => {
+    // Remove this module from selected variants
+    const newSelectedVariants = { ...selectedVariants };
+    delete newSelectedVariants[moduleName];
+    setSelectedVariants(newSelectedVariants);
+    
+    // Toggle the module off
+    if (selectedModules.includes(moduleName)) {
+      toggleModule(moduleName);
+    }
+  };
+  
   // Group modules by pillar
   const modulesByPillar = {
     Transformation: modules.filter(module => module.pillar === "Transformation"),
@@ -79,8 +117,7 @@ const ModuleSelector = ({
                 {pillarModules.map((module) => (
                   <div
                     key={module.name}
-                    onClick={() => toggleModule(module.name)}
-                    className={`p-5 rounded-xl cursor-pointer transition-all duration-200 ${
+                    className={`p-5 rounded-xl transition-all duration-200 ${
                       selectedModules.includes(module.name)
                         ? 'bg-[#FFF6E8] border-2 border-[var(--elexive-accent)] shadow'
                         : 'bg-gray-50 border border-gray-200 hover:border-[var(--elexive-accent)] hover:shadow'
@@ -98,13 +135,6 @@ const ModuleSelector = ({
                     </div>
                     
                     <div className="flex items-start">
-                      <div className={`w-5 h-5 rounded-md mr-3 mt-1 flex-shrink-0 flex items-center justify-center ${
-                        selectedModules.includes(module.name) ? 'bg-[var(--elexive-accent)]' : 'bg-gray-200'
-                      }`}>
-                        {selectedModules.includes(module.name) && (
-                          <FontAwesomeIcon icon={faCheck} className="text-white text-xs" />
-                        )}
-                      </div>
                       <div>
                         <div className="flex items-center mb-1">
                           <FontAwesomeIcon 
@@ -114,12 +144,71 @@ const ModuleSelector = ({
                           <h3 className="font-semibold">{module.name}</h3>
                         </div>
                         <p className="text-xs font-medium text-[var(--elexive-primary)] mb-1">{module.heading}</p>
-                        <p className="text-xs text-gray-600 mb-2">{module.description}</p>
-                        <div className="flex justify-between text-xs text-gray-500">
-                          <span>
-                            <FontAwesomeIcon icon={faChartBar} className="mr-1" />
-                            EVC Range: {module.variants[0].evcValue}-{module.variants[1] ? module.variants[1].evcValue : module.variants[0].evcValue}
-                          </span>
+                        <p className="text-xs text-gray-600 mb-4">{module.description}</p>
+                        
+                        {/* Module options at the bottom */}
+                        <div className="flex flex-col gap-2 mt-3 border-t pt-3">
+                          <div 
+                            onClick={() => handleVariantSelect(module.name, 'insightPrimer')}
+                            className={`flex items-center justify-between p-2 rounded-lg cursor-pointer ${
+                              selectedModules.includes(module.name) && 
+                              selectedVariants[module.name] === 'insightPrimer'
+                                ? 'bg-[var(--elexive-evc-light)]'
+                                : 'bg-gray-100 hover:bg-[var(--elexive-evc-light)]'
+                            }`}
+                          >
+                            <div className="flex items-center">
+                              <div className={`w-5 h-5 rounded-md mr-3 flex-shrink-0 flex items-center justify-center ${
+                                selectedModules.includes(module.name) && 
+                                selectedVariants[module.name] === 'insightPrimer'
+                                  ? 'bg-[var(--elexive-evc)]' 
+                                  : 'bg-gray-200'
+                              }`}>
+                                {selectedModules.includes(module.name) && 
+                                 selectedVariants[module.name] === 'insightPrimer' && (
+                                  <FontAwesomeIcon icon={faCheck} className="text-white text-xs" />
+                                )}
+                              </div>
+                              <div>
+                                <div className="text-sm font-medium">Insight Primer</div>
+                                <div className="text-xs text-gray-600">Quick assessment and basic insights</div>
+                              </div>
+                            </div>
+                            <div className="ml-2 px-2 py-1 bg-[var(--elexive-evc-light)] rounded-md text-xs font-semibold text-[var(--elexive-evc)] whitespace-nowrap min-w-[60px] text-center">
+                              {module.variants[0].evcValue} EVC
+                            </div>
+                          </div>
+                          
+                          <div 
+                            onClick={() => handleVariantSelect(module.name, 'integratedExecution')}
+                            className={`flex items-center justify-between p-2 rounded-lg cursor-pointer ${
+                              selectedModules.includes(module.name) && 
+                              selectedVariants[module.name] === 'integratedExecution'
+                                ? 'bg-[var(--elexive-evc-light)]' 
+                                : 'bg-gray-100 hover:bg-[var(--elexive-evc-light)]'
+                            }`}
+                          >
+                            <div className="flex items-center">
+                              <div className={`w-5 h-5 rounded-md mr-3 flex-shrink-0 flex items-center justify-center ${
+                                selectedModules.includes(module.name) && 
+                                selectedVariants[module.name] === 'integratedExecution'
+                                  ? 'bg-[var(--elexive-evc)]' 
+                                  : 'bg-gray-200'
+                              }`}>
+                                {selectedModules.includes(module.name) && 
+                                 selectedVariants[module.name] === 'integratedExecution' && (
+                                  <FontAwesomeIcon icon={faCheck} className="text-white text-xs" />
+                                )}
+                              </div>
+                              <div>
+                                <div className="text-sm font-medium">Integrated Execution</div>
+                                <div className="text-xs text-gray-600">Comprehensive implementation and support</div>
+                              </div>
+                            </div>
+                            <div className="ml-2 px-2 py-1 bg-[var(--elexive-evc-light)] rounded-md text-xs font-semibold text-[var(--elexive-evc)] whitespace-nowrap min-w-[60px] text-center">
+                              {module.variants[1] ? module.variants[1].evcValue : module.variants[0].evcValue} EVC
+                            </div>
+                          </div>
                         </div>
                       </div>
                     </div>

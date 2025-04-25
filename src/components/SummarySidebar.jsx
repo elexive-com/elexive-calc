@@ -50,13 +50,17 @@ const SummarySidebar = ({ calculator }) => {
               <div className="space-y-1.5">
                 {selectedModules.map(moduleName => {
                   const moduleConfig = modules.find(m => m.name === moduleName);
-                  const evcMin = moduleConfig?.variants[0]?.evcValue || 0;
-                  const evcMax = moduleConfig?.variants[1]?.evcValue || evcMin;
+                  // Get the selected variant type or default to 'insightPrimer'
+                  const variantType = calculator.selectedVariants[moduleName] || 'insightPrimer';
+                  // Get the appropriate EVC value based on selected variant
+                  const variantIndex = variantType === 'insightPrimer' ? 0 : 1;
+                  const evcValue = moduleConfig?.variants[variantIndex]?.evcValue || moduleConfig?.variants[0]?.evcValue || 0;
+                  
                   return (
                     <div key={moduleName} className="flex justify-between items-center bg-[var(--elexive-accent-light)] bg-opacity-20 py-1.5 px-2.5 rounded">
                       <span className="text-[var(--elexive-primary)] text-xs font-medium">{moduleName}</span>
-                      <span className="text-[var(--elexive-primary)] text-[10px] bg-white px-1.5 py-0.5 rounded-full font-medium">
-                        {evcMin}-{evcMax} EVCs
+                      <span className="text-[var(--elexive-evc)] text-[10px] bg-[var(--elexive-evc-light)] px-1.5 py-0.5 rounded-full font-medium">
+                        {evcValue} EVC
                       </span>
                     </div>
                   );
