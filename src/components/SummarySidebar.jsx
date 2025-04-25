@@ -1,9 +1,11 @@
 import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { 
-  faBullseye, faPuzzlePiece, faChartBar,
+  faBullseye, faPuzzlePiece,
   faLayerGroup, faExchangeAlt, 
-  faCreditCard, faArrowRight, faEnvelope
+  faCreditCard, faArrowRight, faEnvelope,
+  faSeedling, faJetFighterUp, faRocket,
+  faCalendarAlt
 } from '@fortawesome/free-solid-svg-icons';
 import calculatorConfig from '../config/calculatorConfig.json';
 
@@ -12,15 +14,27 @@ const SummarySidebar = ({ calculator }) => {
     intent,
     selectedModules,
     resourceAllocation,
+    productionCapacity,
     modules,
-    monthlyEvcs,
     weeklyProductionCapacity,
     monthlyOutputValue,
     paymentOption,
     evcBase,
     totalPrice,
-    evcPricePerUnit
+    evcPricePerUnit,
+    completionTimeWeeks,
+    totalModuleEvcs
   } = calculator;
+
+  // Get the appropriate icon for the selected production capacity
+  const getProductionCapacityIcon = (capacityKey) => {
+    switch(capacityKey) {
+      case 'seedling': return faSeedling;
+      case 'jetpack': return faJetFighterUp;
+      case 'rocketship': return faRocket;
+      default: return faSeedling;
+    }
+  };
 
   return (
     <div className="bg-white p-6 rounded-2xl shadow-lg h-fit sticky top-4">
@@ -70,13 +84,23 @@ const SummarySidebar = ({ calculator }) => {
           )}
         </div>
         
-        {/* Weekly EVC Amount */}
+        {/* Production Capacity */}
         <div className="bg-white bg-opacity-80 rounded-lg p-3.5 shadow-sm">
           <h4 className="text-[13px] uppercase tracking-wide font-medium text-[var(--elexive-primary)] mb-2 flex items-center">
-            <FontAwesomeIcon icon={faChartBar} className="text-[var(--elexive-accent)] mr-2 text-xs" />
-            Weekly EVC Amount
+            <FontAwesomeIcon 
+              icon={getProductionCapacityIcon(productionCapacity)} 
+              className="text-[var(--elexive-accent)] mr-2 text-xs" 
+            />
+            Production Capacity
           </h4>
-          <p className="font-medium text-base text-[var(--elexive-primary)]">{monthlyEvcs} EVCs</p>
+          <p className="font-medium text-base text-[var(--elexive-primary)]">
+            {calculatorConfig.productionCapacity[productionCapacity]?.label || "Not selected"}
+          </p>
+          <div className="flex items-center mt-1.5">
+            <span className={`inline-block text-[10px] ${calculatorConfig.productionCapacity[productionCapacity]?.colorClass || 'bg-gray-100'} text-[var(--elexive-primary)] px-2 py-0.5 rounded-full font-medium`}>
+              {calculatorConfig.productionCapacity[productionCapacity]?.weeklyEVCs || 0} EVCs/week
+            </span>
+          </div>
         </div>
         
         {/* Resource Allocation */}
@@ -112,6 +136,29 @@ const SummarySidebar = ({ calculator }) => {
           </div>
         </div>
         
+        {/* Estimated Completion Time - NEW SECTION */}
+        <div className="bg-white bg-opacity-80 rounded-lg p-3.5 shadow-sm">
+          <h4 className="text-[13px] uppercase tracking-wide font-medium text-[var(--elexive-primary)] mb-2 flex items-center">
+            <FontAwesomeIcon icon={faCalendarAlt} className="text-[var(--elexive-accent)] mr-2 text-xs" />
+            Estimated Completion
+          </h4>
+          <div className="flex justify-between items-center mt-1 bg-[var(--elexive-accent-light)] bg-opacity-30 p-2.5 rounded">
+            <div className="text-center flex-1">
+              <p className="font-bold text-lg text-[var(--elexive-primary)]">{totalModuleEvcs}</p>
+              <p className="text-[10px] text-[var(--elexive-primary)] mt-0.5 font-medium">Total EVCs needed</p>
+            </div>
+            <div className="flex items-center px-1">
+              <FontAwesomeIcon icon={faArrowRight} className="text-[var(--elexive-accent)]" />
+            </div>
+            <div className="text-center flex-1">
+              <p className="font-bold text-lg text-[var(--elexive-primary)]">{completionTimeWeeks}</p>
+              <p className="text-[10px] text-[var(--elexive-primary)] mt-0.5 font-medium">
+                {completionTimeWeeks === 1 ? 'Week' : 'Weeks'} to complete
+              </p>
+            </div>
+          </div>
+        </div>
+        
         {/* Payment Option */}
         <div className="bg-white bg-opacity-80 rounded-lg p-3.5 shadow-sm">
           <h4 className="text-[13px] uppercase tracking-wide font-medium text-[var(--elexive-primary)] mb-2 flex items-center">
@@ -126,7 +173,7 @@ const SummarySidebar = ({ calculator }) => {
           </span>
         </div>
         
-        {/* Pricing Summary - Enhanced design with single colors */}
+        {/* Pricing Summary */}
         <div className="mt-5">
           <div className="bg-[var(--elexive-primary)] p-0.5 rounded-xl">
             <div className="bg-white p-4 rounded-lg">

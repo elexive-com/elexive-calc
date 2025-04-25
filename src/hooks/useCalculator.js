@@ -9,6 +9,8 @@ export default function useCalculator() {
   const [selectedModules, setSelectedModules] = useState([]);
   const [selectedVariants, setSelectedVariants] = useState({});
   const [resourceAllocation, setResourceAllocation] = useState(calculatorConfig.defaults.resourceAllocation);
+  // New state for production capacity
+  const [productionCapacity, setProductionCapacity] = useState('seedling');
   const [paymentOption, setPaymentOption] = useState(calculatorConfig.defaults.paymentOption);
   const [isEvcExplainerVisible, setIsEvcExplainerVisible] = useState(false);
   
@@ -36,6 +38,9 @@ export default function useCalculator() {
   const [deliverySpeed, setDeliverySpeed] = useState(
     calculatorConfig.resourceAllocation[defaults.resourceAllocation].description
   );
+  // New state for completion time estimate
+  const [completionTimeWeeks, setCompletionTimeWeeks] = useState(0);
+  const [totalModuleEvcs, setTotalModuleEvcs] = useState(0);
   
   // State for active pillar tab
   const [activePillar, setActivePillar] = useState("Transformation");
@@ -132,7 +137,7 @@ export default function useCalculator() {
   
   // Calculate pricing whenever selections change
   const calculatePricing = useCallback(() => {
-    const { resourceAllocation: allocations, evcBase } = calculatorConfig;
+    const { resourceAllocation: allocations, productionCapacity: capacities, evcBase } = calculatorConfig;
     
     // Calculate total EVCs needed based on selected modules (consumer side)
     let baseModuleEvcs = 0;
@@ -163,33 +168,41 @@ export default function useCalculator() {
       baseModuleEvcs = 1;
     }
     
-    // Store the consumer-side raw EVCs
-    const rawConsumerEVCs = baseModuleEvcs;
+    // Store the total module EVCs for completion time calculation
+    setTotalModuleEvcs(baseModuleEvcs);
     
     // Get resource allocation strategy
     const allocation = allocations[resourceAllocation];
     
-    // Set production capacity (producer side)
-    let productionCapacity = rawConsumerEVCs;
+    // Get production capacity tier
+    const capacityTier = capacities[productionCapacity];
+    const weeklyEVCs = capacityTier.weeklyEVCs;
     
     // Apply service parameter modifiers to production capacity
+    let adjustedProductionCapacity = weeklyEVCs;
     Object.entries(parameters).forEach(([paramId, isEnabled]) => {
       if (isEnabled) {
-        productionCapacity *= parameterModifiers[paramId];
+        adjustedProductionCapacity *= parameterModifiers[paramId];
       }
     });
     
     // Round production capacity
-    productionCapacity = Math.ceil(productionCapacity);
+    adjustedProductionCapacity = Math.ceil(adjustedProductionCapacity);
     
     // Calculate output multiplier based on allocation strategy
     const outputMultiplier = allocation.outputMultiplier;
     
     // Calculate total output (what customer receives)
-    const outputValue = Math.ceil(rawConsumerEVCs * outputMultiplier);
+    const outputValue = Math.ceil(adjustedProductionCapacity * outputMultiplier);
+    
+    // Calculate estimated completion time in weeks
+    // We need to divide total EVCs by weekly EVCs, accounting for the output multiplier
+    // The formula is: TotalModuleEVCs / (WeeklyProductionCapacity * OutputMultiplier)
+    const estimatedWeeks = baseModuleEvcs / outputValue;
+    setCompletionTimeWeeks(Math.ceil(estimatedWeeks));
     
     // Store the values for display
-    setWeeklyProductionCapacity(productionCapacity);
+    setWeeklyProductionCapacity(adjustedProductionCapacity);
     setMonthlyOutputValue(outputValue * 4); // 4 weeks output
     
     // Set allocation descriptor
@@ -200,7 +213,7 @@ export default function useCalculator() {
     
     // Apply volume discount based on config
     evcBase.volumeDiscounts.forEach(({ threshold, discount }) => {
-      if (productionCapacity > threshold) {
+      if (adjustedProductionCapacity > threshold) {
         pricePerEvc *= discount;
       }
     });
@@ -210,10 +223,10 @@ export default function useCalculator() {
     pricePerEvc *= paymentModifier;
     
     // Set final values
-    setMonthlyEvcs(productionCapacity);
+    setMonthlyEvcs(adjustedProductionCapacity);
     setEvcPricePerUnit(pricePerEvc);
-    setTotalPrice(Math.round(productionCapacity * pricePerEvc));
-  }, [selectedModules, resourceAllocation, parameters, paymentOption, parameterModifiers, modules, selectedVariants]);
+    setTotalPrice(Math.round(adjustedProductionCapacity * pricePerEvc));
+  }, [selectedModules, resourceAllocation, productionCapacity, parameters, paymentOption, parameterModifiers, modules, selectedVariants]);
   
   // Use the memoized callback in useEffect
   useEffect(() => {
@@ -227,6 +240,8 @@ export default function useCalculator() {
     selectedVariants,
     setSelectedVariants,
     resourceAllocation,
+    productionCapacity,
+    setProductionCapacity,
     paymentOption,
     isEvcExplainerVisible,
     parameters,
@@ -237,6 +252,8 @@ export default function useCalculator() {
     evcPricePerUnit,
     deliverySpeed,
     activePillar,
+    completionTimeWeeks, // New export
+    totalModuleEvcs, // New export
     
     // Config
     defaults,

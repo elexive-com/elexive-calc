@@ -5,6 +5,7 @@ import useCalculator from './hooks/useCalculator';
 import OnboardingQuiz from './components/OnboardingQuiz';
 import ModuleSelector from './components/ModuleSelector';
 import ResourceAllocationSelector from './components/ResourceAllocationSelector';
+import ProductionCapacitySelector from './components/ProductionCapacitySelector';
 import ServiceParameters from './components/ServiceParameters';
 import PricingSummary from './components/PricingSummary';
 import EvcExplainer from './components/EvcExplainer';
@@ -37,6 +38,11 @@ const CalculatorApp = () => {
             setActivePillar={calculator.setActivePillar}
             selectedVariants={calculator.selectedVariants}
             setSelectedVariants={calculator.setSelectedVariants}
+          />
+          {/* New Production Capacity Selector */}
+          <ProductionCapacitySelector 
+            productionCapacity={calculator.productionCapacity}
+            setProductionCapacity={calculator.setProductionCapacity}
           />
           <ResourceAllocationSelector 
             resourceAllocation={calculator.resourceAllocation}

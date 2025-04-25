@@ -59,6 +59,32 @@
       "valueProposition": "Broader coverage across your strategic agenda"
     }
   },
+  "productionCapacity": {
+    "seedling": {
+      "label": "Seedling",
+      "description": "Essential production capacity for initial projects",
+      "weeklyEVCs": 5,
+      "icon": "faSeedling",
+      "colorClass": "bg-emerald-100",
+      "valueProposition": "Start your journey with focused delivery"
+    },
+    "jetpack": {
+      "label": "Jetpack",
+      "description": "Enhanced capacity for growing businesses",
+      "weeklyEVCs": 20,
+      "icon": "faJetFighterUp", 
+      "colorClass": "bg-blue-100",
+      "valueProposition": "Accelerate your growth with increased capacity"
+    },
+    "rocketship": {
+      "label": "Rocketship",
+      "description": "Maximum capacity for enterprise-scale needs",
+      "weeklyEVCs": 40,
+      "icon": "faRocket",
+      "colorClass": "bg-purple-100",
+      "valueProposition": "Achieve liftoff with our highest-capacity option"
+    }
+  },
   "evcProducers": [
     {
       "id": "advisorHours",
