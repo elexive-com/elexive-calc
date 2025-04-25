@@ -196,8 +196,9 @@ export default function useCalculator() {
     const outputValue = Math.ceil(adjustedProductionCapacity * outputMultiplier);
     
     // Calculate estimated completion time in weeks
-    // We need to divide total EVCs by weekly EVCs, accounting for the output multiplier
-    // The formula is: TotalModuleEVCs / (WeeklyProductionCapacity * OutputMultiplier)
+    // Fixed: Use adjustedProductionCapacity for weekly production capacity
+    // The correct formula is: TotalModuleEVCs / (adjustedProductionCapacity * outputMultiplier)
+    // Since outputValue = adjustedProductionCapacity * outputMultiplier, we can simplify to:
     const estimatedWeeks = baseModuleEvcs / outputValue;
     setCompletionTimeWeeks(Math.ceil(estimatedWeeks));
     
@@ -252,8 +253,8 @@ export default function useCalculator() {
     evcPricePerUnit,
     deliverySpeed,
     activePillar,
-    completionTimeWeeks, // New export
-    totalModuleEvcs, // New export
+    completionTimeWeeks,
+    totalModuleEvcs,
     
     // Config
     defaults,
