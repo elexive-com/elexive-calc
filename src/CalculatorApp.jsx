@@ -48,6 +48,7 @@ const CalculatorApp = () => {
             <ResourceAllocationSelector 
               resourceAllocation={calculator.resourceAllocation}
               setResourceAllocation={calculator.setResourceAllocation}
+              productionCapacity={calculator.productionCapacity}
             />
             <ServiceParameters 
               serviceParameters={calculator.serviceParameters}

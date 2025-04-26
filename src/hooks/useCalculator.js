@@ -144,6 +144,22 @@ export default function useCalculator() {
     );
   };
   
+  // Set production capacity with validation for resource allocation
+  const setProductionCapacityWithValidation = (capacity) => {
+    // Update production capacity
+    setProductionCapacity(capacity);
+    
+    // Validate current resource allocation against new capacity
+    if (capacity === 'seedling' && resourceAllocation !== 'focused') {
+      // Seedling can only use Laser Beam (focused)
+      setResourceAllocation('focused');
+    } else if (capacity === 'jetpack' && resourceAllocation === 'distributed') {
+      // Jetpack cannot use Omni-Channel (distributed)
+      setResourceAllocation('balanced'); // Default to Smart Campaign
+    }
+    // Rocketship can use any resource allocation, so no changes needed
+  };
+  
   // Calculate pricing whenever selections change
   const calculatePricing = useCallback(() => {
     const { resourceAllocation: allocations, productionCapacity: capacities, evcBase } = calculatorConfig;
@@ -199,6 +215,11 @@ export default function useCalculator() {
     adjustedProductionCapacity = Math.ceil(adjustedProductionCapacity);
     
     // Calculate output multiplier based on allocation strategy
+    // Note: The outputMultiplier is inversely related to the switchingOverhead
+    // Higher switchingOverhead means lower outputMultiplier
+    // Laser Beam (focused): 0% overhead = 2.25x multiplier
+    // Smart Campaign (balanced): 8% overhead = 1.5x multiplier
+    // Omni-Channel (distributed): 18% overhead = 1.0x multiplier
     const outputMultiplier = allocation.outputMultiplier;
     
     // Calculate total output (what customer receives)
@@ -251,7 +272,7 @@ export default function useCalculator() {
     setSelectedVariants,
     resourceAllocation,
     productionCapacity,
-    setProductionCapacity,
+    setProductionCapacity: setProductionCapacityWithValidation,
     paymentOption,
     isEvcExplainerVisible,
     parameters,

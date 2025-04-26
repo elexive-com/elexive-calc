@@ -38,25 +38,31 @@
   ],
   "resourceAllocation": {
     "focused": {
-      "description": "Focused",
-      "productionMultiplier": 1.0,
-      "outputMultiplier": 1.0,
-      "label": "1-2 key initiatives at a time",
-      "valueProposition": "Deep, concentrated progress on fewer priorities"
-    },
-    "balanced": {
-      "description": "Balanced",
-      "productionMultiplier": 1.0,
-      "outputMultiplier": 1.5,
-      "label": "2-3 parallel initiatives",
-      "valueProposition": "Steady progress across multiple priorities"
-    },
-    "distributed": {
-      "description": "Distributed",
+      "description": "Laser Beam",
       "productionMultiplier": 1.0,
       "outputMultiplier": 2.25,
+      "switchingOverhead": 0,
+      "overheadLabel": "None",
+      "label": "Maximum depth on 1 strategic priority",
+      "valueProposition": "Concentrated impact with maximum efficiency per resource"
+    },
+    "balanced": {
+      "description": "Smart Campaign",
+      "productionMultiplier": 1.0,
+      "outputMultiplier": 1.5,
+      "switchingOverhead": 8,
+      "overheadLabel": "Low",
+      "label": "One strategic priority and 1-2 operational initiatives",
+      "valueProposition": "Balanced progress across key channels with good efficiency"
+    },
+    "distributed": {
+      "description": "Omni-Channel",
+      "productionMultiplier": 1.0,
+      "outputMultiplier": 1.0,
+      "switchingOverhead": 18,
+      "overheadLabel": "Moderate",
       "label": "3-5 concurrent initiatives",
-      "valueProposition": "Broader coverage across your strategic agenda"
+      "valueProposition": "Maximum reach across your entire business ecosystem"
     }
   },
   "productionCapacity": {
