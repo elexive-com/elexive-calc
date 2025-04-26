@@ -1,6 +1,7 @@
 {
   "presets": {
     "Visionary Growth": {
+      "description": "Accelerate business expansion with strategic leadership and innovation focus. Ideal for established companies seeking to scale their operations and enter new markets.",
       "modules": [
         "Strategic Leadership",
         "Revenue Levers",
@@ -16,6 +17,7 @@
       }
     },
     "Turnaround": {
+      "description": "Rapidly transform underperforming operations with decisive leadership and digital modernization. Perfect for businesses needing quick, focused intervention to overcome challenges.",
       "modules": [
         "Leading Change",
         "Executive Agility",
@@ -31,6 +33,7 @@
       }
     },
     "Reinvention": {
+      "description": "Revolutionize your business model and customer experience with data-driven insights. Designed for companies seeking to reposition themselves in evolving markets.",
       "modules": [
         "Model Shift",
         "Strategic Foresight",
