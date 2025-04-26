@@ -10,7 +10,8 @@ import {
 import calculatorConfig from '../config/calculatorConfig.json';
 import FeatureIntroduction from './FeatureIntroduction';
 
-const ResourceAllocationSelector = ({ resourceAllocation, setResourceAllocation, productionCapacity }) => {
+// Added default value 'focused' for resourceAllocation parameter
+const ResourceAllocationSelector = ({ resourceAllocation = 'focused', setResourceAllocation, productionCapacity }) => {
   const [showExplainer, setShowExplainer] = useState(false);
   
   // Helper function to determine if a strategy is recommended for current capacity
