@@ -79,8 +79,27 @@ const ModuleSelector = ({
       <FeatureIntroduction
         title="Build your tailored service package"
         description="Each service module is designed to address specific business needs and can be selected at different levels of engagement. Combine modules across our three strategic pillars for a comprehensive solution."
-        additionalInfo="Select modules by clicking on either the 'Insight Primer' or 'Integrated Execution' option. You can mix different engagement levels based on your needs."
+        additionalInfo="Select modules by clicking on the options. You can also de-select the options, if needed. You can mix different engagement levels based on your needs."
       />
+      
+      {/* Service Option Descriptions with introduction */}
+      <div className="mb-4">
+        <h3 className="text-lg font-semibold text-[var(--elexive-primary)] mb-2">Module Delivery Options</h3>
+        <p className="text-sm text-gray-700 mb-3">We offer two distinct engagement models for each module. Choose the delivery approach that best fits your timeline, budget, and implementation needs:</p>
+      </div>
+      
+      <div className="flex flex-col md:flex-row gap-4 my-6">
+        <div className="bg-gray-50 p-4 rounded-xl flex-1">
+          <h3 className="font-bold text-base text-[var(--elexive-primary)] mb-1">Insight Primer</h3>
+          <p className="text-sm text-gray-600 mb-2">A clear direction before investing in execution.</p>
+          <p className="text-xs text-gray-500">Fixed-price, fixed-scope module: a timeboxed 2–4 week calendar time engagement with clear takeaways and effective next steps.</p>
+        </div>
+        <div className="bg-gray-50 p-4 rounded-xl flex-1">
+          <h3 className="font-bold text-base text-[var(--elexive-primary)] mb-1">Integrated Execution</h3>
+          <p className="text-sm text-gray-600 mb-2">A strategic partner to build and scale with you.</p>
+          <p className="text-xs text-gray-500">Continuous service model combining the agile, sprint-based methodology with tailored and specific implementation.</p>
+        </div>
+      </div>
       
       {/* Mobile Dropdown Selector */}
       <div className="md:hidden relative mb-6 mt-4 z-20">
@@ -248,7 +267,6 @@ const ModuleSelector = ({
                               </div>
                               <div>
                                 <div className="text-xs sm:text-sm font-medium">Insight Primer</div>
-                                <div className="text-xs text-gray-600 hidden sm:block">Quick assessment and basic insights</div>
                               </div>
                             </div>
                             <div className="ml-2 px-2 py-1 bg-[var(--elexive-evc-light)] rounded-md text-xs font-semibold text-[var(--elexive-evc)] whitespace-nowrap min-w-[60px] text-center">
@@ -279,7 +297,6 @@ const ModuleSelector = ({
                               </div>
                               <div>
                                 <div className="text-xs sm:text-sm font-medium">Integrated Execution</div>
-                                <div className="text-xs text-gray-600 hidden sm:block">Comprehensive implementation and support</div>
                               </div>
                             </div>
                             <div className="ml-2 px-2 py-1 bg-[var(--elexive-evc-light)] rounded-md text-xs font-semibold text-[var(--elexive-evc)] whitespace-nowrap min-w-[60px] text-center">
