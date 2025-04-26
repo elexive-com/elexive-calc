@@ -5,10 +5,12 @@ import {
   faLayerGroup, faArrowRight, faEnvelope,
   faSeedling, faJetFighterUp, faRocket,
   faCalendarAlt, faChevronDown, faChevronUp,
-  faFileAlt, faInfoCircle, faCreditCard
+  faFileAlt, faInfoCircle, faCreditCard,
+  faCalculator
 } from '@fortawesome/free-solid-svg-icons';
 import calculatorConfig from '../config/calculatorConfig.json';
 import DetailedReportModal from './DetailedReportModal';
+import EvcExplainer from './EvcExplainer';
 
 const ExpandableSection = ({ title, icon, children, defaultOpen = false }) => {
   const [isOpen, setIsOpen] = useState(defaultOpen);
@@ -36,6 +38,7 @@ const ExpandableSection = ({ title, icon, children, defaultOpen = false }) => {
 
 const SummarySidebar = ({ calculator }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isEvcModalOpen, setIsEvcModalOpen] = useState(false);
   
   const {
     intent,
@@ -51,7 +54,9 @@ const SummarySidebar = ({ calculator }) => {
     totalModuleEvcs,
     selectedVariants = {},
     parameters = {},
-    serviceParameters = []
+    serviceParameters = [],
+    weeklyProductionCapacity,
+    monthlyOutputValue
   } = calculator;
 
   // Get the appropriate icon for the selected production capacity
@@ -210,6 +215,14 @@ const SummarySidebar = ({ calculator }) => {
                   </button>
                   
                   <button
+                    onClick={() => setIsEvcModalOpen(true)}
+                    className="w-full py-2.5 bg-[var(--elexive-evc)] text-white rounded-lg font-medium hover:opacity-90 transition-opacity text-sm shadow-sm"
+                  >
+                    <FontAwesomeIcon icon={faCalculator} className="mr-2" />
+                    Understand EVCs
+                  </button>
+                  
+                  <button
                     onClick={() => window.location.href = 'mailto:sales@elexive.com?subject=Pricing%20Inquiry'}
                     className="w-full py-2.5 bg-[var(--elexive-accent)] text-[var(--elexive-primary)] rounded-lg font-medium hover:opacity-90 transition-opacity text-sm shadow-sm"
                   >
@@ -228,6 +241,14 @@ const SummarySidebar = ({ calculator }) => {
         isOpen={isModalOpen}
         onClose={() => setIsModalOpen(false)}
         calculator={calculator}
+      />
+      
+      {/* EVC Explainer Modal */}
+      <EvcExplainer
+        isOpen={isEvcModalOpen}
+        onClose={() => setIsEvcModalOpen(false)}
+        weeklyProductionCapacity={weeklyProductionCapacity}
+        monthlyOutputValue={monthlyOutputValue}
       />
     </>
   );

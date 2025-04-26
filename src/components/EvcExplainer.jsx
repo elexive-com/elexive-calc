@@ -1,37 +1,39 @@
 import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { 
-  faCalculator, faMinus, faPlus, 
+  faCalculator, 
   faUsers, faPuzzlePiece, faExchangeAlt,
   faArrowRight, faBullseye, faProjectDiagram,
-  faTasks, faGears, faRobot, faDatabase
+  faTasks, faGears, faRobot, faDatabase,
+  faTimes
 } from '@fortawesome/free-solid-svg-icons';
 import calculatorConfig from '../config/calculatorConfig.json';
 
 const EvcExplainer = ({ 
-  isVisible, 
-  toggleVisibility, 
+  isOpen, 
+  onClose, 
   weeklyProductionCapacity, 
   monthlyOutputValue 
 }) => {
+  if (!isOpen) return null;
+
   return (
-    <div className="bg-white p-6 rounded-2xl shadow-lg mb-6">
-      <h2 
-        className="text-2xl font-bold text-[var(--elexive-primary)] mb-2 flex items-center justify-between cursor-pointer"
-        onClick={toggleVisibility}
-      >
-        <div>
-          <FontAwesomeIcon icon={faCalculator} className="text-[var(--elexive-accent)] mr-2" />
-          Understanding Elastic Value Credits (EVCs)
+    <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
+      <div className="bg-white rounded-2xl shadow-xl max-w-4xl w-full max-h-[90vh] overflow-y-auto">
+        <div className="sticky top-0 bg-white p-4 border-b flex justify-between items-center">
+          <h2 className="text-2xl font-bold text-[var(--elexive-primary)] mb-0">
+            <FontAwesomeIcon icon={faCalculator} className="text-[var(--elexive-accent)] mr-2" />
+            Understanding Elastic Value Credits (EVCs)
+          </h2>
+          <button 
+            onClick={onClose}
+            className="text-gray-500 hover:text-gray-700 focus:outline-none"
+          >
+            <FontAwesomeIcon icon={faTimes} size="lg" />
+          </button>
         </div>
-        <FontAwesomeIcon 
-          icon={isVisible ? faMinus : faPlus} 
-          className="text-[var(--elexive-accent)]" 
-        />
-      </h2>
-      
-      {isVisible && (
-        <>
+        
+        <div className="p-6">
           <p className="text-gray-600 mb-4">
             EVCs represent our producer-consumer model where input resources are converted into 
             strategic output value for your business.
@@ -151,8 +153,8 @@ const EvcExplainer = ({
               ))}
             </div>
           </div>
-        </>
-      )}
+        </div>
+      </div>
     </div>
   );
 };

@@ -8,7 +8,6 @@ import ModuleSelector from './components/ModuleSelector';
 import ResourceAllocationSelector from './components/ResourceAllocationSelector';
 import ProductionCapacitySelector from './components/ProductionCapacitySelector';
 import ServiceParameters from './components/ServiceParameters';
-import EvcExplainer from './components/EvcExplainer';
 import SummarySidebar from './components/SummarySidebar';
 
 const CalculatorApp = () => {
@@ -31,12 +30,6 @@ const CalculatorApp = () => {
               intent={calculator.intent}
               handleIntentSelect={calculator.handleIntentSelect}
               resetCalculator={calculator.resetCalculator}
-            />
-            <EvcExplainer 
-              isVisible={calculator.isEvcExplainerVisible}
-              toggleVisibility={calculator.toggleEvcExplainer}
-              weeklyProductionCapacity={calculator.weeklyProductionCapacity}
-              monthlyOutputValue={calculator.monthlyOutputValue}
             />
             <ModuleSelector 
               modules={calculator.modules}
