@@ -60,6 +60,7 @@ export default function useCalculator() {
   const resetCalculator = () => {
     setIntent('');
     setSelectedModules([]);
+    setSelectedVariants({});
     setResourceAllocation("focused"); // Default to "Focused" allocation
     setPaymentOption(defaults.paymentOption);
     
@@ -87,11 +88,19 @@ export default function useCalculator() {
       
       // Clear any existing selections first
       setSelectedModules([]);
+      setSelectedVariants({});
       
       // Apply the preset modules with a slight delay to ensure UI updates
       setTimeout(() => {
         console.log("Setting modules to:", preset.modules);
         setSelectedModules([...preset.modules]);
+        
+        // Create default variants for the preset modules (set all to 'insightPrimer' by default)
+        const newVariants = {};
+        preset.modules.forEach(moduleName => {
+          newVariants[moduleName] = 'insightPrimer';
+        });
+        setSelectedVariants(newVariants);
         
         // Apply the preset capacity allocation
         setResourceAllocation(preset.resourceAllocation || preset.capacityAllocation);
