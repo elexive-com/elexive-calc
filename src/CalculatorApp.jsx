@@ -8,7 +8,6 @@ import ModuleSelector from './components/ModuleSelector';
 import ResourceAllocationSelector from './components/ResourceAllocationSelector';
 import ProductionCapacitySelector from './components/ProductionCapacitySelector';
 import ServiceParameters from './components/ServiceParameters';
-import PricingSummary from './components/PricingSummary';
 import EvcExplainer from './components/EvcExplainer';
 import SummarySidebar from './components/SummarySidebar';
 
@@ -63,21 +62,6 @@ const CalculatorApp = () => {
               togglePaymentOption={calculator.togglePaymentOption}
               parameters={calculator.parameters}
               updateParameter={calculator.updateParameter}
-            />
-            <PricingSummary 
-              totalPrice={calculator.totalPrice}
-              monthlyEvcs={calculator.monthlyEvcs}
-              evcPricePerUnit={calculator.evcPricePerUnit}
-              paymentOption={calculator.paymentOption}
-              deliverySpeed={calculator.deliverySpeed}
-              intent={calculator.intent}
-              selectedModules={calculator.selectedModules}
-              modules={calculator.modules}
-              evcBase={calculator.evcBase}
-              parameters={calculator.parameters}
-              serviceParameters={calculator.serviceParameters}
-              resourceAllocation={calculator.resourceAllocation}
-              selectedVariants={calculator.selectedVariants}
             />
           </div>
           

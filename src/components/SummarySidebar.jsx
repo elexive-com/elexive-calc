@@ -1,29 +1,57 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { 
   faBullseye, faPuzzlePiece,
-  faLayerGroup, faExchangeAlt, 
-  faCreditCard, faArrowRight, faEnvelope,
+  faLayerGroup, faArrowRight, faEnvelope,
   faSeedling, faJetFighterUp, faRocket,
-  faCalendarAlt
+  faCalendarAlt, faChevronDown, faChevronUp,
+  faFileAlt, faInfoCircle, faCreditCard
 } from '@fortawesome/free-solid-svg-icons';
 import calculatorConfig from '../config/calculatorConfig.json';
+import DetailedReportModal from './DetailedReportModal';
+
+const ExpandableSection = ({ title, icon, children, defaultOpen = false }) => {
+  const [isOpen, setIsOpen] = useState(defaultOpen);
+  
+  return (
+    <div className="bg-white bg-opacity-80 rounded-lg p-3.5 shadow-sm">
+      <h4 
+        className="text-[13px] uppercase tracking-wide font-medium text-[var(--elexive-primary)] mb-2 flex items-center justify-between cursor-pointer"
+        onClick={() => setIsOpen(!isOpen)}
+      >
+        <span className="flex items-center">
+          <FontAwesomeIcon icon={icon} className="text-[var(--elexive-accent)] mr-2 text-xs" />
+          {title}
+        </span>
+        <FontAwesomeIcon 
+          icon={isOpen ? faChevronUp : faChevronDown} 
+          className="text-[var(--elexive-accent)] text-xs" 
+        />
+      </h4>
+      
+      {isOpen && children}
+    </div>
+  );
+};
 
 const SummarySidebar = ({ calculator }) => {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  
   const {
     intent,
     selectedModules,
     resourceAllocation,
     productionCapacity,
     modules,
-    weeklyProductionCapacity,
-    monthlyOutputValue,
     paymentOption,
     evcBase,
     totalPrice,
     evcPricePerUnit,
     completionTimeWeeks,
-    totalModuleEvcs
+    totalModuleEvcs,
+    selectedVariants = {},
+    parameters = {},
+    serviceParameters = []
   } = calculator;
 
   // Get the appropriate icon for the selected production capacity
@@ -35,173 +63,173 @@ const SummarySidebar = ({ calculator }) => {
       default: return faSeedling;
     }
   };
+  
+  // Get selected modules with their EVC values
+  const selectedModuleDetails = modules
+    .filter(module => selectedModules.includes(module.name))
+    .map(module => {
+      const variantType = selectedVariants[module.name] || 'insightPrimer';
+      const variantIndex = variantType === 'insightPrimer' ? 0 : 1;
+      const evcValue = module.variants[variantIndex]?.evcValue || module.variants[0].evcValue;
+      
+      return {
+        name: module.name,
+        evcValue: evcValue
+      };
+    });
 
   return (
-    <div className="bg-white p-6 rounded-2xl shadow-lg h-fit sticky top-4">
-      <h3 className="font-bold text-xl mb-5 text-[var(--elexive-primary)]">Your Configuration</h3>
-      
-      <div className="space-y-4">
-        {/* Intent */}
-        <div className="bg-white bg-opacity-80 rounded-lg p-3.5 shadow-sm">
-          <h4 className="text-[13px] uppercase tracking-wide font-medium text-[var(--elexive-primary)] mb-2 flex items-center">
-            <FontAwesomeIcon icon={faBullseye} className="text-[var(--elexive-accent)] mr-2 text-xs" />
-            Core Intent
-          </h4>
-          <p className="font-medium text-base text-[var(--elexive-primary)]">{intent || "Not selected"}</p>
-        </div>
+    <>
+      <div className="bg-white p-6 rounded-2xl shadow-lg h-fit sticky top-4">
+        <h3 className="font-bold text-xl mb-5 text-[var(--elexive-primary)]">Your Configuration</h3>
         
-        {/* Selected Modules */}
-        <div className="bg-white bg-opacity-80 rounded-lg p-3.5 shadow-sm">
-          <h4 className="text-[13px] uppercase tracking-wide font-medium text-[var(--elexive-primary)] mb-2 flex items-center">
-            <FontAwesomeIcon icon={faPuzzlePiece} className="text-[var(--elexive-accent)] mr-2 text-xs" />
-            Selected Modules
-          </h4>
-          {selectedModules.length > 0 ? (
-            <>
-              <p className="font-medium text-base text-[var(--elexive-primary)] mb-2.5">{selectedModules.length} modules</p>
-              <div className="space-y-1.5">
-                {selectedModules.map(moduleName => {
-                  const moduleConfig = modules.find(m => m.name === moduleName);
-                  // Get the selected variant type or default to 'insightPrimer'
-                  const variantType = calculator.selectedVariants[moduleName] || 'insightPrimer';
-                  // Get the appropriate EVC value based on selected variant
-                  const variantIndex = variantType === 'insightPrimer' ? 0 : 1;
-                  const evcValue = moduleConfig?.variants[variantIndex]?.evcValue || moduleConfig?.variants[0]?.evcValue || 0;
-                  
-                  return (
-                    <div key={moduleName} className="flex justify-between items-center bg-[var(--elexive-accent-light)] bg-opacity-20 py-1.5 px-2.5 rounded">
-                      <span className="text-[var(--elexive-primary)] text-xs font-medium">{moduleName}</span>
+        <div className="space-y-4">
+          {/* Intent */}
+          <ExpandableSection title="Core Intent" icon={faBullseye} defaultOpen={true}>
+            <p className="font-medium text-base text-[var(--elexive-primary)]">{intent || "Not selected"}</p>
+          </ExpandableSection>
+          
+          {/* Selected Modules */}
+          <ExpandableSection title="Selected Modules" icon={faPuzzlePiece} defaultOpen={true}>
+            {selectedModules.length > 0 ? (
+              <>
+                <p className="font-medium text-base text-[var(--elexive-primary)] mb-2.5">{selectedModules.length} modules</p>
+                <div className="space-y-1.5">
+                  {selectedModuleDetails.map(module => (
+                    <div key={module.name} className="flex justify-between items-center bg-[var(--elexive-accent-light)] bg-opacity-20 py-1.5 px-2.5 rounded">
+                      <span className="text-[var(--elexive-primary)] text-xs font-medium">{module.name}</span>
                       <span className="text-[var(--elexive-evc)] text-[10px] bg-[var(--elexive-evc-light)] px-1.5 py-0.5 rounded-full font-medium">
-                        {evcValue} EVC
+                        {module.evcValue} EVC
                       </span>
                     </div>
-                  );
-                })}
+                  ))}
+                </div>
+              </>
+            ) : (
+              <p className="text-sm text-[var(--elexive-primary)] italic">None selected</p>
+            )}
+          </ExpandableSection>
+          
+          {/* Production Capacity */}
+          <ExpandableSection 
+            title="Production Capacity" 
+            icon={getProductionCapacityIcon(productionCapacity)}
+            defaultOpen={true}
+          >
+            <p className="font-medium text-base text-[var(--elexive-primary)]">
+              {calculatorConfig.productionCapacity[productionCapacity]?.label || "Not selected"}
+            </p>
+            <div className="flex items-center mt-1.5">
+              <span className={`inline-block text-[10px] ${calculatorConfig.productionCapacity[productionCapacity]?.colorClass || 'bg-gray-100'} text-[var(--elexive-primary)] px-2 py-0.5 rounded-full font-medium`}>
+                {calculatorConfig.productionCapacity[productionCapacity]?.weeklyEVCs || 0} EVCs/week
+              </span>
+            </div>
+          </ExpandableSection>
+          
+          {/* Estimated Completion Time - Now always visible, not in expandable section */}
+          <div className="bg-white bg-opacity-80 rounded-lg p-3.5 shadow-sm">
+            <h4 className="text-[13px] uppercase tracking-wide font-medium text-[var(--elexive-primary)] mb-2 flex items-center">
+              <FontAwesomeIcon icon={faCalendarAlt} className="text-[var(--elexive-accent)] mr-2 text-xs" />
+              Estimated Completion
+            </h4>
+            <div className="flex justify-between items-center mt-1 bg-[var(--elexive-accent-light)] bg-opacity-30 p-2.5 rounded">
+              <div className="text-center flex-1">
+                <p className="font-bold text-lg text-[var(--elexive-primary)]">{totalModuleEvcs}</p>
+                <p className="text-[10px] text-[var(--elexive-primary)] mt-0.5 font-medium">Total EVCs needed</p>
               </div>
-            </>
-          ) : (
-            <p className="text-sm text-[var(--elexive-primary)] italic">None selected</p>
-          )}
-        </div>
-        
-        {/* Production Capacity */}
-        <div className="bg-white bg-opacity-80 rounded-lg p-3.5 shadow-sm">
-          <h4 className="text-[13px] uppercase tracking-wide font-medium text-[var(--elexive-primary)] mb-2 flex items-center">
-            <FontAwesomeIcon 
-              icon={getProductionCapacityIcon(productionCapacity)} 
-              className="text-[var(--elexive-accent)] mr-2 text-xs" 
-            />
-            Production Capacity
-          </h4>
-          <p className="font-medium text-base text-[var(--elexive-primary)]">
-            {calculatorConfig.productionCapacity[productionCapacity]?.label || "Not selected"}
-          </p>
-          <div className="flex items-center mt-1.5">
-            <span className={`inline-block text-[10px] ${calculatorConfig.productionCapacity[productionCapacity]?.colorClass || 'bg-gray-100'} text-[var(--elexive-primary)] px-2 py-0.5 rounded-full font-medium`}>
-              {calculatorConfig.productionCapacity[productionCapacity]?.weeklyEVCs || 0} EVCs/week
+              <div className="flex items-center px-1">
+                <FontAwesomeIcon icon={faArrowRight} className="text-[var(--elexive-accent)]" />
+              </div>
+              <div className="text-center flex-1">
+                <p className="font-bold text-lg text-[var(--elexive-primary)]">{completionTimeWeeks}</p>
+                <p className="text-[10px] text-[var(--elexive-primary)] mt-0.5 font-medium">
+                  {completionTimeWeeks === 1 ? 'Week' : 'Weeks'} to complete
+                </p>
+              </div>
+            </div>
+          </div>
+          
+          {/* Resource Allocation */}
+          <ExpandableSection title="Resource Allocation" icon={faLayerGroup}>
+            <p className="font-medium text-base text-[var(--elexive-primary)]">{calculatorConfig.resourceAllocation[resourceAllocation].description}</p>
+            <span className="inline-block mt-1.5 text-[10px] bg-[var(--elexive-accent-light)] bg-opacity-50 text-[var(--elexive-primary)] px-2 py-0.5 rounded-full font-medium">
+              {calculatorConfig.resourceAllocation[resourceAllocation].label}
             </span>
-          </div>
-        </div>
-        
-        {/* Resource Allocation */}
-        <div className="bg-white bg-opacity-80 rounded-lg p-3.5 shadow-sm">
-          <h4 className="text-[13px] uppercase tracking-wide font-medium text-[var(--elexive-primary)] mb-2 flex items-center">
-            <FontAwesomeIcon icon={faLayerGroup} className="text-[var(--elexive-accent)] mr-2 text-xs" />
-            Resource Allocation
-          </h4>
-          <p className="font-medium text-base text-[var(--elexive-primary)]">{calculatorConfig.resourceAllocation[resourceAllocation].description}</p>
-          <span className="inline-block mt-1.5 text-[10px] bg-[var(--elexive-accent-light)] bg-opacity-50 text-[var(--elexive-primary)] px-2 py-0.5 rounded-full font-medium">
-            {calculatorConfig.resourceAllocation[resourceAllocation].label}
-          </span>
-        </div>
-        
-        {/* EVC Production & Output */}
-        <div className="bg-white bg-opacity-80 rounded-lg p-3.5 shadow-sm">
-          <h4 className="text-[13px] uppercase tracking-wide font-medium text-[var(--elexive-primary)] mb-2 flex items-center">
-            <FontAwesomeIcon icon={faExchangeAlt} className="text-[var(--elexive-accent)] mr-2 text-xs" />
-            EVC Production & Output
-          </h4>
-          <div className="flex justify-between items-center mt-1 bg-[var(--elexive-accent-light)] bg-opacity-30 p-2.5 rounded">
-            <div className="text-center px-1">
-              <p className="font-bold text-lg text-[var(--elexive-primary)]">{weeklyProductionCapacity}</p>
-              <p className="text-[10px] text-[var(--elexive-primary)] mt-0.5 font-medium">Weekly production</p>
-            </div>
-            <div className="flex items-center px-1">
-              <FontAwesomeIcon icon={faArrowRight} className="text-[var(--elexive-accent)]" />
-            </div>
-            <div className="text-center px-1">
-              <p className="font-bold text-lg text-[var(--elexive-primary)]">{monthlyOutputValue}</p>
-              <p className="text-[10px] text-[var(--elexive-primary)] mt-0.5 font-medium">Monthly output</p>
-            </div>
-          </div>
-        </div>
-        
-        {/* Estimated Completion Time - NEW SECTION */}
-        <div className="bg-white bg-opacity-80 rounded-lg p-3.5 shadow-sm">
-          <h4 className="text-[13px] uppercase tracking-wide font-medium text-[var(--elexive-primary)] mb-2 flex items-center">
-            <FontAwesomeIcon icon={faCalendarAlt} className="text-[var(--elexive-accent)] mr-2 text-xs" />
-            Estimated Completion
-          </h4>
-          <div className="flex justify-between items-center mt-1 bg-[var(--elexive-accent-light)] bg-opacity-30 p-2.5 rounded">
-            <div className="text-center flex-1">
-              <p className="font-bold text-lg text-[var(--elexive-primary)]">{totalModuleEvcs}</p>
-              <p className="text-[10px] text-[var(--elexive-primary)] mt-0.5 font-medium">Total EVCs needed</p>
-            </div>
-            <div className="flex items-center px-1">
-              <FontAwesomeIcon icon={faArrowRight} className="text-[var(--elexive-accent)]" />
-            </div>
-            <div className="text-center flex-1">
-              <p className="font-bold text-lg text-[var(--elexive-primary)]">{completionTimeWeeks}</p>
-              <p className="text-[10px] text-[var(--elexive-primary)] mt-0.5 font-medium">
-                {completionTimeWeeks === 1 ? 'Week' : 'Weeks'} to complete
-              </p>
-            </div>
-          </div>
-        </div>
-        
-        {/* Payment Option */}
-        <div className="bg-white bg-opacity-80 rounded-lg p-3.5 shadow-sm">
-          <h4 className="text-[13px] uppercase tracking-wide font-medium text-[var(--elexive-primary)] mb-2 flex items-center">
-            <FontAwesomeIcon icon={faCreditCard} className="text-[var(--elexive-accent)] mr-2 text-xs" />
-            Payment Method
-          </h4>
-          <p className="font-medium text-base text-[var(--elexive-primary)]">{evcBase.paymentOptions[paymentOption].name}</p>
-          <span className="text-[11px] bg-[var(--elexive-accent-light)] bg-opacity-30 px-2 py-0.5 rounded-full inline-block mt-1.5 font-medium text-[var(--elexive-primary)]">
-            {paymentOption === 'prepaid' 
-              ? `${((1 - evcBase.paymentOptions[paymentOption].priceModifier) * 100).toFixed(0)}% discount`
-              : 'Standard monthly billing'}
-          </span>
-        </div>
-        
-        {/* Pricing Summary */}
-        <div className="mt-5">
-          <div className="bg-[var(--elexive-primary)] p-0.5 rounded-xl">
-            <div className="bg-white p-4 rounded-lg">
-              <h4 className="text-center font-semibold text-base text-[var(--elexive-primary)] mb-3">Pricing Summary</h4>
-              
-              <div className="bg-[var(--elexive-accent-light)] bg-opacity-50 p-3.5 rounded-lg mb-3.5">
-                <div className="flex justify-between items-center mb-1">
-                  <span className="text-sm text-[var(--elexive-primary)] font-medium">Weekly Price:</span>
-                  <span className="font-bold text-xl text-[var(--elexive-primary)]">€{totalPrice.toLocaleString()}</span>
+          </ExpandableSection>
+          
+          {/* Custom Parameters */}
+          {serviceParameters.filter(param => parameters[param.id]).length > 0 && (
+            <ExpandableSection title="Custom Parameters" icon={faInfoCircle}>
+              <div className="space-y-1 text-sm">
+                {serviceParameters
+                  .filter(param => parameters[param.id])
+                  .map(param => (
+                    <div key={param.id} className="flex items-center py-1">
+                      <span className="w-2 h-2 rounded-full bg-[var(--elexive-accent)] mr-2"></span>
+                      <span className="text-xs text-[var(--elexive-primary)]">{param.label}</span>
+                    </div>
+                  ))}
+              </div>
+            </ExpandableSection>
+          )}
+          
+          {/* Payment Option */}
+          <ExpandableSection title="Payment Method" icon={faCreditCard}>
+            <p className="font-medium text-base text-[var(--elexive-primary)]">{evcBase.paymentOptions[paymentOption].name}</p>
+            <span className="text-[11px] bg-[var(--elexive-accent-light)] bg-opacity-30 px-2 py-0.5 rounded-full inline-block mt-1.5 font-medium text-[var(--elexive-primary)]">
+              {paymentOption === 'prepaid' 
+                ? `${((1 - evcBase.paymentOptions[paymentOption].priceModifier) * 100).toFixed(0)}% discount`
+                : 'Standard monthly billing'}
+            </span>
+          </ExpandableSection>
+          
+          {/* Pricing Summary */}
+          <div className="mt-5">
+            <div className="bg-[var(--elexive-primary)] p-0.5 rounded-xl">
+              <div className="bg-white p-4 rounded-lg">
+                <h4 className="text-center font-semibold text-base text-[var(--elexive-primary)] mb-3">Pricing Summary</h4>
+                
+                <div className="bg-[var(--elexive-accent-light)] bg-opacity-50 p-3.5 rounded-lg mb-3.5">
+                  <div className="flex justify-between items-center mb-1">
+                    <span className="text-sm text-[var(--elexive-primary)] font-medium">Weekly Price:</span>
+                    <span className="font-bold text-xl text-[var(--elexive-primary)]">€{totalPrice.toLocaleString()}</span>
+                  </div>
+                  <div className="flex justify-between items-center text-[11px] text-[var(--elexive-primary)] font-medium">
+                    <span>Price per EVC:</span>
+                    <span className="font-medium">€{evcPricePerUnit.toFixed(2)}</span>
+                  </div>
                 </div>
-                <div className="flex justify-between items-center text-[11px] text-[var(--elexive-primary)] font-medium">
-                  <span>Price per EVC:</span>
-                  <span className="font-medium">€{evcPricePerUnit.toFixed(2)}</span>
+                
+                <div className="space-y-2">
+                  <button
+                    onClick={() => setIsModalOpen(true)}
+                    className="w-full py-2.5 bg-[var(--elexive-primary)] text-white rounded-lg font-medium hover:opacity-90 transition-opacity text-sm shadow-sm"
+                  >
+                    <FontAwesomeIcon icon={faFileAlt} className="mr-2" />
+                    View Detailed Report
+                  </button>
+                  
+                  <button
+                    onClick={() => window.location.href = 'mailto:sales@elexive.com?subject=Pricing%20Inquiry'}
+                    className="w-full py-2.5 bg-[var(--elexive-accent)] text-[var(--elexive-primary)] rounded-lg font-medium hover:opacity-90 transition-opacity text-sm shadow-sm"
+                  >
+                    <FontAwesomeIcon icon={faEnvelope} className="mr-2" />
+                    Request Proposal
+                  </button>
                 </div>
               </div>
-              
-              <button
-                onClick={() => window.location.href = 'mailto:sales@elexive.com?subject=Pricing%20Inquiry'}
-                className="w-full py-2.5 bg-[var(--elexive-accent)] text-[var(--elexive-primary)] rounded-lg font-medium hover:opacity-90 transition-opacity text-sm shadow-sm"
-              >
-                <FontAwesomeIcon icon={faEnvelope} className="mr-2" />
-                Request Proposal
-              </button>
             </div>
           </div>
         </div>
       </div>
-    </div>
+      
+      {/* Detailed Report Modal */}
+      <DetailedReportModal 
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+        calculator={calculator}
+      />
+    </>
   );
 };
 
