@@ -5,6 +5,7 @@ import {
   faJetFighterUp, faRocket
 } from '@fortawesome/free-solid-svg-icons';
 import calculatorConfig from '../config/calculatorConfig.json';
+import FeatureIntroduction from './FeatureIntroduction';
 
 const ProductionCapacitySelector = ({ productionCapacity, setProductionCapacity }) => {
   return (
@@ -13,10 +14,13 @@ const ProductionCapacitySelector = ({ productionCapacity, setProductionCapacity 
         <FontAwesomeIcon icon={faLayerGroup} className="text-[var(--elexive-accent)] mr-2" />
         EVC Production Capacity
       </h2>
-      <p className="text-gray-600 mb-6">
-        Select your weekly EVC production capacity based on your business needs.
-        Higher capacity tiers provide more EVCs per week for larger projects.
-      </p>
+      
+      {/* CEO-friendly introduction using the FeatureIntroduction component */}
+      <FeatureIntroduction
+        title="Choose your weekly service delivery capacity"
+        description="Your EVC production capacity determines how quickly we can deliver value to your organization. Higher capacity tiers allow for more concurrent service delivery and faster results."
+        additionalInfo="You can adjust your capacity at any time based on your changing business needs and project timelines."
+      />
       
       <div className="mb-4">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">

@@ -2,9 +2,10 @@ import React, { useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { 
   faPuzzlePiece, faUsers, faLightbulb, 
-  faServer, faCheck, faAngleDown, faAngleUp
+  faServer, faCheck, faAngleDown, faAngleUp,
 } from '@fortawesome/free-solid-svg-icons';
 import { getModuleIcon } from '../utils/iconUtils';
+import FeatureIntroduction from './FeatureIntroduction';
 
 const ModuleSelector = ({ 
   modules, 
@@ -73,7 +74,13 @@ const ModuleSelector = ({
         <FontAwesomeIcon icon={faPuzzlePiece} className="text-[var(--elexive-accent)] mr-2" />
         Select Service Modules
       </h2>
-      <p className="text-sm sm:text-base text-gray-600 mb-4">Choose the components that match your strategic needs</p>
+      
+      {/* CEO-friendly introduction using the new component */}
+      <FeatureIntroduction
+        title="Build your tailored service package"
+        description="Each service module is designed to address specific business needs and can be selected at different levels of engagement. Combine modules across our three strategic pillars for a comprehensive solution."
+        additionalInfo="Select modules by clicking on either the 'Insight Primer' or 'Integrated Execution' option. You can mix different engagement levels based on your needs."
+      />
       
       {/* Mobile Dropdown Selector */}
       <div className="md:hidden relative mb-6 mt-4 z-20">
