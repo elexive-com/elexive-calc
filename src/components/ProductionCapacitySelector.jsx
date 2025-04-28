@@ -1,8 +1,9 @@
 import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { 
-  faLayerGroup, faSeedling, 
-  faJetFighterUp, faRocket
+  faLayerGroup, faCar, 
+  faJetFighterUp, faRocket,
+  faCompass
 } from '@fortawesome/free-solid-svg-icons';
 import calculatorConfig from '../config/calculatorConfig.json';
 import FeatureIntroduction from './FeatureIntroduction';
@@ -18,12 +19,13 @@ const ProductionCapacitySelector = ({ productionCapacity, setProductionCapacity 
       {/* CEO-friendly introduction using the FeatureIntroduction component */}
       <FeatureIntroduction
         title="Choose your weekly service delivery capacity"
-        description="Your EVC production capacity determines how quickly we can deliver value to your organization. Higher capacity tiers allow for more concurrent service delivery and faster results."
-        additionalInfo="You can adjust your capacity at any time based on your changing business needs and project timelines."
+        description="Your EVC production capacity determines how quickly we can deliver value to your organization. Select from options ranging from targeted exploration to enterprise-scale delivery."
+        additionalInfo="Start with Pathfinder for focused exploration and initial implementation, or choose higher capacity tiers for faster, concurrent progress."
       />
       
       <div className="mb-4">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+        {/* Changed from md:grid-cols-4 to md:grid-cols-2 for a 2x2 layout */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           {Object.entries(calculatorConfig.productionCapacity).map(([key, details]) => (
             <button
               key={key}
@@ -37,16 +39,23 @@ const ProductionCapacitySelector = ({ productionCapacity, setProductionCapacity 
               <div className="flex flex-col items-center">
                 <FontAwesomeIcon 
                   icon={
-                    key === "seedling" ? faSeedling : 
+                    key === "pathfinder" ? faCompass :
+                    key === "roadster" ? faCar : 
                     key === "jetpack" ? faJetFighterUp : 
                     faRocket
                   } 
                   className="text-[var(--elexive-primary)] text-2xl mb-3" 
                 />
                 <h3 className="font-bold text-lg text-[var(--elexive-primary)]">{details.label}</h3>
-                <div className={`text-sm ${details.colorClass} rounded-full px-3 py-1 my-2`}>
-                  {details.weeklyEVCs} EVCs/week
+                
+                {/* Updated EVC label to match the style used in ModuleSelector */}
+                <div className="mt-2 mb-3 flex items-center justify-center">
+                  <span className="px-2 py-1 bg-[var(--elexive-evc-light)] rounded-md text-xs font-semibold text-[var(--elexive-evc)] whitespace-nowrap min-w-[50px] inline-block text-center">
+                    {details.weeklyEVCs} EVC
+                  </span>
+                  <span className="text-xs text-gray-500 ml-1">per week</span>
                 </div>
+                
                 <p className="text-sm text-gray-600 text-center mt-1">{details.valueProposition}</p>
               </div>
             </button>

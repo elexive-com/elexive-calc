@@ -12,11 +12,27 @@
     }
   },
   "pillarIcons": {
+    "Discovery": "faCompass",
     "Transformation": "faUsers",
     "Strategy": "faLightbulb",
     "Technology": "faServer"
   },
   "modules": [
+    {
+      "name": "Foundation Mapping",
+      "pillar": "Discovery",
+      "category": "Strategic Assessment",
+      "heading": "Map your current state and identify transformation opportunities",
+      "description": "Start your transformation journey with a comprehensive assessment of your current business state. Foundation Mapping creates a clear baseline and identifies strategic opportunities for growth, efficiency, and innovation.",
+      "icon": "faMap",
+      "singleSizeOnly": true,
+      "variants": [
+        {
+          "type": "Insight Primer",
+          "evcValue": 5
+        }
+      ]
+    },
     {
       "name": "Leading Change",
       "pillar": "Transformation",

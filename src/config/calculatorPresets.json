@@ -1,5 +1,19 @@
 {
   "presets": {
+    "Strategic Discovery": {
+      "description": "Define your challenges and create a strategic roadmap before scaling. Ideal for organizations seeking clarity on transformation priorities with minimal initial commitment.",
+      "modules": [
+        "Foundation Mapping"
+      ],
+      "capacityAllocation": "focused",
+      "paymentOption": "retroactive",
+      "parameters": {
+        "onSitePresence": false,
+        "aiUsage": true,
+        "marketDataAccess": false
+      },
+      "recommendedCapacity": "pathfinder"
+    },
     "Visionary Growth": {
       "description": "Accelerate business expansion with strategic leadership and innovation focus. Ideal for established companies seeking to scale their operations and enter new markets.",
       "modules": [

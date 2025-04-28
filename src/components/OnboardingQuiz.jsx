@@ -3,6 +3,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { 
   faChartLine, faBullseye, faRocket, 
   faGears, faArrowRight, faStar,
+  faCompass
 } from '@fortawesome/free-solid-svg-icons';
 import calculatorConfig from '../config/calculatorConfig.json';
 import calculatorPresets from '../config/calculatorPresets.json';
@@ -46,7 +47,8 @@ const OnboardingQuiz = ({ intent, handleIntentSelect, resetCalculator }) => {
             onClick={() => handleIntentSelect(intentOption.name)}
           >
             {/* Preset label at the top */}
-            {(intentOption.name === "Visionary Growth" || 
+            {(intentOption.name === "Strategic Discovery" || 
+              intentOption.name === "Visionary Growth" || 
               intentOption.name === "Turnaround" || 
               intentOption.name === "Reinvention") && (
               <div className="flex justify-start mb-2">
@@ -63,6 +65,7 @@ const OnboardingQuiz = ({ intent, handleIntentSelect, resetCalculator }) => {
             <div className="flex items-center mb-2">
               <FontAwesomeIcon 
                 icon={
+                  intentOption.name === "Strategic Discovery" ? faCompass :
                   intentOption.name === "Visionary Growth" ? faChartLine :
                   intentOption.name === "Turnaround" ? faArrowRight :
                   intentOption.name === "Reinvention" ? faRocket :

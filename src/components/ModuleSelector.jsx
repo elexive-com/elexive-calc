@@ -3,6 +3,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { 
   faPuzzlePiece, faUsers, faLightbulb, 
   faServer, faCheck, faAngleDown, faAngleUp,
+  faCompass, faMap
 } from '@fortawesome/free-solid-svg-icons';
 import { getModuleIcon } from '../utils/iconUtils';
 import FeatureIntroduction from './FeatureIntroduction';
@@ -57,6 +58,7 @@ const ModuleSelector = ({
   
   // Group modules by pillar
   const modulesByPillar = {
+    Discovery: modules.filter(module => module.pillar === "Discovery"),
     Transformation: modules.filter(module => module.pillar === "Transformation"),
     Strategy: modules.filter(module => module.pillar === "Strategy"),
     Technology: modules.filter(module => module.pillar === "Technology")
@@ -66,6 +68,21 @@ const ModuleSelector = ({
   const handleMobilePillarSelect = (pillar) => {
     setActivePillar(pillar);
     setDropdownOpen(false);
+  };
+
+  // Handle special Discovery module selection (Foundation Mapping)
+  const handleDiscoveryModuleSelect = (moduleName) => {
+    if (selectedModules.includes(moduleName)) {
+      handleModuleDeselect(moduleName);
+    } else {
+      // Auto-select Insight Primer variant for Foundation Mapping
+      const newSelectedVariants = {
+        ...selectedVariants,
+        [moduleName]: 'insightPrimer'
+      };
+      setSelectedVariants(newSelectedVariants);
+      toggleModule(moduleName);
+    }
   };
   
   return (
@@ -78,14 +95,80 @@ const ModuleSelector = ({
       {/* CEO-friendly introduction using the new component */}
       <FeatureIntroduction
         title="Build your tailored service package"
-        description="Each service module is designed to address specific business needs and can be selected at different levels of engagement. Combine modules across our three strategic pillars for a comprehensive solution."
-        additionalInfo="Select modules by clicking on the options. You can also de-select the options, if needed. You can mix different engagement levels based on your needs."
+        description="Each service module is designed to address specific business needs and can be selected at different levels of engagement. Combine modules across our pillars for a comprehensive solution."
+        additionalInfo="Start with Foundation Mapping to define your transformation journey, then add modules from our Transformation, Strategy, and Technology pillars to build your complete solution."
       />
       
+      {/* Discovery Module Section - Special standalone section */}
+      {modulesByPillar.Discovery.length > 0 && (
+        <div className="mb-6 mt-4">
+          <div className="flex items-center mb-3">
+            <FontAwesomeIcon 
+              icon={faCompass} 
+              className="text-[var(--elexive-accent)] mr-2" 
+            />
+            <h3 className="font-semibold text-lg text-[var(--elexive-primary)]">Discovery</h3>
+          </div>
+          
+          <div className="grid grid-cols-1 gap-4 bg-[#FFF6E8] p-4 rounded-xl border border-[var(--elexive-accent-light)]">
+            {modulesByPillar.Discovery.map((module) => (
+              <div
+                key={module.name}
+                onClick={() => handleDiscoveryModuleSelect(module.name)}
+                className={`p-4 rounded-xl transition-all duration-200 cursor-pointer ${
+                  selectedModules.includes(module.name)
+                    ? 'bg-white border-2 border-[var(--elexive-accent)] shadow'
+                    : 'bg-white/60 border border-gray-200 hover:border-[var(--elexive-accent)] hover:shadow'
+                }`}
+              >
+                <div className="flex justify-start mb-2">
+                  <span className="text-xs px-2 py-1 rounded-full bg-[#ECE9F3] text-[var(--elexive-primary)]">
+                    Strategic Assessment
+                  </span>
+                </div>
+                
+                <div className="flex items-start">
+                  <div className="w-full">
+                    <div className="flex items-center mb-1">
+                      <FontAwesomeIcon 
+                        icon={faMap} 
+                        className="text-[var(--elexive-primary)] mr-2" 
+                      />
+                      <h3 className="font-semibold text-base">{module.name}</h3>
+                    </div>
+                    <p className="text-xs font-medium text-[var(--elexive-primary)] mb-1">{module.heading}</p>
+                    <p className="text-xs text-gray-600 mb-3">{module.description}</p>
+                    
+                    {/* Single module option */}
+                    <div className="flex items-center justify-between p-2 rounded-lg cursor-pointer bg-gray-100 hover:bg-[var(--elexive-evc-light)] border border-gray-200">
+                      <div className="flex items-center">
+                        <div className={`w-5 h-5 rounded-md mr-2 sm:mr-3 flex-shrink-0 flex items-center justify-center ${
+                          selectedModules.includes(module.name) 
+                            ? 'bg-[var(--elexive-evc)]' 
+                            : 'bg-gray-200'
+                        }`}>
+                          {selectedModules.includes(module.name) && (
+                            <FontAwesomeIcon icon={faCheck} className="text-white text-xs" />
+                          )}
+                        </div>
+                        <div className="text-sm font-medium">Fixed-scope assessment</div>
+                      </div>
+                      <div className="ml-2 px-2 py-1 bg-[var(--elexive-evc-light)] rounded-md text-xs font-semibold text-[var(--elexive-evc)] whitespace-nowrap min-w-[60px] text-center">
+                        {module.variants[0].evcValue} EVC
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
+      
       {/* Service Option Descriptions with introduction */}
-      <div className="mb-4">
-        <h3 className="text-lg font-semibold text-[var(--elexive-primary)] mb-2">Module Delivery Options</h3>
-        <p className="text-sm text-gray-700 mb-3">We offer two distinct engagement models for each module. Choose the delivery approach that best fits your timeline, budget, and implementation needs:</p>
+      <div className="mb-4 mt-6">
+        <h3 className="text-lg font-semibold text-[var(--elexive-primary)] mb-2">Transformation Module Options</h3>
+        <p className="text-sm text-gray-700 mb-3">We offer two distinct engagement models for each transformation module. Choose the delivery approach that best fits your timeline, budget, and implementation needs:</p>
       </div>
       
       <div className="flex flex-col md:flex-row gap-4 my-6">
@@ -112,7 +195,8 @@ const ModuleSelector = ({
               icon={
                 activePillar === "Transformation" ? faUsers : 
                 activePillar === "Strategy" ? faLightbulb : 
-                faServer
+                activePillar === "Technology" ? faServer :
+                faCompass
               } 
               className="text-[var(--elexive-accent)] mr-2" 
             />
@@ -126,14 +210,14 @@ const ModuleSelector = ({
         
         {dropdownOpen && (
           <div className="absolute top-full left-0 right-0 mt-1 bg-white border border-gray-200 rounded-lg shadow-lg z-30">
-            {Object.keys(modulesByPillar).map((pillar) => (
+            {Object.keys(modulesByPillar).filter(pillar => pillar !== "Discovery").map((pillar) => (
               <button
                 key={pillar}
                 onClick={() => handleMobilePillarSelect(pillar)}
                 className={`
                   w-full text-left px-4 py-3 flex items-center justify-between
                   ${activePillar === pillar ? 'bg-gray-100 font-medium' : ''}
-                  ${pillar !== Object.keys(modulesByPillar)[Object.keys(modulesByPillar).length - 1] ? 'border-b border-gray-100' : ''}
+                  ${pillar !== Object.keys(modulesByPillar).filter(p => p !== "Discovery")[Object.keys(modulesByPillar).filter(p => p !== "Discovery").length - 1] ? 'border-b border-gray-100' : ''}
                 `}
               >
                 <div className="flex items-center">
@@ -166,7 +250,7 @@ const ModuleSelector = ({
         
         {/* Tab buttons */}
         <div className="flex relative">
-          {Object.keys(modulesByPillar).map((pillar, index) => (
+          {Object.keys(modulesByPillar).filter(pillar => pillar !== "Discovery").map((pillar, index) => (
             <button
               key={pillar}
               onClick={() => setActivePillar(pillar)}
@@ -207,7 +291,7 @@ const ModuleSelector = ({
         {/* Content panel for desktop */}
         <div className="bg-white p-4 rounded-b-lg border-t-0 relative z-0 shadow-md">
           {/* Display modules by pillar */}
-          {Object.entries(modulesByPillar).map(([pillar, pillarModules]) => (
+          {Object.entries(modulesByPillar).filter(([pillar]) => pillar !== "Discovery").map(([pillar, pillarModules]) => (
             <div key={pillar} className={`${activePillar === pillar ? 'block' : 'hidden'}`}>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 {pillarModules.map((module) => (
@@ -244,65 +328,97 @@ const ModuleSelector = ({
                         
                         {/* Module options at the bottom */}
                         <div className="flex flex-col gap-2 mt-3 border-t pt-3">
-                          <div 
-                            onClick={() => handleVariantSelect(module.name, 'insightPrimer')}
-                            className={`flex items-center justify-between p-2 rounded-lg cursor-pointer ${
-                              selectedModules.includes(module.name) && 
-                              selectedVariants[module.name] === 'insightPrimer'
-                                ? 'bg-[var(--elexive-evc-light)]'
-                                : 'bg-gray-100 hover:bg-[var(--elexive-evc-light)]'
-                            }`}
-                          >
-                            <div className="flex items-center">
-                              <div className={`w-5 h-5 rounded-md mr-2 sm:mr-3 flex-shrink-0 flex items-center justify-center ${
-                                selectedModules.includes(module.name) && 
-                                selectedVariants[module.name] === 'insightPrimer'
-                                  ? 'bg-[var(--elexive-evc)]' 
-                                  : 'bg-gray-200'
-                              }`}>
-                                {selectedModules.includes(module.name) && 
-                                 selectedVariants[module.name] === 'insightPrimer' && (
-                                  <FontAwesomeIcon icon={faCheck} className="text-white text-xs" />
-                                )}
+                          {/* Show single size option or double size options based on module configuration */}
+                          {module.singleSizeOnly ? (
+                            <div 
+                              onClick={() => handleVariantSelect(module.name, 'insightPrimer')}
+                              className={`flex items-center justify-between p-2 rounded-lg cursor-pointer ${
+                                selectedModules.includes(module.name)
+                                  ? 'bg-[var(--elexive-evc-light)]'
+                                  : 'bg-gray-100 hover:bg-[var(--elexive-evc-light)]'
+                              }`}
+                            >
+                              <div className="flex items-center">
+                                <div className={`w-5 h-5 rounded-md mr-2 sm:mr-3 flex-shrink-0 flex items-center justify-center ${
+                                  selectedModules.includes(module.name)
+                                    ? 'bg-[var(--elexive-evc)]' 
+                                    : 'bg-gray-200'
+                                }`}>
+                                  {selectedModules.includes(module.name) && (
+                                    <FontAwesomeIcon icon={faCheck} className="text-white text-xs" />
+                                  )}
+                                </div>
+                                <div>
+                                  <div className="text-xs sm:text-sm font-medium">Fixed-scope Module</div>
+                                </div>
                               </div>
-                              <div>
-                                <div className="text-xs sm:text-sm font-medium">Insight Primer</div>
-                              </div>
-                            </div>
-                            <div className="ml-2 px-2 py-1 bg-[var(--elexive-evc-light)] rounded-md text-xs font-semibold text-[var(--elexive-evc)] whitespace-nowrap min-w-[60px] text-center">
-                              {module.variants[0].evcValue} EVC
-                            </div>
-                          </div>
-                          
-                          <div 
-                            onClick={() => handleVariantSelect(module.name, 'integratedExecution')}
-                            className={`flex items-center justify-between p-2 rounded-lg cursor-pointer ${
-                              selectedModules.includes(module.name) && 
-                              selectedVariants[module.name] === 'integratedExecution'
-                                ? 'bg-[var(--elexive-evc-light)]' 
-                                : 'bg-gray-100 hover:bg-[var(--elexive-evc-light)]'
-                            }`}
-                          >
-                            <div className="flex items-center">
-                              <div className={`w-5 h-5 rounded-md mr-2 sm:mr-3 flex-shrink-0 flex items-center justify-center ${
-                                selectedModules.includes(module.name) && 
-                                selectedVariants[module.name] === 'integratedExecution'
-                                  ? 'bg-[var(--elexive-evc)]' 
-                                  : 'bg-gray-200'
-                              }`}>
-                                {selectedModules.includes(module.name) && 
-                                 selectedVariants[module.name] === 'integratedExecution' && (
-                                  <FontAwesomeIcon icon={faCheck} className="text-white text-xs" />
-                                )}
-                              </div>
-                              <div>
-                                <div className="text-xs sm:text-sm font-medium">Integrated Execution</div>
+                              <div className="ml-2 px-2 py-1 bg-[var(--elexive-evc-light)] rounded-md text-xs font-semibold text-[var(--elexive-evc)] whitespace-nowrap min-w-[60px] text-center">
+                                {module.variants[0].evcValue} EVC
                               </div>
                             </div>
-                            <div className="ml-2 px-2 py-1 bg-[var(--elexive-evc-light)] rounded-md text-xs font-semibold text-[var(--elexive-evc)] whitespace-nowrap min-w-[60px] text-center">
-                              {module.variants[1] ? module.variants[1].evcValue : module.variants[0].evcValue} EVC
-                            </div>
-                          </div>
+                          ) : (
+                            <>
+                              <div 
+                                onClick={() => handleVariantSelect(module.name, 'insightPrimer')}
+                                className={`flex items-center justify-between p-2 rounded-lg cursor-pointer ${
+                                  selectedModules.includes(module.name) && 
+                                  selectedVariants[module.name] === 'insightPrimer'
+                                    ? 'bg-[var(--elexive-evc-light)]'
+                                    : 'bg-gray-100 hover:bg-[var(--elexive-evc-light)]'
+                                }`}
+                              >
+                                <div className="flex items-center">
+                                  <div className={`w-5 h-5 rounded-md mr-2 sm:mr-3 flex-shrink-0 flex items-center justify-center ${
+                                    selectedModules.includes(module.name) && 
+                                    selectedVariants[module.name] === 'insightPrimer'
+                                      ? 'bg-[var(--elexive-evc)]' 
+                                      : 'bg-gray-200'
+                                  }`}>
+                                    {selectedModules.includes(module.name) && 
+                                    selectedVariants[module.name] === 'insightPrimer' && (
+                                      <FontAwesomeIcon icon={faCheck} className="text-white text-xs" />
+                                    )}
+                                  </div>
+                                  <div>
+                                    <div className="text-xs sm:text-sm font-medium">Insight Primer</div>
+                                  </div>
+                                </div>
+                                <div className="ml-2 px-2 py-1 bg-[var(--elexive-evc-light)] rounded-md text-xs font-semibold text-[var(--elexive-evc)] whitespace-nowrap min-w-[60px] text-center">
+                                  {module.variants[0].evcValue} EVC
+                                </div>
+                              </div>
+                              
+                              <div 
+                                onClick={() => handleVariantSelect(module.name, 'integratedExecution')}
+                                className={`flex items-center justify-between p-2 rounded-lg cursor-pointer ${
+                                  selectedModules.includes(module.name) && 
+                                  selectedVariants[module.name] === 'integratedExecution'
+                                    ? 'bg-[var(--elexive-evc-light)]' 
+                                    : 'bg-gray-100 hover:bg-[var(--elexive-evc-light)]'
+                                }`}
+                              >
+                                <div className="flex items-center">
+                                  <div className={`w-5 h-5 rounded-md mr-2 sm:mr-3 flex-shrink-0 flex items-center justify-center ${
+                                    selectedModules.includes(module.name) && 
+                                    selectedVariants[module.name] === 'integratedExecution'
+                                      ? 'bg-[var(--elexive-evc)]' 
+                                      : 'bg-gray-200'
+                                  }`}>
+                                    {selectedModules.includes(module.name) && 
+                                    selectedVariants[module.name] === 'integratedExecution' && (
+                                      <FontAwesomeIcon icon={faCheck} className="text-white text-xs" />
+                                    )}
+                                  </div>
+                                  <div>
+                                    <div className="text-xs sm:text-sm font-medium">Integrated Execution</div>
+                                  </div>
+                                </div>
+                                <div className="ml-2 px-2 py-1 bg-[var(--elexive-evc-light)] rounded-md text-xs font-semibold text-[var(--elexive-evc)] whitespace-nowrap min-w-[60px] text-center">
+                                  {module.variants[1] ? module.variants[1].evcValue : module.variants[0].evcValue} EVC
+                                </div>
+                              </div>
+                            </>
+                          )}
                         </div>
                       </div>
                     </div>
@@ -316,7 +432,7 @@ const ModuleSelector = ({
       
       {/* Mobile Content Panel - Only visible on mobile */}
       <div className="md:hidden">
-        {Object.entries(modulesByPillar).map(([pillar, pillarModules]) => (
+        {Object.entries(modulesByPillar).filter(([pillar]) => pillar !== "Discovery").map(([pillar, pillarModules]) => (
           <div key={pillar} className={`${activePillar === pillar ? 'block' : 'hidden'}`}>
             <div className="grid grid-cols-1 gap-4">
               {pillarModules.map((module) => (
@@ -353,61 +469,90 @@ const ModuleSelector = ({
                       
                       {/* Module options at the bottom */}
                       <div className="flex flex-col gap-2 mt-2 border-t pt-2">
-                        <div 
-                          onClick={() => handleVariantSelect(module.name, 'insightPrimer')}
-                          className={`flex items-center justify-between p-2 rounded-lg cursor-pointer ${
-                            selectedModules.includes(module.name) && 
-                            selectedVariants[module.name] === 'insightPrimer'
-                              ? 'bg-[var(--elexive-evc-light)]'
-                              : 'bg-gray-100 hover:bg-[var(--elexive-evc-light)]'
-                          }`}
-                        >
-                          <div className="flex items-center">
-                            <div className={`w-5 h-5 rounded-md mr-2 flex-shrink-0 flex items-center justify-center ${
-                              selectedModules.includes(module.name) && 
-                              selectedVariants[module.name] === 'insightPrimer'
-                                ? 'bg-[var(--elexive-evc)]' 
-                                : 'bg-gray-200'
-                            }`}>
-                              {selectedModules.includes(module.name) && 
-                               selectedVariants[module.name] === 'insightPrimer' && (
-                                <FontAwesomeIcon icon={faCheck} className="text-white text-xs" />
-                              )}
+                        {module.singleSizeOnly ? (
+                          <div 
+                            onClick={() => handleVariantSelect(module.name, 'insightPrimer')}
+                            className={`flex items-center justify-between p-2 rounded-lg cursor-pointer ${
+                              selectedModules.includes(module.name)
+                                ? 'bg-[var(--elexive-evc-light)]'
+                                : 'bg-gray-100 hover:bg-[var(--elexive-evc-light)]'
+                            }`}
+                          >
+                            <div className="flex items-center">
+                              <div className={`w-5 h-5 rounded-md mr-2 flex-shrink-0 flex items-center justify-center ${
+                                selectedModules.includes(module.name)
+                                  ? 'bg-[var(--elexive-evc)]' 
+                                  : 'bg-gray-200'
+                              }`}>
+                                {selectedModules.includes(module.name) && (
+                                  <FontAwesomeIcon icon={faCheck} className="text-white text-xs" />
+                                )}
+                              </div>
+                              <div className="text-xs font-medium">Fixed-scope Module</div>
                             </div>
-                            <div className="text-xs font-medium">Insight Primer</div>
-                          </div>
-                          <div className="ml-2 px-2 py-1 bg-[var(--elexive-evc-light)] rounded-md text-xs font-semibold text-[var(--elexive-evc)] whitespace-nowrap min-w-[60px] text-center">
-                            {module.variants[0].evcValue} EVC
-                          </div>
-                        </div>
-                        
-                        <div 
-                          onClick={() => handleVariantSelect(module.name, 'integratedExecution')}
-                          className={`flex items-center justify-between p-2 rounded-lg cursor-pointer ${
-                            selectedModules.includes(module.name) && 
-                            selectedVariants[module.name] === 'integratedExecution'
-                              ? 'bg-[var(--elexive-evc-light)]' 
-                              : 'bg-gray-100 hover:bg-[var(--elexive-evc-light)]'
-                          }`}
-                        >
-                          <div className="flex items-center">
-                            <div className={`w-5 h-5 rounded-md mr-2 flex-shrink-0 flex items-center justify-center ${
-                              selectedModules.includes(module.name) && 
-                              selectedVariants[module.name] === 'integratedExecution'
-                                ? 'bg-[var(--elexive-evc)]' 
-                                : 'bg-gray-200'
-                            }`}>
-                              {selectedModules.includes(module.name) && 
-                               selectedVariants[module.name] === 'integratedExecution' && (
-                                <FontAwesomeIcon icon={faCheck} className="text-white text-xs" />
-                              )}
+                            <div className="ml-2 px-2 py-1 bg-[var(--elexive-evc-light)] rounded-md text-xs font-semibold text-[var(--elexive-evc)] whitespace-nowrap min-w-[60px] text-center">
+                              {module.variants[0].evcValue} EVC
                             </div>
-                            <div className="text-xs font-medium">Integrated Execution</div>
                           </div>
-                          <div className="ml-2 px-2 py-1 bg-[var(--elexive-evc-light)] rounded-md text-xs font-semibold text-[var(--elexive-evc)] whitespace-nowrap min-w-[60px] text-center">
-                            {module.variants[1] ? module.variants[1].evcValue : module.variants[0].evcValue} EVC
-                          </div>
-                        </div>
+                        ) : (
+                          <>
+                            <div 
+                              onClick={() => handleVariantSelect(module.name, 'insightPrimer')}
+                              className={`flex items-center justify-between p-2 rounded-lg cursor-pointer ${
+                                selectedModules.includes(module.name) && 
+                                selectedVariants[module.name] === 'insightPrimer'
+                                  ? 'bg-[var(--elexive-evc-light)]'
+                                  : 'bg-gray-100 hover:bg-[var(--elexive-evc-light)]'
+                              }`}
+                            >
+                              <div className="flex items-center">
+                                <div className={`w-5 h-5 rounded-md mr-2 flex-shrink-0 flex items-center justify-center ${
+                                  selectedModules.includes(module.name) && 
+                                  selectedVariants[module.name] === 'insightPrimer'
+                                    ? 'bg-[var(--elexive-evc)]' 
+                                    : 'bg-gray-200'
+                                }`}>
+                                  {selectedModules.includes(module.name) && 
+                                  selectedVariants[module.name] === 'insightPrimer' && (
+                                    <FontAwesomeIcon icon={faCheck} className="text-white text-xs" />
+                                  )}
+                                </div>
+                                <div className="text-xs font-medium">Insight Primer</div>
+                              </div>
+                              <div className="ml-2 px-2 py-1 bg-[var(--elexive-evc-light)] rounded-md text-xs font-semibold text-[var(--elexive-evc)] whitespace-nowrap min-w-[60px] text-center">
+                                {module.variants[0].evcValue} EVC
+                              </div>
+                            </div>
+                            
+                            <div 
+                              onClick={() => handleVariantSelect(module.name, 'integratedExecution')}
+                              className={`flex items-center justify-between p-2 rounded-lg cursor-pointer ${
+                                selectedModules.includes(module.name) && 
+                                selectedVariants[module.name] === 'integratedExecution'
+                                  ? 'bg-[var(--elexive-evc-light)]' 
+                                  : 'bg-gray-100 hover:bg-[var(--elexive-evc-light)]'
+                              }`}
+                            >
+                              <div className="flex items-center">
+                                <div className={`w-5 h-5 rounded-md mr-2 flex-shrink-0 flex items-center justify-center ${
+                                  selectedModules.includes(module.name) && 
+                                  selectedVariants[module.name] === 'integratedExecution'
+                                    ? 'bg-[var(--elexive-evc)]' 
+                                    : 'bg-gray-200'
+                                }`}>
+                                  {selectedModules.includes(module.name) && 
+                                  selectedVariants[module.name] === 'integratedExecution' && (
+                                    <FontAwesomeIcon icon={faCheck} className="text-white text-xs" />
+                                  )}
+                                </div>
+                                <div className="text-xs font-medium">Integrated Execution</div>
+                              </div>
+                              <div className="ml-2 px-2 py-1 bg-[var(--elexive-evc-light)] rounded-md text-xs font-semibold text-[var(--elexive-evc)] whitespace-nowrap min-w-[60px] text-center">
+                                {module.variants[1] ? module.variants[1].evcValue : module.variants[0].evcValue} EVC
+                              </div>
+                            </div>
+                          </>
+                        )}
                       </div>
                     </div>
                   </div>

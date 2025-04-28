@@ -20,6 +20,10 @@
   },
   "intents": [
     {
+      "name": "Strategic Discovery",
+      "description": "Define your challenges and create a strategic roadmap before scaling"
+    },
+    {
       "name": "Visionary Growth",
       "description": "Accelerate and scale your business to new heights"
     },
@@ -66,13 +70,21 @@
     }
   },
   "productionCapacity": {
-    "seedling": {
-      "label": "Seedling",
-      "description": "Essential production capacity for initial projects",
+    "pathfinder": {
+      "label": "Pathfinder",
+      "description": "Focused exploration and initial implementation",
+      "weeklyEVCs": 1,
+      "icon": "faCompass",
+      "colorClass": "bg-amber-100",
+      "valueProposition": "Define your transformation journey with focused, steady progress"
+    },
+    "roadster": {
+      "label": "Roadster",
+      "description": "Reliable delivery capacity for steady progress",
       "weeklyEVCs": 5,
-      "icon": "faSeedling",
+      "icon": "faCar",
       "colorClass": "bg-emerald-100",
-      "valueProposition": "Start your journey with focused delivery"
+      "valueProposition": "Travel your transformation journey with reliability and momentum"
     },
     "jetpack": {
       "label": "Jetpack",
@@ -84,11 +96,11 @@
     },
     "rocketship": {
       "label": "Rocketship",
-      "description": "Maximum capacity for enterprise-scale needs",
+      "description": "Maximum velocity for enterprise transformation",
       "weeklyEVCs": 40,
       "icon": "faRocket",
       "colorClass": "bg-purple-100",
-      "valueProposition": "Achieve liftoff with our highest-capacity option"
+      "valueProposition": "Transform your business at the highest possible speed"
     }
   },
   "evcProducers": [

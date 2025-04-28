@@ -4,7 +4,7 @@ import {
   faMoneyBillWave, faGears, faCheck, faBuilding, 
   faRocket, faLightbulb, faShieldAlt, faServer,
   faNetworkWired, faDatabase, faUsers,
-  faRobot, faArrowRight
+  faRobot, faArrowRight, faMap, faCompass
 } from '@fortawesome/free-solid-svg-icons';
 import modulesConfig from '../config/modulesConfig.json';
 
@@ -28,7 +28,7 @@ export const getModuleIcon = (pillar, name) => {
     faMoneyBillWave, faGears, faCheck, faBuilding, 
     faRocket, faLightbulb, faShieldAlt, faServer,
     faNetworkWired, faDatabase, faUsers,
-    faRobot, faArrowRight
+    faRobot, faArrowRight, faMap, faCompass
   };
   
   // Find the module in the modules array from modulesConfig

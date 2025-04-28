@@ -16,8 +16,8 @@ const ResourceAllocationSelector = ({ resourceAllocation = 'focused', setResourc
   
   // Helper function to determine if a strategy is recommended for current capacity
   const isRecommendedStrategy = (strategy) => {
-    // For seedling tier, recommend Laser Beam for maximum efficiency
-    if (productionCapacity === 'seedling' && strategy === 'focused') return true;
+    // For pathfinder and roadster tiers, recommend Laser Beam for maximum efficiency
+    if ((productionCapacity === 'roadster' || productionCapacity === 'pathfinder') && strategy === 'focused') return true;
     // For jetpack tier, Smart Campaign can be a good balance
     if (productionCapacity === 'jetpack' && strategy === 'balanced') return true;
     // For rocketship tier, any strategy can work well
@@ -26,9 +26,13 @@ const ResourceAllocationSelector = ({ resourceAllocation = 'focused', setResourc
   
   // Helper function to determine if a strategy is disabled based on production capacity
   const isStrategyDisabled = (strategy) => {
-    // If Seedling capacity, only Laser Beam (focused) is available
-    if (productionCapacity === 'seedling') {
+    // If Pathfinder or Roadster capacity, only Laser Beam (focused) is available
+    if (productionCapacity === 'pathfinder') {
       return strategy !== 'focused';
+    }
+    // If Roadster capacity, only Laser Beam (focused) and Smart Campaign (balanced) are available
+    if (productionCapacity === 'roadster') {
+      return strategy === 'distributed';
     }
     // If Jetpack capacity, only Laser Beam (focused) and Smart Campaign (balanced) are available
     if (productionCapacity === 'jetpack') {
