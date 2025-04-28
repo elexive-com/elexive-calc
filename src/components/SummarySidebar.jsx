@@ -3,10 +3,8 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { 
   faBullseye, faPuzzlePiece,
   faLayerGroup, faArrowRight, faEnvelope,
-  faCar, faJetFighterUp, faRocket,
-  faCalendarAlt, faChevronDown, faChevronUp,
-  faFileAlt, faInfoCircle, faCreditCard,
-  faCalculator, faCompass
+  faCalendarAlt, faFileAlt, faInfoCircle, faCreditCard,
+  faCalculator
 } from '@fortawesome/free-solid-svg-icons';
 import calculatorConfig from '../config/calculatorConfig.json';
 import DetailedReportModal from './DetailedReportModal';
@@ -48,17 +46,6 @@ const SummarySidebar = ({ calculator }) => {
     monthlyOutputValue
   } = calculator;
 
-  // Get the appropriate icon for the selected production capacity
-  const getProductionCapacityIcon = (capacityKey) => {
-    switch(capacityKey) {
-      case 'pathfinder': return faCompass;
-      case 'roadster': return faCar;
-      case 'jetpack': return faJetFighterUp;
-      case 'rocketship': return faRocket;
-      default: return faCompass;
-    }
-  };
-  
   // Get selected modules with their EVC values
   const selectedModuleDetails = modules
     .filter(module => selectedModules.includes(module.name))
