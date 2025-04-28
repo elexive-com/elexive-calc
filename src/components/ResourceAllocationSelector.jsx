@@ -85,8 +85,8 @@ const ResourceAllocationSelector = ({ resourceAllocation = 'focused', setResourc
   };
 
   return (
-    <div className="bg-white p-6 rounded-2xl shadow-lg mb-6">
-      <h2 className="text-2xl font-bold text-elx-primary mb-2">
+    <div className="elx-card p-6 mb-6">
+      <h2 className="elx-section-heading text-2xl">
         <FontAwesomeIcon icon={faLayerGroup} className="text-elx-accent mr-2" />
         Resource Allocation Strategy
       </h2>
@@ -111,21 +111,20 @@ const ResourceAllocationSelector = ({ resourceAllocation = 'focused', setResourc
       {/* Detailed context switching explainer - hidden by default */}
       {showExplainer && (
         <div className="mb-6 p-5 bg-gray-50 border border-gray-200 rounded-lg animate-fadeIn">
-          <h3 className="font-bold text-lg text-elx-primary mb-3">Context Switching & Team Productivity</h3>
+          <h3 className="elx-section-heading text-lg mb-3">Context Switching & Team Productivity</h3>
 
           <p className="text-sm text-gray-700">
               Modern teams minimize switching costs through specialized roles and collaborative tools.
               Smart Campaign maintains high efficiency with only {getSwitchingCost('balanced')}% context switching overhead by pairing related initiatives.
               Even our Omni-Channel approach achieves good productive time through agile methodologies, 
               maintaining {100 - getSwitchingCost('distributed')}% productivity while managing multiple parallel workstreams.
-            </p><br>
-            </br>
-
+          </p>
+          <br></br>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             {/* Left column - explanation */}
             <div>
-              <h4 className="font-semibold text-elx-primary mb-2">How We Calculate Overhead</h4>
+              <h4 className="elx-section-heading text-base">How We Calculate Overhead</h4>
               <p className="text-sm text-gray-700 mb-3">
                 Context switching costs vary based on team composition and resource type. Our model accounts for:
               </p>
@@ -151,7 +150,7 @@ const ResourceAllocationSelector = ({ resourceAllocation = 'focused', setResourc
             
             {/* Right column - visual */}
             <div className="bg-white rounded-lg p-4 border border-gray-200">
-              <h4 className="font-semibold text-elx-primary text-center mb-4">Overhead by Allocation Strategy</h4>
+              <h4 className="elx-section-heading text-base text-center">Overhead by Allocation Strategy</h4>
               
               {/* Laser Beam visualization */}
               <div className="mb-4">
@@ -239,10 +238,10 @@ const ResourceAllocationSelector = ({ resourceAllocation = 'focused', setResourc
               disabled={isStrategyDisabled(key)}
               className={`w-full transition-all duration-300 overflow-hidden ${
                 resourceAllocation === key
-                  ? 'border-2 border-elx-accent shadow-md'
+                  ? 'elx-selector-selected'
                   : isStrategyDisabled(key)
                     ? 'border border-gray-200 opacity-50 cursor-not-allowed'
-                    : 'border border-gray-200 hover:border-elx-accent hover:shadow-sm'
+                    : 'elx-selector'
               }`}
             >
               <div className={`flex flex-col md:flex-row items-stretch ${
@@ -255,7 +254,7 @@ const ResourceAllocationSelector = ({ resourceAllocation = 'focused', setResourc
                 {/* Strategy type - Left column */}
                 <div className="p-4 md:p-6 md:w-1/4 flex flex-col justify-center items-center md:items-start border-b md:border-b-0 md:border-r border-gray-200">
                   <div className="flex items-center gap-3 mb-2">
-                    <div className={`w-10 h-10 rounded-full flex items-center justify-center ${
+                    <div className={`elx-icon-circle ${
                       resourceAllocation === key ? 'bg-elx-accent' : 'bg-gray-200'
                     }`}>
                       <FontAwesomeIcon 
@@ -272,7 +271,7 @@ const ResourceAllocationSelector = ({ resourceAllocation = 'focused', setResourc
                   
                   {/* Recommended badge - positioned below name and icon, full width */}
                   {isRecommendedStrategy(key) && (
-                    <div className="mt-2 bg-green-100 text-green-800 text-xs px-3 py-1 rounded flex items-center justify-center gap-1 w-full md:w-auto">
+                    <div className="elx-badge bg-green-100 text-green-800 mt-2 px-3 py-1 flex items-center justify-center gap-1 w-full md:w-auto">
                       <FontAwesomeIcon icon={faCheckCircle} />
                       <span>Recommended for your capacity</span>
                     </div>
@@ -318,7 +317,7 @@ const ResourceAllocationSelector = ({ resourceAllocation = 'focused', setResourc
                   
                   {/* Selection indicator */}
                   {resourceAllocation === key ? (
-                    <div className="bg-elx-accent text-white py-2 px-4 rounded flex items-center gap-2">
+                    <div className="elx-badge bg-elx-accent text-white py-2 px-4 flex items-center gap-2">
                       <FontAwesomeIcon icon={faCheckCircle} />
                       <span>Selected</span>
                     </div>

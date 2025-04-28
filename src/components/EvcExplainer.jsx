@@ -21,7 +21,7 @@ const EvcExplainer = ({
     <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
       <div className="bg-white rounded-2xl shadow-xl max-w-4xl w-full max-h-[90vh] overflow-y-auto">
         <div className="sticky top-0 bg-white p-4 border-b flex justify-between items-center">
-          <h2 className="text-2xl font-bold text-elx-primary mb-0">
+          <h2 className="elx-section-heading text-2xl mb-0">
             <FontAwesomeIcon icon={faCalculator} className="text-elx-accent mr-2" />
             Understanding Elastic Value Credits (EVCs)
           </h2>
@@ -40,8 +40,8 @@ const EvcExplainer = ({
           </p>
           
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-4">
-            <div className="border border-gray-200 rounded-xl p-4">
-              <div className="w-12 h-12 rounded-full bg-elx-accent-light flex items-center justify-center mb-3">
+            <div className="elx-selector p-4">
+              <div className="elx-icon-circle mb-3">
                 <FontAwesomeIcon icon={faUsers} className="text-elx-accent text-xl" />
               </div>
               <h3 className="font-bold text-elx-primary mb-1">Input Resources</h3>
@@ -50,8 +50,8 @@ const EvcExplainer = ({
               </p>
             </div>
             
-            <div className="border border-gray-200 rounded-xl p-4">
-              <div className="w-12 h-12 rounded-full bg-elx-accent-light flex items-center justify-center mb-3">
+            <div className="elx-selector p-4">
+              <div className="elx-icon-circle mb-3">
                 <FontAwesomeIcon icon={faPuzzlePiece} className="text-elx-accent text-xl" />
               </div>
               <h3 className="font-bold text-elx-primary mb-1">Output Value</h3>
@@ -62,7 +62,7 @@ const EvcExplainer = ({
           </div>
           
           <div className="bg-elx-primary-light p-4 rounded-lg mb-4">
-            <h3 className="font-medium text-elx-primary mb-2">
+            <h3 className="elx-section-heading text-base">
               <FontAwesomeIcon icon={faExchangeAlt} className="mr-2" />
               The EVC Value Exchange
             </h3>
@@ -86,8 +86,8 @@ const EvcExplainer = ({
             </div>
           </div>
           
-          <div className="border border-gray-200 rounded-xl p-4">
-            <h3 className="font-medium text-elx-primary mb-2">How Resource Allocation Works</h3>
+          <div className="elx-selector p-4">
+            <h3 className="elx-section-heading text-base">How Resource Allocation Works</h3>
             <p className="text-sm text-gray-700">
               Your resource allocation strategy determines how efficiently your EVC production capacity 
               is converted into output value:
@@ -118,7 +118,7 @@ const EvcExplainer = ({
           </div>
           
           <div className="mt-6">
-            <h3 className="font-medium text-elx-primary mb-4">
+            <h3 className="elx-section-heading text-base">
               <FontAwesomeIcon icon={faGears} className="text-elx-accent mr-2" />
               EVC Input Resources
             </h3>
@@ -128,7 +128,7 @@ const EvcExplainer = ({
             
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
               {calculatorConfig.evcProducers.map((producer) => (
-                <div key={producer.id} className="bg-gray-50 rounded-xl p-4 border border-gray-200">
+                <div key={producer.id} className="elx-module-card p-4 border border-gray-200">
                   <div className="flex items-center mb-2">
                     <FontAwesomeIcon 
                       icon={

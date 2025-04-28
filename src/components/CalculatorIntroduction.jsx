@@ -23,11 +23,11 @@ const CalculatorIntroduction = ({ onGetStarted }) => {
   };
 
   return (
-    <div className="bg-white p-6 rounded-2xl shadow-lg mb-6">
+    <div className="elx-card p-6 mb-6">
       {/* Header with logo and title */}
       <div className="flex items-center justify-between mb-4">
         <div>
-          <h2 className="text-2xl sm:text-3xl font-bold text-elx-primary">
+          <h2 className="elx-section-heading text-2xl sm:text-3xl">
             Solve Your Business Challenges
           </h2>
           <p className="text-gray-600 mt-1">Get targeted solutions for growth, transformation, and performance</p>
@@ -40,11 +40,11 @@ const CalculatorIntroduction = ({ onGetStarted }) => {
       {/* Main introduction section */}
       <div className="bg-[#f8f9fc] rounded-xl p-4 sm:p-6 mb-6">
         <div className="flex flex-col sm:flex-row items-start gap-4">
-          <div className="flex-shrink-0 w-12 h-12 rounded-full bg-elx-accent-light flex items-center justify-center">
+          <div className="elx-icon-circle">
             <FontAwesomeIcon icon={faInfoCircle} className="text-elx-accent text-xl" />
           </div>
           <div>
-            <h3 className="text-xl font-bold text-elx-primary mb-2">Calculate Solutions for Your Top Priorities</h3>
+            <h3 className="elx-section-heading text-xl mb-2">Calculate Solutions for Your Top Priorities</h3>
             <p className="text-gray-700 mb-3">
               This tool helps you pinpoint the exact expertise and resources needed to solve your most pressing business challenges. Get clear costs, timelines, and ROI projections for addressing specific problems in Transformation, Strategy, and Technology.
             </p>
@@ -57,8 +57,8 @@ const CalculatorIntroduction = ({ onGetStarted }) => {
 
       {/* Three Key Business Challenges Section */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
-        <div className="bg-white p-4 rounded-xl border border-gray-200 shadow-sm">
-          <div className="w-10 h-10 rounded-full bg-elx-accent-light flex items-center justify-center mb-3">
+        <div className="elx-card p-4 border border-gray-200 shadow-sm">
+          <div className="elx-icon-circle mb-3">
             <FontAwesomeIcon icon={faChartLine} className="text-elx-accent" />
           </div>
           <h3 className="font-medium text-elx-primary mb-1">Growth & Revenue</h3>
@@ -67,8 +67,8 @@ const CalculatorIntroduction = ({ onGetStarted }) => {
           </p>
         </div>
         
-        <div className="bg-white p-4 rounded-xl border border-gray-200 shadow-sm">
-          <div className="w-10 h-10 rounded-full bg-elx-accent-light flex items-center justify-center mb-3">
+        <div className="elx-card p-4 border border-gray-200 shadow-sm">
+          <div className="elx-icon-circle mb-3">
             <FontAwesomeIcon icon={faTools} className="text-elx-accent" />
           </div>
           <h3 className="font-medium text-elx-primary mb-1">Execution & Operations</h3>
@@ -77,8 +77,8 @@ const CalculatorIntroduction = ({ onGetStarted }) => {
           </p>
         </div>
         
-        <div className="bg-white p-4 rounded-xl border border-gray-200 shadow-sm">
-          <div className="w-10 h-10 rounded-full bg-elx-accent-light flex items-center justify-center mb-3">
+        <div className="elx-card p-4 border border-gray-200 shadow-sm">
+          <div className="elx-icon-circle mb-3">
             <FontAwesomeIcon icon={faShieldAlt} className="text-elx-accent" />
           </div>
           <h3 className="font-medium text-elx-primary mb-1">Resilience & Innovation</h3>
@@ -89,14 +89,14 @@ const CalculatorIntroduction = ({ onGetStarted }) => {
       </div>
 
       {/* The Value Model Section */}
-      <div className="border border-gray-200 rounded-xl mb-5">
+      <div className="elx-selector mb-5">
         <div 
           className="flex items-center justify-between p-4 cursor-pointer"
           onClick={() => toggleSection('evcModel')}
         >
           <div className="flex items-center">
             <FontAwesomeIcon icon={faExchangeAlt} className="text-elx-accent mr-3" />
-            <h3 className="text-lg font-semibold text-elx-primary">How Our Results-Focused Approach Works</h3>
+            <h3 className="elx-section-heading text-lg">How Our Results-Focused Approach Works</h3>
           </div>
           <FontAwesomeIcon 
             icon={expandedSections.evcModel ? faMinus : faPlus} 
@@ -139,14 +139,14 @@ const CalculatorIntroduction = ({ onGetStarted }) => {
       </div>
 
       {/* How It Works Section */}
-      <div className="border border-gray-200 rounded-xl mb-5">
+      <div className="elx-selector mb-5">
         <div 
           className="flex items-center justify-between p-4 cursor-pointer"
           onClick={() => toggleSection('howItWorks')}
         >
           <div className="flex items-center">
             <FontAwesomeIcon icon={faLayerGroup} className="text-elx-accent mr-3" />
-            <h3 className="text-lg font-semibold text-elx-primary">Configure Your Solution in 3 Steps</h3>
+            <h3 className="elx-section-heading text-lg">Configure Your Solution in 3 Steps</h3>
           </div>
           <FontAwesomeIcon 
             icon={expandedSections.howItWorks ? faMinus : faPlus} 
@@ -196,14 +196,14 @@ const CalculatorIntroduction = ({ onGetStarted }) => {
       </div>
 
       {/* What to Expect Section */}
-      <div className="border border-gray-200 rounded-xl mb-6">
+      <div className="elx-selector mb-6">
         <div 
           className="flex items-center justify-between p-4 cursor-pointer"
           onClick={() => toggleSection('whatToExpect')}
         >
           <div className="flex items-center">
             <FontAwesomeIcon icon={faPuzzlePiece} className="text-elx-accent mr-3" />
-            <h3 className="text-lg font-semibold text-elx-primary">Solutions Tailored to Your Timeline</h3>
+            <h3 className="elx-section-heading text-lg">Solutions Tailored to Your Timeline</h3>
           </div>
           <FontAwesomeIcon 
             icon={expandedSections.whatToExpect ? faMinus : faPlus} 
@@ -261,7 +261,7 @@ const CalculatorIntroduction = ({ onGetStarted }) => {
       <div className="flex justify-center">
         <button
           onClick={onGetStarted}
-          className="px-8 py-3 bg-elx-accent text-elx-primary rounded-lg font-medium hover:opacity-90 transition-opacity shadow-md"
+          className="elx-btn elx-btn-accent px-8 py-3 shadow-md"
         >
           <FontAwesomeIcon icon={faArrowDown} className="mr-2" />
           Solve My Business Challenge

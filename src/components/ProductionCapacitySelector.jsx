@@ -11,8 +11,8 @@ import FeatureIntroduction from './FeatureIntroduction';
 
 const ProductionCapacitySelector = ({ productionCapacity, setProductionCapacity }) => {
   return (
-    <div className="bg-white p-6 rounded-2xl shadow-lg mb-6">
-      <h2 className="text-2xl font-bold text-elx-primary mb-2">
+    <div className="elx-card p-6 mb-6">
+      <h2 className="elx-section-heading text-2xl mb-2">
         <FontAwesomeIcon icon={faLayerGroup} className="text-elx-accent mr-2" />
         EVC Production Capacity
       </h2>
@@ -31,10 +31,10 @@ const ProductionCapacitySelector = ({ productionCapacity, setProductionCapacity 
             <button
               key={key}
               onClick={() => setProductionCapacity(key)}
-              className={`p-5 rounded-xl transition-all duration-200 ${
+              className={`elx-module-card p-5 ${
                 productionCapacity === key
-                  ? 'bg-elx-discovery-bg border-2 border-elx-accent shadow'
-                  : 'bg-gray-50 border border-gray-200 hover:border-elx-accent hover:shadow'
+                  ? 'elx-module-card-selected'
+                  : 'elx-module-card-unselected'
               }`}
             >
               <div className="flex flex-col items-center">
@@ -49,9 +49,8 @@ const ProductionCapacitySelector = ({ productionCapacity, setProductionCapacity 
                 />
                 <h3 className="font-bold text-lg text-elx-primary">{details.label}</h3>
                 
-                {/* Updated EVC label to use the evc-label helper class from tailwind-helpers.css */}
                 <div className="mt-2 mb-3 flex items-center justify-center">
-                  <span className="evc-label">
+                  <span className="elx-evc-label">
                     {details.weeklyEVCs} EVC
                   </span>
                   <span className="text-xs text-gray-500 ml-1">per week</span>
@@ -62,7 +61,7 @@ const ProductionCapacitySelector = ({ productionCapacity, setProductionCapacity 
                 {/* Selection indicator - shows "Selected" when this capacity is chosen */}
                 <div className="mt-3">
                   {productionCapacity === key ? (
-                    <div className="bg-elx-accent text-white py-1.5 px-3 rounded flex items-center gap-1.5">
+                    <div className="elx-badge bg-elx-accent text-white py-1.5 px-3 rounded flex items-center gap-1.5">
                       <FontAwesomeIcon icon={faCheckCircle} className="text-sm" />
                       <span className="text-sm font-medium">Selected</span>
                     </div>

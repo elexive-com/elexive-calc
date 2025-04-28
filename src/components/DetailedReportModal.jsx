@@ -65,7 +65,7 @@ const DetailedReportModal = ({ isOpen, onClose, calculator }) => {
     <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
       <div className="bg-white rounded-2xl shadow-xl max-w-4xl w-full max-h-[90vh] overflow-y-auto">
         <div className="sticky top-0 bg-white p-4 border-b flex justify-between items-center">
-          <h2 className="text-2xl font-bold text-elx-primary">
+          <h2 className="elx-section-heading text-2xl">
             <FontAwesomeIcon icon={faMoneyBillWave} className="text-elx-accent mr-2" />
             Detailed Solution Report
           </h2>
@@ -106,20 +106,20 @@ const DetailedReportModal = ({ isOpen, onClose, calculator }) => {
           </div>
           
           <div className="mb-6">
-            <h3 className="font-semibold mb-2 text-elx-primary">
+            <h3 className="elx-section-heading mb-2">
               <FontAwesomeIcon icon={faPuzzlePiece} className="text-elx-accent mr-2" />
               Selected Modules
             </h3>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
               {selectedModuleDetails.map((module) => (
-                <div key={module.name} className="text-sm bg-elx-evc-light p-3 rounded border border-elx-evc border-opacity-20">
+                <div key={module.name} className="elx-module-card p-3 bg-elx-evc-light border border-elx-evc border-opacity-20">
                   <div className="font-medium text-elx-primary">{module.name}</div>
                   <div className="flex items-center text-xs text-gray-700 mt-1">
                     <FontAwesomeIcon icon={getVariantIcon(module.selectedVariant)} className="mr-1 text-elx-evc" />
                     <span className="font-medium">{getVariantDisplayName(module.selectedVariant)}</span>
                   </div>
                   <div className="text-xs mt-1">
-                    <span className="evc-label">{module.evcValue} EVC</span>
+                    <span className="elx-evc-label">{module.evcValue} EVC</span>
                   </div>
                 </div>
               ))}
@@ -132,7 +132,7 @@ const DetailedReportModal = ({ isOpen, onClose, calculator }) => {
               </h4>
               <div className="text-xs text-gray-600 mt-1">
                 <p>Base EVC from modules: <span className="font-medium">
-                  <span className="evc-label inline-block mt-1 mb-1 text-[10px] py-0.5 px-1.5">
+                  <span className="elx-evc-label inline-block mt-1 mb-1 text-[10px] py-0.5 px-1.5">
                     {selectedModuleDetails.reduce((sum, module) => sum + module.evcValue, 0)} EVCs
                   </span>
                 </span></p>
@@ -153,7 +153,7 @@ const DetailedReportModal = ({ isOpen, onClose, calculator }) => {
           </div>
           
           <div className="mb-6">
-            <h3 className="font-semibold mb-2 text-elx-primary">
+            <h3 className="elx-section-heading mb-2">
               <FontAwesomeIcon icon={faSlidersH} className="text-elx-accent mr-2" />
               Custom Parameters
             </h3>
@@ -194,7 +194,7 @@ const DetailedReportModal = ({ isOpen, onClose, calculator }) => {
           <div className="flex justify-end">
             <button
               onClick={() => window.location.href = 'mailto:sales@elexive.com?subject=Detailed%20Pricing%20Inquiry&body=I%20would%20like%20to%20request%20a%20detailed%20proposal%20for%20my%20custom%20solution.'}
-              className="px-6 py-3 bg-elx-secondary text-white rounded-lg font-medium hover:bg-elx-secondary hover:opacity-90 transition-colors shadow-md"
+              className="elx-btn elx-btn-secondary px-6 py-3"
             >
               <FontAwesomeIcon icon={faEnvelope} className="mr-2" />
               Request Detailed Proposal

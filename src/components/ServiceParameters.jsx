@@ -18,8 +18,8 @@ const ServiceParameters = ({
   const serviceParams = serviceParameters || [];
   
   return (
-    <div className="bg-white p-6 rounded-2xl shadow-lg mb-6">
-      <h2 className="text-2xl font-bold text-elx-primary mb-4">
+    <div className="elx-card p-6 mb-6">
+      <h2 className="elx-section-heading text-2xl">
         <FontAwesomeIcon icon={faSlidersH} className="text-elx-accent mr-2" />
         Service Parameters
       </h2>
@@ -36,9 +36,9 @@ const ServiceParameters = ({
               <button
                 key={option}
                 onClick={() => togglePaymentOption(option)}
-                className={`px-4 py-2 rounded-lg transition-all duration-200 border ${
+                className={`elx-btn px-4 py-2 transition-all duration-200 border ${
                   paymentOption === option
-                    ? 'bg-elx-accent text-elx-primary shadow-md border-elx-accent'
+                    ? 'elx-btn-accent shadow-md border-elx-accent'
                     : 'bg-gray-100 text-gray-700 hover:bg-gray-200 border-elx-accent-light'
                 }`}
               >
@@ -70,9 +70,9 @@ const ServiceParameters = ({
                 </div>
                 <button
                   onClick={() => updateParameter(param.id, !parameters[param.id])}
-                  className={`px-4 py-2 rounded-lg transition-all duration-200 border min-w-[120px] w-[120px] flex items-center justify-center ${
+                  className={`elx-btn px-4 py-2 transition-all duration-200 border min-w-[120px] w-[120px] flex items-center justify-center ${
                     parameters[param.id]
-                      ? 'bg-elx-accent text-elx-primary shadow-sm border-elx-accent'
+                      ? 'elx-btn-accent shadow-sm border-elx-accent'
                       : 'bg-gray-100 text-gray-700 hover:bg-gray-200 border-elx-accent-light'
                   }`}
                 >

@@ -86,8 +86,8 @@ const ModuleSelector = ({
   };
   
   return (
-    <div className="bg-white p-4 sm:p-6 rounded-2xl shadow-lg mb-6">
-      <h2 className="text-xl sm:text-2xl font-bold text-indigo-800 mb-2">
+    <div className="elx-card mb-6 p-4 sm:p-6">
+      <h2 className="elx-section-heading text-2xl">
         <FontAwesomeIcon icon={faPuzzlePiece} className="text-amber-500 mr-2" />
         Select Service Modules
       </h2>
@@ -107,7 +107,7 @@ const ModuleSelector = ({
               icon={faCompass} 
               className="text-amber-500 mr-2" 
             />
-            <h3 className="font-semibold text-lg text-indigo-800">Discovery</h3>
+            <h3 className="elx-section-heading">Discovery</h3>
           </div>
           
           <div className="grid grid-cols-1 gap-4 bg-elx-discovery-bg p-4 rounded-xl border border-amber-200">
@@ -115,14 +115,14 @@ const ModuleSelector = ({
               <div
                 key={module.name}
                 onClick={() => handleDiscoveryModuleSelect(module.name)}
-                className={`p-4 rounded-xl transition-all duration-200 cursor-pointer ${
+                className={`elx-module-card cursor-pointer ${
                   selectedModules.includes(module.name)
                     ? 'bg-elx-discovery-bg border-2 border-amber-500 shadow'
                     : 'bg-white/60 border border-gray-200 hover:border-amber-500 hover:shadow'
                 }`}
               >
                 <div className="flex justify-start mb-2">
-                  <span className="text-xs px-2 py-1 rounded-full bg-elx-discovery-badge text-indigo-800">
+                  <span className="elx-category-badge bg-elx-discovery-badge text-indigo-800">
                     Strategic Assessment
                   </span>
                 </div>
@@ -140,12 +140,12 @@ const ModuleSelector = ({
                     <p className="text-xs text-gray-600 mb-3">{module.description}</p>
                     
                     {/* Single module option */}
-                    <div className="flex items-center justify-between p-2 rounded-lg cursor-pointer bg-gray-100 hover:bg-teal-50 border border-gray-200">
+                    <div className="elx-module-option bg-gray-100 hover:bg-teal-50 border border-gray-200">
                       <div className="flex items-center">
-                        <div className={`w-5 h-5 rounded-md mr-2 sm:mr-3 flex-shrink-0 flex items-center justify-center ${
+                        <div className={`elx-checkbox-indicator ${
                           selectedModules.includes(module.name) 
-                            ? 'bg-teal-600' 
-                            : 'bg-gray-200'
+                            ? 'elx-checkbox-indicator-selected' 
+                            : 'elx-checkbox-indicator-unselected'
                         }`}>
                           {selectedModules.includes(module.name) && (
                             <FontAwesomeIcon icon={faCheck} className="text-white text-xs" />
@@ -153,7 +153,7 @@ const ModuleSelector = ({
                         </div>
                         <div className="text-sm font-medium">Fixed-scope assessment</div>
                       </div>
-                      <div className="evc-label">
+                      <div className="elx-evc-label">
                         {module.variants[0].evcValue} EVC
                       </div>
                     </div>
@@ -167,18 +167,18 @@ const ModuleSelector = ({
       
       {/* Service Option Descriptions with introduction */}
       <div className="mb-4 mt-6">
-        <h3 className="text-lg font-semibold text-indigo-800 mb-2">Transformation Module Options</h3>
+        <h3 className="elx-section-heading">Transformation Module Options</h3>
         <p className="text-sm text-gray-700 mb-3">We offer two distinct engagement models for each transformation module. Choose the delivery approach that best fits your timeline, budget, and implementation needs:</p>
       </div>
       
       <div className="flex flex-col md:flex-row gap-4 my-6">
         <div className="bg-gray-50 p-4 rounded-xl flex-1">
-          <h3 className="font-bold text-base text-indigo-800 mb-1">Insight Primer</h3>
+          <h3 className="font-bold text-base text-elx-primary mb-1">Insight Primer</h3>
           <p className="text-sm text-gray-600 mb-2">A clear direction before investing in execution.</p>
           <p className="text-xs text-gray-500">Fixed-price, fixed-scope module: a timeboxed 2–4 week calendar time engagement with clear takeaways and effective next steps.</p>
         </div>
         <div className="bg-gray-50 p-4 rounded-xl flex-1">
-          <h3 className="font-bold text-base text-indigo-800 mb-1">Integrated Execution</h3>
+          <h3 className="font-bold text-base text-elx-primary mb-1">Integrated Execution</h3>
           <p className="text-sm text-gray-600 mb-2">A strategic partner to build and scale with you.</p>
           <p className="text-xs text-gray-500">Continuous service model combining the agile, sprint-based methodology with tailored and specific implementation.</p>
         </div>
@@ -297,18 +297,18 @@ const ModuleSelector = ({
                 {pillarModules.map((module) => (
                   <div
                     key={module.name}
-                    className={`p-3 sm:p-5 rounded-xl transition-all duration-200 ${
+                    className={`elx-module-card ${
                       selectedModules.includes(module.name)
-                        ? 'bg-[#FFF6E8] border-2 border-amber-500 shadow'
-                        : 'bg-gray-50 border border-gray-200 hover:border-amber-500 hover:shadow'
+                        ? 'elx-module-card-selected'
+                        : 'elx-module-card-unselected'
                     }`}
                   >
                     {/* Category label moved to top row */}
                     <div className="flex justify-start mb-2">
-                      <span className={`text-xs px-2 py-1 rounded-full ${
+                      <span className={`elx-category-badge ${
                         module.category === "Immediate Impact" 
-                          ? 'bg-[#ECE9F3] text-indigo-800' 
-                          : 'bg-[#FFF0E3] text-amber-700'
+                          ? 'elx-category-badge-impact' 
+                          : 'elx-category-badge-strategic'
                       }`}>
                         {module.category}
                       </span>
@@ -332,17 +332,17 @@ const ModuleSelector = ({
                           {module.singleSizeOnly ? (
                             <div 
                               onClick={() => handleVariantSelect(module.name, 'insightPrimer')}
-                              className={`flex items-center justify-between p-2 rounded-lg cursor-pointer ${
+                              className={`elx-module-option ${
                                 selectedModules.includes(module.name)
-                                  ? 'bg-teal-50'
-                                  : 'bg-gray-100 hover:bg-teal-50'
+                                  ? 'elx-module-option-selected'
+                                  : 'elx-module-option-unselected'
                               }`}
                             >
                               <div className="flex items-center">
-                                <div className={`w-5 h-5 rounded-md mr-2 sm:mr-3 flex-shrink-0 flex items-center justify-center ${
+                                <div className={`elx-checkbox-indicator ${
                                   selectedModules.includes(module.name)
-                                    ? 'bg-teal-600' 
-                                    : 'bg-gray-200'
+                                    ? 'elx-checkbox-indicator-selected' 
+                                    : 'elx-checkbox-indicator-unselected'
                                 }`}>
                                   {selectedModules.includes(module.name) && (
                                     <FontAwesomeIcon icon={faCheck} className="text-white text-xs" />
@@ -352,7 +352,7 @@ const ModuleSelector = ({
                                   <div className="text-xs sm:text-sm font-medium">Fixed-scope Module</div>
                                 </div>
                               </div>
-                              <div className="evc-label">
+                              <div className="elx-evc-label">
                                 {module.variants[0].evcValue} EVC
                               </div>
                             </div>
@@ -360,19 +360,19 @@ const ModuleSelector = ({
                             <>
                               <div 
                                 onClick={() => handleVariantSelect(module.name, 'insightPrimer')}
-                                className={`flex items-center justify-between p-2 rounded-lg cursor-pointer ${
+                                className={`elx-module-option ${
                                   selectedModules.includes(module.name) && 
                                   selectedVariants[module.name] === 'insightPrimer'
-                                    ? 'bg-teal-50'
-                                    : 'bg-gray-100 hover:bg-teal-50'
+                                    ? 'elx-module-option-selected'
+                                    : 'elx-module-option-unselected'
                                 }`}
                               >
                                 <div className="flex items-center">
-                                  <div className={`w-5 h-5 rounded-md mr-2 sm:mr-3 flex-shrink-0 flex items-center justify-center ${
+                                  <div className={`elx-checkbox-indicator ${
                                     selectedModules.includes(module.name) && 
                                     selectedVariants[module.name] === 'insightPrimer'
-                                      ? 'bg-teal-600' 
-                                      : 'bg-gray-200'
+                                      ? 'elx-checkbox-indicator-selected' 
+                                      : 'elx-checkbox-indicator-unselected'
                                   }`}>
                                     {selectedModules.includes(module.name) && 
                                     selectedVariants[module.name] === 'insightPrimer' && (
@@ -383,26 +383,26 @@ const ModuleSelector = ({
                                     <div className="text-xs sm:text-sm font-medium">Insight Primer</div>
                                   </div>
                                 </div>
-                                <div className="evc-label">
+                                <div className="elx-evc-label">
                                   {module.variants[0].evcValue} EVC
                                 </div>
                               </div>
                               
                               <div 
                                 onClick={() => handleVariantSelect(module.name, 'integratedExecution')}
-                                className={`flex items-center justify-between p-2 rounded-lg cursor-pointer ${
+                                className={`elx-module-option ${
                                   selectedModules.includes(module.name) && 
                                   selectedVariants[module.name] === 'integratedExecution'
-                                    ? 'bg-teal-50' 
-                                    : 'bg-gray-100 hover:bg-teal-50'
+                                    ? 'elx-module-option-selected' 
+                                    : 'elx-module-option-unselected'
                                 }`}
                               >
                                 <div className="flex items-center">
-                                  <div className={`w-5 h-5 rounded-md mr-2 sm:mr-3 flex-shrink-0 flex items-center justify-center ${
+                                  <div className={`elx-checkbox-indicator ${
                                     selectedModules.includes(module.name) && 
                                     selectedVariants[module.name] === 'integratedExecution'
-                                      ? 'bg-teal-600' 
-                                      : 'bg-gray-200'
+                                      ? 'elx-checkbox-indicator-selected' 
+                                      : 'elx-checkbox-indicator-unselected'
                                   }`}>
                                     {selectedModules.includes(module.name) && 
                                     selectedVariants[module.name] === 'integratedExecution' && (
@@ -413,7 +413,7 @@ const ModuleSelector = ({
                                     <div className="text-xs sm:text-sm font-medium">Integrated Execution</div>
                                   </div>
                                 </div>
-                                <div className="evc-label">
+                                <div className="elx-evc-label">
                                   {module.variants[1] ? module.variants[1].evcValue : module.variants[0].evcValue} EVC
                                 </div>
                               </div>
@@ -438,18 +438,18 @@ const ModuleSelector = ({
               {pillarModules.map((module) => (
                 <div
                   key={module.name}
-                  className={`p-3 rounded-xl transition-all duration-200 ${
+                  className={`elx-module-card ${
                     selectedModules.includes(module.name)
-                      ? 'bg-[#FFF6E8] border-2 border-amber-500 shadow'
-                      : 'bg-gray-50 border border-gray-200 hover:border-amber-500 hover:shadow'
+                      ? 'elx-module-card-selected'
+                      : 'elx-module-card-unselected'
                   }`}
                 >
                   {/* Category label */}
                   <div className="flex justify-start mb-2">
-                    <span className={`text-xs px-2 py-1 rounded-full ${
+                    <span className={`elx-category-badge ${
                       module.category === "Immediate Impact" 
-                        ? 'bg-[#ECE9F3] text-indigo-800' 
-                        : 'bg-[#FFF0E3] text-amber-700'
+                        ? 'elx-category-badge-impact'
+                        : 'elx-category-badge-strategic'
                     }`}>
                       {module.category}
                     </span>
@@ -472,17 +472,17 @@ const ModuleSelector = ({
                         {module.singleSizeOnly ? (
                           <div 
                             onClick={() => handleVariantSelect(module.name, 'insightPrimer')}
-                            className={`flex items-center justify-between p-2 rounded-lg cursor-pointer ${
+                            className={`elx-module-option ${
                               selectedModules.includes(module.name)
-                                ? 'bg-teal-50'
-                                : 'bg-gray-100 hover:bg-teal-50'
+                                ? 'elx-module-option-selected'
+                                : 'elx-module-option-unselected'
                             }`}
                           >
                             <div className="flex items-center">
-                              <div className={`w-5 h-5 rounded-md mr-2 flex-shrink-0 flex items-center justify-center ${
+                              <div className={`elx-checkbox-indicator ${
                                 selectedModules.includes(module.name)
-                                  ? 'bg-teal-600' 
-                                  : 'bg-gray-200'
+                                  ? 'elx-checkbox-indicator-selected' 
+                                  : 'elx-checkbox-indicator-unselected'
                               }`}>
                                 {selectedModules.includes(module.name) && (
                                   <FontAwesomeIcon icon={faCheck} className="text-white text-xs" />
@@ -490,7 +490,7 @@ const ModuleSelector = ({
                               </div>
                               <div className="text-xs font-medium">Fixed-scope Module</div>
                             </div>
-                            <div className="evc-label">
+                            <div className="elx-evc-label">
                               {module.variants[0].evcValue} EVC
                             </div>
                           </div>
@@ -498,19 +498,19 @@ const ModuleSelector = ({
                           <>
                             <div 
                               onClick={() => handleVariantSelect(module.name, 'insightPrimer')}
-                              className={`flex items-center justify-between p-2 rounded-lg cursor-pointer ${
+                              className={`elx-module-option ${
                                 selectedModules.includes(module.name) && 
                                 selectedVariants[module.name] === 'insightPrimer'
-                                  ? 'bg-teal-50'
-                                  : 'bg-gray-100 hover:bg-teal-50'
+                                  ? 'elx-module-option-selected'
+                                  : 'elx-module-option-unselected'
                               }`}
                             >
                               <div className="flex items-center">
-                                <div className={`w-5 h-5 rounded-md mr-2 flex-shrink-0 flex items-center justify-center ${
+                                <div className={`elx-checkbox-indicator ${
                                   selectedModules.includes(module.name) && 
                                   selectedVariants[module.name] === 'insightPrimer'
-                                    ? 'bg-teal-600' 
-                                    : 'bg-gray-200'
+                                    ? 'elx-checkbox-indicator-selected' 
+                                    : 'elx-checkbox-indicator-unselected'
                                 }`}>
                                   {selectedModules.includes(module.name) && 
                                   selectedVariants[module.name] === 'insightPrimer' && (
@@ -519,26 +519,26 @@ const ModuleSelector = ({
                                 </div>
                                 <div className="text-xs font-medium">Insight Primer</div>
                               </div>
-                              <div className="evc-label">
+                              <div className="elx-evc-label">
                                 {module.variants[0].evcValue} EVC
                               </div>
                             </div>
                             
                             <div 
                               onClick={() => handleVariantSelect(module.name, 'integratedExecution')}
-                              className={`flex items-center justify-between p-2 rounded-lg cursor-pointer ${
+                              className={`elx-module-option ${
                                 selectedModules.includes(module.name) && 
                                 selectedVariants[module.name] === 'integratedExecution'
-                                  ? 'bg-teal-50' 
-                                  : 'bg-gray-100 hover:bg-teal-50'
+                                  ? 'elx-module-option-selected' 
+                                  : 'elx-module-option-unselected'
                               }`}
                             >
                               <div className="flex items-center">
-                                <div className={`w-5 h-5 rounded-md mr-2 flex-shrink-0 flex items-center justify-center ${
+                                <div className={`elx-checkbox-indicator ${
                                   selectedModules.includes(module.name) && 
                                   selectedVariants[module.name] === 'integratedExecution'
-                                    ? 'bg-teal-600' 
-                                    : 'bg-gray-200'
+                                    ? 'elx-checkbox-indicator-selected' 
+                                    : 'elx-checkbox-indicator-unselected'
                                 }`}>
                                   {selectedModules.includes(module.name) && 
                                   selectedVariants[module.name] === 'integratedExecution' && (
@@ -547,7 +547,7 @@ const ModuleSelector = ({
                                 </div>
                                 <div className="text-xs font-medium">Integrated Execution</div>
                               </div>
-                              <div className="evc-label">
+                              <div className="elx-evc-label">
                                 {module.variants[1] ? module.variants[1].evcValue : module.variants[0].evcValue} EVC
                               </div>
                             </div>

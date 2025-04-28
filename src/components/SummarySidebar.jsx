@@ -86,8 +86,8 @@ const SummarySidebar = ({ calculator }) => {
 
   return (
     <>
-      <div className="elx-container p-6 rounded-2xl h-fit sticky top-[calc(theme(spacing.elx-header) + 1rem)]">
-        <h3 className="font-bold text-xl mb-5 text-elx-primary">Your Configuration</h3>
+      <div className="elx-card p-6 h-fit sticky top-[calc(theme(spacing.elx-header) + 1rem)]">
+        <h3 className="elx-section-heading mb-5">Your Configuration</h3>
         
         <div className="space-y-4">
           {/* Intent */}
@@ -102,9 +102,9 @@ const SummarySidebar = ({ calculator }) => {
                 <p className="font-medium text-base text-elx-primary mb-2.5">{selectedModules.length} modules</p>
                 <div className="space-y-1.5">
                   {selectedModuleDetails.map(module => (
-                    <div key={module.name} className="flex justify-between items-center bg-elx-accent-light bg-opacity-20 py-1.5 px-2.5 rounded">
+                    <div key={module.name} className="elx-module-option bg-elx-accent-light bg-opacity-20 py-1.5 px-2.5">
                       <span className="text-elx-primary text-xs font-medium">{module.name}</span>
-                      <span className="evc-label">
+                      <span className="elx-evc-label">
                         {module.evcValue} EVC
                       </span>
                     </div>
@@ -126,7 +126,7 @@ const SummarySidebar = ({ calculator }) => {
               {calculatorConfig.productionCapacity[productionCapacity]?.label || "Not selected"}
             </p>
             <div className="flex items-center mt-1.5">
-              <span className="evc-label">
+              <span className="elx-evc-label">
                 {calculatorConfig.productionCapacity[productionCapacity]?.weeklyEVCs || 0} EVCs/week
               </span>
             </div>
@@ -158,7 +158,7 @@ const SummarySidebar = ({ calculator }) => {
           {/* Resource Allocation */}
           <ExpandableSection title="Resource Allocation" icon={faLayerGroup}>
             <p className="font-medium text-base text-elx-primary">{calculatorConfig.resourceAllocation[resourceAllocation].description}</p>
-            <span className="inline-block mt-1.5 elx-badge elx-badge-accent">
+            <span className="elx-badge elx-badge-accent inline-block mt-1.5">
               {calculatorConfig.resourceAllocation[resourceAllocation].label}
             </span>
           </ExpandableSection>
@@ -193,7 +193,7 @@ const SummarySidebar = ({ calculator }) => {
           <div className="mt-5">
             <div className="bg-elx-primary p-0.5 rounded-xl">
               <div className="bg-white p-4 rounded-lg">
-                <h4 className="text-center font-semibold text-base text-elx-primary mb-3">Pricing Summary</h4>
+                <h4 className="elx-section-heading text-center text-base mb-3">Pricing Summary</h4>
                 
                 <div className="bg-elx-accent-light bg-opacity-50 p-3.5 rounded-lg mb-3.5">
                   <div className="flex justify-between items-center mb-1">
@@ -209,7 +209,7 @@ const SummarySidebar = ({ calculator }) => {
                 <div className="space-y-2">
                   <button
                     onClick={() => setIsModalOpen(true)}
-                    className="elx-btn w-full py-2.5 bg-elx-primary text-white rounded-lg shadow-sm"
+                    className="elx-btn elx-btn-primary w-full py-2.5"
                   >
                     <FontAwesomeIcon icon={faFileAlt} className="mr-2" />
                     View Detailed Report
@@ -217,7 +217,7 @@ const SummarySidebar = ({ calculator }) => {
                   
                   <button
                     onClick={() => setIsEvcModalOpen(true)}
-                    className="elx-btn w-full py-2.5 bg-elx-evc text-white rounded-lg shadow-sm"
+                    className="elx-btn w-full py-2.5 bg-elx-evc text-white"
                   >
                     <FontAwesomeIcon icon={faCalculator} className="mr-2" />
                     Understand EVCs
@@ -225,7 +225,7 @@ const SummarySidebar = ({ calculator }) => {
                   
                   <button
                     onClick={() => window.location.href = 'mailto:sales@elexive.com?subject=Pricing%20Inquiry'}
-                    className="elx-btn elx-btn-primary w-full py-2.5 rounded-lg shadow-sm"
+                    className="elx-btn elx-btn-primary w-full py-2.5"
                   >
                     <FontAwesomeIcon icon={faEnvelope} className="mr-2" />
                     Request Proposal

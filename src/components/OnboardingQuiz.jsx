@@ -19,8 +19,8 @@ const OnboardingQuiz = ({ intent, handleIntentSelect, resetCalculator }) => {
   };
 
   return (
-    <div className="bg-white p-6 rounded-2xl shadow-lg mb-6 relative">
-      <h2 className="text-2xl font-bold text-elx-primary mb-4">
+    <div className="elx-card p-6 mb-6 relative">
+      <h2 className="elx-section-heading text-2xl">
         <FontAwesomeIcon icon={faBullseye} className="text-elx-accent mr-2" />
         What's your business priority?
       </h2>
@@ -41,8 +41,8 @@ const OnboardingQuiz = ({ intent, handleIntentSelect, resetCalculator }) => {
             key={intentOption.name}
             className={`p-6 rounded-xl text-left transition-all duration-200 ${
               intent === intentOption.name
-                ? 'bg-elx-accent-light border-2 border-elx-accent shadow-md'
-                : 'bg-gray-50 border border-gray-200 hover:border-elx-accent hover:shadow'
+                ? 'module-card-selected'
+                : 'module-card'
             }`}
             onClick={() => handleIntentSelect(intentOption.name)}
           >
@@ -52,7 +52,7 @@ const OnboardingQuiz = ({ intent, handleIntentSelect, resetCalculator }) => {
               intentOption.name === "Turnaround" || 
               intentOption.name === "Reinvention") && (
               <div className="flex justify-start mb-2">
-                <span className="text-sm px-3 py-1 rounded-full bg-elx-secondary-light text-elx-secondary font-medium flex items-center">
+                <span className="elx-category-badge elx-category-badge-strategic flex items-center">
                   <FontAwesomeIcon 
                     icon={faStar}
                     className="mr-1" 
@@ -85,7 +85,7 @@ const OnboardingQuiz = ({ intent, handleIntentSelect, resetCalculator }) => {
       <div className="flex justify-end mt-3">
         <button
           onClick={resetCalculator}
-          className="px-4 py-2 text-sm border border-elx-accent bg-elx-accent-light hover:bg-elx-accent text-elx-primary font-medium rounded-lg transition-colors flex items-center"
+          className="elx-btn elx-btn-accent px-4 py-2 text-sm"
         >
           <FontAwesomeIcon icon={faArrowRight} className="mr-2 rotate-180" />
           Start Over

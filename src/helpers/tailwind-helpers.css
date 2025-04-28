@@ -3,17 +3,17 @@
 
 @layer components {
   /* Label Components */
-  .evc-label {
+  .elx-evc-label {
     @apply ml-2 px-2 py-1 bg-teal-50 rounded-md text-xs font-semibold text-teal-600 whitespace-nowrap min-w-[60px] text-center;
   }
   
   /* Heading Components */
-  .section-heading {
-    @apply text-lg font-semibold text-elx-primary;
+  .elx-section-heading {
+    @apply text-lg font-semibold text-elx-primary mb-4;
   }
   
   /* Icon Components */
-  .icon-circle {
+  .elx-icon-circle {
     @apply w-10 h-10 rounded-full bg-elx-accent-light flex items-center justify-center;
   }
   
@@ -56,28 +56,28 @@
   }
   
   /* Module Card Components */
-  .module-card {
+  .elx-module-card {
     @apply p-3 sm:p-5 rounded-xl transition-all duration-200 border;
   }
   
-  .module-card-selected {
+  .elx-module-card-selected {
     @apply bg-[#FFF6E8] border-2 border-amber-500 shadow;
   }
   
-  .module-card-unselected {
+  .elx-module-card-unselected {
     @apply bg-gray-50 border-gray-200 hover:border-amber-500 hover:shadow;
   }
   
   /* Badge Components */
-  .category-badge {
+  .elx-category-badge {
     @apply text-xs px-2 py-1 rounded-full;
   }
   
-  .category-badge-impact {
+  .elx-category-badge-impact {
     @apply bg-[#ECE9F3] text-indigo-800;
   }
   
-  .category-badge-strategic {
+  .elx-category-badge-strategic {
     @apply bg-[#FFF0E3] text-amber-700;
   }
   
@@ -90,28 +90,28 @@
   }
   
   /* Option/Selection Components */
-  .module-option {
+  .elx-module-option {
     @apply flex items-center justify-between p-2 rounded-lg cursor-pointer;
   }
   
-  .module-option-selected {
+  .elx-module-option-selected {
     @apply bg-teal-50;
   }
   
-  .module-option-unselected {
+  .elx-module-option-unselected {
     @apply bg-gray-100 hover:bg-teal-50;
   }
   
   /* Checkbox Components */
-  .checkbox-indicator {
+  .elx-checkbox-indicator {
     @apply w-5 h-5 rounded-md mr-2 sm:mr-3 flex-shrink-0 flex items-center justify-center;
   }
   
-  .checkbox-indicator-selected {
+  .elx-checkbox-indicator-selected {
     @apply bg-teal-600;
   }
   
-  .checkbox-indicator-unselected {
+  .elx-checkbox-indicator-unselected {
     @apply bg-gray-200;
   }
   
@@ -132,19 +132,19 @@
     @apply bg-elx-accent text-elx-primary hover:bg-opacity-90;
   }
   
-  .number-button {
+  .elx-number-button {
     @apply bg-elx-bg text-elx-primary;
   }
   
-  .operation-button {
+  .elx-operation-button {
     @apply bg-elx-accent text-elx-primary;
   }
   
-  .equals-button {
+  .elx-equals-button {
     @apply bg-elx-secondary text-white;
   }
   
-  .clear-button {
+  .elx-clear-button {
     @apply bg-elx-primary text-white;
   }
 }
