@@ -83,7 +83,7 @@ The component integrates deeply with the calculator functionality by:
 
 2. **`getProductionCapacityIcon`**
    - Returns appropriate FontAwesome icon based on the selected capacity
-   - Maps seedling, jetpack, and rocketship keys to corresponding icons
+   - Maps pathfinder, roadster, jetpack, and rocketship keys to corresponding icons
 
 3. **Data Processing Functions**
    - Filters and maps modules to extract selected items with EVC values

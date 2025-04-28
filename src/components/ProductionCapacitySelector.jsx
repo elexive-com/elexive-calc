@@ -3,7 +3,8 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { 
   faLayerGroup, faCar, 
   faJetFighterUp, faRocket,
-  faCompass
+  faCompass, faCheckCircle,
+  faArrowRight
 } from '@fortawesome/free-solid-svg-icons';
 import calculatorConfig from '../config/calculatorConfig.json';
 import FeatureIntroduction from './FeatureIntroduction';
@@ -57,6 +58,21 @@ const ProductionCapacitySelector = ({ productionCapacity, setProductionCapacity 
                 </div>
                 
                 <p className="text-sm text-gray-600 text-center mt-1">{details.valueProposition}</p>
+                
+                {/* Selection indicator - shows "Selected" when this capacity is chosen */}
+                <div className="mt-3">
+                  {productionCapacity === key ? (
+                    <div className="bg-[var(--elexive-accent)] text-white py-1.5 px-3 rounded flex items-center gap-1.5">
+                      <FontAwesomeIcon icon={faCheckCircle} className="text-sm" />
+                      <span className="text-sm font-medium">Selected</span>
+                    </div>
+                  ) : (
+                    <div className="text-[var(--elexive-primary)] hover:text-[var(--elexive-accent)] py-1.5 rounded flex items-center gap-1.5 opacity-60">
+                      <span className="text-sm">Select Capacity</span>
+                      <FontAwesomeIcon icon={faArrowRight} className="text-sm" />
+                    </div>
+                  )}
+                </div>
               </div>
             </button>
           ))}

@@ -21,7 +21,7 @@ This component addresses a fundamental challenge in service delivery planning: h
 
 2. **Capacity-Aware Strategy Constraints**
    - Intelligently restricts available strategies based on the selected production capacity:
-     - Seedling capacity only allows the Focused strategy
+     - Pathfinder capacity only allows the Focused strategy
      - Jetpack capacity allows Focused and Balanced strategies
      - Rocket capacity enables all three strategies
    - Provides visual indication of disabled options with explanation
@@ -73,7 +73,7 @@ The component influences core calculator functionality by:
    - Determines if a strategy should be recommended based on the current production capacity
    - Returns boolean indicating recommendation status
    - Logic:
-     - For seedling capacity, recommends focused strategy
+     - For pathfinder capacity, recommends focused strategy
      - For jetpack capacity, recommends balanced strategy
      - For rocket capacity, all strategies are viable so none receive special recommendation
 

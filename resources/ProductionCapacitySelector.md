@@ -13,7 +13,7 @@ This component serves a critical role in the calculator by allowing users to set
 ### Core Functionality
 
 1. **Capacity Tier Selection**
-   - Presents multiple predefined capacity tiers (Seedling, Jetpack, Rocket)
+   - Presents multiple predefined capacity tiers (Pathfinder, Roadster, Jetpack, Rocket)
    - Each tier represents a different level of weekly EVC (Elexive Value Credit) production
    - Visually differentiates tiers using icons and styling that communicate scale
    
@@ -84,7 +84,7 @@ The component directly influences the calculator's core calculations by:
 1. **Simplified Decision Making**
    - Presents clear, differentiated options to simplify user choice
    - Provides adequate information for informed decisions without overwhelming
-   - Uses visual metaphors (seedling, jetpack, rocket) for intuitive understanding
+   - Uses visual metaphors (pathfinder, roadster, jetpack, rocket) for intuitive understanding
 
 2. **Contextual Guidance**
    - Incorporates the FeatureIntroduction component to explain the concept

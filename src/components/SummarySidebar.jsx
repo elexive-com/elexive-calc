@@ -3,10 +3,10 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { 
   faBullseye, faPuzzlePiece,
   faLayerGroup, faArrowRight, faEnvelope,
-  faSeedling, faJetFighterUp, faRocket,
+  faCar, faJetFighterUp, faRocket,
   faCalendarAlt, faChevronDown, faChevronUp,
   faFileAlt, faInfoCircle, faCreditCard,
-  faCalculator
+  faCalculator, faCompass
 } from '@fortawesome/free-solid-svg-icons';
 import calculatorConfig from '../config/calculatorConfig.json';
 import DetailedReportModal from './DetailedReportModal';
@@ -62,10 +62,11 @@ const SummarySidebar = ({ calculator }) => {
   // Get the appropriate icon for the selected production capacity
   const getProductionCapacityIcon = (capacityKey) => {
     switch(capacityKey) {
-      case 'seedling': return faSeedling;
+      case 'pathfinder': return faCompass;
+      case 'roadster': return faCar;
       case 'jetpack': return faJetFighterUp;
       case 'rocketship': return faRocket;
-      default: return faSeedling;
+      default: return faCompass;
     }
   };
   
