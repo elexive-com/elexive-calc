@@ -114,6 +114,11 @@ export default function useCalculator() {
           newParameters[paramId] = value;
         }
         setParameters(newParameters);
+        
+        // Apply the recommended production capacity if specified
+        if (preset.recommendedCapacity) {
+          setProductionCapacity(preset.recommendedCapacity);
+        }
       }, 50);
     }
   };
