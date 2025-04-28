@@ -70,7 +70,7 @@ Each major component is thoroughly documented in the `/resources` directory. The
 
 ## License
 
-[MIT](LICENSE)
+[MIT License with Commons Clause](LICENSE) - This project is licensed under MIT with Commons Clause, which allows for viewing and forking the code but restricts commercial use of the software without permission.
 
 ## Contact
 
