@@ -158,9 +158,9 @@ export default function useCalculator() {
     if (capacity === 'pathfinder' && resourceAllocation !== 'focused') {
       // Pathfinder can only use Laser Beam (focused)
       setResourceAllocation('focused');
-    } else if (capacity === 'roadster' && resourceAllocation === 'distributed') {
-      // Roadster cannot use Omni-Channel (distributed)
-      setResourceAllocation('balanced'); // Default to Smart Campaign
+    } else if (capacity === 'roadster') {
+      // Roadster can only use Laser Beam (focused) - modified to always set to focused
+      setResourceAllocation('focused');
     } else if (capacity === 'jetpack' && resourceAllocation === 'distributed') {
       // Jetpack cannot use Omni-Channel (distributed)
       setResourceAllocation('balanced'); // Default to Smart Campaign

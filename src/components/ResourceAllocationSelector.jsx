@@ -26,13 +26,13 @@ const ResourceAllocationSelector = ({ resourceAllocation = 'focused', setResourc
   
   // Helper function to determine if a strategy is disabled based on production capacity
   const isStrategyDisabled = (strategy) => {
-    // If Pathfinder or Roadster capacity, only Laser Beam (focused) is available
+    // If Pathfinder capacity, only Laser Beam (focused) is available
     if (productionCapacity === 'pathfinder') {
       return strategy !== 'focused';
     }
-    // If Roadster capacity, only Laser Beam (focused) and Smart Campaign (balanced) are available
+    // If Roadster capacity, only Laser Beam (focused) is available - changed to restrict to focused only
     if (productionCapacity === 'roadster') {
-      return strategy === 'distributed';
+      return strategy !== 'focused';
     }
     // If Jetpack capacity, only Laser Beam (focused) and Smart Campaign (balanced) are available
     if (productionCapacity === 'jetpack') {

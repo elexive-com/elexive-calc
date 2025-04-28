@@ -18,6 +18,19 @@ const OnboardingQuiz = ({ intent, handleIntentSelect, resetCalculator }) => {
     return intentOption.description;
   };
 
+  // Enhanced intent selection handler that resets calculator when "Full Custom" is selected
+  const handleOptionSelect = (intentName) => {
+    if (intentName === "Full Custom") {
+      // Reset all values to default when Full Custom is selected
+      resetCalculator();
+      // Still need to set the intent to "Full Custom"
+      handleIntentSelect(intentName);
+    } else {
+      // For other options, just call the normal intent selection handler
+      handleIntentSelect(intentName);
+    }
+  };
+
   return (
     <div className="elx-card p-6 mb-6 relative">
       <h2 className="elx-section-heading text-2xl">
@@ -44,7 +57,7 @@ const OnboardingQuiz = ({ intent, handleIntentSelect, resetCalculator }) => {
                 ? 'elx-module-card-selected'
                 : 'elx-module-card elx-module-card-unselected'
             }`}
-            onClick={() => handleIntentSelect(intentOption.name)}
+            onClick={() => handleOptionSelect(intentOption.name)}
           >
             {/* Preset label at the top */}
             {(intentOption.name === "Strategic Discovery" || 

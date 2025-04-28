@@ -10,6 +10,11 @@ import calculatorConfig from '../config/calculatorConfig.json';
 import FeatureIntroduction from './FeatureIntroduction';
 
 const ProductionCapacitySelector = ({ productionCapacity, setProductionCapacity }) => {
+  // Custom handler to ensure "Roadster" option always uses "Laser Beam" allocation
+  const handleCapacitySelect = (capacity) => {
+    setProductionCapacity(capacity);
+  };
+
   return (
     <div className="elx-card p-6 mb-6">
       <h2 className="elx-section-heading text-2xl mb-2">
@@ -30,7 +35,7 @@ const ProductionCapacitySelector = ({ productionCapacity, setProductionCapacity 
           {Object.entries(calculatorConfig.productionCapacity).map(([key, details]) => (
             <button
               key={key}
-              onClick={() => setProductionCapacity(key)}
+              onClick={() => handleCapacitySelect(key)}
               className={`elx-module-card p-5 ${
                 productionCapacity === key
                   ? 'elx-module-card-selected'
@@ -77,7 +82,7 @@ const ProductionCapacitySelector = ({ productionCapacity, setProductionCapacity 
           ))}
         </div>
       </div>
-    </div>
+          </div>
   );
 };
 
