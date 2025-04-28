@@ -7,7 +7,7 @@ import {
   faCheckCircle, faEnvelope, faLightbulb, faTools,
   faTimes, faFileExport, faSpinner,
   faCalendarAlt, faMoneyBillWave,
-  faChevronRight, faBuilding, faHandshake, faUsers,
+  faBuilding, faHandshake, faUsers,
   faShieldAlt, faGlobe
 } from '@fortawesome/free-solid-svg-icons';
 import calculatorConfig from '../config/calculatorConfig.json';
