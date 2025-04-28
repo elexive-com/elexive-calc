@@ -70,7 +70,7 @@ const CalculatorApp = () => {
       
       {/* Mobile View - Request Proposal Button (only visible when not in introduction) */}
       {!showIntroduction && (
-        <div className="fixed bottom-4 left-1/2 transform -translate-x-1/2 bg-[var(--elexive-secondary)] text-white rounded-full px-6 py-3 font-medium shadow-md hover:opacity-90 transition-opacity lg:hidden">
+        <div className="fixed bottom-4 left-1/2 transform -translate-x-1/2 bg-elx-secondary text-white rounded-full px-6 py-3 font-medium shadow-md hover:opacity-90 transition-opacity lg:hidden">
           <button
             onClick={() => window.location.href = 'mailto:sales@elexive.com?subject=Pricing%20Inquiry'}
             className="flex items-center"

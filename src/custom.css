@@ -1,84 +1,59 @@
-/* Elexive Calculator Custom Styles
-   Brand colors:
-   - Background (light): #FBFAFC
-   - Font/primary foreground: #2E2266
-   - Primary accent: #FFBD59
-   - Secondary accent: #EB8258
-   - EVC accent: #FF006E
-*/
+/* Elexive Calculator Custom Styles - Tailwind Optimized Version */
 
 /* Import Poppins font */
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
 
-/* Global styles */
+/* Minimal CSS - most styles now in tailwind.config.js */
 :root {
+  /* Kept for backward compatibility and direct CSS variable references */
   --elexive-bg: #FBFAFC;
   --elexive-primary: #2E2266;
   --elexive-accent: #FFBD59;
-  --elexive-accent-light: rgba(255, 189, 89, 0.5); /* Added accent-light as 50% opacity version of accent */
+  --elexive-accent-light: rgba(255, 189, 89, 0.5);
   --elexive-secondary: #EB8258;
-  --elexive-evc: #FF006E; /* New EVC accent color */
-  --elexive-evc-light: rgba(255, 0, 110, 0.15); /* Light version for backgrounds */
+  --elexive-evc: #FF006E;
+  --elexive-evc-light: rgba(255, 0, 110, 0.15);
   --elexive-border-radius: 12px;
   --elexive-button-radius: 8px;
   --elexive-transition: all 0.2s ease-in-out;
   --elexive-header-height: 70px;
 }
 
-body {
-  background-color: var(--elexive-bg);
-  color: var(--elexive-primary);
-  font-family: 'Inter', 'Segoe UI', Roboto, sans-serif;
-}
-
-/* Container and layout enhancements */
-.min-h-screen {
-  background-color: var(--elexive-bg) !important;
-}
-
-/* Typography */
-h1, h2, h3, h4, h5, h6 {
-  color: var(--elexive-primary);
-  font-weight: 700;
-}
-
-/* Update h1 and h2 to use Poppins font */
-h1, h2 {
-  font-family: 'Poppins', sans-serif;
-}
-
-/* Header styles */
+/* For legacy support - these will be phased out */
 .header {
-  background-color: var(--elexive-primary);
-  height: var(--elexive-header-height);
-  display: flex;
-  align-items: center;
-  padding: 0 1.5rem;
-  position: sticky;
-  top: 0;
-  z-index: 100;
-  box-shadow: 0 2px 10px rgba(46, 34, 102, 0.15);
+  @apply elx-header;
 }
 
 .header-logo {
-  height: 40px;
-  width: auto;
+  @apply elx-header-logo;
 }
 
-/* Adjust content to account for header */
 .content-with-header {
-  padding-top: calc(var(--elexive-header-height) + 1rem);
+  @apply elx-content;
 }
 
-/* Calculator specific styles */
 .calculator-container {
-  background-color: white;
-  border-radius: var(--elexive-border-radius);
-  box-shadow: 0 10px 25px rgba(46, 34, 102, 0.1);
-  overflow: hidden;
-  transition: var(--elexive-transition);
+  @apply elx-container;
 }
 
+.card {
+  @apply elx-card;
+}
+
+.shadow-custom {
+  @apply shadow-elx-md;
+}
+
+.animate-fadeIn {
+  @apply animate-elx-fade-in;
+}
+
+.animated-element {
+  @apply animate-elx-pulse;
+}
+
+/* Additional styles that aren't covered by the component system yet */
 .calculator-display {
   background-color: var(--elexive-primary);
   color: white;
@@ -94,152 +69,51 @@ h1, h2 {
   gap: 0.75rem;
 }
 
-/* Button styles */
-button {
-  border-radius: var(--elexive-button-radius) !important;
-  transition: var(--elexive-transition) !important;
-  font-weight: 600 !important;
-}
-
-button:hover {
-  transform: translateY(-2px);
-}
-
+/* Legacy button styles - will be migrated to Tailwind classes */
 .number-button {
-  background-color: var(--elexive-bg) !important;
-  color: var(--elexive-primary) !important;
+  @apply bg-elx-bg text-elx-primary;
 }
 
 .operation-button {
-  background-color: var(--elexive-accent) !important;
-  color: var(--elexive-primary) !important;
+  @apply bg-elx-accent text-elx-primary;
 }
 
 .equals-button {
-  background-color: var(--elexive-secondary) !important;
-  color: white !important;
+  @apply bg-elx-secondary text-white;
 }
 
 .clear-button {
-  background-color: var(--elexive-primary) !important;
-  color: white !important;
+  @apply bg-elx-primary text-white;
 }
 
-/* Focus and active states */
-button:focus, input:focus {
-  outline: 3px solid rgba(255, 189, 89, 0.5);
-  outline-offset: 2px;
-}
-
-/* Footer styling */
-footer {
-  color: var(--elexive-primary) !important;
-  opacity: 0.8;
-}
-
-/* Additional modern touches */
-.shadow-custom {
-  box-shadow: 0 4px 12px rgba(46, 34, 102, 0.15);
-}
-
-.card {
-  border-radius: var(--elexive-border-radius);
-  overflow: hidden;
-}
-
-/* Animations */
-@keyframes subtle-pulse {
-  0% { opacity: 1; }
-  50% { opacity: 0.8; }
-  100% { opacity: 1; }
-}
-
-@keyframes fadeIn {
-  from { opacity: 0; transform: translateY(-10px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-
-.animate-fadeIn {
-  animation: fadeIn 0.3s ease-in-out forwards;
-}
-
-.animated-element {
-  animation: subtle-pulse 2s infinite;
-}
-
-/* Module selection UI */
+/* Module selection UI - Transitional classes */
 .module-option-card {
-  border: 1px solid transparent;
-  border-radius: var(--elexive-button-radius);
-  padding: 0.5rem 0.75rem;
-  cursor: pointer;
-  transition: var(--elexive-transition);
-  display: flex;
-  align-items: center;
-  background-color: white;
+  @apply elx-selector;
 }
 
 .module-option-card:hover {
-  border-color: var(--elexive-accent-light);
-  transform: translateY(-1px);
-  box-shadow: 0 2px 6px rgba(46, 34, 102, 0.08);
+  @apply border-elx-accent-light transform -translate-y-1 shadow-elx-sm;
 }
 
 .module-option-card.selected {
-  border-color: var(--elexive-accent);
-  background-color: rgba(255, 189, 89, 0.1);
+  @apply elx-selector-selected;
 }
 
-/* Selection indicator */
 .module-selector-indicator {
-  width: 16px;
-  height: 16px;
-  border-radius: 50%;
-  border: 2px solid #E5E7EB;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: var(--elexive-transition);
-  flex-shrink: 0;
+  @apply elx-indicator;
 }
 
 .module-option-card.selected .module-selector-indicator {
-  border-color: var(--elexive-accent);
-  background-color: var(--elexive-accent);
+  @apply elx-indicator-selected;
 }
 
-.module-option-card.selected .module-selector-indicator:after {
-  content: "";
-  width: 6px;
-  height: 6px;
-  border-radius: 50%;
-  background-color: white;
-  display: block;
-}
-
-/* Module variants header */
 .variant-info-panel {
   background-color: var(--elexive-bg);
   border-radius: var(--elexive-border-radius);
   padding: 1rem;
 }
 
-/* Module selection animations */
-.module-option-card {
-  transition: all 0.2s ease-in-out;
-}
-
-.module-option-card.selected {
-  animation: pulse-selection 0.4s ease-out;
-}
-
-@keyframes pulse-selection {
-  0% { transform: scale(1); }
-  50% { transform: scale(1.03); }
-  100% { transform: scale(1); }
-}
-
-/* Mobile optimizations */
+/* Mobile optimizations kept for backwards compatibility */
 @media (max-width: 640px) {
   .module-option-card {
     padding: 0.75rem;

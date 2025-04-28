@@ -86,8 +86,8 @@ const ResourceAllocationSelector = ({ resourceAllocation = 'focused', setResourc
 
   return (
     <div className="bg-white p-6 rounded-2xl shadow-lg mb-6">
-      <h2 className="text-2xl font-bold text-[var(--elexive-primary)] mb-2">
-        <FontAwesomeIcon icon={faLayerGroup} className="text-[var(--elexive-accent)] mr-2" />
+      <h2 className="text-2xl font-bold text-elx-primary mb-2">
+        <FontAwesomeIcon icon={faLayerGroup} className="text-elx-accent mr-2" />
         Resource Allocation Strategy
       </h2>
       
@@ -101,7 +101,7 @@ const ResourceAllocationSelector = ({ resourceAllocation = 'focused', setResourc
       {/* Context switching explainer toggle button */}
       <button 
         onClick={() => setShowExplainer(!showExplainer)}
-        className="flex items-center gap-2 mb-4 text-sm font-medium text-[var(--elexive-primary)] hover:text-[var(--elexive-accent)] transition-colors"
+        className="flex items-center gap-2 mb-4 text-sm font-medium text-elx-primary hover:text-elx-accent transition-colors"
       >
         <FontAwesomeIcon icon={faQuestionCircle} />
         <span>How context switching affects productivity</span>
@@ -111,7 +111,7 @@ const ResourceAllocationSelector = ({ resourceAllocation = 'focused', setResourc
       {/* Detailed context switching explainer - hidden by default */}
       {showExplainer && (
         <div className="mb-6 p-5 bg-gray-50 border border-gray-200 rounded-lg animate-fadeIn">
-          <h3 className="font-bold text-lg text-[var(--elexive-primary)] mb-3">Context Switching & Team Productivity</h3>
+          <h3 className="font-bold text-lg text-elx-primary mb-3">Context Switching & Team Productivity</h3>
 
           <p className="text-sm text-gray-700">
               Modern teams minimize switching costs through specialized roles and collaborative tools.
@@ -125,7 +125,7 @@ const ResourceAllocationSelector = ({ resourceAllocation = 'focused', setResourc
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             {/* Left column - explanation */}
             <div>
-              <h4 className="font-semibold text-[var(--elexive-primary)] mb-2">How We Calculate Overhead</h4>
+              <h4 className="font-semibold text-elx-primary mb-2">How We Calculate Overhead</h4>
               <p className="text-sm text-gray-700 mb-3">
                 Context switching costs vary based on team composition and resource type. Our model accounts for:
               </p>
@@ -151,13 +151,13 @@ const ResourceAllocationSelector = ({ resourceAllocation = 'focused', setResourc
             
             {/* Right column - visual */}
             <div className="bg-white rounded-lg p-4 border border-gray-200">
-              <h4 className="font-semibold text-[var(--elexive-primary)] text-center mb-4">Overhead by Allocation Strategy</h4>
+              <h4 className="font-semibold text-elx-primary text-center mb-4">Overhead by Allocation Strategy</h4>
               
               {/* Laser Beam visualization */}
               <div className="mb-4">
                 <div className="flex justify-between items-center mb-1">
                   <div className="flex items-center gap-2">
-                    <FontAwesomeIcon icon={faLightbulb} className="text-[var(--elexive-primary)]" />
+                    <FontAwesomeIcon icon={faLightbulb} className="text-elx-primary" />
                     <span className="font-medium">Laser Beam</span>
                   </div>
                   <span className="text-sm font-bold text-green-600">{getSwitchingCost('focused')}% overhead</span>
@@ -175,7 +175,7 @@ const ResourceAllocationSelector = ({ resourceAllocation = 'focused', setResourc
               <div className="mb-4">
                 <div className="flex justify-between items-center mb-1">
                   <div className="flex items-center gap-2">
-                    <FontAwesomeIcon icon={faBullhorn} className="text-[var(--elexive-primary)]" />
+                    <FontAwesomeIcon icon={faBullhorn} className="text-elx-primary" />
                     <span className="font-medium">Smart Campaign</span>
                   </div>
                   <span className="text-sm font-bold text-yellow-600">{getSwitchingCost('balanced')}% overhead</span>
@@ -202,7 +202,7 @@ const ResourceAllocationSelector = ({ resourceAllocation = 'focused', setResourc
               <div>
                 <div className="flex justify-between items-center mb-1">
                   <div className="flex items-center gap-2">
-                    <FontAwesomeIcon icon={faGlobe} className="text-[var(--elexive-primary)]" />
+                    <FontAwesomeIcon icon={faGlobe} className="text-elx-primary" />
                     <span className="font-medium">Omni-Channel</span>
                   </div>
                   <span className="text-sm font-bold text-yellow-600">{getSwitchingCost('distributed')}% overhead</span>
@@ -239,15 +239,15 @@ const ResourceAllocationSelector = ({ resourceAllocation = 'focused', setResourc
               disabled={isStrategyDisabled(key)}
               className={`w-full transition-all duration-300 overflow-hidden ${
                 resourceAllocation === key
-                  ? 'border-2 border-[var(--elexive-accent)] shadow-md'
+                  ? 'border-2 border-elx-accent shadow-md'
                   : isStrategyDisabled(key)
                     ? 'border border-gray-200 opacity-50 cursor-not-allowed'
-                    : 'border border-gray-200 hover:border-[var(--elexive-accent)] hover:shadow-sm'
+                    : 'border border-gray-200 hover:border-elx-accent hover:shadow-sm'
               }`}
             >
               <div className={`flex flex-col md:flex-row items-stretch ${
                 resourceAllocation === key 
-                  ? 'bg-[#FFF6E8]' 
+                  ? 'bg-elx-discovery-bg' 
                   : isStrategyDisabled(key)
                     ? 'bg-gray-100'
                     : 'bg-gray-50'
@@ -256,16 +256,16 @@ const ResourceAllocationSelector = ({ resourceAllocation = 'focused', setResourc
                 <div className="p-4 md:p-6 md:w-1/4 flex flex-col justify-center items-center md:items-start border-b md:border-b-0 md:border-r border-gray-200">
                   <div className="flex items-center gap-3 mb-2">
                     <div className={`w-10 h-10 rounded-full flex items-center justify-center ${
-                      resourceAllocation === key ? 'bg-[var(--elexive-accent)]' : 'bg-[var(--elexive-primary-light)]'
+                      resourceAllocation === key ? 'bg-elx-accent' : 'bg-gray-200'
                     }`}>
                       <FontAwesomeIcon 
                         icon={getStrategyIcon(key)}
                         className={`text-lg ${
-                          resourceAllocation === key ? 'text-white' : 'text-[var(--elexive-primary)]'
+                          resourceAllocation === key ? 'text-white' : 'text-elx-primary'
                         }`}
                       />
                     </div>
-                    <h3 className="font-bold text-xl text-[var(--elexive-primary)]">
+                    <h3 className="font-bold text-xl text-elx-primary">
                       {details.description}
                     </h3>
                   </div>
@@ -283,18 +283,18 @@ const ResourceAllocationSelector = ({ resourceAllocation = 'focused', setResourc
                 <div className="p-4 md:p-6 md:w-2/4 flex flex-col justify-center border-b md:border-b-0 md:border-r border-gray-200">
                   {/* Strategy label as heading */}
                   <div className="mb-4 text-left">
-                    <div className="font-bold text-[var(--elexive-primary)]">Allocation Profile</div>
+                    <div className="font-bold text-elx-primary">Allocation Profile</div>
                     <div className="text-gray-700 text-sm font-normal">{details.label}</div>
                   </div>
                   
                   {/* Value proposition and example as bullet list */}
                   <ul className="text-left space-y-2 text-sm">
                     <li className="flex items-start">
-                      <span className="text-[var(--elexive-accent)] mr-2">•</span>
+                      <span className="text-elx-accent mr-2">•</span>
                       <span className="text-gray-600 font-normal">{details.valueProposition}</span>
                     </li>
                     <li className="flex items-start">
-                      <span className="text-[var(--elexive-accent)] mr-2">•</span>
+                      <span className="text-elx-accent mr-2">•</span>
                       <span className="text-gray-700 italic font-normal">"{getStrategyExample(key)}"</span>
                     </li>
                   </ul>
@@ -318,12 +318,12 @@ const ResourceAllocationSelector = ({ resourceAllocation = 'focused', setResourc
                   
                   {/* Selection indicator */}
                   {resourceAllocation === key ? (
-                    <div className="bg-[var(--elexive-accent)] text-white py-2 px-4 rounded flex items-center gap-2">
+                    <div className="bg-elx-accent text-white py-2 px-4 rounded flex items-center gap-2">
                       <FontAwesomeIcon icon={faCheckCircle} />
                       <span>Selected</span>
                     </div>
                   ) : (
-                    <div className="text-[var(--elexive-primary)] hover:text-[var(--elexive-accent)] py-2 rounded flex items-center gap-2">
+                    <div className="text-elx-primary hover:text-elx-accent py-2 rounded flex items-center gap-2">
                       <span>Select Strategy</span>
                       <FontAwesomeIcon icon={faArrowRight} />
                     </div>

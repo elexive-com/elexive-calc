@@ -16,18 +16,18 @@ const ExpandableSection = ({ title, icon, children, defaultOpen = false }) => {
   const [isOpen, setIsOpen] = useState(defaultOpen);
   
   return (
-    <div className="bg-white bg-opacity-80 rounded-lg p-3.5 shadow-sm">
+    <div className="elx-expandable">
       <h4 
-        className="text-[13px] uppercase tracking-wide font-medium text-[var(--elexive-primary)] mb-2 flex items-center justify-between cursor-pointer"
+        className="text-[13px] uppercase tracking-wide font-medium text-elx-primary mb-2 flex items-center justify-between cursor-pointer"
         onClick={() => setIsOpen(!isOpen)}
       >
         <span className="flex items-center">
-          <FontAwesomeIcon icon={icon} className="text-[var(--elexive-accent)] mr-2 text-xs" />
+          <FontAwesomeIcon icon={icon} className="text-elx-accent mr-2 text-xs" />
           {title}
         </span>
         <FontAwesomeIcon 
           icon={isOpen ? faChevronUp : faChevronDown} 
-          className="text-[var(--elexive-accent)] text-xs" 
+          className="text-elx-accent text-xs" 
         />
       </h4>
       
@@ -86,25 +86,25 @@ const SummarySidebar = ({ calculator }) => {
 
   return (
     <>
-      <div className="bg-white p-6 rounded-2xl shadow-lg h-fit sticky top-[calc(var(--elexive-header-height)_+_1rem)]">
-        <h3 className="font-bold text-xl mb-5 text-[var(--elexive-primary)]">Your Configuration</h3>
+      <div className="elx-container p-6 rounded-2xl h-fit sticky top-[calc(theme(spacing.elx-header) + 1rem)]">
+        <h3 className="font-bold text-xl mb-5 text-elx-primary">Your Configuration</h3>
         
         <div className="space-y-4">
           {/* Intent */}
           <ExpandableSection title="Core Intent" icon={faBullseye} defaultOpen={true}>
-            <p className="font-medium text-base text-[var(--elexive-primary)]">{intent || "Not selected"}</p>
+            <p className="font-medium text-base text-elx-primary">{intent || "Not selected"}</p>
           </ExpandableSection>
           
           {/* Selected Modules */}
           <ExpandableSection title="Selected Modules" icon={faPuzzlePiece} defaultOpen={true}>
             {selectedModules.length > 0 ? (
               <>
-                <p className="font-medium text-base text-[var(--elexive-primary)] mb-2.5">{selectedModules.length} modules</p>
+                <p className="font-medium text-base text-elx-primary mb-2.5">{selectedModules.length} modules</p>
                 <div className="space-y-1.5">
                   {selectedModuleDetails.map(module => (
-                    <div key={module.name} className="flex justify-between items-center bg-[var(--elexive-accent-light)] bg-opacity-20 py-1.5 px-2.5 rounded">
-                      <span className="text-[var(--elexive-primary)] text-xs font-medium">{module.name}</span>
-                      <span className="text-[var(--elexive-evc)] text-[10px] bg-[var(--elexive-evc-light)] px-1.5 py-0.5 rounded-full font-medium">
+                    <div key={module.name} className="flex justify-between items-center bg-elx-accent-light bg-opacity-20 py-1.5 px-2.5 rounded">
+                      <span className="text-elx-primary text-xs font-medium">{module.name}</span>
+                      <span className="elx-evc-label text-[10px] px-1.5 py-0.5 min-w-[40px]">
                         {module.evcValue} EVC
                       </span>
                     </div>
@@ -112,7 +112,7 @@ const SummarySidebar = ({ calculator }) => {
                 </div>
               </>
             ) : (
-              <p className="text-sm text-[var(--elexive-primary)] italic">None selected</p>
+              <p className="text-sm text-elx-primary italic">None selected</p>
             )}
           </ExpandableSection>
           
@@ -122,33 +122,33 @@ const SummarySidebar = ({ calculator }) => {
             icon={getProductionCapacityIcon(productionCapacity)}
             defaultOpen={true}
           >
-            <p className="font-medium text-base text-[var(--elexive-primary)]">
+            <p className="font-medium text-base text-elx-primary">
               {calculatorConfig.productionCapacity[productionCapacity]?.label || "Not selected"}
             </p>
             <div className="flex items-center mt-1.5">
-              <span className={`inline-block text-[10px] ${calculatorConfig.productionCapacity[productionCapacity]?.colorClass || 'bg-gray-100'} text-[var(--elexive-primary)] px-2 py-0.5 rounded-full font-medium`}>
+              <span className="elx-evc-label text-[10px]">
                 {calculatorConfig.productionCapacity[productionCapacity]?.weeklyEVCs || 0} EVCs/week
               </span>
             </div>
           </ExpandableSection>
           
           {/* Estimated Completion Time - Now always visible, not in expandable section */}
-          <div className="bg-white bg-opacity-80 rounded-lg p-3.5 shadow-sm">
-            <h4 className="text-[13px] uppercase tracking-wide font-medium text-[var(--elexive-primary)] mb-2 flex items-center">
-              <FontAwesomeIcon icon={faCalendarAlt} className="text-[var(--elexive-accent)] mr-2 text-xs" />
+          <div className="elx-expandable">
+            <h4 className="text-[13px] uppercase tracking-wide font-medium text-elx-primary mb-2 flex items-center">
+              <FontAwesomeIcon icon={faCalendarAlt} className="text-elx-accent mr-2 text-xs" />
               Estimated Completion
             </h4>
-            <div className="flex justify-between items-center mt-1 bg-[var(--elexive-accent-light)] bg-opacity-30 p-2.5 rounded">
+            <div className="flex justify-between items-center mt-1 bg-elx-accent-light bg-opacity-30 p-2.5 rounded">
               <div className="text-center flex-1">
-                <p className="font-bold text-lg text-[var(--elexive-primary)]">{totalModuleEvcs}</p>
-                <p className="text-[10px] text-[var(--elexive-primary)] mt-0.5 font-medium">Total EVCs needed</p>
+                <p className="font-bold text-lg text-elx-primary">{totalModuleEvcs}</p>
+                <p className="text-[10px] text-elx-primary mt-0.5 font-medium">Total EVCs needed</p>
               </div>
               <div className="flex items-center px-1">
-                <FontAwesomeIcon icon={faArrowRight} className="text-[var(--elexive-accent)]" />
+                <FontAwesomeIcon icon={faArrowRight} className="text-elx-accent" />
               </div>
               <div className="text-center flex-1">
-                <p className="font-bold text-lg text-[var(--elexive-primary)]">{completionTimeWeeks}</p>
-                <p className="text-[10px] text-[var(--elexive-primary)] mt-0.5 font-medium">
+                <p className="font-bold text-lg text-elx-primary">{completionTimeWeeks}</p>
+                <p className="text-[10px] text-elx-primary mt-0.5 font-medium">
                   {completionTimeWeeks === 1 ? 'Week' : 'Weeks'} to complete
                 </p>
               </div>
@@ -157,8 +157,8 @@ const SummarySidebar = ({ calculator }) => {
           
           {/* Resource Allocation */}
           <ExpandableSection title="Resource Allocation" icon={faLayerGroup}>
-            <p className="font-medium text-base text-[var(--elexive-primary)]">{calculatorConfig.resourceAllocation[resourceAllocation].description}</p>
-            <span className="inline-block mt-1.5 text-[10px] bg-[var(--elexive-accent-light)] bg-opacity-50 text-[var(--elexive-primary)] px-2 py-0.5 rounded-full font-medium">
+            <p className="font-medium text-base text-elx-primary">{calculatorConfig.resourceAllocation[resourceAllocation].description}</p>
+            <span className="inline-block mt-1.5 elx-badge elx-badge-accent">
               {calculatorConfig.resourceAllocation[resourceAllocation].label}
             </span>
           </ExpandableSection>
@@ -171,8 +171,8 @@ const SummarySidebar = ({ calculator }) => {
                   .filter(param => parameters[param.id])
                   .map(param => (
                     <div key={param.id} className="flex items-center py-1">
-                      <span className="w-2 h-2 rounded-full bg-[var(--elexive-accent)] mr-2"></span>
-                      <span className="text-xs text-[var(--elexive-primary)]">{param.label}</span>
+                      <span className="w-2 h-2 rounded-full bg-elx-accent mr-2"></span>
+                      <span className="text-xs text-elx-primary">{param.label}</span>
                     </div>
                   ))}
               </div>
@@ -181,8 +181,8 @@ const SummarySidebar = ({ calculator }) => {
           
           {/* Payment Option */}
           <ExpandableSection title="Payment Method" icon={faCreditCard}>
-            <p className="font-medium text-base text-[var(--elexive-primary)]">{evcBase.paymentOptions[paymentOption].name}</p>
-            <span className="text-[11px] bg-[var(--elexive-accent-light)] bg-opacity-30 px-2 py-0.5 rounded-full inline-block mt-1.5 font-medium text-[var(--elexive-primary)]">
+            <p className="font-medium text-base text-elx-primary">{evcBase.paymentOptions[paymentOption].name}</p>
+            <span className="elx-badge elx-badge-accent inline-block mt-1.5">
               {paymentOption === 'prepaid' 
                 ? `${((1 - evcBase.paymentOptions[paymentOption].priceModifier) * 100).toFixed(0)}% discount`
                 : 'Standard monthly billing'}
@@ -191,16 +191,16 @@ const SummarySidebar = ({ calculator }) => {
           
           {/* Pricing Summary */}
           <div className="mt-5">
-            <div className="bg-[var(--elexive-primary)] p-0.5 rounded-xl">
+            <div className="bg-elx-primary p-0.5 rounded-xl">
               <div className="bg-white p-4 rounded-lg">
-                <h4 className="text-center font-semibold text-base text-[var(--elexive-primary)] mb-3">Pricing Summary</h4>
+                <h4 className="text-center font-semibold text-base text-elx-primary mb-3">Pricing Summary</h4>
                 
-                <div className="bg-[var(--elexive-accent-light)] bg-opacity-50 p-3.5 rounded-lg mb-3.5">
+                <div className="bg-elx-accent-light bg-opacity-50 p-3.5 rounded-lg mb-3.5">
                   <div className="flex justify-between items-center mb-1">
-                    <span className="text-sm text-[var(--elexive-primary)] font-medium">Weekly Price:</span>
-                    <span className="font-bold text-xl text-[var(--elexive-primary)]">€{totalPrice.toLocaleString()}</span>
+                    <span className="text-sm text-elx-primary font-medium">Weekly Price:</span>
+                    <span className="font-bold text-xl text-elx-primary">€{totalPrice.toLocaleString()}</span>
                   </div>
-                  <div className="flex justify-between items-center text-[11px] text-[var(--elexive-primary)] font-medium">
+                  <div className="flex justify-between items-center text-[11px] text-elx-primary font-medium">
                     <span>Price per EVC:</span>
                     <span className="font-medium">€{evcPricePerUnit.toFixed(2)}</span>
                   </div>
@@ -209,7 +209,7 @@ const SummarySidebar = ({ calculator }) => {
                 <div className="space-y-2">
                   <button
                     onClick={() => setIsModalOpen(true)}
-                    className="w-full py-2.5 bg-[var(--elexive-primary)] text-white rounded-lg font-medium hover:opacity-90 transition-opacity text-sm shadow-sm"
+                    className="elx-btn w-full py-2.5 bg-elx-primary text-white rounded-lg shadow-sm"
                   >
                     <FontAwesomeIcon icon={faFileAlt} className="mr-2" />
                     View Detailed Report
@@ -217,7 +217,7 @@ const SummarySidebar = ({ calculator }) => {
                   
                   <button
                     onClick={() => setIsEvcModalOpen(true)}
-                    className="w-full py-2.5 bg-[var(--elexive-evc)] text-white rounded-lg font-medium hover:opacity-90 transition-opacity text-sm shadow-sm"
+                    className="elx-btn w-full py-2.5 bg-elx-evc text-white rounded-lg shadow-sm"
                   >
                     <FontAwesomeIcon icon={faCalculator} className="mr-2" />
                     Understand EVCs
@@ -225,7 +225,7 @@ const SummarySidebar = ({ calculator }) => {
                   
                   <button
                     onClick={() => window.location.href = 'mailto:sales@elexive.com?subject=Pricing%20Inquiry'}
-                    className="w-full py-2.5 bg-[var(--elexive-accent)] text-[var(--elexive-primary)] rounded-lg font-medium hover:opacity-90 transition-opacity text-sm shadow-sm"
+                    className="elx-btn elx-btn-primary w-full py-2.5 rounded-lg shadow-sm"
                   >
                     <FontAwesomeIcon icon={faEnvelope} className="mr-2" />
                     Request Proposal

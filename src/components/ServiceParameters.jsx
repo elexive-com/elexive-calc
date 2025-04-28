@@ -19,15 +19,15 @@ const ServiceParameters = ({
   
   return (
     <div className="bg-white p-6 rounded-2xl shadow-lg mb-6">
-      <h2 className="text-2xl font-bold text-[var(--elexive-primary)] mb-4">
-        <FontAwesomeIcon icon={faSlidersH} className="text-[var(--elexive-accent)] mr-2" />
+      <h2 className="text-2xl font-bold text-elx-primary mb-4">
+        <FontAwesomeIcon icon={faSlidersH} className="text-elx-accent mr-2" />
         Service Parameters
       </h2>
       
       <div className="space-y-6">
         {/* Payment Option */}
         <div>
-          <label className="block text-[var(--elexive-primary)] font-medium mb-2">
+          <label className="block text-elx-primary font-medium mb-2">
             <FontAwesomeIcon icon={faCreditCard} className="mr-2" />
             Payment Option
           </label>
@@ -38,8 +38,8 @@ const ServiceParameters = ({
                 onClick={() => togglePaymentOption(option)}
                 className={`px-4 py-2 rounded-lg transition-all duration-200 border ${
                   paymentOption === option
-                    ? 'bg-[var(--elexive-accent)] text-[var(--elexive-primary)] shadow-md border-[var(--elexive-accent)]'
-                    : 'bg-gray-100 text-gray-700 hover:bg-gray-200 border-[var(--elexive-accent-light)]'
+                    ? 'bg-elx-accent text-elx-primary shadow-md border-elx-accent'
+                    : 'bg-gray-100 text-gray-700 hover:bg-gray-200 border-elx-accent-light'
                 }`}
               >
                 {details.name}
@@ -57,7 +57,7 @@ const ServiceParameters = ({
         
         {/* Custom Service Parameters */}
         <div>
-          <label className="block text-[var(--elexive-primary)] font-medium mb-2">
+          <label className="block text-elx-primary font-medium mb-2">
             <FontAwesomeIcon icon={faGears} className="mr-2" />
             Additional Parameters
           </label>
@@ -65,15 +65,15 @@ const ServiceParameters = ({
             {serviceParams.map((param) => (
               <div key={param.id} className="flex items-center justify-between">
                 <div>
-                  <span className="font-medium text-[var(--elexive-primary)]">{param.label}</span>
+                  <span className="font-medium text-elx-primary">{param.label}</span>
                   <p className="text-xs text-gray-500">{param.description}</p>
                 </div>
                 <button
                   onClick={() => updateParameter(param.id, !parameters[param.id])}
                   className={`px-4 py-2 rounded-lg transition-all duration-200 border min-w-[120px] w-[120px] flex items-center justify-center ${
                     parameters[param.id]
-                      ? 'bg-[var(--elexive-accent)] text-[var(--elexive-primary)] shadow-sm border-[var(--elexive-accent)]'
-                      : 'bg-gray-100 text-gray-700 hover:bg-gray-200 border-[var(--elexive-accent-light)]'
+                      ? 'bg-elx-accent text-elx-primary shadow-sm border-elx-accent'
+                      : 'bg-gray-100 text-gray-700 hover:bg-gray-200 border-elx-accent-light'
                   }`}
                 >
                   {parameters[param.id] ? (

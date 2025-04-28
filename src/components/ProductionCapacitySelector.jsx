@@ -12,8 +12,8 @@ import FeatureIntroduction from './FeatureIntroduction';
 const ProductionCapacitySelector = ({ productionCapacity, setProductionCapacity }) => {
   return (
     <div className="bg-white p-6 rounded-2xl shadow-lg mb-6">
-      <h2 className="text-2xl font-bold text-[var(--elexive-primary)] mb-2">
-        <FontAwesomeIcon icon={faLayerGroup} className="text-[var(--elexive-accent)] mr-2" />
+      <h2 className="text-2xl font-bold text-elx-primary mb-2">
+        <FontAwesomeIcon icon={faLayerGroup} className="text-elx-accent mr-2" />
         EVC Production Capacity
       </h2>
       
@@ -33,8 +33,8 @@ const ProductionCapacitySelector = ({ productionCapacity, setProductionCapacity 
               onClick={() => setProductionCapacity(key)}
               className={`p-5 rounded-xl transition-all duration-200 ${
                 productionCapacity === key
-                  ? 'bg-[#FFF6E8] border-2 border-[var(--elexive-accent)] shadow'
-                  : 'bg-gray-50 border border-gray-200 hover:border-[var(--elexive-accent)] hover:shadow'
+                  ? 'bg-elx-discovery-bg border-2 border-elx-accent shadow'
+                  : 'bg-gray-50 border border-gray-200 hover:border-elx-accent hover:shadow'
               }`}
             >
               <div className="flex flex-col items-center">
@@ -45,13 +45,13 @@ const ProductionCapacitySelector = ({ productionCapacity, setProductionCapacity 
                     key === "jetpack" ? faJetFighterUp : 
                     faRocket
                   } 
-                  className="text-[var(--elexive-primary)] text-2xl mb-3" 
+                  className="text-elx-primary text-2xl mb-3" 
                 />
-                <h3 className="font-bold text-lg text-[var(--elexive-primary)]">{details.label}</h3>
+                <h3 className="font-bold text-lg text-elx-primary">{details.label}</h3>
                 
                 {/* Updated EVC label to match the style used in ModuleSelector */}
                 <div className="mt-2 mb-3 flex items-center justify-center">
-                  <span className="px-2 py-1 bg-[var(--elexive-evc-light)] rounded-md text-xs font-semibold text-[var(--elexive-evc)] whitespace-nowrap min-w-[50px] inline-block text-center">
+                  <span className="elx-evc-label">
                     {details.weeklyEVCs} EVC
                   </span>
                   <span className="text-xs text-gray-500 ml-1">per week</span>
@@ -62,12 +62,12 @@ const ProductionCapacitySelector = ({ productionCapacity, setProductionCapacity 
                 {/* Selection indicator - shows "Selected" when this capacity is chosen */}
                 <div className="mt-3">
                   {productionCapacity === key ? (
-                    <div className="bg-[var(--elexive-accent)] text-white py-1.5 px-3 rounded flex items-center gap-1.5">
+                    <div className="bg-elx-accent text-white py-1.5 px-3 rounded flex items-center gap-1.5">
                       <FontAwesomeIcon icon={faCheckCircle} className="text-sm" />
                       <span className="text-sm font-medium">Selected</span>
                     </div>
                   ) : (
-                    <div className="text-[var(--elexive-primary)] hover:text-[var(--elexive-accent)] py-1.5 rounded flex items-center gap-1.5 opacity-60">
+                    <div className="text-elx-primary hover:text-elx-accent py-1.5 rounded flex items-center gap-1.5 opacity-60">
                       <span className="text-sm">Select Capacity</span>
                       <FontAwesomeIcon icon={faArrowRight} className="text-sm" />
                     </div>

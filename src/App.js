@@ -6,12 +6,12 @@ import Header from './components/Header';
 
 function App() {
   return (
-    <div className="min-h-screen bg-gray-100">
+    <div className="min-h-screen bg-elx-bg">
       <Header />
-      <div className="content-with-header flex flex-col items-center justify-center p-4">
-        <h1 className="text-3xl font-bold text-gray-800 mb-6">Elexive Calculator</h1>
+      <div className="elx-content flex flex-col items-center justify-center p-4">
+        <h1 className="text-3xl font-elx-heading font-bold text-elx-primary mb-6">Elexive Calculator</h1>
         <CalculatorApp />
-        <footer className="mt-8 text-center text-gray-500 text-sm">
+        <footer className="mt-8 text-center text-elx-primary text-sm opacity-80">
           <p>© 2025 Elexive Calculator</p>
         </footer>
       </div>

@@ -65,8 +65,8 @@ const DetailedReportModal = ({ isOpen, onClose, calculator }) => {
     <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
       <div className="bg-white rounded-2xl shadow-xl max-w-4xl w-full max-h-[90vh] overflow-y-auto">
         <div className="sticky top-0 bg-white p-4 border-b flex justify-between items-center">
-          <h2 className="text-2xl font-bold text-[var(--elexive-primary)]">
-            <FontAwesomeIcon icon={faMoneyBillWave} className="text-[var(--elexive-accent)] mr-2" />
+          <h2 className="text-2xl font-bold text-elx-primary">
+            <FontAwesomeIcon icon={faMoneyBillWave} className="text-elx-accent mr-2" />
             Detailed Solution Report
           </h2>
           <button 
@@ -81,57 +81,57 @@ const DetailedReportModal = ({ isOpen, onClose, calculator }) => {
           <div className="mb-6">
             <div className="flex justify-between text-lg mb-2">
               <span className="font-medium">Weekly Price:</span>
-              <span className="font-bold text-[var(--elexive-primary)]">€{totalPrice.toLocaleString()}</span>
+              <span className="font-bold text-elx-primary">€{totalPrice.toLocaleString()}</span>
             </div>
             <div className="flex justify-between text-sm text-gray-600 mb-1">
-              <span><FontAwesomeIcon icon={faChartBar} className="text-[var(--elexive-evc)] opacity-80 mr-1" />Weekly EVCs:</span>
-              <span className="font-medium text-[var(--elexive-evc)]">{monthlyEvcs} EVCs</span>
+              <span><FontAwesomeIcon icon={faChartBar} className="text-elx-evc opacity-80 mr-1" />Weekly EVCs:</span>
+              <span className="font-medium text-elx-evc">{monthlyEvcs} EVCs</span>
             </div>
             <div className="flex justify-between text-sm text-gray-600 mb-1">
-              <span><FontAwesomeIcon icon={faCoins} className="text-[var(--elexive-evc)] opacity-80 mr-1" />Price per EVC:</span>
-              <span className="font-medium text-[var(--elexive-evc)]">€{evcPricePerUnit.toFixed(2)}</span>
+              <span><FontAwesomeIcon icon={faCoins} className="text-elx-evc opacity-80 mr-1" />Price per EVC:</span>
+              <span className="font-medium text-elx-evc">€{evcPricePerUnit.toFixed(2)}</span>
             </div>
             <div className="flex justify-between text-sm text-gray-600 mb-1">
-              <span><FontAwesomeIcon icon={faCreditCard} className="text-[var(--elexive-secondary)] opacity-80 mr-1" />Payment Option:</span>
+              <span><FontAwesomeIcon icon={faCreditCard} className="text-elx-secondary opacity-80 mr-1" />Payment Option:</span>
               <span>{paymentDetails.name}</span>
             </div>
             <div className="flex justify-between text-sm text-gray-600">
-              <span><FontAwesomeIcon icon={faRocket} className="text-[var(--elexive-secondary)] opacity-80 mr-1" />Delivery Speed:</span>
+              <span><FontAwesomeIcon icon={faRocket} className="text-elx-secondary opacity-80 mr-1" />Delivery Speed:</span>
               <span>{deliverySpeed || 'Standard'}</span>
             </div>
             <div className="flex justify-between text-sm text-gray-600">
-              <span><FontAwesomeIcon icon={faBullseye} className="text-[var(--elexive-secondary)] opacity-80 mr-1" />Core Intent:</span>
+              <span><FontAwesomeIcon icon={faBullseye} className="text-elx-secondary opacity-80 mr-1" />Core Intent:</span>
               <span>{intent}</span>
             </div>
           </div>
           
           <div className="mb-6">
-            <h3 className="font-semibold mb-2 text-[var(--elexive-primary)]">
-              <FontAwesomeIcon icon={faPuzzlePiece} className="text-[var(--elexive-accent)] mr-2" />
+            <h3 className="font-semibold mb-2 text-elx-primary">
+              <FontAwesomeIcon icon={faPuzzlePiece} className="text-elx-accent mr-2" />
               Selected Modules
             </h3>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
               {selectedModuleDetails.map((module) => (
-                <div key={module.name} className="text-sm bg-[var(--elexive-evc-light)] p-3 rounded border border-[var(--elexive-evc)] border-opacity-20">
-                  <div className="font-medium text-[var(--elexive-primary)]">{module.name}</div>
+                <div key={module.name} className="text-sm bg-elx-evc-light p-3 rounded border border-elx-evc border-opacity-20">
+                  <div className="font-medium text-elx-primary">{module.name}</div>
                   <div className="flex items-center text-xs text-gray-700 mt-1">
-                    <FontAwesomeIcon icon={getVariantIcon(module.selectedVariant)} className="mr-1 text-[var(--elexive-evc)]" />
+                    <FontAwesomeIcon icon={getVariantIcon(module.selectedVariant)} className="mr-1 text-elx-evc" />
                     <span className="font-medium">{getVariantDisplayName(module.selectedVariant)}</span>
                   </div>
                   <div className="text-xs mt-1">
-                    <span className="text-[var(--elexive-evc)] font-medium">{module.evcValue} EVC</span>
+                    <span className="text-elx-evc font-medium">{module.evcValue} EVC</span>
                   </div>
                 </div>
               ))}
             </div>
             
-            <div className="mt-4 bg-[var(--elexive-evc-light)] p-3 rounded-lg">
-              <h4 className="text-sm font-medium text-[var(--elexive-primary)]">
-                <FontAwesomeIcon icon={faCalculator} className="mr-1 text-[var(--elexive-evc)]" />
+            <div className="mt-4 bg-elx-evc-light p-3 rounded-lg">
+              <h4 className="text-sm font-medium text-elx-primary">
+                <FontAwesomeIcon icon={faCalculator} className="mr-1 text-elx-evc" />
                 EVC Calculation
               </h4>
               <div className="text-xs text-gray-600 mt-1">
-                <p>Base EVC from modules: <span className="text-[var(--elexive-evc)] font-medium">{selectedModuleDetails.reduce((sum, module) => sum + module.evcValue, 0)} EVCs</span></p>
+                <p>Base EVC from modules: <span className="text-elx-evc font-medium">{selectedModuleDetails.reduce((sum, module) => sum + module.evcValue, 0)} EVCs</span></p>
                 <p>Resource allocation ({calculatorConfig.resourceAllocation[resourceAllocation].description}): {calculatorConfig.resourceAllocation[resourceAllocation].outputMultiplier}x</p>
                 {Object.entries(parameters)
                   .filter(([, enabled]) => enabled)
@@ -149,8 +149,8 @@ const DetailedReportModal = ({ isOpen, onClose, calculator }) => {
           </div>
           
           <div className="mb-6">
-            <h3 className="font-semibold mb-2 text-[var(--elexive-primary)]">
-              <FontAwesomeIcon icon={faSlidersH} className="text-[var(--elexive-accent)] mr-2" />
+            <h3 className="font-semibold mb-2 text-elx-primary">
+              <FontAwesomeIcon icon={faSlidersH} className="text-elx-accent mr-2" />
               Custom Parameters
             </h3>
             <div className="space-y-1 text-sm">
@@ -158,19 +158,19 @@ const DetailedReportModal = ({ isOpen, onClose, calculator }) => {
                 .filter(param => parameters[param.id])
                 .map(param => (
                   <div key={param.id} className="flex">
-                    <FontAwesomeIcon icon={faCheckCircle} className="text-[var(--elexive-accent)] mr-2" />
-                    <span className="text-[var(--elexive-primary)]">{param.label}</span>
+                    <FontAwesomeIcon icon={faCheckCircle} className="text-elx-accent mr-2" />
+                    <span className="text-elx-primary">{param.label}</span>
                   </div>
                 ))}
             </div>
           </div>
           
-          <div className="bg-[#FFF6E8] p-4 rounded-xl mb-8 border border-[var(--elexive-accent)] border-opacity-20">
-            <p className="text-sm font-medium text-[var(--elexive-primary)]">
-              <FontAwesomeIcon icon={faMoneyBillWave} className="text-[var(--elexive-accent)] mr-2" />
+          <div className="bg-elx-accent-light p-4 rounded-xl mb-8 border border-elx-accent border-opacity-20">
+            <p className="text-sm font-medium text-elx-primary">
+              <FontAwesomeIcon icon={faMoneyBillWave} className="text-elx-accent mr-2" />
               Price Breakdown
             </p>
-            <p className="text-xs text-[var(--elexive-primary)] opacity-80 mt-1">
+            <p className="text-xs text-elx-primary opacity-80 mt-1">
               Base price: €{evcBase.basePrice}/EVC × 
               {paymentDetails.priceModifier !== 1 
                 ? ` ${paymentDetails.priceModifier} (${paymentDetails.name}) = €${(evcBase.basePrice * paymentDetails.priceModifier).toFixed(2)}/EVC`
@@ -178,11 +178,11 @@ const DetailedReportModal = ({ isOpen, onClose, calculator }) => {
               }
             </p>
             {monthlyEvcs > 30 && (
-              <p className="text-xs text-[var(--elexive-primary)] opacity-80">
+              <p className="text-xs text-elx-primary opacity-80">
                 Volume discount: €{evcPricePerUnit.toFixed(2)}/EVC × {monthlyEvcs} EVCs = €{totalPrice.toLocaleString()}
               </p>
             )}
-            <p className="text-xs text-[var(--elexive-primary)] opacity-80 mt-2">
+            <p className="text-xs text-elx-primary opacity-80 mt-2">
               This is a non-binding estimate based on your selections. Contact us for a detailed proposal.
             </p>
           </div>
@@ -190,7 +190,7 @@ const DetailedReportModal = ({ isOpen, onClose, calculator }) => {
           <div className="flex justify-end">
             <button
               onClick={() => window.location.href = 'mailto:sales@elexive.com?subject=Detailed%20Pricing%20Inquiry&body=I%20would%20like%20to%20request%20a%20detailed%20proposal%20for%20my%20custom%20solution.'}
-              className="px-6 py-3 bg-[var(--elexive-secondary)] text-white rounded-lg font-medium hover:bg-[var(--elexive-secondary)] hover:opacity-90 transition-colors shadow-md"
+              className="px-6 py-3 bg-elx-secondary text-white rounded-lg font-medium hover:bg-elx-secondary hover:opacity-90 transition-colors shadow-md"
             >
               <FontAwesomeIcon icon={faEnvelope} className="mr-2" />
               Request Detailed Proposal
