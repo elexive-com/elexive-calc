@@ -74,4 +74,4 @@ Each major component is thoroughly documented in the `/resources` directory. The
 
 ## Contact
 
-For questions or inquiries, please contact [sales@elexive.com](mailto:sales@elexive.com).
+For questions or inquiries, or licensing for commercial use, please contact [sales@elexive.com](mailto:sales@elexive.com).
