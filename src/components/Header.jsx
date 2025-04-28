@@ -23,7 +23,7 @@ const Header = () => {
   };
   
   return (
-    <header className="elx-header relative z-50">
+    <header className="elx-header relative">
       <div className="container mx-auto flex justify-between items-center p-4">
         <div className="flex items-center">
           <a href="https://elexive.com/" target="_blank" rel="noopener noreferrer">
@@ -85,48 +85,46 @@ const Header = () => {
         </nav>
       </div>
       
-      {/* Mobile menu - slides in from top */}
-      <div className={`md:hidden absolute w-full bg-elx-primary transition-all duration-300 ease-in-out shadow-lg ${
-        mobileMenuOpen 
-          ? 'max-h-60 opacity-100 border-b border-gray-700' 
-          : 'max-h-0 opacity-0 overflow-hidden'
-      }`}>
-        <div className="container mx-auto py-2">
-          <button
-            onClick={() => handleNavClick('introduction')}
-            className={`w-full flex items-center py-3 px-4 text-sm font-medium transition-colors ${
-              activeTab === 'introduction'
-                ? 'text-elx-accent bg-gray-800'
-                : 'text-[#FBFAFC] hover:bg-gray-800'
-            }`}
-          >
-            <FontAwesomeIcon icon={faHome} className="mr-2" />
-            Introduction
-          </button>
-          <button
-            onClick={() => handleNavClick('calculator')}
-            className={`w-full flex items-center py-3 px-4 text-sm font-medium transition-colors ${
-              activeTab === 'calculator'
-                ? 'text-elx-accent bg-gray-800'
-                : 'text-[#FBFAFC] hover:bg-gray-800'
-            }`}
-          >
-            <FontAwesomeIcon icon={faCalculator} className="mr-2" />
-            Guided Calculator
-          </button>
-          <button
-            onClick={() => handleNavClick('explorer')}
-            className={`w-full flex items-center py-3 px-4 text-sm font-medium transition-colors ${
-              activeTab === 'explorer'
-                ? 'text-elx-accent bg-gray-800'
-                : 'text-[#FBFAFC] hover:bg-gray-800'
-            }`}
-          >
-            <FontAwesomeIcon icon={faCubes} className="mr-2" />
-            Module Explorer
-          </button>
+      {/* New mobile menu implementation - fixed positioning */}
+      {mobileMenuOpen && (
+        <div className="md:hidden fixed top-[70px] left-0 right-0 bg-elx-primary border-t border-gray-700 shadow-lg">
+          <nav className="flex flex-col w-full">
+            <button
+              onClick={() => handleNavClick('introduction')}
+              className={`w-full flex items-center py-4 px-4 text-base font-medium ${
+                activeTab === 'introduction'
+                  ? 'text-elx-accent bg-gray-800'
+                  : 'text-white hover:bg-gray-800'
+              }`}
+            >
+              <FontAwesomeIcon icon={faHome} className="mr-3" />
+              Introduction
+            </button>
+            <button
+              onClick={() => handleNavClick('calculator')}
+              className={`w-full flex items-center py-4 px-4 text-base font-medium ${
+                activeTab === 'calculator'
+                  ? 'text-elx-accent bg-gray-800'
+                  : 'text-white hover:bg-gray-800'
+              }`}
+            >
+              <FontAwesomeIcon icon={faCalculator} className="mr-3" />
+              Guided Calculator
+            </button>
+            <button
+              onClick={() => handleNavClick('explorer')}
+              className={`w-full flex items-center py-4 px-4 text-base font-medium ${
+                activeTab === 'explorer'
+                  ? 'text-elx-accent bg-gray-800'
+                  : 'text-white hover:bg-gray-800'
+              }`}
+            >
+              <FontAwesomeIcon icon={faCubes} className="mr-3" />
+              Module Explorer
+            </button>
+          </nav>
         </div>
-      </div>
+      )}
     </header>
   );
 };
