@@ -41,8 +41,8 @@ const OnboardingQuiz = ({ intent, handleIntentSelect, resetCalculator }) => {
             key={intentOption.name}
             className={`p-6 rounded-xl text-left transition-all duration-200 ${
               intent === intentOption.name
-                ? 'module-card-selected'
-                : 'module-card'
+                ? 'elx-module-card-selected'
+                : 'elx-module-card elx-module-card-unselected'
             }`}
             onClick={() => handleIntentSelect(intentOption.name)}
           >
