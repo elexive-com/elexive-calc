@@ -12,26 +12,15 @@ import calculatorConfig from '../config/calculatorConfig.json';
 import DetailedReportModal from './DetailedReportModal';
 import EvcExplainer from './EvcExplainer';
 
-const ExpandableSection = ({ title, icon, children, defaultOpen = false }) => {
-  const [isOpen, setIsOpen] = useState(defaultOpen);
-  
+// Replace the ExpandableSection with a static Section component
+const Section = ({ title, icon, children }) => {
   return (
-    <div className="elx-expandable">
-      <h4 
-        className="text-[13px] uppercase tracking-wide font-medium text-elx-primary mb-2 flex items-center justify-between cursor-pointer"
-        onClick={() => setIsOpen(!isOpen)}
-      >
-        <span className="flex items-center">
-          <FontAwesomeIcon icon={icon} className="text-elx-accent mr-2 text-xs" />
-          {title}
-        </span>
-        <FontAwesomeIcon 
-          icon={isOpen ? faChevronUp : faChevronDown} 
-          className="text-elx-accent text-xs" 
-        />
+    <div className="mb-4">
+      <h4 className="text-[13px] uppercase tracking-wide font-medium text-elx-primary mb-2 flex items-center">
+        <FontAwesomeIcon icon={icon} className="text-elx-accent mr-2 text-xs" />
+        {title}
       </h4>
-      
-      {isOpen && children}
+      {children}
     </div>
   );
 };
@@ -90,13 +79,13 @@ const SummarySidebar = ({ calculator }) => {
         <h3 className="elx-section-heading mb-5">Your Configuration</h3>
         
         <div className="space-y-4">
-          {/* Intent */}
-          <ExpandableSection title="Core Intent" icon={faBullseye} defaultOpen={true}>
+          {/* Intent - renamed from "Core Intent" to "Ready-Made Solution" */}
+          <Section title="Ready-Made Solution" icon={faBullseye}>
             <p className="font-medium text-base text-elx-primary">{intent || "Not selected"}</p>
-          </ExpandableSection>
+          </Section>
           
           {/* Selected Modules */}
-          <ExpandableSection title="Selected Modules" icon={faPuzzlePiece} defaultOpen={true}>
+          <Section title="Selected Modules" icon={faPuzzlePiece}>
             {selectedModules.length > 0 ? (
               <>
                 <p className="font-medium text-base text-elx-primary mb-2.5">{selectedModules.length} modules</p>
@@ -114,30 +103,29 @@ const SummarySidebar = ({ calculator }) => {
             ) : (
               <p className="text-sm text-elx-primary italic">None selected</p>
             )}
-          </ExpandableSection>
+          </Section>
           
-          {/* Production Capacity */}
-          <ExpandableSection 
-            title="Production Capacity" 
-            icon={getProductionCapacityIcon(productionCapacity)}
-            defaultOpen={true}
-          >
-            <p className="font-medium text-base text-elx-primary">
-              {calculatorConfig.productionCapacity[productionCapacity]?.label || "Not selected"}
-            </p>
-            <div className="flex items-center mt-1.5">
-              <span className="elx-evc-label">
-                {calculatorConfig.productionCapacity[productionCapacity]?.weeklyEVCs || 0} EVCs/week
-              </span>
+          {/* Setup - Combined Production Capacity and Resource Allocation */}
+          <Section title="Setup" icon={faLayerGroup}>
+            <div className="flex flex-col space-y-3">
+              {/* Production Capacity */}
+              <div className="rounded-lg border border-blue-400 p-2.5 bg-blue-50">
+                <p className="font-medium text-base text-elx-primary">
+                  {calculatorConfig.productionCapacity[productionCapacity]?.label || "Not selected"}
+                </p>
+              </div>
+              
+              {/* Resource Allocation */}
+              <div className="rounded-lg border border-green-400 p-2.5 bg-green-50">
+                <p className="font-medium text-base text-elx-primary">
+                  {calculatorConfig.resourceAllocation[resourceAllocation]?.description || "Not selected"}
+                </p>
+              </div>
             </div>
-          </ExpandableSection>
+          </Section>
           
-          {/* Estimated Completion Time - Now always visible, not in expandable section */}
-          <div className="elx-expandable">
-            <h4 className="text-[13px] uppercase tracking-wide font-medium text-elx-primary mb-2 flex items-center">
-              <FontAwesomeIcon icon={faCalendarAlt} className="text-elx-accent mr-2 text-xs" />
-              Estimated Completion
-            </h4>
+          {/* Estimated Completion Time */}
+          <Section title="Estimated Completion" icon={faCalendarAlt}>
             <div className="flex justify-between items-center mt-1 bg-elx-accent-light bg-opacity-30 p-2.5 rounded">
               <div className="text-center flex-1">
                 <p className="font-bold text-lg text-elx-primary">{totalModuleEvcs}</p>
@@ -153,19 +141,11 @@ const SummarySidebar = ({ calculator }) => {
                 </p>
               </div>
             </div>
-          </div>
-          
-          {/* Resource Allocation */}
-          <ExpandableSection title="Resource Allocation" icon={faLayerGroup}>
-            <p className="font-medium text-base text-elx-primary">{calculatorConfig.resourceAllocation[resourceAllocation].description}</p>
-            <span className="elx-badge elx-badge-accent inline-block mt-1.5">
-              {calculatorConfig.resourceAllocation[resourceAllocation].label}
-            </span>
-          </ExpandableSection>
+          </Section>
           
           {/* Custom Parameters */}
           {serviceParameters.filter(param => parameters[param.id]).length > 0 && (
-            <ExpandableSection title="Custom Parameters" icon={faInfoCircle}>
+            <Section title="Custom Parameters" icon={faInfoCircle}>
               <div className="space-y-1 text-sm">
                 {serviceParameters
                   .filter(param => parameters[param.id])
@@ -176,18 +156,18 @@ const SummarySidebar = ({ calculator }) => {
                     </div>
                   ))}
               </div>
-            </ExpandableSection>
+            </Section>
           )}
           
           {/* Payment Option */}
-          <ExpandableSection title="Payment Method" icon={faCreditCard}>
+          <Section title="Payment Method" icon={faCreditCard}>
             <p className="font-medium text-base text-elx-primary">{evcBase.paymentOptions[paymentOption].name}</p>
             <span className="elx-badge elx-badge-accent inline-block mt-1.5">
               {paymentOption === 'prepaid' 
                 ? `${((1 - evcBase.paymentOptions[paymentOption].priceModifier) * 100).toFixed(0)}% discount`
                 : 'Standard monthly billing'}
             </span>
-          </ExpandableSection>
+          </Section>
           
           {/* Pricing Summary */}
           <div className="mt-5">
