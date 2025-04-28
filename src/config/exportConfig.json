@@ -1,0 +1,73 @@
+{
+  "pdf": {
+    "cover": {
+      "dimensions": {
+        "width": "794px",
+        "height": "1123px",
+        "unit": "px"
+      },
+      "layout": {
+        "padding": "32px",
+        "margins": {
+          "header": "48px",
+          "title": "32px",
+          "footer": "48px"
+        },
+        "logo": {
+          "height": "40px"
+        },
+        "typography": {
+          "title": {
+            "fontSize": "42px",
+            "fontWeight": "700",
+            "letterSpacing": "2px",
+            "textTransform": "uppercase",
+            "maxWidth": "80%"
+          },
+          "subtitle": {
+            "fontSize": "24px",
+            "fontWeight": "300",
+            "maxWidth": "70%"
+          },
+          "sectionTitle": {
+            "fontSize": "18px",
+            "fontWeight": "600",
+            "opacity": "0.9"
+          },
+          "footer": {
+            "fontSize": "14px"
+          },
+          "dateGenerated": {
+            "fontSize": "12px",
+            "opacity": "0.8"
+          }
+        }
+      }
+    },
+    "document": {
+      "orientation": "portrait",
+      "unit": "mm",
+      "format": "a4",
+      "margins": {
+        "top": 15,
+        "right": 15,
+        "bottom": 15,
+        "left": 15
+      },
+      "footer": {
+        "fontSize": 10,
+        "position": 10,
+        "alignment": "center"
+      }
+    },
+    "html2canvas": {
+      "options": {
+        "scale": 2,
+        "logging": false,
+        "useCORS": true,
+        "allowTaint": true,
+        "imageTimeout": 0
+      }
+    }
+  }
+}

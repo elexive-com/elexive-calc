@@ -40,9 +40,11 @@ The calculator is architected around a customer journey that builds trust, demon
    - Quickly personalizes the experience to their specific context and challenges
    - Creates immediate value through ready-made solutions for common business transformation scenarios
 
-2. **Guided Exploration** ([ModuleSelector](./ModuleSelector.md), [ProductionCapacitySelector](./ProductionCapacitySelector.md))
-   - Presents consulting modules organized by transformation, strategy, and technology pillars
+2. **Guided Exploration** ([ModuleExplorer](./ModuleExplorer.md), [ModuleSelector](./ModuleSelector.md), [ProductionCapacitySelector](./ProductionCapacitySelector.md))
+   - Presents consulting modules through multiple navigation paradigms to match executive thinking styles
+   - Organizes offerings by transformation pillars (Transformation, Strategy, Technology) and journey stages
    - Uses visual storytelling to make complex service choices intuitive
+   - Empowers self-guided discovery with filtering, search, and save functionality
    - Progressively reveals complexity only as needed ("progressive disclosure")
 
 3. **Strategic Optimization** ([ResourceAllocationSelector](./ResourceAllocationSelector.md), [ServiceParameters](./ServiceParameters.md))
