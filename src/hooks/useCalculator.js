@@ -9,8 +9,8 @@ export default function useCalculator() {
   const [selectedModules, setSelectedModules] = useState([]);
   const [selectedVariants, setSelectedVariants] = useState({});
   const [resourceAllocation, setResourceAllocation] = useState(calculatorConfig.defaults.resourceAllocation);
-  // New state for production capacity
-  const [productionCapacity, setProductionCapacity] = useState('seedling');
+  // Initial state for production capacity - changed from 'seedling' to 'roadster'
+  const [productionCapacity, setProductionCapacity] = useState('roadster');
   const [paymentOption, setPaymentOption] = useState(calculatorConfig.defaults.paymentOption);
   const [isEvcExplainerVisible, setIsEvcExplainerVisible] = useState(false);
   
@@ -150,9 +150,12 @@ export default function useCalculator() {
     setProductionCapacity(capacity);
     
     // Validate current resource allocation against new capacity
-    if (capacity === 'seedling' && resourceAllocation !== 'focused') {
-      // Seedling can only use Laser Beam (focused)
+    if (capacity === 'pathfinder' && resourceAllocation !== 'focused') {
+      // Pathfinder can only use Laser Beam (focused)
       setResourceAllocation('focused');
+    } else if (capacity === 'roadster' && resourceAllocation === 'distributed') {
+      // Roadster cannot use Omni-Channel (distributed)
+      setResourceAllocation('balanced'); // Default to Smart Campaign
     } else if (capacity === 'jetpack' && resourceAllocation === 'distributed') {
       // Jetpack cannot use Omni-Channel (distributed)
       setResourceAllocation('balanced'); // Default to Smart Campaign
