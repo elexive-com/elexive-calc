@@ -2,6 +2,8 @@
 @tailwind components;
 @tailwind utilities;
 
+@import './helpers/tailwind-helpers.css';
+
 /* Optional: Keep any custom styles below */
 body {
   -webkit-font-smoothing: antialiased;

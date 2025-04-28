@@ -104,7 +104,7 @@ const SummarySidebar = ({ calculator }) => {
                   {selectedModuleDetails.map(module => (
                     <div key={module.name} className="flex justify-between items-center bg-elx-accent-light bg-opacity-20 py-1.5 px-2.5 rounded">
                       <span className="text-elx-primary text-xs font-medium">{module.name}</span>
-                      <span className="elx-evc-label text-[10px] px-1.5 py-0.5 min-w-[40px]">
+                      <span className="evc-label">
                         {module.evcValue} EVC
                       </span>
                     </div>
@@ -126,7 +126,7 @@ const SummarySidebar = ({ calculator }) => {
               {calculatorConfig.productionCapacity[productionCapacity]?.label || "Not selected"}
             </p>
             <div className="flex items-center mt-1.5">
-              <span className="elx-evc-label text-[10px]">
+              <span className="evc-label">
                 {calculatorConfig.productionCapacity[productionCapacity]?.weeklyEVCs || 0} EVCs/week
               </span>
             </div>

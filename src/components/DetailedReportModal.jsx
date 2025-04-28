@@ -119,7 +119,7 @@ const DetailedReportModal = ({ isOpen, onClose, calculator }) => {
                     <span className="font-medium">{getVariantDisplayName(module.selectedVariant)}</span>
                   </div>
                   <div className="text-xs mt-1">
-                    <span className="text-elx-evc font-medium">{module.evcValue} EVC</span>
+                    <span className="evc-label">{module.evcValue} EVC</span>
                   </div>
                 </div>
               ))}
@@ -131,7 +131,11 @@ const DetailedReportModal = ({ isOpen, onClose, calculator }) => {
                 EVC Calculation
               </h4>
               <div className="text-xs text-gray-600 mt-1">
-                <p>Base EVC from modules: <span className="text-elx-evc font-medium">{selectedModuleDetails.reduce((sum, module) => sum + module.evcValue, 0)} EVCs</span></p>
+                <p>Base EVC from modules: <span className="font-medium">
+                  <span className="evc-label inline-block mt-1 mb-1 text-[10px] py-0.5 px-1.5">
+                    {selectedModuleDetails.reduce((sum, module) => sum + module.evcValue, 0)} EVCs
+                  </span>
+                </span></p>
                 <p>Resource allocation ({calculatorConfig.resourceAllocation[resourceAllocation].description}): {calculatorConfig.resourceAllocation[resourceAllocation].outputMultiplier}x</p>
                 {Object.entries(parameters)
                   .filter(([, enabled]) => enabled)

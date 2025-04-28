@@ -4,9 +4,8 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
 
-/* Minimal CSS - most styles now in tailwind.config.js */
+/* Global CSS variables - mainly for backward compatibility */
 :root {
-  /* Kept for backward compatibility and direct CSS variable references */
   --elexive-bg: #FBFAFC;
   --elexive-primary: #2E2266;
   --elexive-accent: #FFBD59;
@@ -20,40 +19,7 @@
   --elexive-header-height: 70px;
 }
 
-/* For legacy support - these will be phased out */
-.header {
-  @apply elx-header;
-}
-
-.header-logo {
-  @apply elx-header-logo;
-}
-
-.content-with-header {
-  @apply elx-content;
-}
-
-.calculator-container {
-  @apply elx-container;
-}
-
-.card {
-  @apply elx-card;
-}
-
-.shadow-custom {
-  @apply shadow-md; /* Updated to use Tailwind's native shadow */
-}
-
-.animate-fadeIn {
-  @apply animate-fade-in; /* Updated to use our renamed animation */
-}
-
-.animated-element {
-  @apply animate-pulse; /* Updated to use our renamed animation */
-}
-
-/* Additional styles that aren't covered by the component system yet */
+/* Additional styles that aren't covered by the component system */
 .calculator-display {
   background-color: var(--elexive-primary);
   color: white;
@@ -69,51 +35,13 @@
   gap: 0.75rem;
 }
 
-/* Legacy button styles - will be migrated to Tailwind classes */
-.number-button {
-  @apply bg-elx-bg text-elx-primary;
-}
-
-.operation-button {
-  @apply bg-elx-accent text-elx-primary;
-}
-
-.equals-button {
-  @apply bg-elx-secondary text-white;
-}
-
-.clear-button {
-  @apply bg-elx-primary text-white;
-}
-
-/* Module selection UI - Transitional classes */
-.module-option-card {
-  @apply elx-selector;
-}
-
-.module-option-card:hover {
-  @apply border-elx-accent-light transform -translate-y-1 shadow-sm; /* Updated to use Tailwind's native shadow */
-}
-
-.module-option-card.selected {
-  @apply elx-selector-selected;
-}
-
-.module-selector-indicator {
-  @apply elx-indicator;
-}
-
-.module-option-card.selected .module-selector-indicator {
-  @apply elx-indicator-selected;
-}
-
 .variant-info-panel {
   background-color: var(--elexive-bg);
   border-radius: var(--elexive-border-radius);
   padding: 1rem;
 }
 
-/* Mobile optimizations kept for backwards compatibility */
+/* Mobile optimizations for specific elements */
 @media (max-width: 640px) {
   .module-option-card {
     padding: 0.75rem;

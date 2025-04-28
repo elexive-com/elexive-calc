@@ -49,9 +49,9 @@ const ProductionCapacitySelector = ({ productionCapacity, setProductionCapacity 
                 />
                 <h3 className="font-bold text-lg text-elx-primary">{details.label}</h3>
                 
-                {/* Updated EVC label to match the style used in ModuleSelector */}
+                {/* Updated EVC label to use the evc-label helper class from tailwind-helpers.css */}
                 <div className="mt-2 mb-3 flex items-center justify-center">
-                  <span className="elx-evc-label">
+                  <span className="evc-label">
                     {details.weeklyEVCs} EVC
                   </span>
                   <span className="text-xs text-gray-500 ml-1">per week</span>

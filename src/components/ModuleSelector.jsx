@@ -153,7 +153,7 @@ const ModuleSelector = ({
                         </div>
                         <div className="text-sm font-medium">Fixed-scope assessment</div>
                       </div>
-                      <div className="ml-2 px-2 py-1 bg-teal-50 rounded-md text-xs font-semibold text-teal-600 whitespace-nowrap min-w-[60px] text-center">
+                      <div className="evc-label">
                         {module.variants[0].evcValue} EVC
                       </div>
                     </div>
@@ -352,7 +352,7 @@ const ModuleSelector = ({
                                   <div className="text-xs sm:text-sm font-medium">Fixed-scope Module</div>
                                 </div>
                               </div>
-                              <div className="ml-2 px-2 py-1 bg-teal-50 rounded-md text-xs font-semibold text-teal-600 whitespace-nowrap min-w-[60px] text-center">
+                              <div className="evc-label">
                                 {module.variants[0].evcValue} EVC
                               </div>
                             </div>
@@ -383,7 +383,7 @@ const ModuleSelector = ({
                                     <div className="text-xs sm:text-sm font-medium">Insight Primer</div>
                                   </div>
                                 </div>
-                                <div className="ml-2 px-2 py-1 bg-teal-50 rounded-md text-xs font-semibold text-teal-600 whitespace-nowrap min-w-[60px] text-center">
+                                <div className="evc-label">
                                   {module.variants[0].evcValue} EVC
                                 </div>
                               </div>
@@ -413,7 +413,7 @@ const ModuleSelector = ({
                                     <div className="text-xs sm:text-sm font-medium">Integrated Execution</div>
                                   </div>
                                 </div>
-                                <div className="ml-2 px-2 py-1 bg-teal-50 rounded-md text-xs font-semibold text-teal-600 whitespace-nowrap min-w-[60px] text-center">
+                                <div className="evc-label">
                                   {module.variants[1] ? module.variants[1].evcValue : module.variants[0].evcValue} EVC
                                 </div>
                               </div>
@@ -490,7 +490,7 @@ const ModuleSelector = ({
                               </div>
                               <div className="text-xs font-medium">Fixed-scope Module</div>
                             </div>
-                            <div className="ml-2 px-2 py-1 bg-teal-50 rounded-md text-xs font-semibold text-teal-600 whitespace-nowrap min-w-[60px] text-center">
+                            <div className="evc-label">
                               {module.variants[0].evcValue} EVC
                             </div>
                           </div>
@@ -519,7 +519,7 @@ const ModuleSelector = ({
                                 </div>
                                 <div className="text-xs font-medium">Insight Primer</div>
                               </div>
-                              <div className="ml-2 px-2 py-1 bg-teal-50 rounded-md text-xs font-semibold text-teal-600 whitespace-nowrap min-w-[60px] text-center">
+                              <div className="evc-label">
                                 {module.variants[0].evcValue} EVC
                               </div>
                             </div>
@@ -547,7 +547,7 @@ const ModuleSelector = ({
                                 </div>
                                 <div className="text-xs font-medium">Integrated Execution</div>
                               </div>
-                              <div className="ml-2 px-2 py-1 bg-teal-50 rounded-md text-xs font-semibold text-teal-600 whitespace-nowrap min-w-[60px] text-center">
+                              <div className="evc-label">
                                 {module.variants[1] ? module.variants[1].evcValue : module.variants[0].evcValue} EVC
                               </div>
                             </div>
