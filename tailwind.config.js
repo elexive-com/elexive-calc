@@ -6,6 +6,7 @@ module.exports = {
   ],
   theme: {
     extend: {
+      // Keep brand-specific colors (truly custom)
       colors: {
         'elx': {
           'bg': '#FBFAFC',
@@ -20,29 +21,22 @@ module.exports = {
           'strategy-badge': '#FFF0E3',
         }
       },
+      // Clean up font families (remove elx- prefix)
       fontFamily: {
-        'elx-heading': ['Poppins', 'sans-serif'],
-        'elx-body': ['Inter', 'Segoe UI', 'Roboto', 'sans-serif']
+        'heading': ['Poppins', 'sans-serif'],
+        'body': ['Inter', 'Segoe UI', 'Roboto', 'sans-serif']
       },
-      borderRadius: {
-        'elx': '12px',
-        'elx-btn': '8px',
-      },
-      transitionProperty: {
-        'elx': 'all 0.2s ease-in-out',
-      },
+      // Keep only truly custom spacing
       spacing: {
-        'elx-header': '70px',
+        'header': '70px',
       },
-      boxShadow: {
-        'elx-sm': '0 2px 10px rgba(46, 34, 102, 0.15)',
-        'elx-md': '0 4px 12px rgba(46, 34, 102, 0.15)',
-        'elx-lg': '0 10px 25px rgba(46, 34, 102, 0.1)',
-      },
+      // Remove custom border radius and use Tailwind's built-in
+      // Remove custom box shadows and use Tailwind's built-in
+      // Clean up animation names (remove elx- prefix)
       animation: {
-        'elx-pulse': 'elx-pulse 2s infinite',
-        'elx-fade-in': 'elx-fade-in 0.3s ease-in-out forwards',
-        'elx-pulse-selection': 'elx-pulse-selection 0.4s ease-out',
+        'pulse': 'elx-pulse 2s infinite',
+        'fade-in': 'elx-fade-in 0.3s ease-in-out forwards',
+        'pulse-selection': 'elx-pulse-selection 0.4s ease-out',
       },
       keyframes: {
         'elx-pulse': {
@@ -65,38 +59,38 @@ module.exports = {
   plugins: [
     function({ addComponents, theme }) {
       addComponents({
-        // Common element styles
+        // Common element styles - use native Tailwind tokens where possible
         '.elx-container': {
           backgroundColor: theme('colors.white'),
-          borderRadius: theme('borderRadius.elx'),
-          boxShadow: theme('boxShadow.elx-lg'),
+          borderRadius: theme('borderRadius.xl'), // Use Tailwind's built-in
+          boxShadow: theme('boxShadow.lg'),       // Use Tailwind's built-in
           overflow: 'hidden',
           transition: 'all 0.2s ease-in-out',
         },
         '.elx-header': {
           backgroundColor: theme('colors.elx.primary'),
-          height: theme('spacing.elx-header'),
+          height: theme('spacing.header'),
           display: 'flex',
           alignItems: 'center',
           padding: '0 1.5rem',
           position: 'sticky',
           top: '0',
           zIndex: '100',
-          boxShadow: theme('boxShadow.elx-sm'),
+          boxShadow: theme('boxShadow.sm'),       // Use Tailwind's built-in
         },
         '.elx-header-logo': {
           height: '40px',
           width: 'auto',
         },
         '.elx-content': {
-          paddingTop: `calc(${theme('spacing.elx-header')} + 1rem)`,
+          paddingTop: `calc(${theme('spacing.header')} + 1rem)`,
         },
         
-        // Button styles
+        // Button styles - use native Tailwind tokens where possible
         '.elx-btn': {
-          borderRadius: theme('borderRadius.elx-btn'),
+          borderRadius: theme('borderRadius.lg'),  // Use Tailwind's built-in
           transition: 'all 0.2s ease-in-out',
-          fontWeight: '600',
+          fontWeight: theme('fontWeight.semibold'),// Use Tailwind's built-in
           '&:hover': {
             transform: 'translateY(-2px)',
           },
@@ -130,32 +124,32 @@ module.exports = {
           },
         },
         
-        // Module cards and selectors
+        // Module cards and selectors - use native Tailwind tokens where possible
         '.elx-card': {
-          borderRadius: theme('borderRadius.elx'),
+          borderRadius: theme('borderRadius.xl'),  // Use Tailwind's built-in
           overflow: 'hidden',
           transition: 'all 0.2s ease-in-out',
         },
         '.elx-option-card': {
           backgroundColor: theme('colors.gray.50'),
-          padding: '1rem',
+          padding: theme('spacing.4'),             // Use Tailwind's built-in
           borderRadius: theme('borderRadius.xl'),
           flexGrow: '1',
           border: '1px solid transparent',
           transition: 'all 0.2s ease-in-out',
           '&:hover': {
             borderColor: theme('colors.gray.200'),
-            boxShadow: theme('boxShadow.elx-sm'),
+            boxShadow: theme('boxShadow.sm'),      // Use Tailwind's built-in
           },
         },
         '.elx-module-card': {
-          padding: '1rem',
+          padding: theme('spacing.4'),             // Use Tailwind's built-in
           borderRadius: theme('borderRadius.xl'),
           transition: 'all 0.2s ease-in-out',
           '&:hover': {
             borderColor: theme('colors.elx.accent-light'),
             transform: 'translateY(-1px)',
-            boxShadow: theme('boxShadow.elx-sm'),
+            boxShadow: theme('boxShadow.sm'),      // Use Tailwind's built-in
           },
         },
         '.elx-module-card-selected': {
@@ -165,12 +159,12 @@ module.exports = {
           boxShadow: theme('boxShadow.sm'),
         },
         
-        // Tab components
+        // Tab components - use native Tailwind tokens where possible
         '.elx-tab': {
           position: 'relative',
-          padding: '0.75rem 1.5rem',
-          fontWeight: 'medium',
-          fontSize: '0.875rem',
+          padding: theme('spacing.3') + ' ' + theme('spacing.6'), // Use Tailwind's built-in
+          fontWeight: theme('fontWeight.medium'),  // Use Tailwind's built-in
+          fontSize: theme('fontSize.sm'),          // Use Tailwind's built-in
           transition: 'all 0.2s ease-in-out',
           backgroundColor: theme('colors.gray.200'),
           borderTopLeftRadius: theme('borderRadius.lg'),
@@ -182,7 +176,7 @@ module.exports = {
         '.elx-tab-active': {
           backgroundColor: theme('colors.white'),
           color: theme('colors.elx.primary'),
-          fontWeight: 'bold',
+          fontWeight: theme('fontWeight.bold'),    // Use Tailwind's built-in
           zIndex: '10',
           borderTopWidth: '2px',
           borderLeftWidth: '2px',
@@ -193,11 +187,11 @@ module.exports = {
           boxShadow: '0 -2px 4px rgba(0,0,0,0.05)',
         },
         
-        // Dropdown items
+        // Dropdown items - use native Tailwind tokens where possible
         '.elx-dropdown-item': {
           width: '100%',
           textAlign: 'left',
-          padding: '0.75rem 1rem',
+          padding: theme('spacing.3') + ' ' + theme('spacing.4'), // Use Tailwind's built-in
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'space-between',
@@ -213,17 +207,17 @@ module.exports = {
         },
         '.elx-dropdown-item-active': {
           backgroundColor: theme('colors.gray.100'),
-          fontWeight: 'medium',
+          fontWeight: theme('fontWeight.medium'),  // Use Tailwind's built-in
         },
         
-        // Selectors and indicators
+        // Selectors and indicators - use native Tailwind tokens where possible
         '.elx-selector': {
           cursor: 'pointer',
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'space-between',
-          padding: '0.5rem 0.75rem',
-          borderRadius: theme('borderRadius.elx-btn'),
+          padding: theme('spacing.2') + ' ' + theme('spacing.3'), // Use Tailwind's built-in
+          borderRadius: theme('borderRadius.lg'),  // Use Tailwind's built-in
           transition: 'all 0.2s ease-in-out',
           backgroundColor: theme('colors.white'),
           border: '1px solid transparent',
@@ -260,13 +254,13 @@ module.exports = {
           },
         },
         
-        // EVC labels and badges
+        // EVC labels and badges - use native Tailwind tokens where possible
         '.elx-evc-label': {
           backgroundColor: theme('colors.elx.evc-light'),
           borderRadius: theme('borderRadius.md'),
-          padding: '0.25rem 0.5rem',
+          padding: theme('spacing.1') + ' ' + theme('spacing.2'), // Use Tailwind's built-in
           fontSize: theme('fontSize.xs'),
-          fontWeight: theme('fontWeight.semibold'),
+          fontWeight: theme('fontWeight.semibold'), // Use Tailwind's built-in
           color: theme('colors.elx.evc'),
           whiteSpace: 'nowrap',
           minWidth: '60px',
@@ -274,9 +268,9 @@ module.exports = {
         },
         '.elx-badge': {
           fontSize: theme('fontSize.xs'),
-          padding: '0.25rem 0.5rem',
+          padding: theme('spacing.1') + ' ' + theme('spacing.2'), // Use Tailwind's built-in
           borderRadius: '9999px',
-          fontWeight: theme('fontWeight.medium'),
+          fontWeight: theme('fontWeight.medium'),   // Use Tailwind's built-in
         },
         '.elx-badge-accent': {
           backgroundColor: theme('colors.elx.accent-light'),
@@ -291,21 +285,21 @@ module.exports = {
           color: theme('colors.elx.secondary'),
         },
         
-        // Expandable sections
+        // Expandable sections - use native Tailwind tokens where possible
         '.elx-expandable': {
           backgroundColor: 'rgba(255, 255, 255, 0.8)',
           borderRadius: theme('borderRadius.lg'),
-          padding: '0.875rem',
+          padding: theme('spacing.3.5'),           // Use Tailwind's built-in
           boxShadow: '0 1px 3px rgba(0, 0, 0, 0.05)',
         },
         
-        // Feature introduction
+        // Feature introduction - use native Tailwind tokens where possible
         '.elx-feature-intro': {
           position: 'relative',
           overflow: 'hidden',
           borderRadius: theme('borderRadius.xl'),
-          boxShadow: theme('boxShadow.lg'),
-          marginBottom: '2rem',
+          boxShadow: theme('boxShadow.lg'),        // Use Tailwind's built-in
+          marginBottom: theme('spacing.8'),        // Use Tailwind's built-in
         },
       })
     }

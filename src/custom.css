@@ -42,15 +42,15 @@
 }
 
 .shadow-custom {
-  @apply shadow-elx-md;
+  @apply shadow-md; /* Updated to use Tailwind's native shadow */
 }
 
 .animate-fadeIn {
-  @apply animate-elx-fade-in;
+  @apply animate-fade-in; /* Updated to use our renamed animation */
 }
 
 .animated-element {
-  @apply animate-elx-pulse;
+  @apply animate-pulse; /* Updated to use our renamed animation */
 }
 
 /* Additional styles that aren't covered by the component system yet */
@@ -92,7 +92,7 @@
 }
 
 .module-option-card:hover {
-  @apply border-elx-accent-light transform -translate-y-1 shadow-elx-sm;
+  @apply border-elx-accent-light transform -translate-y-1 shadow-sm; /* Updated to use Tailwind's native shadow */
 }
 
 .module-option-card.selected {
