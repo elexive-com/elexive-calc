@@ -189,8 +189,8 @@ export default function useCalculator() {
         return total + evcValue;
       }, 0);
     } else {
-      // If no modules selected, use a minimum value of 1 EVC
-      baseModuleEvcs = 1;
+      // When no modules are selected, set EVCs to 0 (previously was minimum of 1 EVC)
+      baseModuleEvcs = 0;
     }
     
     // Store the total module EVCs for completion time calculation
