@@ -261,6 +261,9 @@ export default function useCalculator() {
       // Prevent division by zero
       setCompletionTimeWeeks(0);
     } else {
+      // Calculate using weekly output value, not monthly
+      // baseModuleEvcs represents total EVCs needed for all modules
+      // outputValue represents weekly output (not monthly)
       const estimatedWeeks = baseModuleEvcs / outputValue;
       // Make sure we always show at least 1 week even for very small projects
       const minimumWeeks = 1;
