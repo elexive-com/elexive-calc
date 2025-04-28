@@ -19,7 +19,7 @@ const ProductionCapacitySelector = ({ productionCapacity, setProductionCapacity 
     <div className="elx-card p-6 mb-6">
       <h2 className="elx-section-heading text-2xl mb-2">
         <FontAwesomeIcon icon={faLayerGroup} className="text-elx-accent mr-2" />
-        EVC Production Capacity
+        Choose Your Delivery Speed
       </h2>
       
       {/* CEO-friendly introduction using the FeatureIntroduction component */}
