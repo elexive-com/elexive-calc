@@ -86,7 +86,7 @@ const SummarySidebar = ({ calculator }) => {
 
   return (
     <>
-      <div className="bg-white p-6 rounded-2xl shadow-lg h-fit sticky top-4">
+      <div className="bg-white p-6 rounded-2xl shadow-lg h-fit sticky top-[calc(var(--elexive-header-height)_+_1rem)]">
         <h3 className="font-bold text-xl mb-5 text-[var(--elexive-primary)]">Your Configuration</h3>
         
         <div className="space-y-4">
