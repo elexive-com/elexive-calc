@@ -16,7 +16,7 @@ const FeatureIntroduction = ({
   return (
     <div className="elx-feature-intro mb-8 relative overflow-hidden">
       {/* Background with stronger primary color */}
-      <div className="absolute inset-0 bg-elx-primary opacity-8"></div>
+      <div className="absolute inset-0 bg-elx-primary opacity-80"></div>
       
       {/* Main background with stronger contrast */}
       <div className="absolute inset-0 bg-[#EEF2F6] opacity-95"></div>
@@ -47,7 +47,7 @@ const FeatureIntroduction = ({
             
             {/* Additional info with enhanced styling */}
             {additionalInfo && typeof additionalInfo === 'string' ? (
-              <div className="mt-4 pt-3 bg-white bg-opacity-70 p-3 rounded-lg border-l-3 border-elx-accent">
+              <div className="mt-4 pt-3 bg-white bg-opacity-70 p-3 rounded-lg border-l-4 border-elx-accent">
                 <p className="text-elx-primary text-sm font-medium">
                   {additionalInfo}
                 </p>

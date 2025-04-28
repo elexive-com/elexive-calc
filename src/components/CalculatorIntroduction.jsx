@@ -90,22 +90,27 @@ const CalculatorIntroduction = ({ onGetStarted }) => {
 
       {/* The Value Model Section */}
       <div className="elx-selector mb-5">
+        {/* Header section - remains the same */}
         <div 
           className="flex items-center justify-between p-4 cursor-pointer"
           onClick={() => toggleSection('evcModel')}
         >
           <div className="flex items-center">
             <FontAwesomeIcon icon={faExchangeAlt} className="text-elx-accent mr-3" />
-            <h3 className="elx-section-heading text-lg">How Our Results-Focused Approach Works</h3>
+            <h3 className="elx-section-heading text-lg mb-0">How Our Results-Focused Approach Works</h3>
           </div>
-          <FontAwesomeIcon 
-            icon={expandedSections.evcModel ? faMinus : faPlus} 
-            className="text-elx-accent" 
-          />
+          <div className="w-6 h-6 flex items-center justify-center">
+            <FontAwesomeIcon 
+              icon={expandedSections.evcModel ? faMinus : faPlus} 
+              className="text-elx-accent" 
+              aria-hidden="true"
+            />
+          </div>
         </div>
         
+        {/* When expanded, show content in a flex column layout */}
         {expandedSections.evcModel && (
-          <div className="p-4 pt-0 border-t border-gray-100">
+          <div className="flex flex-col p-4 pt-0 border-t border-gray-100">
             <p className="text-gray-700 mb-4">
               We use Elastic Value Credits (EVCs) to deliver measurable results with complete transparency. These work units let you see exactly what resources are being applied to your specific business challenges and track the ROI.
             </p>
@@ -146,16 +151,19 @@ const CalculatorIntroduction = ({ onGetStarted }) => {
         >
           <div className="flex items-center">
             <FontAwesomeIcon icon={faLayerGroup} className="text-elx-accent mr-3" />
-            <h3 className="elx-section-heading text-lg">Configure Your Solution in 3 Steps</h3>
+            <h3 className="elx-section-heading text-lg mb-0">Configure Your Solution in 3 Steps</h3>
           </div>
-          <FontAwesomeIcon 
-            icon={expandedSections.howItWorks ? faMinus : faPlus} 
-            className="text-elx-accent" 
-          />
+          <div className="w-6 h-6 flex items-center justify-center">
+            <FontAwesomeIcon 
+              icon={expandedSections.howItWorks ? faMinus : faPlus} 
+              className="text-elx-accent" 
+              aria-hidden="true"
+            />
+          </div>
         </div>
         
         {expandedSections.howItWorks && (
-          <div className="p-4 pt-0 border-t border-gray-100">
+          <div className="flex flex-col p-4 pt-0 border-t border-gray-100">
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mt-4 mb-3">
               <div className="bg-gray-50 p-3 rounded-lg border border-gray-200">
                 <div className="font-medium text-elx-primary mb-1 flex items-center">
@@ -203,16 +211,19 @@ const CalculatorIntroduction = ({ onGetStarted }) => {
         >
           <div className="flex items-center">
             <FontAwesomeIcon icon={faPuzzlePiece} className="text-elx-accent mr-3" />
-            <h3 className="elx-section-heading text-lg">Solutions Tailored to Your Timeline</h3>
+            <h3 className="elx-section-heading text-lg mb-0">Solutions Tailored to Your Timeline</h3>
           </div>
-          <FontAwesomeIcon 
-            icon={expandedSections.whatToExpect ? faMinus : faPlus} 
-            className="text-elx-accent" 
-          />
+          <div className="w-6 h-6 flex items-center justify-center">
+            <FontAwesomeIcon 
+              icon={expandedSections.whatToExpect ? faMinus : faPlus} 
+              className="text-elx-accent" 
+              aria-hidden="true"
+            />
+          </div>
         </div>
         
         {expandedSections.whatToExpect && (
-          <div className="p-4 pt-0 border-t border-gray-100">
+          <div className="flex flex-col p-4 pt-0 border-t border-gray-100">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
               <div className="flex items-start">
                 <FontAwesomeIcon icon={faLightbulb} className="text-elx-accent mt-1 mr-3" />

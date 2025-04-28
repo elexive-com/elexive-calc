@@ -7,6 +7,11 @@
     @apply ml-2 px-2 py-1 bg-teal-50 rounded-md text-xs font-semibold text-teal-600 whitespace-nowrap min-w-[60px] text-center;
   }
   
+  /* Feature Introduction Component */
+  .elx-feature-intro {
+    @apply bg-elx-bg border border-gray-200 rounded-xl shadow-sm;
+  }
+  
   /* Heading Components */
   .elx-section-heading {
     @apply text-lg font-semibold text-elx-primary mb-4;

@@ -220,7 +220,7 @@ module.exports = {
           borderRadius: theme('borderRadius.lg'),  // Use Tailwind's built-in
           transition: 'all 0.2s ease-in-out',
           backgroundColor: theme('colors.white'),
-          border: '1px solid transparent',
+          border: '1px solid ' + theme('colors.gray.200'),
           '&:hover': {
             borderColor: theme('colors.elx.accent-light'),
             transform: 'translateY(-1px)',
