@@ -3,7 +3,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { 
   faChartLine, faBullseye, faRocket, 
   faGears, faArrowRight, faStar,
-  faCompass
+  faCompass, faBullhorn
 } from '@fortawesome/free-solid-svg-icons';
 import calculatorConfig from '../config/calculatorConfig.json';
 import calculatorPresets from '../config/calculatorPresets.json';
@@ -16,6 +16,14 @@ const OnboardingQuiz = ({ intent, handleIntentSelect, resetCalculator }) => {
       return calculatorPresets.presets[intentOption.name].description;
     }
     return intentOption.description;
+  };
+
+  // Function to get EVC budget for presets
+  const getEvcBudget = (intentName) => {
+    if (calculatorPresets.presets[intentName] && calculatorPresets.presets[intentName].evcBudget) {
+      return `${calculatorPresets.presets[intentName].evcBudget} EVC`;
+    }
+    return "";
   };
 
   // Enhanced intent selection handler that resets calculator when "Full Custom" is selected
@@ -62,15 +70,19 @@ const OnboardingQuiz = ({ intent, handleIntentSelect, resetCalculator }) => {
             {/* Preset label at the top */}
             {(intentOption.name === "Strategic Discovery" || 
               intentOption.name === "Visionary Growth" || 
+              intentOption.name === "Market Influence" || 
               intentOption.name === "Turnaround" || 
               intentOption.name === "Reinvention") && (
-              <div className="flex justify-start mb-2">
+              <div className="flex justify-between mb-2"> 
                 <span className="elx-category-badge elx-category-badge-strategic flex items-center">
                   <FontAwesomeIcon 
                     icon={faStar}
                     className="mr-1" 
                   />
                   Ready-Made Solution
+                </span>
+                <span className="elx-evc-label text-sm font-medium">
+                  {getEvcBudget(intentOption.name)}
                 </span>
               </div>
             )}
@@ -80,6 +92,7 @@ const OnboardingQuiz = ({ intent, handleIntentSelect, resetCalculator }) => {
                 icon={
                   intentOption.name === "Strategic Discovery" ? faCompass :
                   intentOption.name === "Visionary Growth" ? faChartLine :
+                  intentOption.name === "Market Influence" ? faBullhorn :
                   intentOption.name === "Turnaround" ? faArrowRight :
                   intentOption.name === "Reinvention" ? faRocket :
                   intentOption.name === "Full Custom" ? faGears :

@@ -19,6 +19,29 @@
   --elexive-header-height: 70px;
 }
 
+/* Fixed/sticky header styles */
+.elx-header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  background-color: var(--elexive-primary);
+  height: var(--elexive-header-height);
+  z-index: 50;
+}
+
+/* Add top margin to main content to account for fixed header */
+.elx-main-content {
+  margin-top: var(--elexive-header-height);
+}
+
+/* Sticky sidebar styles */
+.sticky {
+  position: sticky;
+  top: calc(var(--elexive-header-height) + 1rem);
+  z-index: 40;
+}
+
 /* Additional styles that aren't covered by the component system */
 .calculator-display {
   background-color: var(--elexive-primary);

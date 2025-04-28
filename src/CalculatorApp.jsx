@@ -21,7 +21,7 @@ const CalculatorApp = () => {
   };
   
   return (
-    <div className="container mx-auto py-8">
+    <div className="container mx-auto py-8 elx-main-content">
       {activeTab === 'introduction' ? (
         <CalculatorIntroduction onGetStarted={handleGetStarted} />
       ) : (

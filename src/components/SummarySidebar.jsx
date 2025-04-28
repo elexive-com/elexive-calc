@@ -86,7 +86,7 @@ const SummarySidebar = ({ calculator }) => {
 
   return (
     <>
-      <div className="elx-card p-6 h-fit sticky top-[calc(theme(spacing.elx-header) + 1rem)]">
+      <div className="elx-card p-6 h-fit sticky">
         <h3 className="elx-section-heading mb-5">Your Configuration</h3>
         
         <div className="space-y-4">
@@ -209,7 +209,8 @@ const SummarySidebar = ({ calculator }) => {
                 <div className="space-y-2">
                   <button
                     onClick={() => setIsModalOpen(true)}
-                    className="elx-btn elx-btn-primary w-full py-2.5"
+                    className="elx-btn w-full py-2.5"
+                    style={{ backgroundColor: 'var(--elexive-primary)', color: 'white' }}
                   >
                     <FontAwesomeIcon icon={faFileAlt} className="mr-2" />
                     View Detailed Report
@@ -225,7 +226,7 @@ const SummarySidebar = ({ calculator }) => {
                   
                   <button
                     onClick={() => window.location.href = 'mailto:sales@elexive.com?subject=Pricing%20Inquiry'}
-                    className="elx-btn elx-btn-primary w-full py-2.5"
+                    className="elx-btn elx-btn-accent w-full py-2.5"
                   >
                     <FontAwesomeIcon icon={faEnvelope} className="mr-2" />
                     Request Proposal

@@ -93,14 +93,37 @@ export default function useCalculator() {
       // Apply the preset modules with a slight delay to ensure UI updates
       setTimeout(() => {
         console.log("Setting modules to:", preset.modules);
-        setSelectedModules([...preset.modules]);
         
-        // Create default variants for the preset modules (set all to 'insightPrimer' by default)
-        const newVariants = {};
-        preset.modules.forEach(moduleName => {
-          newVariants[moduleName] = 'insightPrimer';
-        });
-        setSelectedVariants(newVariants);
+        // Handle both old format (array of strings) and new format (array of objects)
+        if (preset.modules && preset.modules.length > 0) {
+          // Check if we're using the new format (objects with name and variant)
+          if (typeof preset.modules[0] === 'object' && preset.modules[0].name) {
+            // New format with objects
+            const moduleNames = preset.modules.map(module => module.name);
+            setSelectedModules(moduleNames);
+            
+            // Extract variants from the preset modules
+            const newVariants = {};
+            preset.modules.forEach(module => {
+              // Map preset variant names to the format expected by the UI
+              // "Insight Primer" becomes "insightPrimer", "Integrated Execution" becomes "integratedExecution"
+              const variantType = module.variant === "Insight Primer" ? 
+                'insightPrimer' : 'integratedExecution';
+              newVariants[module.name] = variantType;
+            });
+            setSelectedVariants(newVariants);
+          } else {
+            // Old format with just strings
+            setSelectedModules([...preset.modules]);
+            
+            // Create default variants for the preset modules (set all to 'insightPrimer' by default)
+            const newVariants = {};
+            preset.modules.forEach(moduleName => {
+              newVariants[moduleName] = 'insightPrimer';
+            });
+            setSelectedVariants(newVariants);
+          }
+        }
         
         // Apply the preset capacity allocation
         setResourceAllocation(preset.resourceAllocation || preset.capacityAllocation);
@@ -234,11 +257,15 @@ export default function useCalculator() {
     const outputValue = Math.ceil(adjustedProductionCapacity * outputMultiplier);
     
     // Calculate estimated completion time in weeks
-    // Fixed: Use adjustedProductionCapacity for weekly production capacity
-    // The correct formula is: TotalModuleEVCs / (adjustedProductionCapacity * outputMultiplier)
-    // Since outputValue = adjustedProductionCapacity * outputMultiplier, we can simplify to:
-    const estimatedWeeks = baseModuleEvcs / outputValue;
-    setCompletionTimeWeeks(Math.ceil(estimatedWeeks));
+    if (outputValue === 0) {
+      // Prevent division by zero
+      setCompletionTimeWeeks(0);
+    } else {
+      const estimatedWeeks = baseModuleEvcs / outputValue;
+      // Make sure we always show at least 1 week even for very small projects
+      const minimumWeeks = 1;
+      setCompletionTimeWeeks(Math.max(minimumWeeks, Math.ceil(estimatedWeeks)));
+    }
     
     // Store the values for display
     setWeeklyProductionCapacity(adjustedProductionCapacity);

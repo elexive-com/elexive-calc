@@ -3,7 +3,10 @@
     "Strategic Discovery": {
       "description": "Define your challenges and create a strategic roadmap before scaling. Ideal for organizations seeking clarity on transformation priorities with minimal initial commitment.",
       "modules": [
-        "Foundation Mapping"
+        {
+          "name": "Foundation Mapping",
+          "variant": "Insight Primer"
+        }
       ],
       "capacityAllocation": "focused",
       "paymentOption": "retroactive",
@@ -12,15 +15,32 @@
         "aiUsage": true,
         "marketDataAccess": false
       },
-      "recommendedCapacity": "pathfinder"
+      "recommendedCapacity": "pathfinder",
+      "evcBudget": 5
     },
     "Visionary Growth": {
       "description": "Accelerate business expansion with strategic leadership and innovation focus. Ideal for established companies seeking to scale their operations and enter new markets.",
       "modules": [
-        "Strategic Leadership",
-        "Revenue Levers",
-        "Brand Power",
-        "Innovation Blueprint"
+        {
+          "name": "Strategic Leadership",
+          "variant": "Insight Primer"
+        },
+        {
+          "name": "Strategic Foresight",
+          "variant": "Insight Primer"
+        },
+        {
+          "name": "Revenue Levers", 
+          "variant": "Insight Primer"
+        },
+        {
+          "name": "Innovation Blueprint",
+          "variant": "Insight Primer"
+        },
+        {
+          "name": "Customer Centricity",
+          "variant": "Insight Primer"
+        }
       ],
       "capacityAllocation": "distributed",
       "paymentOption": "prepaid",
@@ -28,15 +48,63 @@
         "onSitePresence": false,
         "aiUsage": true,
         "marketDataAccess": true
-      }
+      },
+      "recommendedCapacity": "roadster",
+      "evcBudget": 50
+    },
+    "Market Influence": {
+      "description": "Build market perception and pricing power through strategic positioning. Perfect for companies seeking to differentiate in competitive markets and establish premium brand positioning.",
+      "modules": [
+        {
+          "name": "Brand Power",
+          "variant": "Integrated Execution"
+        },
+        {
+          "name": "Brand Core",
+          "variant": "Insight Primer"
+        },
+        {
+          "name": "Strategic Foresight",
+          "variant": "Insight Primer"
+        },
+        {
+          "name": "Executive Agility",
+          "variant": "Insight Primer"
+        }
+      ],
+      "capacityAllocation": "balanced",
+      "paymentOption": "prepaid",
+      "parameters": {
+        "onSitePresence": false,
+        "aiUsage": true,
+        "marketDataAccess": true
+      },
+      "recommendedCapacity": "roadster",
+      "evcBudget": 70
     },
     "Turnaround": {
       "description": "Rapidly transform underperforming operations with decisive leadership and digital modernization. Perfect for businesses needing quick, focused intervention to overcome challenges.",
       "modules": [
-        "Leading Change",
-        "Executive Agility",
-        "Digital Fortress",
-        "AI Impact"
+        {
+          "name": "Leading Change",
+          "variant": "Integrated Execution"
+        },
+        {
+          "name": "Revenue Levers",
+          "variant": "Integrated Execution"
+        },
+        {
+          "name": "AI Impact",
+          "variant": "Insight Primer"
+        },
+        {
+          "name": "Digital Fortress",
+          "variant": "Insight Primer"
+        },
+        {
+          "name": "Culture Core",
+          "variant": "Insight Primer"
+        }
       ],
       "capacityAllocation": "focused",
       "paymentOption": "prepaid",
@@ -44,15 +112,37 @@
         "onSitePresence": true,
         "aiUsage": true,
         "marketDataAccess": false
-      }
+      },
+      "recommendedCapacity": "jetpack",
+      "evcBudget": 100
     },
     "Reinvention": {
       "description": "Revolutionize your business model and customer experience with data-driven insights. Designed for companies seeking to reposition themselves in evolving markets.",
       "modules": [
-        "Model Shift",
-        "Strategic Foresight",
-        "Customer Centricity",
-        "Data Advantage"
+        {
+          "name": "Model Shift",
+          "variant": "Integrated Execution"
+        },
+        {
+          "name": "Strategic Leadership",
+          "variant": "Integrated Execution"
+        },
+        {
+          "name": "Culture Power",
+          "variant": "Integrated Execution"
+        },
+        {
+          "name": "AI Impact",
+          "variant": "Integrated Execution"
+        },
+        {
+          "name": "Innovation Blueprint",
+          "variant": "Integrated Execution"
+        },
+        {
+          "name": "Data Advantage",
+          "variant": "Integrated Execution"
+        }
       ],
       "capacityAllocation": "balanced",
       "paymentOption": "retroactive",
@@ -60,7 +150,9 @@
         "onSitePresence": false,
         "aiUsage": true,
         "marketDataAccess": true
-      }
+      },
+      "recommendedCapacity": "rocketship",
+      "evcBudget": 240
     }
   }
 }
