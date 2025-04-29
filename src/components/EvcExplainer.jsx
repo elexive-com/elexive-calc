@@ -19,21 +19,25 @@ const EvcExplainer = ({
 
   return (
     <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
-      <div className="bg-white rounded-2xl shadow-xl max-w-4xl w-full max-h-[90vh] overflow-y-auto">
-        <div className="sticky top-0 bg-white p-4 border-b flex justify-between items-center">
-          <h2 className="elx-section-heading text-2xl mb-0">
-            <FontAwesomeIcon icon={faCalculator} className="text-elx-accent mr-2" />
-            Understanding Elastic Value Credits (EVCs)
-          </h2>
-          <button 
-            onClick={onClose}
-            className="text-gray-500 hover:text-gray-700 focus:outline-none"
-          >
-            <FontAwesomeIcon icon={faTimes} size="lg" />
-          </button>
+      <div className="bg-white rounded-2xl shadow-xl max-w-4xl w-full max-h-[90vh] flex flex-col overflow-hidden">
+        {/* Header - fixed at the top */}
+        <div className="bg-white shadow-sm z-20 border-b">
+          <div className="p-4 flex justify-between items-center">
+            <h2 className="elx-section-heading text-2xl mb-0">
+              <FontAwesomeIcon icon={faCalculator} className="text-elx-accent mr-2" />
+              Understanding Elastic Value Credits (EVCs)
+            </h2>
+            <button 
+              onClick={onClose}
+              className="text-gray-500 hover:text-gray-700 focus:outline-none"
+            >
+              <FontAwesomeIcon icon={faTimes} size="lg" />
+            </button>
+          </div>
         </div>
         
-        <div className="p-6">
+        {/* Scrollable content area */}
+        <div className="overflow-y-auto flex-grow p-6">
           <p className="text-gray-600 mb-4">
             EVCs represent our producer-consumer model where input resources are converted into 
             strategic output value for your business.
