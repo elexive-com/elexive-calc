@@ -20,6 +20,12 @@ const Header = () => {
   const handleNavClick = (tab) => {
     setActiveTab(tab);
     setMobileMenuOpen(false); // Close menu after selection on mobile
+    
+    // Scroll to top of the page
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth'
+    });
   };
   
   return (

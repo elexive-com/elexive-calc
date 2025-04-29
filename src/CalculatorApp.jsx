@@ -1,6 +1,4 @@
 import React from 'react';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faEnvelope } from '@fortawesome/free-solid-svg-icons';
 import useCalculator from './hooks/useCalculator';
 import CalculatorIntroduction from './components/CalculatorIntroduction';
 import OnboardingQuiz from './components/OnboardingQuiz';
@@ -82,19 +80,6 @@ const CalculatorApp = () => {
             <ModuleExplorer />
           )}
         </>
-      )}
-      
-      {/* Mobile View - Request Proposal Button (only visible when in calculator tab) */}
-      {activeTab === 'calculator' && (
-        <div className="fixed bottom-4 left-1/2 transform -translate-x-1/2 lg:hidden">
-          <button
-            onClick={() => window.location.href = 'mailto:sales@elexive.com?subject=Pricing%20Inquiry'}
-            className="elx-btn elx-btn-secondary flex items-center px-6 py-3 rounded-full shadow-md"
-          >
-            <FontAwesomeIcon icon={faEnvelope} className="mr-2" />
-            Request Detailed Proposal
-          </button>
-        </div>
       )}
     </div>
   );
