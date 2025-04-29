@@ -2,11 +2,68 @@
 
 ## Overview
 
-The ProductionCapacitySelector component enables users to define the weekly service delivery capacity for their EV charging infrastructure project. It presents a set of tiered capacity options that determine the speed and volume of service delivery.
+The ProductionCapacitySelector component enables users to define the weekly consulting service delivery capacity for their business transformation initiative. It presents a set of tiered capacity options (Pathfinder, Roadster, Jetpack, Rocket) that determine the speed and intensity of service delivery, serving as a key element in the "Strategic Optimization" phase of the customer journey.
 
-## Purpose
+> **Note:** This component adheres to the [Elexive Calculator Design Guidelines](./DesignGuidelines.md) for visual design, interaction patterns, and customer journey integration.
 
-This component serves a critical role in the calculator by allowing users to set expectations around project velocity and resource allocation. It translates abstract service needs into concrete delivery timelines, helping users understand the relationship between capacity investment and project outcomes.
+## Strategic Purpose
+
+The ProductionCapacitySelector addresses several key customer needs identified in our research:
+
+1. **Resource Planning Clarity**: By providing transparent options for service delivery intensity
+2. **Timeline Control**: By empowering executives to match transformation pace to business readiness
+3. **Budget Alignment**: By directly connecting capacity investment to transformation outcomes
+4. **Commitment Flexibility**: By offering multiple service intensity options with clear differentiation
+
+## Component-Specific Design Decisions
+
+### Capacity Option Design
+
+The capacity option cards represent a key UX decision point, balancing several competing needs:
+
+1. **Card Structure** - The capacity presentation layout:
+   - Uses consistent card dimensions for visual harmony
+   - Implements clear visual hierarchy from name to EVC value to description
+   - Provides sufficient information for decision-making without overwhelming
+   - Creates appropriate visual distinction between different capacity tiers
+
+2. **Metaphorical Scale** - The conceptual framework:
+   - Uses transportation/velocity metaphors that business executives understand
+   - Creates intuitive progression from slower/smaller to faster/larger
+   - Implements appropriate iconography that reinforces the metaphors
+   - Provides immediate intuitive understanding of relative capacity
+
+3. **Visual Selection Feedback** - The interactive indicators:
+   - Implements distinct styling for the selected capacity option
+   - Uses subtle hover effects to indicate interactivity
+   - Provides appropriate color coding for different capacity levels
+   - Creates clear visual contrast between selected and unselected states
+
+## Core Functionality
+
+1. **Capacity Tier Selection**
+   - Presents multiple predefined capacity tiers (Pathfinder, Roadster, Jetpack, Rocket)
+   - Each tier represents a different level of weekly EVC (Elastic Value Credit) production
+   - Visually differentiates tiers using icons and styling that communicate scale
+   - Provides clear business context for each capacity option
+   
+2. **Configuration-Driven Design**
+   - Uses `calculatorConfig.json` to define capacity tiers and their properties
+   - Dynamically generates UI based on the configuration data
+   - Allows for easy modification of capacity options without code changes
+   - Maintains consistent presentation regardless of configuration changes
+
+3. **Selection Mechanism**
+   - Implements a simple selection model where only one capacity tier can be active
+   - Uses distinct visual feedback to indicate the currently selected option
+   - Provides immediate UI feedback when selection changes
+   - Creates intuitive interaction patterns for changing selection
+
+4. **Business Impact Visualization**
+   - Clearly communicates the effect of capacity on transformation timeline
+   - Presents capacity in terms of business outcomes rather than technical metrics
+   - Uses executive-friendly language to describe benefits of each tier
+   - Creates appropriate expectations around service delivery intensity
 
 ## Technical Implementation
 

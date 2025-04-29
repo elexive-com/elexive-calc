@@ -4,6 +4,8 @@
 
 The CalculatorIntroduction component serves as the entry point and educational gateway to the Elexive Calculator application. It provides a comprehensive introduction to the calculator's purpose, functionality, and business value, helping users understand how the tool can address their specific business transformation challenges through consulting services.
 
+> **Note:** This component adheres to the [Elexive Calculator Design Guidelines](./DesignGuidelines.md) for visual design, interaction patterns, and customer journey integration.
+
 ## Strategic Purpose
 
 The CalculatorIntroduction addresses critical customer needs identified in our research:
@@ -13,40 +15,7 @@ The CalculatorIntroduction addresses critical customer needs identified in our r
 3. **Control Deficit**: By setting expectations for a self-directed exploration experience
 4. **Decision Confidence**: By establishing trust through educational content before requiring commitment
 
-## Design Principles
-
-The CalculatorIntroduction's design is guided by several key principles:
-
-1. **Visual Consistency** - Maintain strong visual relationships with the broader application:
-   - Using consistent color coding that aligns with the transformation pillars
-   - Ensuring educational content visually aligns with the application's design language
-   - Applying coherent typographic hierarchy throughout the interface
-
-2. **Information Hierarchy** - Present information in a logical order of importance:
-   - Value proposition as the primary focus
-   - Business challenges and outcomes as secondary focal points
-   - Methodology details as tertiary elements
-   - Progressive disclosure of complex information through expandable sections
-
-3. **Intuitive Navigation** - Create a clear pathway that guides users into the calculator:
-   - Sequential presentation of concepts that builds understanding
-   - Clear visual cues for interactive elements
-   - Prominent call-to-action that signals the transition to the main calculator
-   - Natural information flow from problem framing to solution introduction
-
-4. **Cognitive Load Management** - Reduce decision fatigue through:
-   - Chunking information into digestible sections
-   - Using collapsible panels to manage information density
-   - Providing visual cues that guide attention to important elements
-   - Limiting the number of concepts presented at any given moment
-
-5. **Visual Storytelling** - Use design elements to convey relationships:
-   - Iconography that reinforces key concepts
-   - Visual representations of the EVC value model
-   - State changes that provide clear feedback for user actions
-   - Consistent visual patterns that establish relationships between concepts
-
-## Key UX Decisions
+## Component-Specific Design Decisions
 
 ### Educational Content Design
 
@@ -257,29 +226,6 @@ The content structure follows a specific narrative sequence designed to build un
    - Lazy-loads content in expandable sections
    - Uses appropriate HTML semantics for optimal rendering
    - Minimizes layout shifts when expanding/collapsing sections
-
-## Color System Implementation
-
-The color system should follow these specific guidelines to maintain consistency with the broader application:
-
-1. **Primary Interface Elements**
-   - Header background: Elexive primary (#2E2266)
-   - Primary CTA: Elexive accent (#FFBD59)
-   - Section headers: Elexive primary with 15% opacity reduction
-   - Expandable panels: Light neutral background (#F9FAFB) with subtle border
-
-2. **Business Challenge Cards**
-   - Transformation challenges: Light amber background (#FEF3C7) with amber accent (#D97706)
-   - Strategy challenges: Light orange background (#FFEDD5) with orange accent (#C2410C)
-   - Technology challenges: Light teal background (#ECFDF5) with teal accent (#065F46)
-
-3. **Interactive Elements**
-   - Expandable section toggles: Elexive secondary (#EB8258)
-   - Hover states: 10% darkness increase from base colors
-   - Focus states: Elexive primary with 2px outline
-   - Icon elements: Consistent with their associated category colors
-
-This color system should align with the pillar color approach used in the ModuleExplorer to maintain visual coherence throughout the application.
 
 ## Future Enhancement Opportunities
 

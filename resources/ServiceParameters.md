@@ -2,11 +2,78 @@
 
 ## Overview
 
-The ServiceParameters component allows users to configure additional service-related settings that affect pricing, billing, and service delivery options. It provides an interface for selecting payment options and toggling various service-specific parameters.
+The ServiceParameters component allows users to configure additional service-related settings that affect pricing, billing, and delivery options for their business transformation initiative. It provides an interface for selecting payment options and toggling various service-specific parameters, serving as a refinement mechanism in the "Strategic Optimization" phase of the customer journey.
 
-## Purpose
+> **Note:** This component adheres to the [Elexive Calculator Design Guidelines](./DesignGuidelines.md) for visual design, interaction patterns, and customer journey integration.
 
-This component serves as the customization layer for fine-tuning service delivery options. It addresses the need for flexibility in payment terms and service configuration, allowing users to tailor the EV charging infrastructure services to their specific operational requirements and financial constraints.
+## Strategic Purpose
+
+The ServiceParameters addresses several key customer needs identified in our research:
+
+1. **Financial Flexibility**: By providing multiple payment options with transparent pricing implications
+2. **Service Customization**: By allowing fine-tuning of delivery parameters to match business constraints
+3. **Value Optimization**: By enabling adjustment of service elements to maximize ROI
+4. **Control Enhancement**: By providing granular configuration options for the consulting engagement
+
+## Component-Specific Design Decisions
+
+### Payment Option Design
+
+The payment option selectors implement a deliberate decision framework:
+
+1. **Option Presentation** - The payment selection layout:
+   - Uses clear, distinctive styling for each payment option
+   - Implements obvious visual feedback for the selected option
+   - Provides immediate indication of financial implications (discounts)
+   - Creates appropriate context for understanding payment terms
+
+2. **Financial Transparency** - The cost implication indicators:
+   - Shows explicit discount percentages for eligible payment options
+   - Uses consistent formatting for financial information
+   - Provides clear visual connection between selection and pricing impact
+   - Implements appropriate typography for financial figures
+
+### Parameter Toggle Design
+
+The parameter toggle controls balance several competing needs:
+
+1. **Toggle Control Design** - The interactive elements:
+   - Implements accessible toggle switches with clear state indicators
+   - Uses consistent sizing and spacing for optimal usability
+   - Provides appropriate visual feedback for interaction states
+   - Creates clear distinction between enabled and disabled parameters
+
+2. **Information Architecture** - The parameter organization:
+   - Groups related parameters into logical categories
+   - Creates clear visual separation between parameter groups
+   - Implements consistent labeling and description patterns
+   - Provides appropriate spacing for optimal readability
+
+## Core Functionality
+
+1. **Payment Option Selection**
+   - Enables users to choose between different payment methods (e.g., standard, prepaid)
+   - Each payment option has associated pricing modifiers that affect the total cost
+   - Provides clear visual indication of cost implications (discounts) for different payment methods
+   - Creates appropriate business context for financial decisions
+
+2. **Additional Parameter Toggles**
+   - Presents a list of configurable service parameters as toggle switches
+   - Each parameter has a label and description explaining its purpose and impact
+   - Maintains state for all parameter selections with visual feedback
+   - Groups related parameters into logical categories for better organization
+
+3. **Configuration-Driven Design**
+   - Leverages configuration data from `calculatorConfig.json` to define payment options
+   - Accepts dynamic service parameters from props to support modularity
+   - Implements a responsive design that works across different screen sizes
+   - Provides consistent experience regardless of parameter count or configuration
+
+4. **Financial Transparency**
+   - Clearly communicates pricing implications of different payment options
+   - Shows discount percentages and other financial adjustments
+   - Provides contextual explanation of payment terms and conditions
+   - Creates appropriate business context for financial decision-making
 
 ## Technical Implementation
 

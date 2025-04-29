@@ -4,6 +4,8 @@
 
 The Module Explorer is a dynamic, visually-rich interface that allows executives to explore Elexive's consulting modules in an intuitive, self-guided manner. This component transforms the traditional consulting catalog from a static list into an interactive experience organized around three complementary navigation paradigms: transformation pillars, customer journey stages, and a comprehensive module list.
 
+> **Note:** This component adheres to the [Elexive Calculator Design Guidelines](./DesignGuidelines.md) for visual design, interaction patterns, and customer journey integration.
+
 ## Strategic Purpose
 
 The Module Explorer addresses several key customer pain points identified in our research:
@@ -13,40 +15,7 @@ The Module Explorer addresses several key customer pain points identified in our
 3. **Difficulty Comparing Options**: Through consistent, comparable module cards
 4. **Inability to "Browse"**: With multiple navigation approaches that match different thinking styles
 
-## Design Principles
-
-The Module Explorer's design is guided by several key principles:
-
-1. **Visual Consistency** - Maintain strong visual relationships between related elements, particularly:
-   - Using consistent color coding across pillars (Transformation: amber/gold, Strategy: orange, Technology: teal, Discovery: purple)
-   - Ensuring module cards visually align with their parent pillar cards
-   - Applying coherent typographic hierarchy throughout the interface
-
-2. **Information Hierarchy** - Present information in a logical order of importance:
-   - Pillar identification as the primary organizational element
-   - Module name and heading as secondary focal points
-   - Supporting details like categories and variants as tertiary elements
-   - Progressive disclosure of complex information through layered interfaces
-
-3. **Intuitive Navigation** - Create multiple pathways that accommodate different user mental models:
-   - Pillar-centric view for organizational thinking
-   - Journey-centric view for sequential process thinking
-   - List view with filtering for direct, search-oriented exploration
-   - Clear tabbed navigation between these primary exploration models
-
-4. **Cognitive Load Management** - Reduce decision fatigue through:
-   - Chunking information into digestible cards
-   - Using consistent patterns and layouts across the interface
-   - Providing visual cues that guide attention to important elements
-   - Limiting the number of choices presented at any given moment
-
-5. **Visual Storytelling** - Use design elements to convey relationships:
-   - Colored headers for module cards that reinforce pillar association
-   - Connected journey stages with directional arrows showing progression
-   - State changes that provide clear feedback for user actions
-   - Iconography that reinforces conceptual categories
-
-## Key UX Decisions
+## Component-Specific Design Decisions
 
 ### Module Card Design
 
@@ -297,36 +266,6 @@ When implementing or extending the Module Explorer:
 5. Prioritize performance with large module datasets
 6. Adhere to the pillar color system consistently throughout the interface
 7. Maintain the module card design pattern with colored headers showing pillar association
-
-## Color System Implementation
-
-The color system for pillars should follow these specific guidelines:
-
-1. **Transformation Pillar**
-   - Header background: #D99000 (darkened amber)
-   - Text: White
-   - Accent elements: #FFBD59
-   - Hover states: 10% darker than base color
-
-2. **Strategy Pillar**
-   - Header background: #C85A30 (darkened orange)
-   - Text: White
-   - Accent elements: #EB8258
-   - Hover states: 10% darker than base color
-
-3. **Technology Pillar**
-   - Header background: #1F776D (teal)
-   - Text: White
-   - Accent elements: #2C7A72
-   - Hover states: 10% darker than base color
-
-4. **Discovery Pillar**
-   - Header background: #2E2266 (purple/primary)
-   - Text: White
-   - Accent elements: #3A2C7E
-   - Hover states: 10% darker than base color
-
-These colors should be consistently applied across pillar cards, module card headers, and related UI elements to maintain visual coherence.
 
 ## Metrics & Success Indicators
 

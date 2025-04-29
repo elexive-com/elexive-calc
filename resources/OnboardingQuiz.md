@@ -4,6 +4,8 @@
 
 The OnboardingQuiz component serves as the initial personalization mechanism for the Elexive Calculator, helping users identify their core business priority and select an appropriate starting point. It presents pre-configured solution templates as well as a custom option, guiding users toward the most relevant calculator configuration for their needs.
 
+> **Note:** This component adheres to the [Elexive Calculator Design Guidelines](./DesignGuidelines.md) for visual design, interaction patterns, and customer journey integration.
+
 ## Purpose
 
 This component addresses the critical need for personalization in the calculator experience. It helps users quickly orient themselves by presenting common business scenarios and priorities, allowing them to choose a path that aligns with their specific challenges. By offering both ready-made solutions and custom options, it accommodates different user preferences while streamlining the configuration process.

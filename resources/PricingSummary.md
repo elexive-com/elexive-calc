@@ -2,54 +2,153 @@
 
 ## Overview
 
-The PricingSummary component serves as the financial dashboard of the Elexive Calculator application. It presents a comprehensive breakdown of pricing, resource allocation, and service configuration details based on the user's selections throughout the calculator.
+The PricingSummary component serves as the financial dashboard of the Elexive Calculator application. It presents a comprehensive breakdown of pricing, resource allocation, and service configuration details based on the user's selections throughout the calculator, representing a critical element in the "Value Validation" phase of the customer journey.
 
-## Purpose
+> **Note:** This component adheres to the [Elexive Calculator Design Guidelines](./DesignGuidelines.md) for visual design, interaction patterns, and customer journey integration.
 
-This component provides transparent cost information and financial insights to help users understand the pricing implications of their EV charging infrastructure choices. It translates technical service selections into clear financial terms, helping stakeholders make informed budgeting decisions.
+## Component-Specific Design Decisions
 
-## Technical Implementation
+### Financial Information Presentation
 
-### Core Functionality
+The pricing information implements a deliberate design approach:
+
+1. **Price Figure Display** - The core financial metrics:
+   - Uses prominent typography for the primary weekly price
+   - Implements supporting metrics (EVCs, price per EVC) with appropriate visual weight
+   - Creates clear visual distinction between different pricing components
+   - Uses consistent formatting for all financial figures
+
+2. **Calculation Transparency** - The pricing formula explanation:
+   - Provides clear breakdown of how prices are calculated
+   - Uses appropriate visual organization to show mathematical relationships
+   - Implements consistent terminology with educational components
+   - Creates appropriate business context for technical pricing concepts
+
+### Module Selection Visualization
+
+The selected modules display implements a thoughtful organization:
+
+1. **Module Grid** - The selection overview:
+   - Organizes modules into a scannable grid layout
+   - Maintains consistent visual treatment for all module entries
+   - Uses pillar-based color coding for strategic context
+   - Creates appropriate information density for comprehensive overview
+
+2. **Engagement Model Indicators** - The variant visualization:
+   - Clearly distinguishes between Insight Primer and Integrated Execution
+   - Uses consistent iconography from the ModuleSelector
+   - Implements appropriate typography for variant descriptions
+   - Maintains visual connection to the selection process
+
+## Strategic Purpose
+
+The PricingSummary addresses several key customer needs identified in our research:
+
+1. **Financial Transparency**: By providing clear visibility into pricing components and calculations
+2. **Value Justification**: By connecting business outcomes to financial investment
+3. **Decision Support**: By presenting comprehensive financial information for stakeholder alignment
+4. **Control Affirmation**: By showing how configuration choices directly impact pricing
+
+## Design Principles
+
+The PricingSummary's design follows the key principles established throughout the calculator:
+
+1. **Visual Consistency** - Maintains strong visual relationships with the broader application:
+   - Using the established color system for financial information
+   - Ensuring pricing elements have consistent visual treatment
+   - Applying coherent typographic hierarchy throughout the interface
+
+2. **Information Hierarchy** - Presents information in a logical order of importance:
+   - Total pricing figures as primary focal points
+   - EVC metrics and resource allocation as secondary elements
+   - Detailed calculation breakdowns as tertiary information
+   - Supporting details provided in a logical progression
+
+3. **Financial Clarity** - Creates transparent understanding of pricing:
+   - Presenting clear, unambiguous price figures
+   - Explaining each factor that influences the final price
+   - Using business-friendly language for financial concepts
+   - Providing appropriate context for all pricing components
+
+4. **Business Outcome Focus** - Connects financial investment to value:
+   - Relating pricing to transformation outcomes
+   - Framing costs in terms of business value
+   - Creating clear connections between modules and their contributions
+   - Emphasizing the relationship between investment and transformation speed
+
+## Key UX Decisions
+
+### Financial Information Presentation
+
+The pricing information implements a deliberate design approach:
+
+1. **Price Figure Display** - The core financial metrics:
+   - Uses prominent typography for the primary weekly price
+   - Implements supporting metrics (EVCs, price per EVC) with appropriate visual weight
+   - Creates clear visual distinction between different pricing components
+   - Uses consistent formatting for all financial figures
+
+2. **Calculation Transparency** - The pricing formula explanation:
+   - Provides clear breakdown of how prices are calculated
+   - Uses appropriate visual organization to show mathematical relationships
+   - Implements consistent terminology with educational components
+   - Creates appropriate business context for technical pricing concepts
+
+### Module Selection Visualization
+
+The selected modules display implements a thoughtful organization:
+
+1. **Module Grid** - The selection overview:
+   - Organizes modules into a scannable grid layout
+   - Maintains consistent visual treatment for all module entries
+   - Uses pillar-based color coding for strategic context
+   - Creates appropriate information density for comprehensive overview
+
+2. **Engagement Model Indicators** - The variant visualization:
+   - Clearly distinguishes between Insight Primer and Integrated Execution
+   - Uses consistent iconography from the ModuleSelector
+   - Implements appropriate typography for variant descriptions
+   - Maintains visual connection to the selection process
+
+## Core Functionality
 
 1. **Price Calculation Summary**
    - Displays the calculated weekly price based on all selected options
-   - Shows EVC (Elexive Value Credit) metrics including total weekly EVCs and price per EVC
+   - Shows EVC (Elastic Value Credit) metrics including total weekly EVCs and price per EVC
    - Presents key configuration factors affecting pricing (payment option, delivery speed, etc.)
+   - Creates transparent understanding of the financial commitment
 
 2. **Module Selection Overview**
    - Lists all selected service modules with their engagement models
    - Shows individual EVC values for each selected module
    - Organizes selected modules in a grid layout for easy scanning
+   - Maintains strategic categorization through pillar-based organization
 
 3. **EVC Calculation Explanation**
    - Provides a transparent breakdown of how EVCs are calculated
    - Shows base EVC count from selected modules
    - Explains multipliers from resource allocation and custom parameters
+   - Creates clear understanding of the value-based pricing model
 
 4. **Custom Parameter Display**
    - Shows all enabled custom parameters that affect service delivery
    - Provides visual confirmation of selected options
    - Helps users verify their configuration choices
+   - Creates clear connections between parameter selections and pricing implications
 
 5. **Detailed Price Breakdown**
    - Explains the base pricing formula with payment option modifiers
    - Includes volume discount information when applicable
    - Presents disclaimers about the estimate's non-binding nature
+   - Creates appropriate context for pricing discussions
 
-6. **Call-to-Action**
+6. **Call-to-Action Integration**
    - Provides a direct pathway to request a detailed proposal
    - Includes contact information for sales inquiries
    - Encourages the next step in the customer journey
+   - Creates seamless transition from exploration to engagement
 
-### Integration with Calculator Logic
-
-The component seamlessly integrates with the calculator's core functionality by:
-   - Consuming calculation results from the parent component
-   - Displaying derived values based on complex pricing formulas
-   - Organizing financial information in a user-friendly format
-
-## Implementation Details
+## Technical Implementation
 
 ### Props
 

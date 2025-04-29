@@ -2,15 +2,60 @@
 
 ## Overview
 
-The FeatureIntroduction component provides a consistent, visually distinct way to present introductory information about various features in the Elexive Calculator. It creates a highlighted section with a title, description, and optional additional information, designed to make explanatory content stand out from the rest of the interface.
+The FeatureIntroduction component provides a consistent, visually distinct way to present introductory information about various features in the Elexive Calculator. It creates a highlighted section with a title, description, and optional additional information, designed to make explanatory content stand out from the rest of the interface and support the customer's educational journey.
 
-## Purpose
+> **Note:** This component adheres to the [Elexive Calculator Design Guidelines](./DesignGuidelines.md) for visual design, interaction patterns, and customer journey integration.
 
-This component addresses the need for clear, accessible explanations of complex features throughout the calculator. It serves as a standardized way to educate users about each section's purpose and functionality, ensuring that key conceptual information is prominently presented and styled consistently across the application.
+## Strategic Purpose
 
-## Technical Implementation
+The FeatureIntroduction addresses several key customer needs identified in our research:
 
-### Core Functionality
+1. **Complexity Reduction**: By providing clear, concise explanations at the point of interaction
+2. **Confidence Building**: By offering contextual education that builds user understanding
+3. **Cognitive Load Management**: By creating consistent, predictable patterns for finding help
+4. **Progressive Disclosure**: By separating essential information from deeper explanations
+
+## Component-Specific Design Decisions
+
+### Information Architecture
+
+The component implements a deliberate information hierarchy:
+
+1. **Title** - The concept identifier:
+   - Uses distinctive typography with appropriate weight and size
+   - Implements consistent styling with subtle accent elements
+   - Creates immediate recognition of the explanatory nature
+   - Establishes the topic with concise, clear language
+
+2. **Description** - The essential explanation:
+   - Provides the core concept in business-friendly language
+   - Uses appropriate typography for optimal readability
+   - Maintains consistent tone and voice across all instances
+   - Balances comprehensiveness with conciseness
+
+3. **Additional Information** - The supplementary details:
+   - Creates clear visual distinction from the primary description
+   - Provides deeper explanation for users who need more context
+   - Implements subtle styling that indicates secondary importance
+   - Maintains consistent visual treatment across all instances
+
+### Visual Treatment
+
+The visual design carefully balances several competing needs:
+
+1. **Attention Management** - Creating appropriate visual emphasis:
+   - Uses subtle background colors that attract attention without disrupting
+   - Implements decorative elements that reinforce the informational nature
+   - Creates clear boundaries that separate explanation from interactive content
+   - Maintains appropriate visual weight relative to surrounding elements
+
+2. **Design Integration** - Ensuring harmony with the broader interface:
+   - Uses the application's established color palette with appropriate variations
+   - Implements rounded corners and shadows consistent with the design system
+   - Creates visual connection to related UI elements through consistent styling
+   - Maintains the overall aesthetic quality of the application
+
+## Core Functionality
 
 1. **Standardized Information Display**
    - Presents a title with distinctive styling
@@ -27,14 +72,12 @@ This component addresses the need for clear, accessible explanations of complex 
    - Uses background layers, decorative elements, and spacing for emphasis
    - Maintains clear visual relationship with surrounding content
 
-### Integration with Other Components
+4. **Educational Consistency**
+   - Creates a predictable pattern for finding explanatory information
+   - Establishes consistent voice and tone across all explanations
+   - Maintains appropriate information density for different contexts
 
-The component serves as a building block used across the application:
-   - Embedded in feature-specific components like ModuleSelector
-   - Maintains consistent user education patterns throughout the interface
-   - Provides contextual guidance at the point of interaction
-
-## Implementation Details
+## Technical Implementation
 
 ### Props
 
@@ -78,10 +121,19 @@ The component serves as a building block used across the application:
    - Distinguishes between primary explanation and supplementary details
    - Uses spacing and typography to establish reading hierarchy
 
-3. **Accessibility**
-   - Maintains appropriate text contrast for readability
-   - Uses semantic headings for proper document structure
-   - Preserves text scaling capabilities for users who need larger text
+## Accessibility Considerations
+
+1. **Text Contrast**
+   - Ensures sufficient contrast between text and background colors for readability
+   - Follows WCAG AA standards for text contrast ratios
+
+2. **Semantic HTML**
+   - Uses semantic HTML elements to convey meaning and structure
+   - Ensures assistive technologies can accurately interpret the content
+
+3. **Keyboard Navigation**
+   - Ensures all interactive elements are accessible via keyboard navigation
+   - Follows logical tab order and provides visible focus indicators
 
 ## Performance Considerations
 

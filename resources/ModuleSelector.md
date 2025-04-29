@@ -2,63 +2,87 @@
 
 ## Overview
 
-The ModuleSelector component is a sophisticated UI element that enables users to select and configure service modules for their EV charging infrastructure. It provides an intuitive interface for users to browse, compare, and select from various service options organized into strategic pillars.
+The ModuleSelector component is a sophisticated UI element that enables users to select and configure consulting service modules for their business transformation initiatives. It provides an intuitive interface for users to browse, compare, and select from various service options organized into strategic pillars (Transformation, Strategy, and Technology), serving as a critical bridge between the exploration and optimization phases of the customer journey.
 
-## Purpose
+> **Note:** This component adheres to the [Elexive Calculator Design Guidelines](./DesignGuidelines.md) for visual design, interaction patterns, and customer journey integration.
 
-This component serves as the primary entry point for users to customize their EV charging service package. It addresses the fundamental need for users to understand available service offerings and make informed selections based on their specific requirements, timeline, and budget constraints.
+## Strategic Purpose
 
-## Technical Implementation
+The ModuleSelector addresses several key customer needs identified in our research:
 
-### Core Functionality
+1. **Complexity Management**: By organizing consulting modules into meaningful strategic pillars
+2. **Decision Support**: By providing clear comparison between engagement models for each module
+3. **Value Transparency**: By clearly displaying EVC values for each consulting option
+4. **Configuration Control**: By enabling customized selection of a transformation solution
+
+## Component-Specific Design Decisions
+
+### Module Card Design
+
+The module cards represent a key UX decision point, balancing several competing needs:
+
+1. **Card Structure** - The module presentation layout:
+   - Uses consistent card dimensions for visual harmony
+   - Implements clear visual hierarchy from name to description to options
+   - Provides sufficient information for decision-making without overwhelming
+   - Creates appropriate visual distinction between different modules
+
+2. **Engagement Model Options** - The dual selection interface:
+   - Clearly distinguishes between Insight Primer and Integrated Execution options
+   - Visually emphasizes the differences in scope, timeline, and EVC values
+   - Implements intuitive toggle behavior for selection
+   - Provides appropriate visual feedback for current selection state
+
+3. **Pillar Association** - The strategic context indicators:
+   - Uses color coding consistent with ModuleExplorer for pillar association
+   - Incorporates pillar-specific iconography for visual reinforcement
+   - Maintains consistent styling conventions from exploration to selection
+   - Creates clear visual grouping of modules within each pillar
+
+### Responsive Approach
+
+The component implements carefully considered responsive behaviors:
+
+1. **Desktop Experience** - Optimized for precision and comparison:
+   - Presents modules in a tabbed interface with pillars as tab headers
+   - Displays modules in a two-column grid layout for efficient scanning
+   - Uses an optimized UI with more detailed information visibility
+   - Implements hover states and other desktop-specific interactions
+
+2. **Mobile Experience** - Adapted for touch and limited space:
+   - Converts tabs to a dropdown selector for conserving vertical space
+   - Implements a single-column layout for module cards
+   - Adjusts spacing, font sizes, and interactive elements for touch interactions
+   - Prioritizes the most important information in the constrained view
+
+## Core Functionality
 
 1. **Module Organization by Strategic Pillars**
    - Modules are grouped into three strategic pillars: Transformation, Strategy, and Technology
-   - Each pillar represents a distinct approach to EV charging infrastructure development
+   - Each pillar represents a distinct approach to business transformation
    - The component dynamically generates the UI based on the data structure of available modules
+   - Provides intuitive navigation between pillars for efficient exploration
 
 2. **Dual Engagement Model Selection**
    - For each module, users can select from two distinct engagement models:
      - **Insight Primer**: Fixed-price, fixed-scope engagement (2-4 weeks) for initial direction
      - **Integrated Execution**: Continuous service model using agile methodologies for full implementation
-   - Each engagement option is associated with an EVC (Elexive Value Credit) value representing its cost
+   - Each engagement option is associated with an EVC (Elastic Value Credit) value representing its business value and cost
+   - Provides clear comparison between options for informed decision-making
 
 3. **Selection State Management**
    - Tracks which modules are selected and which engagement model is chosen for each
    - Maintains selection state via the `selectedModules` and `selectedVariants` props
    - Implements toggling behavior that allows adding/removing modules from selection
+   - Provides clear visual feedback on current selection state
 
 4. **Module Categorization**
    - Visually distinguishes modules by "Immediate Impact" vs. other categories
    - Applies appropriate styling based on the category to help users prioritize
+   - Maintains consistent categorization from the ModuleExplorer
+   - Supports informed decision-making about transformation priorities
 
-### Responsive Design Implementation
-
-1. **Desktop View**
-   - Presents modules in a tabbed interface with pillars as tab headers
-   - Displays modules in a two-column grid layout
-   - Uses an optimized UI with additional spacing and visual elements
-
-2. **Mobile View**
-   - Converts tabs to a dropdown selector for conserving space
-   - Implements a single-column layout for module cards
-   - Adjusts spacing, font sizes, and interactive elements for touch interactions
-
-### Visual Feedback Systems
-
-1. **Selection Indicators**
-   - Selected modules have distinct visual styling with accent borders and background colors
-   - Checkmarks indicate the currently selected engagement model
-   - Hover states provide feedback on interactive elements
-
-2. **Information Architecture**
-   - Hierarchical display of information:
-     - Module name and icon
-     - Brief heading/tagline
-     - Detailed description
-     - Engagement options with pricing
-
-## Implementation Details
+## Technical Implementation
 
 ### Props
 
@@ -103,42 +127,36 @@ This component serves as the primary entry point for users to customize their EV
 
 ## User Experience Considerations
 
-1. **Progressive Information Disclosure**
-   - Organizes content from high-level (pillars) to detailed (engagement options)
-   - Provides clear explanations of engagement models before presenting options
+The effectiveness of the ModuleSelector should be measured by:
 
-2. **Visual Hierarchy**
-   - Uses color, spacing, and typography to create clear visual hierarchy
-   - Highlights important elements like selected options and pricing information
+1. **Selection Patterns**
+   - Distribution of selections across pillars (balance vs. concentration)
+   - Frequency of engagement model choices (Insight vs. Execution)
+   - Module selection/deselection patterns indicating decision uncertainty
 
-3. **Feedback and Affordances**
-   - Provides immediate visual feedback on selection
-   - Uses hover states to indicate interactivity
-   - Employs transitions for smooth state changes
+2. **Interaction Metrics**
+   - Time spent configuring module selections
+   - Pillar switching frequency as indicator of comparative evaluation
+   - Hesitation patterns indicating decision difficulty
+
+3. **Progression Metrics**
+   - Conversion rate from module selection to resource allocation
+   - Completion rate of module configuration stage
+   - Module selection diversity as indicator of solution sophistication
+
+By optimizing against these metrics, the ModuleSelector can become increasingly effective at guiding users toward appropriate module configurations that align with their business transformation needs.
 
 ## Edge Cases and Error Handling
 
-1. **Module Data Integrity**
-   - Checks for optional properties (e.g., `module.variants[1]`) and provides fallbacks
-   - Ensures consistent display regardless of data structure variations
-
-2. **Selection State Consistency**
-   - Maintains synchronization between `selectedModules` and `selectedVariants`
-   - Prevents invalid states where a module is selected without a variant
+- Ensure robust handling of cases where no modules are selected
+- Provide clear error messages or indicators for any issues in module selection
 
 ## Performance Considerations
 
-The component uses several techniques to maintain good performance:
+- Optimize rendering performance for the module cards, especially in the context of a large number of modules
+- Ensure that the component remains responsive and performant on both desktop and mobile devices
 
-1. **Efficient Rendering**
-   - Only shows active pillar modules rather than all modules
-   - Uses conditional rendering to display appropriate UI for current screen size
-
-2. **Optimized Event Handlers**
-   - Implements targeted updates to minimize unnecessary re-renders
-   - Uses object spreading for immutable state updates
-
-## Future Enhancements
+## Future Enhancement Opportunities
 
 Potential improvements to consider:
 

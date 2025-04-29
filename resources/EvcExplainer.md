@@ -2,44 +2,80 @@
 
 ## Overview
 
-The EvcExplainer component provides educational content about Elastic Value Credits (EVCs), which are the foundational unit of measurement in the Elexive Calculator. It appears as a modal overlay that explains the concept, calculation, and application of EVCs in the context of EV charging infrastructure planning.
+The EvcExplainer component provides educational content explaining the Elastic Value Credit (EVC) system used throughout the Elexive Calculator. It serves as an educational modal that helps users understand the value-based pricing approach, supporting the customer's learning journey and building confidence in the calculator's pricing methodology.
 
-## Purpose
+> **Note:** This component adheres to the [Elexive Calculator Design Guidelines](./DesignGuidelines.md) for visual design, interaction patterns, and customer journey integration.
 
-This component serves as an educational tool to help users understand the complex EVC system that underlies the calculator. It addresses the need for transparency in how resource allocation works, how input resources translate to output value, and how different strategies affect efficiency and productivity. The component improves user confidence by demystifying the calculator's core measurement unit.
+## Strategic Purpose
 
-## Technical Implementation
+The EvcExplainer addresses several key customer needs identified in our research:
 
-### Core Functionality
+1. **Pricing Transparency**: By explaining the value-based pricing system in accessible terms
+2. **Decision Confidence**: By helping customers understand how their choices affect pricing
+3. **Value Validation**: By connecting technical concepts to business outcomes
+4. **Trust Building**: By demystifying potentially complex pricing calculations
 
-1. **Modal Presentation**
-   - Implements a full-screen modal overlay with proper focus management
-   - Provides a clear header with title and close button
-   - Manages visibility based on the isOpen prop
+## Component-Specific Design Decisions
 
-2. **Educational Content Structure**
-   - Presents a clear explanation of the EVC concept and its components
-   - Visualizes the input-output relationship with appropriate iconography
-   - Provides a breakdown of how different resource allocation strategies affect EVC efficiency
+### Content Organization
 
-3. **Dynamic Calculation Display**
+The educational content structure implements a deliberate pedagogical approach:
+
+1. **Layered Explanation** - The conceptual framework:
+   - Introduces the EVC concept with a simple, relatable definition
+   - Gradually adds complexity through progressive disclosure
+   - Creates clear connections between abstract concept and practical implications
+   - Balances technical accuracy with accessible language
+
+2. **Visual Reinforcement** - The learning aids:
+   - Uses illustrative graphics to reinforce key concepts
+   - Implements appropriate iconography to support textual information
+   - Creates visual patterns that reinforce the mathematical relationships
+   - Maintains consistent visual treatment across all explanatory elements
+
+### Modal Design
+
+The modal interface balances several competing needs:
+
+1. **Content Focus** - The presentation approach:
+   - Uses clean, distraction-free layout to focus attention on explanations
+   - Implements appropriate spacing and typography for comfortable reading
+   - Creates clear visual hierarchy for scanning complex information
+   - Maintains appropriate white space to prevent cognitive overload
+
+2. **Navigation Structure** - The information flow:
+   - Provides logical progression through increasingly detailed explanations
+   - Implements clear section headings for content orientation
+   - Creates appropriate pacing for information consumption
+   - Uses consistent navigational elements for predictable interaction
+
+## Core Functionality
+
+1. **Comprehensive EVC Explanation**
+   - Defines EVCs in clear, business-friendly language
+   - Explains the input-output relationship in consulting value
+   - Provides context for how EVCs relate to business transformation
+   - Creates understanding of value measurement in consulting services
+
+2. **Dynamic Value Visualization**
    - Shows the user's current EVC production capacity
    - Displays the calculated monthly output value based on their selections
-   - Creates a visual representation of the conversion process
+   - Creates a visual representation of the value conversion process
+   - Implements appropriate data visualization for numeric concepts
 
-4. **Resource Explanation**
+3. **Resource Allocation Education**
    - Details the different types of input resources that generate EVCs
-   - Explains how each resource contributes to EVC production
+   - Explains how each resource contributes to value creation
    - Provides allocation percentages and production value multipliers
+   - Creates clarity around resource efficiency and optimization
 
-### Integration with Calculator Data
+4. **Contextual Application**
+   - Relates EVC concepts to the user's specific calculator configuration
+   - Shows how module selections affect EVC calculations
+   - Provides business context for abstract value concepts
+   - Creates relevance through real-world business examples
 
-The component integrates with the calculator system by:
-   - Receiving specific calculation values via props
-   - Utilizing configuration data to explain resource components
-   - Maintaining consistent terminology with the rest of the application
-
-## Implementation Details
+## Technical Implementation
 
 ### Props
 
@@ -96,15 +132,20 @@ The component integrates with the calculator system by:
    - Uses typography and spacing to establish clear reading order
    - Highlights key numbers and conversion values
 
-## Edge Cases and Error Handling
+## Accessibility Considerations
 
-1. **Modal Visibility**
-   - Returns null when not open to prevent unnecessary rendering
-   - Ensures proper rendering when isOpen transitions from false to true
+1. **Modal Accessibility**
+   - Ensures modal is navigable and usable with keyboard alone
+   - Implements ARIA roles and properties for assistive technologies
+   - Provides text alternatives for non-text content
 
-2. **Data Validation**
-   - Safely handles potentially missing or zero values for capacity and output
-   - Ensures consistent display regardless of calculation state
+2. **Color Contrast and Usage**
+   - Follows WCAG AA guidelines for color contrast ratios
+   - Avoids color combinations that are problematic for color blindness
+
+3. **Responsive and Resizable**
+   - Ensures content is accessible on various screen sizes and orientations
+   - Allows text resizing without loss of content or functionality
 
 ## Performance Considerations
 
