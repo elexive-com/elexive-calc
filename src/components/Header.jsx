@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { 
   faCalculator, 
-  faCubes, 
+  faLayerGroup, 
   faHome, 
   faBars, 
   faTimes 
@@ -79,7 +79,7 @@ const Header = () => {
                 : 'text-[#FBFAFC] hover:text-white hover:border-b-2 hover:border-gray-300'
             }`}
           >
-            <FontAwesomeIcon icon={faCubes} className="mr-2" />
+            <FontAwesomeIcon icon={faLayerGroup} className="mr-2" />
             Module Explorer
           </button>
         </nav>
@@ -119,7 +119,7 @@ const Header = () => {
                   : 'text-white hover:bg-gray-800'
               }`}
             >
-              <FontAwesomeIcon icon={faCubes} className="mr-3" />
+              <FontAwesomeIcon icon={faLayerGroup} className="mr-3" />
               Module Explorer
             </button>
           </nav>

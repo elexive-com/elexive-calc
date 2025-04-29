@@ -42,6 +42,178 @@
   z-index: 40;
 }
 
+/* Card components */
+.elx-card {
+  @apply rounded-xl shadow-md overflow-hidden;
+}
+
+.elx-card-hover {
+  @apply hover:shadow-lg transition-all duration-300;
+}
+
+.elx-card-content {
+  @apply p-5 bg-white;
+}
+
+.elx-card-footer {
+  @apply border-t border-gray-100 px-4 py-3 bg-gray-50 flex justify-between items-center;
+}
+
+.elx-card-left-accent {
+  @apply border-l-4;
+}
+
+/* Base pillar card style */
+.elx-pillar-card {
+  @apply rounded-xl p-4 border transition-all duration-300 hover:shadow-md;
+}
+
+/* Custom pillar color classes with direct implementations */
+/* Transformation pillar - #FFBE59 */
+.elx-pillar-color-transformation {
+  color: #FFBE59;
+}
+
+.elx-pillar-bg-transformation {
+  background-color: #FFF6E8; /* Light amber background */
+}
+
+.elx-pillar-border-transformation {
+  border-color: #FFBE59;
+}
+
+.elx-pillar-hover-transformation:hover {
+  background-color: #FFEFD0; /* Slightly darker amber for hover */
+}
+
+/* Strategy pillar - #EB8258 */
+.elx-pillar-color-strategy {
+  color: #EB8258;
+}
+
+.elx-pillar-bg-strategy {
+  background-color: #FFF0E8; /* Light orange background */
+}
+
+.elx-pillar-border-strategy {
+  border-color: #EB8258;
+}
+
+.elx-pillar-hover-strategy:hover {
+  background-color: #FEDBC7; /* Slightly darker orange for hover */
+}
+
+/* Technology pillar - #1F776D */
+.elx-pillar-color-technology {
+  color: #1F776D;
+}
+
+.elx-pillar-bg-technology {
+  background-color: #E6F2F0; /* Light teal background */
+}
+
+.elx-pillar-border-technology {
+  border-color: #1F776D;
+}
+
+.elx-pillar-hover-technology:hover {
+  background-color: #D1E7E3; /* Slightly darker teal for hover */
+}
+
+/* Discovery pillar - #2E2266 (Elexive primary) */
+.elx-pillar-color-discovery {
+  color: #2E2266;
+}
+
+.elx-pillar-bg-discovery {
+  background-color: #F1EFF7; /* Light purple background */
+}
+
+.elx-pillar-border-discovery {
+  border-color: #2E2266;
+}
+
+.elx-pillar-hover-discovery:hover {
+  background-color: #E3E0EE; /* Slightly darker purple for hover */
+}
+
+/* Expandable sections */
+.elx-expandable-header {
+  @apply flex items-center justify-between p-4 cursor-pointer bg-gray-50 hover:bg-gray-100 transition-colors duration-200;
+}
+
+.elx-expandable-content {
+  @apply p-5 bg-white border-t border-gray-100;
+}
+
+/* Icon containers */
+.elx-icon-circle {
+  @apply flex items-center justify-center rounded-full;
+}
+
+.elx-icon-circle-sm {
+  @apply w-8 h-8 elx-icon-circle;
+}
+
+.elx-icon-circle-md {
+  @apply w-10 h-10 elx-icon-circle;
+}
+
+.elx-icon-circle-lg {
+  @apply w-12 h-12 elx-icon-circle;
+}
+
+.elx-icon-with-text {
+  @apply flex items-center;
+}
+
+/* Enhanced button styles */
+.elx-btn-primary {
+  @apply elx-btn bg-elx-accent text-elx-primary px-8 py-3 rounded-lg shadow-md hover:shadow-lg transition-all duration-300 font-bold text-lg flex items-center;
+}
+
+.elx-btn-secondary {
+  @apply elx-btn bg-white border border-gray-300 text-elx-primary px-4 py-2 rounded-md hover:bg-gray-50 transition-all duration-300 flex items-center;
+}
+
+.elx-btn-text {
+  @apply text-elx-primary hover:text-purple-900 text-sm font-medium flex items-center;
+}
+
+.elx-btn-icon {
+  @apply p-1 rounded-full transition-colors duration-200;
+}
+
+/* Feature and callout components */
+.elx-feature {
+  @apply elx-card elx-card-hover elx-card-left-accent;
+}
+
+.elx-callout {
+  @apply bg-gray-50 p-4 rounded-lg border border-gray-200;
+}
+
+.elx-step-circle {
+  @apply w-10 h-10 rounded-full bg-elx-primary text-white flex items-center justify-center font-bold text-lg flex-shrink-0;
+}
+
+/* Module card specific */
+.elx-module-card {
+  @apply elx-card elx-card-hover flex flex-col;
+}
+
+.elx-variant-badge {
+  @apply inline-flex items-center px-2 py-0.5 rounded text-xs font-medium border;
+}
+
+.elx-variant-badge-insight {
+  @apply bg-blue-50 text-blue-600 border-blue-100;
+}
+
+.elx-variant-badge-execution {
+  @apply bg-green-50 text-green-600 border-green-100;
+}
+
 /* Additional styles that aren't covered by the component system */
 .calculator-display {
   background-color: var(--elexive-primary);

@@ -2,8 +2,8 @@ import React, { useState, useEffect, useRef, useMemo } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { 
   faSearch, faBookmark, faChevronRight, faChevronDown,
-  faLightbulb, faRocket, faCompass, faUsers, faServer,
-  faArrowRight, faCheckCircle
+  faLightbulb, faRocket, faCompass, faUsers, 
+  faArrowRight, faCheckCircle, faLayerGroup
 } from '@fortawesome/free-solid-svg-icons';
 import { faBookmark as faBookmarkRegular } from '@fortawesome/free-regular-svg-icons';
 import modulesConfig from '../config/modulesConfig.json';
@@ -44,34 +44,28 @@ const ModuleExplorer = () => {
   // Define pillar details with useMemo to prevent recreation on each render
   const pillarConfig = useMemo(() => ({
     'Transformation': {
-      color: 'purple',
-      bgColor: 'bg-purple-100',
-      hoverBgColor: 'hover:bg-purple-200',
-      borderColor: 'border-purple-300',
-      textColor: 'text-purple-800',
-      icon: faUsers,
+      name: 'Transformation',
+      icon: faLayerGroup,
       description: 'Transform your organization with leadership strategies, cultural shifts, and agile methodologies.',
       focus: 'People & Process'
     },
     'Strategy': {
-      color: 'blue',
-      bgColor: 'bg-blue-100',
-      hoverBgColor: 'hover:bg-blue-200',
-      borderColor: 'border-blue-300',
-      textColor: 'text-blue-800',
-      icon: faCompass,
+      name: 'Strategy',
+      icon: faLayerGroup,
       description: 'Define your vision and chart the path forward with strategic insights and market positioning.',
       focus: 'Vision & Direction'
     },
     'Technology': {
-      color: 'green',
-      bgColor: 'bg-green-100',
-      hoverBgColor: 'hover:bg-green-200',
-      borderColor: 'border-green-300',
-      textColor: 'text-green-800',
-      icon: faServer,
+      name: 'Technology',
+      icon: faLayerGroup,
       description: 'Harness cutting-edge technology to drive innovation, efficiency, and competitive advantage.',
       focus: 'Tools & Systems'
+    },
+    'Discovery': {
+      name: 'Discovery',
+      icon: faLayerGroup,
+      description: 'Uncover insights and opportunities through research, assessment, and collaborative exploration.',
+      focus: 'Research & Assessment'
     }
   }), []);
   
@@ -417,12 +411,12 @@ const ModuleExplorer = () => {
     }
   };
 
-  // Module card component
+  // Module card component with standardized elx- classes
   const ModuleCard = ({ module }) => (
-    <div className={`rounded-xl shadow-md hover:shadow-lg transition-all duration-300 overflow-hidden h-full flex flex-col border-l-4 ${module.pillarConfig.borderColor}`}>
-      <div className="p-4 flex-grow bg-white">
+    <div className={`elx-module-card elx-card-left-accent border-l-4 h-full elx-pillar-${module.pillar.toLowerCase()}`} style={{borderLeftColor: 'var(--pillar-border)'}}>
+      <div className="elx-card-content flex-grow">
         <div className="flex justify-between items-start mb-3">
-          <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${module.pillarConfig.bgColor} ${module.pillarConfig.textColor}`}>
+          <span className="elx-pillar-badge">
             <FontAwesomeIcon icon={module.pillarConfig.icon} className="mr-1" />
             {module.pillar}
           </span>
@@ -431,20 +425,20 @@ const ModuleExplorer = () => {
           </span>
         </div>
         
-        <h3 className="text-lg font-bold text-elx-primary mb-2">
+        <h3 className="elx-heading-3">
           {module.name}
         </h3>
         
-        <p className="text-sm text-gray-600 mb-3 line-clamp-3">
+        <p className="elx-body mb-3 line-clamp-3">
           {module.heading}
         </p>
         
         <div className="mt-2 flex flex-wrap gap-1.5">
           {module.variants.map((variant, index) => (
-            <span key={index} className={`inline-flex items-center px-2 py-0.5 rounded text-xs font-medium ${
+            <span key={index} className={`elx-variant-badge ${
               variant.type === 'Insight Primer' 
-                ? 'bg-blue-50 text-blue-600 border border-blue-100' 
-                : 'bg-green-50 text-green-600 border border-green-100'
+                ? 'elx-variant-badge-insight' 
+                : 'elx-variant-badge-execution'
             }`}>
               <FontAwesomeIcon 
                 icon={variant.type === 'Insight Primer' ? faLightbulb : faRocket} 
@@ -457,10 +451,10 @@ const ModuleExplorer = () => {
         </div>
       </div>
       
-      <div className="border-t border-gray-100 px-4 py-3 bg-gray-50 flex justify-between items-center">
+      <div className="elx-card-footer">
         <button 
           onClick={() => viewModuleDetails(module)}
-          className="text-elx-primary hover:text-elx-primary-dark text-sm font-medium flex items-center"
+          className="elx-btn-text"
         >
           View Details
           <FontAwesomeIcon icon={faChevronRight} className="ml-1" />
@@ -470,7 +464,7 @@ const ModuleExplorer = () => {
             e.stopPropagation();
             toggleSaveModule(module.name);
           }}
-          className={`p-1 rounded-full ${
+          className={`elx-btn-icon ${
             savedModules.includes(module.name) 
               ? 'text-amber-500 hover:text-amber-600' 
               : 'text-gray-400 hover:text-gray-500'
@@ -483,69 +477,94 @@ const ModuleExplorer = () => {
     </div>
   );
   
-  // Pillar card component
+  // Pillar card component with standardized elx- classes
   const PillarCard = ({ pillar }) => {
     // Add safety check to provide default values if config is undefined
-    const defaultConfig = {
-      color: 'gray',
-      bgColor: 'bg-gray-100',
-      hoverBgColor: 'hover:bg-gray-200',
-      borderColor: 'border-gray-300',
-      textColor: 'text-gray-800',
+    const config = pillarConfig[pillar] || {
       icon: faCompass,
       description: 'Explore this transformation area with its modules.',
       focus: 'Business Transformation'
     };
     
-    const config = pillarConfig[pillar] || defaultConfig;
     const isActive = highlightedPillar === pillar;
     const pillarModules = modules.filter(module => module.pillar === pillar);
     
+    // Get the color code based on pillar type - improved contrast versions
+    const getPillarColor = () => {
+      switch(pillar.toLowerCase()) {
+        case 'transformation': return '#D99000'; // Darkened from #FFBE59 for better contrast
+        case 'strategy': return '#C85A30'; // Darkened from #EB8258 for better contrast
+        case 'technology': return '#1F776D'; // Already had good contrast
+        case 'discovery': return '#2E2266'; // Primary color for discovery
+        default: return '#D99000';
+      }
+    };
+    
     return (
       <div 
-        className={`relative rounded-2xl p-6 cursor-pointer transition-all duration-300 transform ${
-          isActive 
-            ? `${config.bgColor} shadow-md scale-105` 
-            : `bg-white hover:shadow-md ${config.hoverBgColor}`
-        }`}
+        className={`${isActive ? 'shadow-md scale-105' : ''} bg-white`}
         onClick={() => setHighlightedPillar(pillar)}
+        style={{
+          transform: isActive ? 'scale(1.05)' : 'scale(1)',
+          transition: 'all 0.3s ease',
+          borderRadius: '0.75rem',
+          overflow: 'hidden',
+          border: '1px solid #e5e7eb'
+        }}
       >
-        <div className="flex items-start mb-3">
-          <div className={`w-12 h-12 rounded-full ${
-            isActive ? `${config.textColor} bg-white` : `${config.bgColor} ${config.textColor}`
-          } flex items-center justify-center`}>
-            <FontAwesomeIcon icon={config.icon} size="lg" />
+        {/* Colored header section with white text - full width */}
+        <div 
+          className="px-4 py-3 flex items-center w-full"
+          style={{ 
+            backgroundColor: getPillarColor(),
+            color: 'white'
+          }}
+        >
+          <div 
+            className="w-12 h-12 flex items-center justify-center mr-3"
+            style={{ backgroundColor: 'transparent' }}
+          >
+            <FontAwesomeIcon icon={config.icon} size="2x" />
           </div>
-          <div className="ml-4">
-            <h3 className={`text-xl font-bold ${isActive ? config.textColor : 'text-elx-primary'}`}>
-              {pillar}
-            </h3>
-            <p className="text-sm text-gray-600 mt-1">{config.focus}</p>
+          <div>
+            <h3 className="font-bold text-white">{pillar}</h3>
+            <p className="text-xs text-white text-opacity-90">{config.focus}</p>
           </div>
         </div>
         
-        <p className="text-gray-600 text-sm">
-          {config.description}
-        </p>
-        
-        <div className="mt-4 pt-3 border-t border-gray-200">
-          <span className="text-xs text-gray-500">{pillarModules.length} Modules Available</span>
-          <div className="mt-2 flex items-center justify-between">
-            <button 
-              className={`text-sm font-medium ${isActive ? config.textColor : 'text-elx-primary'} flex items-center`}
-              onClick={(e) => {
-                e.stopPropagation();
-                setSelectedPillar(pillar);
-                setActiveView('list');
-              }}
-            >
-              See Modules
-              <FontAwesomeIcon icon={faChevronRight} className="ml-1" />
-            </button>
-            <div className="flex space-x-1">
-              {Array.from({ length: Math.min(3, pillarModules.length) }).map((_, i) => (
-                <div key={i} className={`w-2 h-2 rounded-full ${isActive ? 'bg-white opacity-80' : config.bgColor}`}></div>
-              ))}
+        {/* Card content */}
+        <div className="p-4">
+          <p className="elx-body text-sm mb-4">
+            {config.description}
+          </p>
+          
+          <div className="pt-3 border-t border-gray-200">
+            <span className="text-xs text-gray-500">{pillarModules.length} Modules Available</span>
+            <div className="mt-2 flex items-center justify-between">
+              <button 
+                className="elx-btn-text"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  setSelectedPillar(pillar);
+                  setActiveView('list');
+                }}
+              >
+                See Modules
+                <FontAwesomeIcon icon={faChevronRight} className="ml-1" />
+              </button>
+              <div className="flex space-x-1">
+                {Array.from({ length: Math.min(3, pillarModules.length) }).map((_, i) => (
+                  <div 
+                    key={i} 
+                    className="w-2 h-2 rounded-full" 
+                    style={{ 
+                      backgroundColor: isActive 
+                        ? getPillarColor() 
+                        : '#e5e7eb'
+                    }}
+                  ></div>
+                ))}
+              </div>
             </div>
           </div>
         </div>
@@ -779,10 +798,24 @@ const ModuleExplorer = () => {
       {/* Content based on active view */}
       {activeView === 'pillars' && (
         <div className="mb-8">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8" ref={pillarsRef}>
-            {pillars.map(pillar => (
-              <PillarCard key={pillar} pillar={pillar} />
-            ))}
+          {/* Discovery pillar in its own row */}
+          {pillars.includes('Discovery') && (
+            <div className="mb-6" ref={pillarsRef}>
+              <h3 className="text-xl font-bold text-elx-primary mb-4">Start Your Transformation Journey</h3>
+              <div className="md:w-1/3">
+                <PillarCard pillar="Discovery" />
+              </div>
+            </div>
+          )}
+          
+          {/* Other pillars in a separate row */}
+          <div className="mt-8">
+            <h3 className="text-xl font-bold text-elx-primary mb-4">Core Transformation Pillars</h3>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+              {pillars.filter(pillar => pillar !== 'Discovery').map(pillar => (
+                <PillarCard key={pillar} pillar={pillar} />
+              ))}
+            </div>
           </div>
           
           {highlightedPillar && (

@@ -2,6 +2,46 @@
 @tailwind components;
 
 @layer components {
+  /* Define global pillar color variables at :root scope first */
+  :root {
+    /* Custom pillar colors with specific hex codes */
+    --pillar-transformation-color: #FFBE59;
+    --pillar-transformation-bg: theme('colors.amber.50');
+    --pillar-transformation-hover-bg: theme('colors.amber.100');
+    --pillar-transformation-border: theme('colors.amber.200');
+    
+    /* Strategy pillar */
+    --pillar-strategy-color: #EB8258;
+    --pillar-strategy-bg: theme('colors.orange.50');
+    --pillar-strategy-hover-bg: theme('colors.orange.100');
+    --pillar-strategy-border: theme('colors.orange.200');
+    
+    /* Technology pillar */
+    --pillar-technology-color: #1F776D;
+    --pillar-technology-bg: theme('colors.teal.50');
+    --pillar-technology-hover-bg: theme('colors.teal.100');
+    --pillar-technology-border: theme('colors.teal.200');
+    
+    /* Original color variables for backward compatibility */
+    /* Transformation pillar */
+    --pillar-transformation-color-original: theme('colors.purple.700');
+    --pillar-transformation-bg-original: theme('colors.purple.50');
+    --pillar-transformation-hover-bg-original: theme('colors.purple.100');
+    --pillar-transformation-border-original: theme('colors.purple.200');
+    
+    /* Strategy pillar original */
+    --pillar-strategy-color-original: theme('colors.blue.700');
+    --pillar-strategy-bg-original: theme('colors.blue.50');
+    --pillar-strategy-hover-bg-original: theme('colors.blue.100');
+    --pillar-strategy-border-original: theme('colors.blue.200');
+    
+    /* Technology pillar original */
+    --pillar-technology-color-original: theme('colors.green.700');
+    --pillar-technology-bg-original: theme('colors.green.50');
+    --pillar-technology-hover-bg-original: theme('colors.green.100');
+    --pillar-technology-border-original: theme('colors.green.200');
+  }
+  
   /* Label Components */
   .elx-evc-label {
     @apply ml-2 px-2 py-1 bg-teal-50 rounded-md text-xs font-semibold text-teal-600 whitespace-nowrap min-w-[60px] text-center;
@@ -15,6 +55,83 @@
   /* Heading Components */
   .elx-section-heading {
     @apply text-lg font-semibold text-elx-primary mb-4;
+  }
+  
+  /* Typography - Standardized across components */
+  .elx-heading-1 {
+    @apply text-2xl sm:text-3xl font-bold text-elx-primary mb-3;
+  }
+
+  .elx-heading-2 {
+    @apply text-xl font-bold text-elx-primary mb-4;
+  }
+
+  .elx-heading-3 {
+    @apply text-lg font-bold text-elx-primary mb-2;
+  }
+
+  .elx-body {
+    @apply text-gray-600;
+  }
+
+  .elx-body-large {
+    @apply text-lg text-gray-600;
+  }
+
+  .elx-caption {
+    @apply text-sm text-gray-500;
+  }
+  
+  /* Color system - Pillar colors using CSS variables */
+  .elx-pillar-transformation {
+    --pillar-color: var(--pillar-transformation-color);
+    --pillar-bg: var(--pillar-transformation-bg);
+    --pillar-hover-bg: var(--pillar-transformation-hover-bg);
+    --pillar-border: var(--pillar-transformation-border);
+  }
+
+  .elx-pillar-strategy {
+    --pillar-color: var(--pillar-strategy-color);
+    --pillar-bg: var(--pillar-strategy-bg);
+    --pillar-hover-bg: var(--pillar-strategy-hover-bg);
+    --pillar-border: var(--pillar-strategy-border);
+  }
+
+  .elx-pillar-technology {
+    --pillar-color: var(--pillar-technology-color);
+    --pillar-bg: var(--pillar-technology-bg);
+    --pillar-hover-bg: var(--pillar-technology-hover-bg);
+    --pillar-border: var(--pillar-technology-border);
+  }
+  
+  /* Custom pillar color classes with elx-pillar-color- prefix */
+  .elx-pillar-color-transformation {
+    color: #FFBE59;
+  }
+  
+  .elx-pillar-color-strategy {
+    color: #EB8258;
+  }
+  
+  .elx-pillar-color-technology {
+    color: #1F776D;
+  }
+  
+  /* Section layouts */
+  .elx-section {
+    @apply mb-8;
+  }
+
+  .elx-section-tight {
+    @apply mb-6;
+  }
+
+  .elx-grid-3col {
+    @apply grid grid-cols-1 md:grid-cols-3 gap-6;
+  }
+
+  .elx-grid-2col {
+    @apply grid grid-cols-1 md:grid-cols-2 gap-6;
   }
   
   /* Icon Components */
@@ -135,6 +252,10 @@
   
   .elx-btn-accent {
     @apply bg-elx-accent text-elx-primary hover:bg-opacity-90;
+  }
+  
+  .elx-btn-outline {
+    @apply border border-gray-300 bg-white text-gray-700 hover:bg-gray-50;
   }
   
   .elx-number-button {

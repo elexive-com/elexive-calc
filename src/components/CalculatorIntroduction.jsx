@@ -3,8 +3,8 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { 
   faInfoCircle, faArrowRight, faCalculator, 
   faLightbulb, faChartLine, faPuzzlePiece,
-  faTools, faShieldAlt, faUsers,
-  faCompass, faServer, faCheckCircle,
+  faTools, faShieldAlt, faLayerGroup,
+  faCheckCircle,
   faPlus, faMinus, faClock, faPercentage, faHandshake
 } from '@fortawesome/free-solid-svg-icons';
 
@@ -21,36 +21,24 @@ const CalculatorIntroduction = ({ onGetStarted }) => {
     }));
   };
 
-  // Pillar configuration - now directly visible on the page
+  // Updated pillar configuration using standardized CSS classes with elx- prefix
   const pillars = [
     {
       name: 'Transformation',
       focus: 'People & Process',
-      icon: faUsers,
-      color: 'purple',
-      bgColor: 'bg-purple-50',
-      borderColor: 'border-purple-200',
-      textColor: 'text-purple-700',
+      icon: faLayerGroup,
       description: 'Transform your organization with leadership strategies, cultural shifts, and agile methodologies.'
     },
     {
       name: 'Strategy',
       focus: 'Vision & Direction',
-      icon: faCompass,
-      color: 'blue',
-      bgColor: 'bg-blue-50',
-      borderColor: 'border-blue-200',
-      textColor: 'text-blue-700',
+      icon: faLayerGroup, 
       description: 'Define your vision and chart the path forward with strategic insights and market positioning.'
     },
     {
       name: 'Technology',
       focus: 'Tools & Systems',
-      icon: faServer,
-      color: 'green',
-      bgColor: 'bg-green-50',
-      borderColor: 'border-green-200',
-      textColor: 'text-green-700',
+      icon: faLayerGroup,
       description: 'Harness cutting-edge technology to drive innovation, efficiency, and competitive advantage.'
     }
   ];
@@ -73,49 +61,49 @@ const CalculatorIntroduction = ({ onGetStarted }) => {
       </div>
 
       {/* NEW SECTION: Key Business Outcomes and Timeframes - CEOs need this to decide */}
-      <div className="mb-8">
-        <h3 className="text-xl font-bold text-elx-primary mb-4">What You'll Gain</h3>
+      <div className="elx-section">
+        <h3 className="elx-heading-2">What You'll Gain</h3>
         
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          <div className="rounded-xl overflow-hidden shadow-sm border-l-4 border-elx-accent hover:shadow-md transition-all duration-300">
-            <div className="p-5 bg-white">
-              <div className="w-12 h-12 rounded-full flex items-center justify-center bg-elx-accent bg-opacity-10 text-elx-accent mb-4">
+        <div className="elx-grid-3col">
+          <div className="elx-feature border-elx-accent">
+            <div className="elx-card-content">
+              <div className="elx-icon-circle-lg bg-elx-accent bg-opacity-10 text-elx-accent mb-4">
                 <FontAwesomeIcon icon={faPercentage} className="text-xl" />
               </div>
-              <h4 className="font-bold text-lg text-elx-primary mb-2">Measurable ROI</h4>
-              <p className="text-gray-600">
+              <h4 className="elx-heading-3">Measurable ROI</h4>
+              <p className="elx-body">
                 Our clients typically see 3-5x return on their transformation investment within 12-18 months.
               </p>
             </div>
           </div>
           
-          <div className="rounded-xl overflow-hidden shadow-sm border-l-4 border-amber-500 hover:shadow-md transition-all duration-300">
-            <div className="p-5 bg-white">
-              <div className="w-12 h-12 rounded-full flex items-center justify-center bg-amber-100 text-amber-600 mb-4">
+          <div className="elx-feature border-amber-500">
+            <div className="elx-card-content">
+              <div className="elx-icon-circle-lg bg-amber-100 text-amber-600 mb-4">
                 <FontAwesomeIcon icon={faClock} className="text-xl" />
               </div>
-              <h4 className="font-bold text-lg text-elx-primary mb-2">Time-to-Value</h4>
-              <p className="text-gray-600">
+              <h4 className="elx-heading-3">Time-to-Value</h4>
+              <p className="elx-body">
                 Start seeing operational improvements and quick wins within the first 4-6 weeks of implementation.
               </p>
             </div>
           </div>
           
-          <div className="rounded-xl overflow-hidden shadow-sm border-l-4 border-emerald-500 hover:shadow-md transition-all duration-300">
-            <div className="p-5 bg-white">
-              <div className="w-12 h-12 rounded-full flex items-center justify-center bg-emerald-100 text-emerald-600 mb-4">
+          <div className="elx-feature border-emerald-500">
+            <div className="elx-card-content">
+              <div className="elx-icon-circle-lg bg-emerald-100 text-emerald-600 mb-4">
                 <FontAwesomeIcon icon={faHandshake} className="text-xl" />
               </div>
-              <h4 className="font-bold text-lg text-elx-primary mb-2">Risk Mitigation</h4>
-              <p className="text-gray-600">
+              <h4 className="elx-heading-3">Risk Mitigation</h4>
+              <p className="elx-body">
                 Modular approach with clear milestones allows for course correction without "all-in" commitments.
               </p>
             </div>
           </div>
         </div>
 
-        <div className="mt-4 pt-4 border-t border-elx-primary border-opacity-10 bg-gray-50 p-3 rounded-lg">
-          <p className="text-gray-600 flex items-center">
+        <div className="elx-callout mt-4">
+          <p className="elx-body flex items-center">
             <FontAwesomeIcon icon={faInfoCircle} className="mr-2 text-elx-primary" />
             <strong>Time investment to configure:</strong> Less than 5 minutes to create your initial transformation scenario.
           </p>
@@ -124,39 +112,39 @@ const CalculatorIntroduction = ({ onGetStarted }) => {
 
       {/* 2. BUSINESS CHALLENGES - CEOs primarily care about their specific problems */}
       <div className="mb-8">
-        <h3 className="text-xl font-bold text-elx-primary mb-4">Critical Business Challenges We Solve</h3>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          <div className="rounded-xl overflow-hidden shadow-sm border-l-4 border-blue-400 hover:shadow-md transition-all duration-300">
-            <div className="p-5 bg-white">
-              <div className="w-12 h-12 rounded-full flex items-center justify-center bg-blue-100 text-blue-600 mb-4">
+        <h3 className="elx-heading-2">Critical Business Challenges We Solve</h3>
+        <div className="elx-grid-3col">
+          <div className="elx-feature border-blue-400">
+            <div className="elx-card-content">
+              <div className="elx-icon-circle-lg bg-blue-100 text-blue-600 mb-4">
                 <FontAwesomeIcon icon={faChartLine} className="text-xl" />
               </div>
-              <h4 className="font-bold text-lg text-elx-primary mb-2">Growth & Revenue</h4>
-              <p className="text-gray-600">
+              <h4 className="elx-heading-3">Growth & Revenue</h4>
+              <p className="elx-body">
                 Break revenue plateaus, capitalize on market opportunities, and develop sustainable growth engines that keep your business competitive.
               </p>
             </div>
           </div>
           
-          <div className="rounded-xl overflow-hidden shadow-sm border-l-4 border-amber-400 hover:shadow-md transition-all duration-300">
-            <div className="p-5 bg-white">
-              <div className="w-12 h-12 rounded-full flex items-center justify-center bg-amber-100 text-amber-600 mb-4">
+          <div className="elx-feature border-amber-400">
+            <div className="elx-card-content">
+              <div className="elx-icon-circle-lg bg-amber-100 text-amber-600 mb-4">
                 <FontAwesomeIcon icon={faTools} className="text-xl" />
               </div>
-              <h4 className="font-bold text-lg text-elx-primary mb-2">Execution & Operations</h4>
-              <p className="text-gray-600">
+              <h4 className="elx-heading-3">Execution & Operations</h4>
+              <p className="elx-body">
                 Eliminate operational bottlenecks, streamline decision processes, and build execution capabilities that turn strategy into measurable results.
               </p>
             </div>
           </div>
           
-          <div className="rounded-xl overflow-hidden shadow-sm border-l-4 border-green-400 hover:shadow-md transition-all duration-300">
-            <div className="p-5 bg-white">
-              <div className="w-12 h-12 rounded-full flex items-center justify-center bg-green-100 text-green-600 mb-4">
+          <div className="elx-feature border-green-400">
+            <div className="elx-card-content">
+              <div className="elx-icon-circle-lg bg-green-100 text-green-600 mb-4">
                 <FontAwesomeIcon icon={faShieldAlt} className="text-xl" />
               </div>
-              <h4 className="font-bold text-lg text-elx-primary mb-2">Innovation & Resilience</h4>
-              <p className="text-gray-600">
+              <h4 className="elx-heading-3">Innovation & Resilience</h4>
+              <p className="elx-body">
                 Future-proof your business with adaptive capabilities, emerging technology integration, and innovation systems that maintain market leadership.
               </p>
             </div>
@@ -223,25 +211,57 @@ const CalculatorIntroduction = ({ onGetStarted }) => {
 
       {/* 5. TRANSFORMATION PILLARS - Now CEOs want to understand the solution framework */}
       <div className="mb-8">
-        <h3 className="text-xl font-bold text-elx-primary mb-4">Our Transformation Pillars</h3>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
-          {pillars.map(pillar => (
-            <div 
-              key={pillar.name} 
-              className={`rounded-lg p-4 ${pillar.bgColor} ${pillar.borderColor} border transition-all duration-300 hover:shadow-md`}
-            >
-              <div className="flex items-start mb-3">
-                <div className={`w-12 h-12 rounded-full bg-white flex items-center justify-center shadow-sm ${pillar.textColor}`}>
-                  <FontAwesomeIcon icon={pillar.icon} size="lg" />
+        <h3 className="elx-heading-2">Our Transformation Pillars</h3>
+        <div className="elx-grid-3col">
+          {pillars.map(pillar => {
+            // Get the color code based on pillar type - improved contrast versions
+            const getPillarColor = () => {
+              switch(pillar.name.toLowerCase()) {
+                case 'transformation': return '#D99000'; // Darkened from #FFBE59 for better contrast
+                case 'strategy': return '#C85A30'; // Darkened from #EB8258 for better contrast
+                case 'technology': return '#1F776D'; // Already had good contrast
+                default: return '#D99000';
+              }
+            };
+            
+            return (
+              <div 
+                key={pillar.name} 
+                className="bg-white"
+                style={{
+                  borderRadius: '0.75rem',
+                  overflow: 'hidden',
+                  border: '1px solid #e5e7eb',
+                  transition: 'all 0.3s ease'
+                }}
+              >
+                {/* Colored header section with white text */}
+                <div 
+                  className="px-4 py-3 flex items-center"
+                  style={{ 
+                    backgroundColor: getPillarColor(),
+                    color: 'white'
+                  }}
+                >
+                  <div 
+                    className="w-12 h-12 flex items-center justify-center mr-3"
+                    style={{ backgroundColor: 'transparent' }}
+                  >
+                    <FontAwesomeIcon icon={pillar.icon} size="2x" />
+                  </div>
+                  <div>
+                    <h4 className="font-bold text-white">{pillar.name}</h4>
+                    <p className="text-xs text-white text-opacity-90">{pillar.focus}</p>
+                  </div>
                 </div>
-                <div className="ml-3">
-                  <h4 className={`text-lg font-bold ${pillar.textColor}`}>{pillar.name}</h4>
-                  <p className="text-sm text-gray-500">{pillar.focus}</p>
+                
+                {/* Card content */}
+                <div className="p-4">
+                  <p className="elx-body">{pillar.description}</p>
                 </div>
               </div>
-              <p className="text-gray-600">{pillar.description}</p>
-            </div>
-          ))}
+            );
+          })}
         </div>
       </div>
 
@@ -549,7 +569,7 @@ const CalculatorIntroduction = ({ onGetStarted }) => {
         </p>
         <button
           onClick={onGetStarted}
-          className="elx-btn bg-elx-accent text-elx-primary px-8 py-3 rounded-lg shadow-md hover:shadow-lg transition-all duration-300 font-bold text-lg flex items-center"
+          className="elx-btn-primary"
         >
           Build My Custom Solution
           <FontAwesomeIcon icon={faArrowRight} className="ml-3" />
