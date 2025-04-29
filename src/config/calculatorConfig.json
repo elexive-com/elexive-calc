@@ -48,7 +48,7 @@
     "focused": {
       "description": "Laser Beam",
       "switchingOverhead": 0,
-      "overheadLabel": "None",
+      "overheadLabel": "No",
       "label": "Maximum depth on 1 strategic priority",
       "valueProposition": "Concentrated impact with maximum efficiency per resource"
     },

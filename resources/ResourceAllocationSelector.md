@@ -6,6 +6,8 @@ The ResourceAllocationSelector component enables users to determine how their EV
 
 > **Note:** This component adheres to the [Elexive Calculator Design Guidelines](./DesignGuidelines.md) for visual design, interaction patterns, and customer journey integration.
 
+> **Important:** The overhead represents additional work required due to context switching. While 100% is always the full EVC amount for the selected modules, when work is done in parallel (using Balanced or Distributed strategies), the configured overhead percentage is added on top of the module EVC totals to account for the extra effort needed to complete the work.
+
 ## Strategic Purpose
 
 The ResourceAllocationSelector addresses several key customer needs identified in our research:
@@ -28,10 +30,10 @@ The allocation strategy cards represent a key UX decision point, balancing sever
    - Creates appropriate visual distinction between different allocation approaches
 
 2. **Efficiency Visualization** - The productivity representation:
-   - Uses proportional bar charts to illustrate productive vs. overhead time
+   - Uses proportional bar charts to illustrate base EVC work and additional overhead time
    - Implements consistent color coding for efficiency levels (green, yellow, orange)
-   - Creates immediate visual understanding of productivity differences
-   - Provides supporting numeric values for precise comprehension
+   - Creates immediate visual understanding of how overhead adds to the total work required
+   - Provides supporting numeric values for precise comprehension of additional work needed
 
 3. **Visual Selection Feedback** - The interactive indicators:
    - Implements distinct styling for the selected allocation strategy
@@ -62,9 +64,9 @@ The educational elements implement a deliberate learning architecture:
      - **Laser Beam (Focused)**: Concentrates 100% of resources on a single initiative
      - **Smart Campaign (Balanced)**: Distributes resources across a limited number of concurrent initiatives
      - **Omni-Channel (Distributed)**: Spreads resources across many parallel initiatives
-   - Each strategy has associated context-switching overhead percentages that affect productivity
-   - Provides clear visual indicators of efficiency differences between strategies
-   - Creates appropriate business context for technical productivity concepts
+   - Each strategy has associated context-switching overhead percentages that add extra work on top of the base EVC requirements
+   - Provides clear visual indicators of how much additional work is required for each strategy
+   - Creates appropriate business context for understanding the impact of parallel implementation
 
 2. **Capacity-Aware Strategy Constraints**
    - Intelligently restricts available strategies based on the selected production capacity:
@@ -77,9 +79,9 @@ The educational elements implement a deliberate learning architecture:
 
 3. **Educational Visualization**
    - Includes an expandable detailed explanation of context switching costs
-   - Visualizes productive vs. overhead time for each strategy with proportional bar charts
-   - Provides research-backed explanations of how context switching affects productivity
-   - Uses business-friendly language to explain technical productivity concepts
+   - Visualizes base EVC requirements and additional overhead work for each strategy with proportional bar charts
+   - Provides research-backed explanations of how context switching requires additional resources
+   - Uses business-friendly language to explain the impact of parallel implementation
 
 4. **Strategy Recommendation Engine**
    - Analyzes the selected production capacity to recommend optimal allocation strategies
@@ -134,7 +136,7 @@ The educational elements implement a deliberate learning architecture:
      - `description`: Text label for the strategy
      - `label`: Detailed description of the allocation approach
      - `valueProposition`: Primary benefit statement
-     - `switchingOverhead`: Numeric percentage of productivity lost to context switching
+     - `switchingOverhead`: Numeric percentage of additional work required due to context switching
      - `overheadLabel`: Human-readable representation of the overhead
 
 2. **UI Components**
