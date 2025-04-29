@@ -4,8 +4,8 @@ import {
   faLayerGroup, faLightbulb, 
   faBullhorn, faGlobe, 
   faCheckCircle,
-  faArrowRight, faQuestionCircle, 
-  faChevronDown, faChevronUp
+  faArrowRight, 
+  faInfoCircle, faAngleUp, faAngleDown
 } from '@fortawesome/free-solid-svg-icons';
 import calculatorConfig from '../config/calculatorConfig.json';
 
@@ -186,11 +186,14 @@ const ResourceAllocationSelector = ({ resourceAllocation = 'focused', setResourc
       {/* Context switching explainer toggle button - moved below cards */}
       <button 
         onClick={() => setShowExplainer(!showExplainer)}
-        className="flex items-center gap-2 mb-4 text-sm font-medium text-elx-primary hover:text-elx-accent transition-colors"
+        className="flex items-center text-left text-base font-bold text-elx-primary mb-2"
       >
-        <FontAwesomeIcon icon={faQuestionCircle} />
+        <FontAwesomeIcon icon={faInfoCircle} className="mr-2 text-elx-accent" />
         <span>How context switching affects productivity</span>
-        <FontAwesomeIcon icon={showExplainer ? faChevronUp : faChevronDown} className="text-xs" />
+        <FontAwesomeIcon 
+          icon={showExplainer ? faAngleUp : faAngleDown} 
+          className="ml-2 text-elx-accent"
+        />
       </button>
       
       {/* Detailed context switching explainer - hidden by default */}
