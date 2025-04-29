@@ -63,7 +63,7 @@ const ModuleExplorer = () => {
     },
     'Discovery': {
       name: 'Discovery',
-      icon: faLayerGroup,
+      icon: faCompass,
       description: 'Uncover insights and opportunities through research, assessment, and collaborative exploration.',
       focus: 'Research & Assessment'
     }
