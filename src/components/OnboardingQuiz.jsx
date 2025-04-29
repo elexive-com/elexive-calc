@@ -1,14 +1,18 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { 
   faChartLine, faRocket, 
   faGears, faArrowRight, faCheckCircle,
-  faCompass, faBullhorn, faStar, faLayerGroup
+  faCompass, faBullhorn, faStar, faLayerGroup,
+  faInfoCircle, faCalculator, faAngleDown, faAngleUp,
+  faExchangeAlt, faUsers, faPuzzlePiece
 } from '@fortawesome/free-solid-svg-icons';
 import calculatorConfig from '../config/calculatorConfig.json';
 import calculatorPresets from '../config/calculatorPresets.json';
 
-const OnboardingQuiz = ({ intent, handleIntentSelect, resetCalculator }) => {
+const OnboardingQuiz = ({ intent, handleIntentSelect, resetCalculator, openEvcExplainer }) => {
+  const [showEvcInfo, setShowEvcInfo] = useState(false);
+
   // Function to get description - use preset description if available
   const getDescription = (intentOption) => {
     if (calculatorPresets.presets[intentOption.name]) {
@@ -50,6 +54,117 @@ const OnboardingQuiz = ({ intent, handleIntentSelect, resetCalculator }) => {
         are designed by industry experts for specific business challenges, or choose 'Full Custom' to build 
         your solution from the ground up.
       </p>
+      
+      {/* What are EVCs section - styled like context switching explainer */}
+      <button 
+        onClick={() => setShowEvcInfo(!showEvcInfo)}
+        className="flex items-center text-left text-base font-bold text-elx-primary mb-2"
+      >
+        <FontAwesomeIcon icon={faInfoCircle} className="mr-2 text-elx-accent" />
+        <span>What are EVCs?</span>
+        <FontAwesomeIcon 
+          icon={showEvcInfo ? faAngleUp : faAngleDown} 
+          className="ml-2 text-elx-accent"
+        />
+      </button>
+      
+      {/* Detailed EVC explainer - hidden by default */}
+      {showEvcInfo && (
+        <div className="mb-6 p-5 bg-gray-50 border border-gray-200 rounded-lg animate-fadeIn">
+          <h3 className="elx-section-heading text-lg mb-3">Elastic Value Credits (EVCs)</h3>
+          
+          <p className="text-sm text-gray-700 mb-4">
+            EVCs represent our producer-consumer model where input resources are converted into 
+            strategic output value for your business. They measure the amount of work required to 
+            implement each module and help you understand project timelines and resource allocation.
+          </p>
+          
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            {/* Left column - explanation */}
+            <div>
+              <h4 className="elx-section-heading text-base">How EVCs Work</h4>
+              <p className="text-sm text-gray-700 mb-3">
+                EVCs function as a measurement system to quantify work effort and value delivery:
+              </p>
+              <ul className="text-sm text-gray-700 space-y-2 mb-4">
+                <li className="flex items-start gap-2">
+                  <div className="min-w-4 mt-1">•</div>
+                  <div><span className="font-medium">Resource inputs:</span> Advisory services, AI tools, and specialized data resources</div>
+                </li>
+                <li className="flex items-start gap-2">
+                  <div className="min-w-4 mt-1">•</div>
+                  <div><span className="font-medium">Value outputs:</span> Strategic modules and deliverables that achieve your business goals</div>
+                </li>
+                <li className="flex items-start gap-2">
+                  <div className="min-w-4 mt-1">•</div>
+                  <div><span className="font-medium">Production capacity:</span> The weekly EVC rate determines your implementation timeline</div>
+                </li>
+                <li className="flex items-start gap-2">
+                  <div className="min-w-4 mt-1">•</div>
+                  <div><span className="font-medium">Efficiency factors:</span> Resource allocation strategies impact your effective EVC output</div>
+                </li>
+              </ul>
+              
+              {/* New note about EVC styling */}
+              <div className="bg-gray-100 p-3 rounded-md border border-gray-200 mb-3">
+                <p className="text-xs text-gray-700 mb-2 font-medium">
+                  Note: Throughout the application, EVCs are denoted by this label:
+                </p>
+                <div className="flex items-center justify-center">
+                  <span className="bg-rose-50 text-xs font-semibold px-2 py-1 rounded-md text-elx-evc border border-rose-200 inline-block">
+                    42 EVC
+                  </span>
+                </div>
+              </div>
+            </div>
+            
+            {/* Right column - visual */}
+            <div className="bg-white rounded-lg p-4 border border-gray-200">
+              <h4 className="elx-section-heading text-base text-center mb-3">The EVC Value Exchange</h4>
+              
+              <div className="bg-elx-primary-light p-4 rounded-lg mb-4">
+                <div className="flex items-center justify-between">
+                  <div className="text-center p-3">
+                    <div className="text-sm mb-1 font-medium text-elx-primary">Input Resources</div>
+                    <div className="flex justify-center mb-2">
+                      <div className="w-10 h-10 rounded-full bg-elx-primary-light flex items-center justify-center">
+                        <FontAwesomeIcon icon={faUsers} className="text-elx-accent text-xl" />
+                      </div>
+                    </div>
+                    <div className="text-sm text-gray-600">Weekly Capacity</div>
+                  </div>
+                  
+                  <div className="flex flex-col items-center">
+                    <FontAwesomeIcon icon={faExchangeAlt} className="text-elx-accent text-xl mb-1" />
+                    <div className="text-xs text-gray-500">Converts to</div>
+                  </div>
+                  
+                  <div className="text-center p-3">
+                    <div className="text-sm mb-1 font-medium text-elx-primary">Output Value</div>
+                    <div className="flex justify-center mb-2">
+                      <div className="w-10 h-10 rounded-full bg-elx-primary-light flex items-center justify-center">
+                        <FontAwesomeIcon icon={faPuzzlePiece} className="text-elx-accent text-xl" />
+                      </div>
+                    </div>
+                    <div className="text-sm text-gray-600">Business Results</div>
+                  </div>
+                </div>
+              </div>
+              
+              <button
+                onClick={openEvcExplainer}
+                className="w-full elx-btn bg-elx-primary hover:bg-elx-primary-dark text-white px-4 py-2 text-sm rounded-md flex items-center justify-center"
+              >
+                <FontAwesomeIcon icon={faCalculator} className="mr-2" />
+                Learn More About EVCs
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+      
+      {/* Added space before the cards */}
+      <div className="mb-6"></div>
       
       {/* Primary Objective Options - 2 columns */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-8">

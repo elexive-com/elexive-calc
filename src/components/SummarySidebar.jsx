@@ -9,7 +9,6 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 import calculatorConfig from '../config/calculatorConfig.json';
 import DetailedReportModal from './DetailedReportModal';
-import EvcExplainer from './EvcExplainer';
 
 // Replace the ExpandableSection with a static Section component
 const Section = ({ title, icon, children }) => {
@@ -26,7 +25,6 @@ const Section = ({ title, icon, children }) => {
 
 const SummarySidebar = ({ calculator }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [isEvcModalOpen, setIsEvcModalOpen] = useState(false);
   
   const {
     intent,
@@ -62,7 +60,7 @@ const SummarySidebar = ({ calculator }) => {
       };
     });
 
-  // Function to get pillar color based on pillar type - consistent with other components
+  // Function to get pillar color based on pillar type
   const getPillarColor = (pillar) => {
     switch(pillar?.toLowerCase()) {
       case 'transformation': return 'rgba(217, 144, 0, 0.9)'; // Darkened amber background
@@ -228,8 +226,9 @@ const SummarySidebar = ({ calculator }) => {
                     View Detailed Report
                   </button>
                   
+                  {/* This button should use the global state now */}
                   <button
-                    onClick={() => setIsEvcModalOpen(true)}
+                    onClick={() => window.dispatchEvent(new CustomEvent('open-evc-explainer'))}
                     className="elx-btn w-full py-2.5 bg-elx-evc text-white"
                   >
                     <FontAwesomeIcon icon={faCalculator} className="mr-2" />
@@ -255,14 +254,6 @@ const SummarySidebar = ({ calculator }) => {
         isOpen={isModalOpen}
         onClose={() => setIsModalOpen(false)}
         calculator={calculator}
-      />
-      
-      {/* EVC Explainer Modal */}
-      <EvcExplainer
-        isOpen={isEvcModalOpen}
-        onClose={() => setIsEvcModalOpen(false)}
-        weeklyProductionCapacity={weeklyProductionCapacity}
-        monthlyOutputValue={monthlyOutputValue}
       />
     </>
   );

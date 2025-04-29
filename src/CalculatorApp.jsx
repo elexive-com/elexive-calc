@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import useCalculator from './hooks/useCalculator';
 import CalculatorIntroduction from './components/CalculatorIntroduction';
 import OnboardingQuiz from './components/OnboardingQuiz';
@@ -8,15 +8,34 @@ import ProductionCapacitySelector from './components/ProductionCapacitySelector'
 import ServiceParameters from './components/ServiceParameters';
 import SummarySidebar from './components/SummarySidebar';
 import ModuleExplorer from './components/ModuleExplorer';
+import EvcExplainer from './components/EvcExplainer';
 import { useTabContext } from './contexts/TabContext';
 
 const CalculatorApp = () => {
   const calculator = useCalculator();
   const { activeTab, setActiveTab } = useTabContext();
+  const [isEvcModalOpen, setIsEvcModalOpen] = useState(false);
   
   const handleGetStarted = () => {
     setActiveTab('calculator');
   };
+
+  const openEvcExplainer = () => {
+    setIsEvcModalOpen(true);
+  };
+  
+  // Listen for the custom event from SummarySidebar
+  useEffect(() => {
+    const handleOpenEvcExplainer = () => {
+      setIsEvcModalOpen(true);
+    };
+    
+    window.addEventListener('open-evc-explainer', handleOpenEvcExplainer);
+    
+    return () => {
+      window.removeEventListener('open-evc-explainer', handleOpenEvcExplainer);
+    };
+  }, []);
   
   return (
     <div className="w-full mx-0 px-0 py-0 elx-main-content">
@@ -33,6 +52,7 @@ const CalculatorApp = () => {
                   intent={calculator.intent}
                   handleIntentSelect={calculator.handleIntentSelect}
                   resetCalculator={calculator.resetCalculator}
+                  openEvcExplainer={openEvcExplainer}
                 />
                 
                 {/* Step 2: Delivery Speed */}
@@ -81,6 +101,14 @@ const CalculatorApp = () => {
           )}
         </>
       )}
+      
+      {/* EVC Explainer Modal */}
+      <EvcExplainer
+        isOpen={isEvcModalOpen}
+        onClose={() => setIsEvcModalOpen(false)}
+        weeklyProductionCapacity={calculator.weeklyProductionCapacity}
+        monthlyOutputValue={calculator.monthlyOutputValue}
+      />
     </div>
   );
 };
