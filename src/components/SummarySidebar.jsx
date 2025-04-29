@@ -36,13 +36,9 @@ const SummarySidebar = ({ calculator }) => {
     evcBase,
     totalPrice,
     evcPricePerUnit,
-    completionTimeWeeks,
-    totalModuleEvcs,
     selectedVariants = {},
     parameters = {},
-    serviceParameters = [],
-    weeklyProductionCapacity,
-    monthlyOutputValue
+    serviceParameters = []
   } = calculator;
 
   // Get selected modules with their EVC values
@@ -60,6 +56,16 @@ const SummarySidebar = ({ calculator }) => {
       };
     });
 
+  // Calculate total EVC sum of all selected modules
+  const totalEvcSum = selectedModuleDetails.reduce((sum, module) => sum + module.evcValue, 0);
+
+  // Calculate the absolute EVC overhead for resource allocation
+  const overheadPercentage = calculatorConfig.resourceAllocation[resourceAllocation]?.switchingOverhead || 0;
+  const absoluteOverheadEvcs = Math.ceil((totalEvcSum * overheadPercentage) / 100);
+  
+  // Total EVCs needed including overhead
+  const totalEvcsWithOverhead = totalEvcSum + absoluteOverheadEvcs;
+
   // Function to get pillar color based on pillar type
   const getPillarColor = (pillar) => {
     switch(pillar?.toLowerCase()) {
@@ -70,6 +76,14 @@ const SummarySidebar = ({ calculator }) => {
       default: return 'rgba(217, 144, 0, 0.9)'; // Default to transformation color
     }
   };
+
+  // Calculate the estimated completion time based on raw weekly production capacity
+  // Using the raw value from calculatorConfig to match what's displayed in the UI
+  const rawWeeklyCapacity = calculatorConfig.productionCapacity[productionCapacity]?.weeklyEVCs || 0;
+  
+  const estimatedCompletionWeeks = rawWeeklyCapacity > 0 
+    ? Math.max(1, Math.ceil(totalEvcsWithOverhead / rawWeeklyCapacity))
+    : 0;
 
   return (
     <>
@@ -105,6 +119,29 @@ const SummarySidebar = ({ calculator }) => {
                       </span>
                     </div>
                   ))}
+                  
+                  {/* Total Sum row - only show when more than one module is selected */}
+                  {selectedModuleDetails.length > 1 && (
+                    <>
+                      {/* Divider line above the Total Sum */}
+                      <div className="border-t border-gray-300 my-2"></div>
+                      
+                      <div 
+                        className="flex justify-between items-center py-1.5 px-2.5 rounded-md"
+                        style={{ backgroundColor: 'rgba(0, 0, 0, 0.8)' }} // Dark background to differentiate
+                      >
+                        <span className="text-white text-xs font-medium flex items-center">
+                          <FontAwesomeIcon icon={faCalculator} 
+                            className="mr-2 text-xs text-white" 
+                          />
+                          Modules Sum
+                        </span>
+                        <span className="bg-rose-100 text-xs font-semibold px-2 py-1 rounded-md text-elx-evc border border-rose-300">
+                          {totalEvcSum} EVC
+                        </span>
+                      </div>
+                    </>
+                  )}
                 </div>
               </>
             ) : (
@@ -115,65 +152,56 @@ const SummarySidebar = ({ calculator }) => {
           {/* Setup - Combined Production Capacity and Resource Allocation */}
           <Section title="Setup" icon={faLayerGroup}>
             <div className="flex flex-col space-y-3">
-              {/* Production Capacity with stronger colors and icon */}
+              {/* Production Capacity with stronger colors, icon, and EVC value */}
               <div 
-                className="rounded-lg p-2.5 flex items-center"
+                className="rounded-lg p-2.5 flex items-center justify-between"
                 style={{ backgroundColor: '#1F76BD' }} // Deeper blue for contrast
               >
-                <FontAwesomeIcon 
-                  icon={
-                    productionCapacity === "pathfinder" ? faCompass :
-                    productionCapacity === "roadster" ? faCar : 
-                    productionCapacity === "jetpack" ? faJetFighterUp : 
-                    faRocket
-                  } 
-                  className="text-white mr-2" 
-                />
-                <p className="font-medium text-base text-white">
-                  {calculatorConfig.productionCapacity[productionCapacity]?.label || "Not selected"}
-                </p>
+                <div className="flex items-center">
+                  <FontAwesomeIcon 
+                    icon={
+                      productionCapacity === "pathfinder" ? faCompass :
+                      productionCapacity === "roadster" ? faCar : 
+                      productionCapacity === "jetpack" ? faJetFighterUp : 
+                      faRocket
+                    } 
+                    className="text-white mr-2" 
+                  />
+                  <p className="font-medium text-base text-white">
+                    {calculatorConfig.productionCapacity[productionCapacity]?.label || "Not selected"}
+                  </p>
+                </div>
+                <span className="bg-rose-50 text-xs font-semibold px-2 py-1 rounded-md text-elx-evc border border-rose-200">
+                  {calculatorConfig.productionCapacity[productionCapacity]?.weeklyEVCs || 0} EVC/week
+                </span>
               </div>
               
-              {/* Resource Allocation with stronger colors and icon */}
+              {/* Resource Allocation with stronger colors, icon, and absolute overhead EVCs */}
               <div 
-                className="rounded-lg p-2.5 flex items-center"
+                className="rounded-lg p-2.5 flex items-center justify-between"
                 style={{ backgroundColor: '#1A7F5A' }} // Deeper green for contrast
               >
-                <FontAwesomeIcon 
-                  icon={
-                    resourceAllocation === "focused" ? faLightbulb :
-                    resourceAllocation === "balanced" ? faBullhorn : 
-                    faGlobe
-                  } 
-                  className="text-white mr-2" 
-                />
-                <p className="font-medium text-base text-white">
-                  {calculatorConfig.resourceAllocation[resourceAllocation]?.description || "Not selected"}
-                </p>
+                <div className="flex items-center">
+                  <FontAwesomeIcon 
+                    icon={
+                      resourceAllocation === "focused" ? faLightbulb :
+                      resourceAllocation === "balanced" ? faBullhorn : 
+                      faGlobe
+                    } 
+                    className="text-white mr-2" 
+                  />
+                  <p className="font-medium text-base text-white">
+                    {calculatorConfig.resourceAllocation[resourceAllocation]?.description || "Not selected"}
+                  </p>
+                </div>
+                <span className="bg-rose-50 text-xs font-semibold px-2 py-1 rounded-md text-elx-evc border border-rose-200">
+                  {absoluteOverheadEvcs > 0 ? `+${absoluteOverheadEvcs} EVC` : 'No overhead'}
+                </span>
               </div>
             </div>
           </Section>
           
-          {/* Estimated Completion Time */}
-          <Section title="Estimated Completion" icon={faCalendarAlt}>
-            <div className="flex justify-between items-center mt-1 bg-elx-accent-light bg-opacity-30 p-2.5 rounded">
-              <div className="text-center flex-1">
-                <p className="font-bold text-lg text-elx-primary">{totalModuleEvcs}</p>
-                <p className="text-[10px] text-elx-primary mt-0.5 font-medium">Total EVCs needed</p>
-              </div>
-              <div className="flex items-center px-1">
-                <FontAwesomeIcon icon={faArrowRight} className="text-elx-accent" />
-              </div>
-              <div className="text-center flex-1">
-                <p className="font-bold text-lg text-elx-primary">{completionTimeWeeks}</p>
-                <p className="text-[10px] text-elx-primary mt-0.5 font-medium">
-                  {completionTimeWeeks === 1 ? 'Week' : 'Weeks'} to complete
-                </p>
-              </div>
-            </div>
-          </Section>
-          
-          {/* Custom Parameters */}
+          {/* Custom Parameters - Moved here to be right after Setup */}
           {serviceParameters.filter(param => parameters[param.id]).length > 0 && (
             <Section title="Custom Parameters" icon={faInfoCircle}>
               <div className="space-y-1 text-sm">
@@ -188,6 +216,25 @@ const SummarySidebar = ({ calculator }) => {
               </div>
             </Section>
           )}
+          
+          {/* Estimated Completion Time */}
+          <Section title="Estimated Completion" icon={faCalendarAlt}>
+            <div className="flex justify-between items-center mt-1 bg-elx-accent-light bg-opacity-30 p-2.5 rounded">
+              <div className="text-center flex-1">
+                <p className="font-bold text-lg text-elx-primary">{totalEvcsWithOverhead}</p>
+                <p className="text-[10px] text-elx-primary mt-0.5 font-medium">Total EVCs needed</p>
+              </div>
+              <div className="flex items-center px-1">
+                <FontAwesomeIcon icon={faArrowRight} className="text-elx-accent" />
+              </div>
+              <div className="text-center flex-1">
+                <p className="font-bold text-lg text-elx-primary">{estimatedCompletionWeeks}</p>
+                <p className="text-[10px] text-elx-primary mt-0.5 font-medium">
+                  {estimatedCompletionWeeks === 1 ? 'Week' : 'Weeks'} to complete
+                </p>
+              </div>
+            </div>
+          </Section>
           
           {/* Payment Option */}
           <Section title="Payment Method" icon={faCreditCard}>
