@@ -126,20 +126,16 @@
   ],
   "serviceParameters": [
     {
-      "id": "onSitePresence",
-      "label": "On-site Presence",
-      "description": "Advisors work on your premises",
-      "modifier": 1.3,
-      "productionImpact": "Increases resource commitment but accelerates implementation",
-      "defaultValue": false
-    },
-    {
       "id": "marketDataAccess",
       "label": "Premium Market Data",
       "description": "Access to specialized industry data",
       "modifier": 1.15,
       "productionImpact": "Improves quality and depth of strategic insights",
-      "defaultValue": false
+      "defaultValue": false,
+      "evcCost": {
+        "type": "absolute",
+        "value": 2
+      }
     },
     {
       "id": "trainingSession",
@@ -147,7 +143,11 @@
       "description": "Comprehensive onboarding and knowledge transfer sessions for your team",
       "modifier": 1.1,
       "productionImpact": "Ensures effective adoption and capability development",
-      "defaultValue": false
+      "defaultValue": false,
+      "evcCost": {
+        "type": "absolute",
+        "value": 3
+      }
     },
     {
       "id": "accountConcierge",
@@ -155,7 +155,11 @@
       "description": "Dedicated account manager for personalized service and strategic guidance",
       "modifier": 1.2,
       "productionImpact": "Improves continuity and strategic alignment",
-      "defaultValue": false
+      "defaultValue": false,
+      "evcCost": {
+        "type": "relative",
+        "value": 10
+      }
     },
     {
       "id": "premiumSLA",
@@ -163,7 +167,23 @@
       "description": "Enhanced response times and service level guarantees for business-critical operations",
       "modifier": 1.25,
       "productionImpact": "Prioritizes your needs and ensures consistent service delivery",
-      "defaultValue": false
+      "defaultValue": false,
+      "evcCost": {
+        "type": "relative",
+        "value": 20
+      }
+    },
+    {
+      "id": "onSitePresence",
+      "label": "On-site Presence",
+      "description": "Advisors work on your premises",
+      "modifier": 1.3,
+      "productionImpact": "Increases resource commitment but accelerates implementation",
+      "defaultValue": false,
+      "evcCost": {
+        "type": "relative",
+        "value": 30
+      }
     }
   ],
   "defaults": {

@@ -86,6 +86,7 @@ const CalculatorApp = () => {
                   togglePaymentOption={calculator.togglePaymentOption}
                   parameters={calculator.parameters}
                   updateParameter={calculator.updateParameter}
+                  productionCapacity={calculator.productionCapacity}
                 />
               </div>
               

@@ -38,7 +38,8 @@ const SummarySidebar = ({ calculator }) => {
     evcPricePerUnit,
     selectedVariants = {},
     parameters = {},
-    serviceParameters = []
+    serviceParameters = [],
+    weeklyProductionCapacity
   } = calculator;
 
   // Get selected modules with their EVC values
@@ -75,6 +76,24 @@ const SummarySidebar = ({ calculator }) => {
       case 'discovery': return 'rgba(46, 34, 102, 0.9)'; // Darkened purple background
       default: return 'rgba(217, 144, 0, 0.9)'; // Default to transformation color
     }
+  };
+  
+  // Helper function to calculate the EVC cost based on parameter type and current production capacity
+  const calculateEvcCost = (param) => {
+    if (!param.evcCost) return null;
+    
+    const { type, value } = param.evcCost;
+    
+    if (type === 'absolute') {
+      return value;
+    } else if (type === 'relative') {
+      // Get the weeklyEVCs from the selected production capacity
+      const weeklyEVCs = calculatorConfig.productionCapacity[productionCapacity]?.weeklyEVCs || 0;
+      // Calculate relative value and round up to nearest integer
+      return Math.ceil((weeklyEVCs * value) / 100);
+    }
+    
+    return null;
   };
 
   // Calculate the estimated completion time based on raw weekly production capacity
@@ -204,13 +223,22 @@ const SummarySidebar = ({ calculator }) => {
           {/* Custom Parameters - Moved here to be right after Setup */}
           {serviceParameters.filter(param => parameters[param.id]).length > 0 && (
             <Section title="Custom Parameters" icon={faInfoCircle}>
-              <div className="space-y-1 text-sm">
+              <div className="space-y-2 text-sm">
                 {serviceParameters
                   .filter(param => parameters[param.id])
                   .map(param => (
-                    <div key={param.id} className="flex items-center py-1">
-                      <span className="w-2 h-2 rounded-full bg-elx-accent mr-2"></span>
-                      <span className="text-xs text-elx-primary">{param.label}</span>
+                    <div key={param.id} className="flex justify-between items-center py-1.5 px-2.5 rounded-md bg-gray-100">
+                      <span className="text-elx-primary text-xs font-medium">
+                        <span className="w-2 h-2 rounded-full bg-elx-accent mr-2 inline-block"></span>
+                        {param.label}
+                      </span>
+                      {param.evcCost && (
+                        <span className="bg-rose-50 text-xs font-semibold px-2 py-1 rounded-md text-elx-evc border border-rose-200">
+                          {param.evcCost.type === 'absolute' 
+                            ? `${param.evcCost.value} EVC/week` 
+                            : `${calculateEvcCost(param)} EVC/week`}
+                        </span>
+                      )}
                     </div>
                   ))}
               </div>
@@ -256,6 +284,10 @@ const SummarySidebar = ({ calculator }) => {
                   <div className="flex justify-between items-center mb-1">
                     <span className="text-sm text-elx-primary font-medium">Weekly Price:</span>
                     <span className="font-bold text-xl text-elx-primary">€{totalPrice.toLocaleString()}</span>
+                  </div>
+                  <div className="flex justify-between items-center mb-1 text-[11px] text-elx-primary font-medium">
+                    <span>Total weekly EVCs:</span>
+                    <span className="font-medium">{weeklyProductionCapacity} EVCs</span>
                   </div>
                   <div className="flex justify-between items-center text-[11px] text-elx-primary font-medium">
                     <span>Price per EVC:</span>

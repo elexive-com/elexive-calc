@@ -13,7 +13,8 @@ const ServiceParameters = ({
   paymentOption, 
   togglePaymentOption, 
   parameters, 
-  updateParameter 
+  updateParameter,
+  productionCapacity
 }) => {
   // Define default essential business parameters if none provided
   const defaultParameters = [
@@ -39,6 +40,38 @@ const ServiceParameters = ({
   
   // Safety check: if serviceParameters is undefined or null, provide default parameters
   const serviceParams = serviceParameters?.length ? serviceParameters : defaultParameters;
+  
+  // Helper function to calculate the EVC cost based on parameter type and current production capacity
+  const calculateEvcCost = (param) => {
+    if (!param.evcCost) return null;
+    
+    const { type, value } = param.evcCost;
+    
+    if (type === 'absolute') {
+      return value;
+    } else if (type === 'relative') {
+      // Get the weeklyEVCs from the selected production capacity
+      const weeklyEVCs = calculatorConfig.productionCapacity[productionCapacity]?.weeklyEVCs || 0;
+      // Calculate relative value and round up to nearest integer
+      return Math.ceil((weeklyEVCs * value) / 100);
+    }
+    
+    return null;
+  };
+  
+  // Helper function to format the EVC cost display text
+  const formatEvcCost = (param) => {
+    if (!param.evcCost) return '';
+    
+    const cost = calculateEvcCost(param);
+    if (cost === null) return '';
+    
+    if (param.evcCost.type === 'absolute') {
+      return `${cost} EVC/week`;
+    } else {
+      return `${cost} EVC/week (${param.evcCost.value}%)`;
+    }
+  };
   
   return (
     <div className="elx-card p-6 mb-6">
@@ -92,12 +125,18 @@ const ServiceParameters = ({
           <div className="space-y-3">
             {serviceParams.map((param) => (
               <div key={param.id} className="flex items-center justify-between">
-                <div>
+                <div className="flex-1">
                   <span className="font-medium text-elx-primary">
                     {param.icon && <FontAwesomeIcon icon={param.icon} className="mr-2 text-elx-accent-light" />}
                     {param.label}
                   </span>
                   <p className="text-xs text-gray-500">{param.description}</p>
+                  {param.evcCost && (
+                    <p className="text-xs text-elx-evc font-medium mt-1">
+                      <FontAwesomeIcon icon={faInfoCircle} className="mr-1" />
+                      Cost: {formatEvcCost(param)}
+                    </p>
+                  )}
                 </div>
                 <button
                   onClick={() => updateParameter(param.id, !parameters[param.id])}
