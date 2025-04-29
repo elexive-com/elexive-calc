@@ -4,7 +4,8 @@ import {
   faBullseye, faPuzzlePiece,
   faLayerGroup, faArrowRight, faEnvelope,
   faCalendarAlt, faFileAlt, faInfoCircle, faCreditCard,
-  faCalculator
+  faCalculator, faCompass, faLightbulb, faBullhorn,
+  faGlobe, faCar, faJetFighterUp, faRocket
 } from '@fortawesome/free-solid-svg-icons';
 import calculatorConfig from '../config/calculatorConfig.json';
 import DetailedReportModal from './DetailedReportModal';
@@ -56,9 +57,21 @@ const SummarySidebar = ({ calculator }) => {
       
       return {
         name: module.name,
-        evcValue: evcValue
+        evcValue: evcValue,
+        pillar: module.pillar
       };
     });
+
+  // Function to get pillar color based on pillar type - consistent with other components
+  const getPillarColor = (pillar) => {
+    switch(pillar?.toLowerCase()) {
+      case 'transformation': return 'rgba(217, 144, 0, 0.9)'; // Darkened amber background
+      case 'strategy': return 'rgba(200, 90, 48, 0.9)'; // Darkened orange background
+      case 'technology': return 'rgba(31, 119, 109, 0.9)'; // Darkened teal background
+      case 'discovery': return 'rgba(46, 34, 102, 0.9)'; // Darkened purple background
+      default: return 'rgba(217, 144, 0, 0.9)'; // Default to transformation color
+    }
+  };
 
   return (
     <>
@@ -78,9 +91,18 @@ const SummarySidebar = ({ calculator }) => {
                 <p className="font-medium text-base text-elx-primary mb-2.5">{selectedModules.length} modules</p>
                 <div className="space-y-1.5">
                   {selectedModuleDetails.map(module => (
-                    <div key={module.name} className="elx-module-option bg-elx-accent-light bg-opacity-20 py-1.5 px-2.5">
-                      <span className="text-elx-primary text-xs font-medium">{module.name}</span>
-                      <span className="elx-evc-label">
+                    <div 
+                      key={module.name} 
+                      className="flex justify-between items-center py-1.5 px-2.5 rounded-md"
+                      style={{ backgroundColor: getPillarColor(module.pillar) }}
+                    >
+                      <span className="text-white text-xs font-medium flex items-center">
+                        <FontAwesomeIcon icon={module.pillar === 'Discovery' ? faCompass : faLayerGroup} 
+                          className="mr-2 text-xs text-white" 
+                        />
+                        {module.name}
+                      </span>
+                      <span className="bg-rose-50 text-xs font-semibold px-2 py-1 rounded-md text-elx-evc border border-rose-200">
                         {module.evcValue} EVC
                       </span>
                     </div>
@@ -95,16 +117,39 @@ const SummarySidebar = ({ calculator }) => {
           {/* Setup - Combined Production Capacity and Resource Allocation */}
           <Section title="Setup" icon={faLayerGroup}>
             <div className="flex flex-col space-y-3">
-              {/* Production Capacity */}
-              <div className="rounded-lg border border-blue-400 p-2.5 bg-blue-50">
-                <p className="font-medium text-base text-elx-primary">
+              {/* Production Capacity with stronger colors and icon */}
+              <div 
+                className="rounded-lg p-2.5 flex items-center"
+                style={{ backgroundColor: '#1F76BD' }} // Deeper blue for contrast
+              >
+                <FontAwesomeIcon 
+                  icon={
+                    productionCapacity === "pathfinder" ? faCompass :
+                    productionCapacity === "roadster" ? faCar : 
+                    productionCapacity === "jetpack" ? faJetFighterUp : 
+                    faRocket
+                  } 
+                  className="text-white mr-2" 
+                />
+                <p className="font-medium text-base text-white">
                   {calculatorConfig.productionCapacity[productionCapacity]?.label || "Not selected"}
                 </p>
               </div>
               
-              {/* Resource Allocation */}
-              <div className="rounded-lg border border-green-400 p-2.5 bg-green-50">
-                <p className="font-medium text-base text-elx-primary">
+              {/* Resource Allocation with stronger colors and icon */}
+              <div 
+                className="rounded-lg p-2.5 flex items-center"
+                style={{ backgroundColor: '#1A7F5A' }} // Deeper green for contrast
+              >
+                <FontAwesomeIcon 
+                  icon={
+                    resourceAllocation === "focused" ? faLightbulb :
+                    resourceAllocation === "balanced" ? faBullhorn : 
+                    faGlobe
+                  } 
+                  className="text-white mr-2" 
+                />
+                <p className="font-medium text-base text-white">
                   {calculatorConfig.resourceAllocation[resourceAllocation]?.description || "Not selected"}
                 </p>
               </div>

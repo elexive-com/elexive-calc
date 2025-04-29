@@ -98,7 +98,94 @@ const ResourceAllocationSelector = ({ resourceAllocation = 'focused', setResourc
         additionalInfo="Each strategy distributes your attention across a different number of concurrent initiatives. Laser Beam concentrates 100% of focus on a single priority, while other strategies spread your resources across multiple initiatives to increase overall impact at the cost of per-initiative focus."
       />
       
-      {/* Context switching explainer toggle button */}
+      {/* Redesigned allocation strategy cards - side by side */}
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
+        {Object.entries(calculatorConfig.resourceAllocation).map(([key, details]) => (
+          <div
+            key={key}
+            onClick={() => handleAllocationSelect(key)}
+            className={`flex flex-col bg-white rounded-lg overflow-hidden border transition-all duration-300 cursor-pointer transform hover:-translate-y-1 hover:shadow-lg ${
+              resourceAllocation === key
+                ? 'border-amber-500 shadow-md'
+                : isStrategyDisabled(key)
+                  ? 'border-gray-200 opacity-50 cursor-not-allowed'
+                  : 'border-gray-200 hover:border-gray-300'
+            }`}
+          >
+            {/* Header section with icon and name - using primary purple background or accent color when selected */}
+            <div 
+              className="px-4 py-3 flex items-center w-full"
+              style={{ 
+                backgroundColor: resourceAllocation === key 
+                  ? 'var(--elexive-accent)' 
+                  : 'var(--elexive-primary)', 
+                color: 'white',
+                opacity: isStrategyDisabled(key) ? 0.7 : 1
+              }}
+            >
+              <div 
+                className="w-8 h-8 flex items-center justify-center mr-2"
+                style={{ backgroundColor: 'transparent' }}
+              >
+                <FontAwesomeIcon 
+                  icon={getStrategyIcon(key)}
+                  className="text-white" 
+                />
+              </div>
+              <div className="flex justify-between items-center w-full">
+                <h3 className="font-bold text-white text-sm">{details.description}</h3>
+              </div>
+            </div>
+            
+            {/* Card content */}
+            <div className="p-4 flex flex-col h-full">
+              {/* Strategy label and context switching overhead on same row */}
+              <div className="flex justify-between items-center mb-3">
+                <span className="text-xs font-medium text-gray-700">{details.label}</span>
+                <span className={`text-xs font-medium px-2 py-1 rounded-md ${
+                  key === 'focused' 
+                    ? 'bg-green-100 text-green-800' 
+                    : key === 'balanced'
+                      ? 'bg-yellow-100 text-yellow-800'
+                      : 'bg-orange-100 text-orange-800'
+                }`}>
+                  {getOverheadLabel(key)}
+                </span>
+              </div>
+              
+              {/* Value proposition and example */}
+              <p className="text-sm text-gray-600 text-left mb-2 flex-grow">{details.valueProposition}</p>
+              <p className="text-xs text-gray-500 italic mb-3">{getStrategyExample(key)}</p>
+              
+              {/* Recommended badge if applicable */}
+              {isRecommendedStrategy(key) && (
+                <div className="bg-green-50 text-green-700 px-3 py-1 rounded-md text-xs flex items-center justify-center mb-3">
+                  <FontAwesomeIcon icon={faCheckCircle} className="mr-1" />
+                  Recommended for your capacity
+                </div>
+              )}
+              
+              {/* Selection indicator at bottom */}
+              <div className="mt-auto pt-3 border-t border-gray-100 flex justify-between items-center">
+                <span className="text-xs font-medium">
+                  {resourceAllocation === key ? (
+                    <span className="text-amber-600">Selected</span>
+                  ) : (
+                    <span className="text-elx-primary">Select Strategy</span>
+                  )}
+                </span>
+                {resourceAllocation === key ? (
+                  <FontAwesomeIcon icon={faCheckCircle} className="text-amber-500" />
+                ) : (
+                  <FontAwesomeIcon icon={faArrowRight} className="text-elx-primary" />
+                )}
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+      
+      {/* Context switching explainer toggle button - moved below cards */}
       <button 
         onClick={() => setShowExplainer(!showExplainer)}
         className="flex items-center gap-2 mb-4 text-sm font-medium text-elx-primary hover:text-elx-accent transition-colors"
@@ -227,93 +314,6 @@ const ResourceAllocationSelector = ({ resourceAllocation = 'focused', setResourc
           </div>
         </div>
       )}
-      
-      {/* Redesigned allocation strategy cards - side by side */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
-        {Object.entries(calculatorConfig.resourceAllocation).map(([key, details]) => (
-          <div
-            key={key}
-            onClick={() => handleAllocationSelect(key)}
-            className={`flex flex-col bg-white rounded-lg overflow-hidden border transition-all duration-300 cursor-pointer transform hover:-translate-y-1 hover:shadow-lg ${
-              resourceAllocation === key
-                ? 'border-amber-500 shadow-md'
-                : isStrategyDisabled(key)
-                  ? 'border-gray-200 opacity-50 cursor-not-allowed'
-                  : 'border-gray-200 hover:border-gray-300'
-            }`}
-          >
-            {/* Header section with icon and name - using primary purple background or accent color when selected */}
-            <div 
-              className="px-4 py-3 flex items-center w-full"
-              style={{ 
-                backgroundColor: resourceAllocation === key 
-                  ? 'var(--elexive-accent)' 
-                  : 'var(--elexive-primary)', 
-                color: 'white',
-                opacity: isStrategyDisabled(key) ? 0.7 : 1
-              }}
-            >
-              <div 
-                className="w-8 h-8 flex items-center justify-center mr-2"
-                style={{ backgroundColor: 'transparent' }}
-              >
-                <FontAwesomeIcon 
-                  icon={getStrategyIcon(key)}
-                  className="text-white" 
-                />
-              </div>
-              <div className="flex justify-between items-center w-full">
-                <h3 className="font-bold text-white text-sm">{details.description}</h3>
-              </div>
-            </div>
-            
-            {/* Card content */}
-            <div className="p-4 flex flex-col h-full">
-              {/* Strategy label and context switching overhead on same row */}
-              <div className="flex justify-between items-center mb-3">
-                <span className="text-xs font-medium text-gray-700">{details.label}</span>
-                <span className={`text-xs font-medium px-2 py-1 rounded-md ${
-                  key === 'focused' 
-                    ? 'bg-green-100 text-green-800' 
-                    : key === 'balanced'
-                      ? 'bg-yellow-100 text-yellow-800'
-                      : 'bg-orange-100 text-orange-800'
-                }`}>
-                  {getOverheadLabel(key)}
-                </span>
-              </div>
-              
-              {/* Value proposition and example */}
-              <p className="text-sm text-gray-600 text-left mb-2 flex-grow">{details.valueProposition}</p>
-              <p className="text-xs text-gray-500 italic mb-3">{getStrategyExample(key)}</p>
-              
-              {/* Recommended badge if applicable */}
-              {isRecommendedStrategy(key) && (
-                <div className="bg-green-50 text-green-700 px-3 py-1 rounded-md text-xs flex items-center justify-center mb-3">
-                  <FontAwesomeIcon icon={faCheckCircle} className="mr-1" />
-                  Recommended for your capacity
-                </div>
-              )}
-              
-              {/* Selection indicator at bottom */}
-              <div className="mt-auto pt-3 border-t border-gray-100 flex justify-between items-center">
-                <span className="text-xs font-medium">
-                  {resourceAllocation === key ? (
-                    <span className="text-amber-600">Selected</span>
-                  ) : (
-                    <span className="text-elx-primary">Select Strategy</span>
-                  )}
-                </span>
-                {resourceAllocation === key ? (
-                  <FontAwesomeIcon icon={faCheckCircle} className="text-amber-500" />
-                ) : (
-                  <FontAwesomeIcon icon={faArrowRight} className="text-elx-primary" />
-                )}
-              </div>
-            </div>
-          </div>
-        ))}
-      </div>
     </div>
   );
 };

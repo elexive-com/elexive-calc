@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { 
-  faPuzzlePiece, faUsers, faLightbulb, 
+  faPuzzlePiece, faLayerGroup, faLightbulb, 
   faServer, faCheck, faAngleDown, faAngleUp,
   faCompass, faRocket
 } from '@fortawesome/free-solid-svg-icons';
@@ -234,12 +234,7 @@ const ModuleSelector = ({
         >
           <div className="flex items-center">
             <FontAwesomeIcon 
-              icon={
-                activePillar === "Transformation" ? faUsers : 
-                activePillar === "Strategy" ? faLightbulb : 
-                activePillar === "Technology" ? faServer :
-                faCompass
-              } 
+              icon={faLayerGroup}
               className="text-amber-500 mr-2" 
             />
             <span className="font-medium">{activePillar}</span>
@@ -265,7 +260,7 @@ const ModuleSelector = ({
                 <div className="flex items-center">
                   <FontAwesomeIcon 
                     icon={
-                      pillar === "Transformation" ? faUsers : 
+                      pillar === "Transformation" ? faLayerGroup : 
                       pillar === "Strategy" ? faLightbulb : 
                       faServer
                     } 
@@ -314,11 +309,7 @@ const ModuleSelector = ({
             >
               <div className="flex items-center">
                 <FontAwesomeIcon 
-                  icon={
-                    pillar === "Transformation" ? faUsers : 
-                    pillar === "Strategy" ? faLightbulb : 
-                    faServer
-                  } 
+                  icon={faLayerGroup}
                   className={`mr-2 ${activePillar === pillar ? 'text-amber-500' : 'text-gray-500'}`} 
                 />
                 {pillar}
@@ -358,11 +349,7 @@ const ModuleSelector = ({
                         style={{ backgroundColor: 'transparent' }}
                       >
                         <FontAwesomeIcon 
-                          icon={
-                            pillar === "Transformation" ? faUsers : 
-                            pillar === "Strategy" ? faLightbulb : 
-                            faServer
-                          } 
+                          icon={faLayerGroup}
                         />
                       </div>
                       <div className="flex justify-between items-center w-full">
@@ -513,13 +500,7 @@ const ModuleSelector = ({
                       className="w-8 h-8 flex items-center justify-center mr-2"
                       style={{ backgroundColor: 'transparent' }}
                     >
-                      <FontAwesomeIcon 
-                        icon={
-                          pillar === "Transformation" ? faUsers : 
-                          pillar === "Strategy" ? faLightbulb : 
-                          faServer
-                        } 
-                      />
+                      <FontAwesomeIcon icon={faLayerGroup} />
                     </div>
                     <div className="flex justify-between items-center w-full">
                       <h3 className="font-bold text-white text-sm">{pillar}</h3>
