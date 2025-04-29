@@ -8,7 +8,6 @@ import {
   faChevronDown, faChevronUp
 } from '@fortawesome/free-solid-svg-icons';
 import calculatorConfig from '../config/calculatorConfig.json';
-import FeatureIntroduction from './FeatureIntroduction';
 
 // Added default value 'focused' for resourceAllocation parameter
 const ResourceAllocationSelector = ({ resourceAllocation = 'focused', setResourceAllocation, productionCapacity }) => {
@@ -86,17 +85,16 @@ const ResourceAllocationSelector = ({ resourceAllocation = 'focused', setResourc
 
   return (
     <div className="elx-card p-6 mb-6">
-      <h2 className="elx-section-heading text-2xl">
+      <h2 className="elx-section-heading text-2xl mb-4">
         <FontAwesomeIcon icon={faLayerGroup} className="text-elx-accent mr-2" />
         Resource Allocation Strategy
       </h2>
       
-      {/* CEO-friendly introduction using the FeatureIntroduction component */}
-      <FeatureIntroduction
-        title="Choose how to deploy your resources"
-        description="Your allocation strategy determines how effectively your EVC capacity translates into business results. Each approach has different efficiency impacts based on focus and context switching. "
-        additionalInfo="Each strategy distributes your attention across a different number of concurrent initiatives. Laser Beam concentrates 100% of focus on a single priority, while other strategies spread your resources across multiple initiatives to increase overall impact at the cost of per-initiative focus."
-      />
+      <p className="text-gray-700 mb-6">
+        Your allocation strategy determines how effectively your EVC capacity translates into business results. 
+        Each approach distributes your attention across a different number of concurrent initiatives with 
+        different efficiency impacts.
+      </p>
       
       {/* Redesigned allocation strategy cards - side by side */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">

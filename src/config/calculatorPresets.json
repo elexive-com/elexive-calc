@@ -12,7 +12,6 @@
       "paymentOption": "retroactive",
       "parameters": {
         "onSitePresence": false,
-        "aiUsage": true,
         "marketDataAccess": false
       },
       "recommendedCapacity": "pathfinder",
@@ -46,7 +45,6 @@
       "paymentOption": "prepaid",
       "parameters": {
         "onSitePresence": false,
-        "aiUsage": true,
         "marketDataAccess": true
       },
       "recommendedCapacity": "roadster",
@@ -76,7 +74,6 @@
       "paymentOption": "prepaid",
       "parameters": {
         "onSitePresence": false,
-        "aiUsage": true,
         "marketDataAccess": true
       },
       "recommendedCapacity": "roadster",
@@ -110,7 +107,6 @@
       "paymentOption": "prepaid",
       "parameters": {
         "onSitePresence": true,
-        "aiUsage": true,
         "marketDataAccess": false
       },
       "recommendedCapacity": "jetpack",
@@ -148,7 +144,6 @@
       "paymentOption": "retroactive",
       "parameters": {
         "onSitePresence": false,
-        "aiUsage": true,
         "marketDataAccess": true
       },
       "recommendedCapacity": "rocketship",

@@ -30,11 +30,27 @@ const CalculatorApp = () => {
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
               {/* Left Column - Onboarding Quiz, Module Selector, and all other components */}
               <div className="lg:col-span-2">
+                {/* Step 1: Business Intent */}
                 <OnboardingQuiz 
                   intent={calculator.intent}
                   handleIntentSelect={calculator.handleIntentSelect}
                   resetCalculator={calculator.resetCalculator}
                 />
+                
+                {/* Step 2: Delivery Speed */}
+                <ProductionCapacitySelector 
+                  productionCapacity={calculator.productionCapacity}
+                  setProductionCapacity={calculator.setProductionCapacity}
+                />
+                
+                {/* Step 3: Resource Strategy */}
+                <ResourceAllocationSelector 
+                  resourceAllocation={calculator.resourceAllocation}
+                  setResourceAllocation={calculator.setResourceAllocation}
+                  productionCapacity={calculator.productionCapacity}
+                />
+                
+                {/* Step 4: Module Selection */}
                 <ModuleSelector 
                   modules={calculator.modules}
                   selectedModules={calculator.selectedModules}
@@ -44,15 +60,8 @@ const CalculatorApp = () => {
                   selectedVariants={calculator.selectedVariants}
                   setSelectedVariants={calculator.setSelectedVariants}
                 />
-                <ProductionCapacitySelector 
-                  productionCapacity={calculator.productionCapacity}
-                  setProductionCapacity={calculator.setProductionCapacity}
-                />
-                <ResourceAllocationSelector 
-                  resourceAllocation={calculator.resourceAllocation}
-                  setResourceAllocation={calculator.setResourceAllocation}
-                  productionCapacity={calculator.productionCapacity}
-                />
+                
+                {/* Step 5: Payment & Parameters */}
                 <ServiceParameters 
                   serviceParameters={calculator.serviceParameters}
                   paymentOption={calculator.paymentOption}

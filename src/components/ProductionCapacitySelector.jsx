@@ -7,7 +7,6 @@ import {
   faArrowRight
 } from '@fortawesome/free-solid-svg-icons';
 import calculatorConfig from '../config/calculatorConfig.json';
-import FeatureIntroduction from './FeatureIntroduction';
 
 const ProductionCapacitySelector = ({ productionCapacity, setProductionCapacity }) => {
   // Custom handler to ensure "Roadster" option always uses "Laser Beam" allocation
@@ -17,17 +16,15 @@ const ProductionCapacitySelector = ({ productionCapacity, setProductionCapacity 
 
   return (
     <div className="elx-card p-6 mb-6">
-      <h2 className="elx-section-heading text-2xl mb-2">
+      <h2 className="elx-section-heading text-2xl mb-4">
         <FontAwesomeIcon icon={faLayerGroup} className="text-elx-accent mr-2" />
         Choose Your Delivery Speed
       </h2>
       
-      {/* CEO-friendly introduction using the FeatureIntroduction component */}
-      <FeatureIntroduction
-        title="Choose your weekly service delivery capacity"
-        description="Your EVC production capacity determines how quickly we can deliver value to your organization. Select from options ranging from targeted exploration to enterprise-scale delivery."
-        additionalInfo="Start with Pathfinder for focused exploration and initial implementation, or choose higher capacity tiers for faster, concurrent progress."
-      />
+      <p className="text-gray-700 mb-6">
+        Your EVC production capacity determines how quickly we can deliver value to your organization. 
+        Select from options ranging from targeted exploration to enterprise-scale delivery.
+      </p>
       
       <div className="mb-4">
         {/* Use grid-cols-1 for mobile, grid-cols-2 for tablet and desktop */}

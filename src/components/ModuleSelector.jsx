@@ -1,11 +1,10 @@
 import React, { useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { 
-  faPuzzlePiece, faLayerGroup, faLightbulb, 
+  faLayerGroup, faLightbulb, 
   faServer, faCheck, faAngleDown, faAngleUp,
   faCompass, faRocket
 } from '@fortawesome/free-solid-svg-icons';
-import FeatureIntroduction from './FeatureIntroduction';
 
 const ModuleSelector = ({ 
   modules, 
@@ -97,17 +96,15 @@ const ModuleSelector = ({
   
   return (
     <div className="elx-card mb-6 p-4 sm:p-6">
-      <h2 className="text-2xl font-bold text-elx-primary mb-4">
-        <FontAwesomeIcon icon={faPuzzlePiece} className="text-amber-500 mr-2" />
+      <h2 className="elx-section-heading text-2xl mb-4">
+        <FontAwesomeIcon icon={faLayerGroup} className="text-elx-accent mr-2" />
         Select Service Modules
       </h2>
       
-      {/* CEO-friendly introduction using the new component */}
-      <FeatureIntroduction
-        title="Build your tailored service package"
-        description="Each service module is designed to address specific business needs and can be selected at different levels of engagement. Combine modules across our pillars for a comprehensive solution."
-        additionalInfo="Start with Foundation Mapping to define your transformation journey, then add modules from our Transformation, Strategy, and Technology pillars to build your complete solution."
-      />
+      <p className="text-gray-700 mb-6">
+        Each service module is designed to address specific business needs and can be selected at different 
+        levels of engagement. Combine modules across our pillars for a comprehensive solution.
+      </p>
       
       {/* Discovery Module Section - Special standalone section */}
       {modulesByPillar.Discovery.length > 0 && (
@@ -387,9 +384,9 @@ const ModuleSelector = ({
                                       ? 'bg-blue-600' 
                                       : 'border border-gray-300 bg-white'
                                   }`}>
-                                    {selectedModules.includes(module.name) && (
-                                      <FontAwesomeIcon icon={faCheck} className="text-white text-xs" />
-                                    )}
+                                  {selectedModules.includes(module.name) && (
+                                    <FontAwesomeIcon icon={faCheck} className="text-white text-xs" />
+                                  )}
                                   </div>
                                   <div className="text-xs sm:text-sm font-medium">Fixed-scope Module</div>
                                 </div>

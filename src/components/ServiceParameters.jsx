@@ -1,8 +1,8 @@
 import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { 
-  faSlidersH, faCreditCard, faInfoCircle, 
-  faGears, faCheckCircle
+  faCreditCard, faInfoCircle, 
+  faGears, faCheckCircle, faLayerGroup
 } from '@fortawesome/free-solid-svg-icons';
 import { getDiscountLabel } from '../utils/iconUtils';
 import calculatorConfig from '../config/calculatorConfig.json';
@@ -19,10 +19,15 @@ const ServiceParameters = ({
   
   return (
     <div className="elx-card p-6 mb-6">
-      <h2 className="elx-section-heading text-2xl">
-        <FontAwesomeIcon icon={faSlidersH} className="text-elx-accent mr-2" />
+      <h2 className="elx-section-heading text-2xl mb-4">
+        <FontAwesomeIcon icon={faLayerGroup} className="text-elx-accent mr-2" />
         Service Parameters
       </h2>
+      
+      <p className="text-gray-700 mb-6">
+        Customize your service delivery with additional options and payment preferences. Select your 
+        preferred payment method and enable any additional parameters needed for your project.
+      </p>
       
       <div className="space-y-6">
         {/* Payment Option */}

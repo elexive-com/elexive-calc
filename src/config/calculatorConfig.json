@@ -140,14 +140,6 @@
       "defaultValue": false
     },
     {
-      "id": "aiUsage",
-      "label": "AI-Enhanced Delivery",
-      "description": "Maximize output with AI acceleration",
-      "modifier": 0.85,
-      "productionImpact": "Boosts production efficiency by 15-20%",
-      "defaultValue": true
-    },
-    {
       "id": "marketDataAccess",
       "label": "Premium Market Data",
       "description": "Access to specialized industry data",

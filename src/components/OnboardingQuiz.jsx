@@ -1,13 +1,12 @@
 import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { 
-  faChartLine, faBullseye, faRocket, 
+  faChartLine, faRocket, 
   faGears, faArrowRight, faCheckCircle,
-  faCompass, faBullhorn, faStar
+  faCompass, faBullhorn, faStar, faLayerGroup
 } from '@fortawesome/free-solid-svg-icons';
 import calculatorConfig from '../config/calculatorConfig.json';
 import calculatorPresets from '../config/calculatorPresets.json';
-import FeatureIntroduction from './FeatureIntroduction';
 
 const OnboardingQuiz = ({ intent, handleIntentSelect, resetCalculator }) => {
   // Function to get description - use preset description if available
@@ -41,22 +40,19 @@ const OnboardingQuiz = ({ intent, handleIntentSelect, resetCalculator }) => {
 
   return (
     <div className="elx-card p-6 mb-6 relative">
-      <h2 className="elx-section-heading text-2xl">
-        <FontAwesomeIcon icon={faBullseye} className="text-elx-accent mr-2" />
+      <h2 className="elx-section-heading text-2xl mb-4">
+        <FontAwesomeIcon icon={faLayerGroup} className="text-elx-accent mr-2" />
         What's your business priority?
       </h2>
       
-      {/* Enhanced Introduction Section with CEO-friendly language */}
-      <FeatureIntroduction
-        title="Choose a ready-made solution or customize your own"
-        description="Our ready-made solutions are designed by industry experts for specific business challenges. They save you time by providing pre-selected combinations of services proven to deliver results for your specific situation."
-        additionalInfo="Prefer full control? Select 'Full Custom' to build your solution from the ground up."
-      />
-      
-      <p className="text-gray-600 mb-6 font-medium">Select the option that best aligns with your current business need:</p>
+      <p className="text-gray-700 mb-6">
+        Select the option that best aligns with your current business needs. Our ready-made solutions 
+        are designed by industry experts for specific business challenges, or choose 'Full Custom' to build 
+        your solution from the ground up.
+      </p>
       
       {/* Primary Objective Options - 2 columns */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-12">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-8">
         {calculatorConfig.intents.map((intentOption) => (
           <div
             key={intentOption.name}
