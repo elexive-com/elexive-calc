@@ -2,7 +2,7 @@ import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { 
   faChartLine, faBullseye, faRocket, 
-  faGears, faArrowRight, faCheck,
+  faGears, faArrowRight, faCheckCircle,
   faCompass, faBullhorn, faStar
 } from '@fortawesome/free-solid-svg-icons';
 import calculatorConfig from '../config/calculatorConfig.json';
@@ -67,11 +67,13 @@ const OnboardingQuiz = ({ intent, handleIntentSelect, resetCalculator }) => {
             }`}
             onClick={() => handleOptionSelect(intentOption.name)}
           >
-            {/* Header section with icon and name - using primary purple background */}
+            {/* Header section with icon and name - using primary purple background or accent color when selected */}
             <div 
               className="px-4 py-3 flex items-center w-full"
               style={{ 
-                backgroundColor: 'var(--elexive-primary)', 
+                backgroundColor: intent === intentOption.name 
+                  ? 'var(--elexive-accent)' 
+                  : 'var(--elexive-primary)', 
                 color: 'white'
               }}
             >
@@ -98,7 +100,7 @@ const OnboardingQuiz = ({ intent, handleIntentSelect, resetCalculator }) => {
             </div>
             
             {/* Card content */}
-            <div className="p-4">
+            <div className="p-4 flex flex-col h-full">
               {/* Ready-Made Solution or Custom Build label and EVC budget on same row */}
               <div className="flex justify-between items-center mb-3">
                 {intentOption.name !== "Full Custom" ? (
@@ -125,7 +127,7 @@ const OnboardingQuiz = ({ intent, handleIntentSelect, resetCalculator }) => {
                 )}
               </div>
               
-              <p className="text-gray-600 text-sm">{getDescription(intentOption)}</p>
+              <p className="text-gray-600 text-sm flex-grow">{getDescription(intentOption)}</p>
               
               {/* Selection indicator at bottom */}
               <div className="mt-3 pt-3 border-t border-gray-100 flex justify-between items-center">
@@ -137,7 +139,7 @@ const OnboardingQuiz = ({ intent, handleIntentSelect, resetCalculator }) => {
                   )}
                 </span>
                 {intent === intentOption.name ? (
-                  <FontAwesomeIcon icon={faCheck} className="text-amber-500" />
+                  <FontAwesomeIcon icon={faCheckCircle} className="text-amber-500" />
                 ) : (
                   <FontAwesomeIcon icon={faArrowRight} className="text-elx-primary" />
                 )}

@@ -228,109 +228,91 @@ const ResourceAllocationSelector = ({ resourceAllocation = 'focused', setResourc
         </div>
       )}
       
-      
-      {/* Redesigned allocation strategy cards */}
-      <div className="mb-4 flex flex-col gap-3">
+      {/* Redesigned allocation strategy cards - side by side */}
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
         {Object.entries(calculatorConfig.resourceAllocation).map(([key, details]) => (
-            <button
-              key={key}
-              onClick={() => handleAllocationSelect(key)}
-              disabled={isStrategyDisabled(key)}
-              className={`w-full transition-all duration-300 overflow-hidden ${
-                resourceAllocation === key
-                  ? 'elx-selector-selected'
-                  : isStrategyDisabled(key)
-                    ? 'border border-gray-200 opacity-50 cursor-not-allowed'
-                    : 'elx-selector'
-              }`}
+          <div
+            key={key}
+            onClick={() => handleAllocationSelect(key)}
+            className={`flex flex-col bg-white rounded-lg overflow-hidden border transition-all duration-300 cursor-pointer transform hover:-translate-y-1 hover:shadow-lg ${
+              resourceAllocation === key
+                ? 'border-amber-500 shadow-md'
+                : isStrategyDisabled(key)
+                  ? 'border-gray-200 opacity-50 cursor-not-allowed'
+                  : 'border-gray-200 hover:border-gray-300'
+            }`}
+          >
+            {/* Header section with icon and name - using primary purple background or accent color when selected */}
+            <div 
+              className="px-4 py-3 flex items-center w-full"
+              style={{ 
+                backgroundColor: resourceAllocation === key 
+                  ? 'var(--elexive-accent)' 
+                  : 'var(--elexive-primary)', 
+                color: 'white',
+                opacity: isStrategyDisabled(key) ? 0.7 : 1
+              }}
             >
-              <div className={`flex flex-col md:flex-row items-stretch ${
-                resourceAllocation === key 
-                  ? 'bg-elx-discovery-bg' 
-                  : isStrategyDisabled(key)
-                    ? 'bg-gray-100'
-                    : 'bg-gray-50'
-              }`}>
-                {/* Strategy type - Left column */}
-                <div className="p-4 md:p-6 md:w-1/4 flex flex-col justify-center items-center md:items-start border-b md:border-b-0 md:border-r border-gray-200">
-                  <div className="flex items-center gap-3 mb-2">
-                    <div className={`elx-icon-circle ${
-                      resourceAllocation === key ? 'bg-elx-accent' : 'bg-gray-200'
-                    }`}>
-                      <FontAwesomeIcon 
-                        icon={getStrategyIcon(key)}
-                        className={`text-lg ${
-                          resourceAllocation === key ? 'text-white' : 'text-elx-primary'
-                        }`}
-                      />
-                    </div>
-                    <h3 className="font-bold text-xl text-elx-primary">
-                      {details.description}
-                    </h3>
-                  </div>
-                  
-                  {/* Recommended badge - positioned below name and icon, full width */}
-                  {isRecommendedStrategy(key) && (
-                    <div className="elx-badge bg-green-100 text-green-800 mt-2 px-3 py-1 flex items-center justify-center gap-1 w-full md:w-auto">
-                      <FontAwesomeIcon icon={faCheckCircle} />
-                      <span>Recommended for your capacity</span>
-                    </div>
-                  )}
-                </div>
-                
-                {/* Strategy details - Center column */}
-                <div className="p-4 md:p-6 md:w-2/4 flex flex-col justify-center border-b md:border-b-0 md:border-r border-gray-200">
-                  {/* Strategy label as heading */}
-                  <div className="mb-4 text-left">
-                    <div className="font-bold text-elx-primary">Allocation Profile</div>
-                    <div className="text-gray-700 text-sm font-normal">{details.label}</div>
-                  </div>
-                  
-                  {/* Value proposition and example as bullet list */}
-                  <ul className="text-left space-y-2 text-sm">
-                    <li className="flex items-start">
-                      <span className="text-elx-accent mr-2">•</span>
-                      <span className="text-gray-600 font-normal">{details.valueProposition}</span>
-                    </li>
-                    <li className="flex items-start">
-                      <span className="text-elx-accent mr-2">•</span>
-                      <span className="text-gray-700 italic font-normal">"{getStrategyExample(key)}"</span>
-                    </li>
-                  </ul>
-                </div>
-                
-                {/* Action column - Right side */}
-                <div className="p-4 md:p-6 md:w-1/4 flex flex-col justify-center items-center">
-                  {/* Context switching label - moved from center column */}
-                  <div className="mb-4 w-full">
-                    <div className="text-center mb-1 text-sm font-medium text-gray-600">Context switch overhead</div>
-                    <div className={`text-center py-1.5 px-3 rounded-md text-sm font-medium 
-                      ${key === 'focused' 
-                        ? 'bg-green-100 text-green-800' 
-                        : key === 'balanced'
-                          ? 'bg-yellow-100 text-yellow-800'
-                          : 'bg-orange-100 text-orange-800'
-                      }`}>
-                      {getOverheadLabel(key)}
-                    </div>
-                  </div>
-                  
-                  {/* Selection indicator */}
-                  {resourceAllocation === key ? (
-                    <div className="elx-badge bg-elx-accent text-white py-2 px-4 flex items-center gap-2">
-                      <FontAwesomeIcon icon={faCheckCircle} />
-                      <span>Selected</span>
-                    </div>
-                  ) : (
-                    <div className="text-elx-primary hover:text-elx-accent py-2 rounded flex items-center gap-2">
-                      <span>Select Strategy</span>
-                      <FontAwesomeIcon icon={faArrowRight} />
-                    </div>
-                  )}
-                </div>
+              <div 
+                className="w-8 h-8 flex items-center justify-center mr-2"
+                style={{ backgroundColor: 'transparent' }}
+              >
+                <FontAwesomeIcon 
+                  icon={getStrategyIcon(key)}
+                  className="text-white" 
+                />
               </div>
-            </button>
-          ))}
+              <div className="flex justify-between items-center w-full">
+                <h3 className="font-bold text-white text-sm">{details.description}</h3>
+              </div>
+            </div>
+            
+            {/* Card content */}
+            <div className="p-4 flex flex-col h-full">
+              {/* Strategy label and context switching overhead on same row */}
+              <div className="flex justify-between items-center mb-3">
+                <span className="text-xs font-medium text-gray-700">{details.label}</span>
+                <span className={`text-xs font-medium px-2 py-1 rounded-md ${
+                  key === 'focused' 
+                    ? 'bg-green-100 text-green-800' 
+                    : key === 'balanced'
+                      ? 'bg-yellow-100 text-yellow-800'
+                      : 'bg-orange-100 text-orange-800'
+                }`}>
+                  {getOverheadLabel(key)}
+                </span>
+              </div>
+              
+              {/* Value proposition and example */}
+              <p className="text-sm text-gray-600 text-left mb-2 flex-grow">{details.valueProposition}</p>
+              <p className="text-xs text-gray-500 italic mb-3">{getStrategyExample(key)}</p>
+              
+              {/* Recommended badge if applicable */}
+              {isRecommendedStrategy(key) && (
+                <div className="bg-green-50 text-green-700 px-3 py-1 rounded-md text-xs flex items-center justify-center mb-3">
+                  <FontAwesomeIcon icon={faCheckCircle} className="mr-1" />
+                  Recommended for your capacity
+                </div>
+              )}
+              
+              {/* Selection indicator at bottom */}
+              <div className="mt-auto pt-3 border-t border-gray-100 flex justify-between items-center">
+                <span className="text-xs font-medium">
+                  {resourceAllocation === key ? (
+                    <span className="text-amber-600">Selected</span>
+                  ) : (
+                    <span className="text-elx-primary">Select Strategy</span>
+                  )}
+                </span>
+                {resourceAllocation === key ? (
+                  <FontAwesomeIcon icon={faCheckCircle} className="text-amber-500" />
+                ) : (
+                  <FontAwesomeIcon icon={faArrowRight} className="text-elx-primary" />
+                )}
+              </div>
+            </div>
+          </div>
+        ))}
       </div>
     </div>
   );

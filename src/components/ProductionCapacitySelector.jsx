@@ -30,59 +30,80 @@ const ProductionCapacitySelector = ({ productionCapacity, setProductionCapacity 
       />
       
       <div className="mb-4">
-        {/* Changed from md:grid-cols-4 to md:grid-cols-2 for a 2x2 layout */}
+        {/* Use grid-cols-1 for mobile, grid-cols-2 for tablet and desktop */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           {Object.entries(calculatorConfig.productionCapacity).map(([key, details]) => (
-            <button
+            <div
               key={key}
               onClick={() => handleCapacitySelect(key)}
-              className={`elx-module-card p-5 ${
+              className={`flex flex-col bg-white rounded-lg overflow-hidden border transition-all duration-300 cursor-pointer transform hover:-translate-y-1 hover:shadow-lg ${
                 productionCapacity === key
-                  ? 'elx-module-card-selected'
-                  : 'elx-module-card-unselected'
+                  ? 'border-amber-500 shadow-md'
+                  : 'border-gray-200 hover:border-gray-300'
               }`}
             >
-              <div className="flex flex-col items-center">
-                <FontAwesomeIcon 
-                  icon={
-                    key === "pathfinder" ? faCompass :
-                    key === "roadster" ? faCar : 
-                    key === "jetpack" ? faJetFighterUp : 
-                    faRocket
-                  } 
-                  className="text-elx-primary text-2xl mb-3" 
-                />
-                <h3 className="font-bold text-lg text-elx-primary">{details.label}</h3>
-                
-                <div className="mt-2 mb-3 flex items-center justify-center">
+              {/* Header section with icon and name - using primary purple background or accent color when selected */}
+              <div 
+                className="px-4 py-3 flex items-center w-full"
+                style={{ 
+                  backgroundColor: productionCapacity === key 
+                    ? 'var(--elexive-accent)' 
+                    : 'var(--elexive-primary)', 
+                  color: 'white'
+                }}
+              >
+                <div 
+                  className="w-8 h-8 flex items-center justify-center mr-2"
+                  style={{ backgroundColor: 'transparent' }}
+                >
+                  <FontAwesomeIcon 
+                    icon={
+                      key === "pathfinder" ? faCompass :
+                      key === "roadster" ? faCar : 
+                      key === "jetpack" ? faJetFighterUp : 
+                      faRocket
+                    } 
+                    className="text-white" 
+                  />
+                </div>
+                <div className="flex justify-between items-center w-full">
+                  <h3 className="font-bold text-white text-sm">{details.label}</h3>
+                </div>
+              </div>
+              
+              {/* Card content */}
+              <div className="p-4 flex flex-col h-full">
+                {/* Weekly capacity label and EVC value on same row */}
+                <div className="flex justify-between items-center mb-3">
+                  <span className="text-xs font-medium text-gray-700">Weekly capacity</span>
                   <span className="elx-evc-label">
                     {details.weeklyEVCs} EVC
                   </span>
-                  <span className="text-xs text-gray-500 ml-1">per week</span>
                 </div>
                 
-                <p className="text-sm text-gray-600 text-center mt-1">{details.valueProposition}</p>
+                <p className="text-sm text-gray-600 text-left mb-3 flex-grow">{details.valueProposition}</p>
                 
-                {/* Selection indicator - shows "Selected" when this capacity is chosen */}
-                <div className="mt-3">
+                {/* Selection indicator at bottom */}
+                <div className="mt-3 pt-3 border-t border-gray-100 flex justify-between items-center">
+                  <span className="text-xs font-medium">
+                    {productionCapacity === key ? (
+                      <span className="text-amber-600">Selected</span>
+                    ) : (
+                      <span className="text-elx-primary">Select Capacity</span>
+                    )}
+                  </span>
                   {productionCapacity === key ? (
-                    <div className="elx-badge bg-elx-accent text-white py-1.5 px-3 rounded flex items-center gap-1.5">
-                      <FontAwesomeIcon icon={faCheckCircle} className="text-sm" />
-                      <span className="text-sm font-medium">Selected</span>
-                    </div>
+                    <FontAwesomeIcon icon={faCheckCircle} className="text-amber-500" />
                   ) : (
-                    <div className="text-elx-primary hover:text-elx-accent py-1.5 rounded flex items-center gap-1.5 opacity-60">
-                      <span className="text-sm">Select Capacity</span>
-                      <FontAwesomeIcon icon={faArrowRight} className="text-sm" />
-                    </div>
+                    <FontAwesomeIcon icon={faArrowRight} className="text-elx-primary" />
                   )}
                 </div>
               </div>
-            </button>
+            </div>
           ))}
         </div>
       </div>
-          </div>
+    </div>
   );
 };
 
