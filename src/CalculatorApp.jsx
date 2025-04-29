@@ -19,13 +19,13 @@ const CalculatorApp = () => {
   };
   
   return (
-    <div className="container mx-auto py-8 elx-main-content">
+    <div className="w-full mx-0 px-0 py-0 elx-main-content">
       {activeTab === 'introduction' ? (
         <CalculatorIntroduction onGetStarted={handleGetStarted} />
       ) : (
         <>
           {activeTab === 'calculator' ? (
-            <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+            <div className="grid grid-cols-1 lg:grid-cols-3 gap-2 sm:gap-6">
               {/* Left Column - Onboarding Quiz, Module Selector, and all other components */}
               <div className="lg:col-span-2">
                 {/* Step 1: Business Intent */}
