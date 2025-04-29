@@ -412,70 +412,95 @@ const ModuleExplorer = () => {
   };
 
   // Module card component with standardized elx- classes
-  const ModuleCard = ({ module }) => (
-    <div className={`elx-module-card elx-card-left-accent border-l-4 h-full elx-pillar-${module.pillar.toLowerCase()}`} style={{borderLeftColor: 'var(--pillar-border)'}}>
-      <div className="elx-card-content flex-grow">
-        <div className="flex justify-between items-start mb-3">
-          <span className="elx-pillar-badge">
-            <FontAwesomeIcon icon={module.pillarConfig.icon} className="mr-1" />
-            {module.pillar}
-          </span>
-          <span className="inline-flex items-center px-2.5 py-0.5 rounded-md text-xs font-medium bg-gray-100 text-gray-700">
-            {module.category}
-          </span>
-        </div>
-        
-        <h3 className="elx-heading-3">
-          {module.name}
-        </h3>
-        
-        <p className="elx-body mb-3 line-clamp-3">
-          {module.heading}
-        </p>
-        
-        <div className="mt-2 flex flex-wrap gap-1.5">
-          {module.variants.map((variant, index) => (
-            <span key={index} className={`elx-variant-badge ${
-              variant.type === 'Insight Primer' 
-                ? 'elx-variant-badge-insight' 
-                : 'elx-variant-badge-execution'
-            }`}>
-              <FontAwesomeIcon 
-                icon={variant.type === 'Insight Primer' ? faLightbulb : faRocket} 
-                className="mr-1" 
-                size="xs" 
-              />
-              {variant.type}
-            </span>
-          ))}
-        </div>
-      </div>
-      
-      <div className="elx-card-footer">
-        <button 
-          onClick={() => viewModuleDetails(module)}
-          className="elx-btn-text"
-        >
-          View Details
-          <FontAwesomeIcon icon={faChevronRight} className="ml-1" />
-        </button>
-        <button
-          onClick={(e) => {
-            e.stopPropagation();
-            toggleSaveModule(module.name);
+  const ModuleCard = ({ module }) => {
+    // Get the color code based on pillar type - using the same function as in PillarCard
+    const getPillarColor = () => {
+      switch(module.pillar.toLowerCase()) {
+        case 'transformation': return '#D99000'; // Darkened from #FFBE59 for better contrast
+        case 'strategy': return '#C85A30'; // Darkened from #EB8258 for better contrast
+        case 'technology': return '#1F776D'; // Already had good contrast
+        case 'discovery': return '#2E2266'; // Primary color for discovery
+        default: return '#D99000';
+      }
+    };
+
+    return (
+      <div className="flex flex-col h-full bg-white rounded-lg overflow-hidden border border-gray-200 shadow-sm hover:shadow-md transition-all duration-300">
+        {/* Colored header section with pillar name - matching pillar card style */}
+        <div 
+          className="px-4 py-3 flex items-center w-full"
+          style={{ 
+            backgroundColor: getPillarColor(),
+            color: 'white'
           }}
-          className={`elx-btn-icon ${
-            savedModules.includes(module.name) 
-              ? 'text-amber-500 hover:text-amber-600' 
-              : 'text-gray-400 hover:text-gray-500'
-          }`}
-          aria-label={savedModules.includes(module.name) ? "Unsave module" : "Save module"}
         >
-          <FontAwesomeIcon icon={savedModules.includes(module.name) ? faBookmark : faBookmarkRegular} />
-        </button>
+          <div 
+            className="w-8 h-8 flex items-center justify-center mr-2"
+            style={{ backgroundColor: 'transparent' }}
+          >
+            <FontAwesomeIcon icon={module.pillarConfig.icon} />
+          </div>
+          <div className="flex justify-between items-center w-full">
+            <h3 className="font-bold text-white text-sm">{module.pillar}</h3>
+            <span className="inline-flex items-center px-2 py-0.5 rounded-md text-xs font-medium bg-white bg-opacity-20 text-white">
+              {module.category}
+            </span>
+          </div>
+        </div>
+        
+        <div className="p-4 flex-grow flex flex-col">
+          <h3 className="font-semibold text-lg text-gray-800 mb-2">
+            {module.name}
+          </h3>
+          
+          <p className="text-sm text-gray-600 mb-3 line-clamp-3 flex-grow">
+            {module.heading}
+          </p>
+          
+          <div className="mt-auto flex flex-wrap gap-1.5">
+            {module.variants.map((variant, index) => (
+              <span key={index} className={`inline-flex items-center px-2 py-1 rounded-md text-xs font-medium ${
+                variant.type === 'Insight Primer' 
+                  ? 'bg-blue-50 text-blue-700' 
+                  : 'bg-green-50 text-green-700'
+              }`}>
+                <FontAwesomeIcon 
+                  icon={variant.type === 'Insight Primer' ? faLightbulb : faRocket} 
+                  className="mr-1" 
+                  size="xs" 
+                />
+                {variant.type}
+              </span>
+            ))}
+          </div>
+        </div>
+        
+        <div className="border-t border-gray-100 p-3 bg-gray-50 flex justify-between items-center">
+          <button 
+            onClick={() => viewModuleDetails(module)}
+            className="text-sm font-medium text-elx-primary hover:text-elx-primary-dark flex items-center"
+          >
+            View Details
+            <FontAwesomeIcon icon={faChevronRight} className="ml-1" />
+          </button>
+          <button
+            onClick={(e) => {
+              e.stopPropagation();
+              toggleSaveModule(module.name);
+            }}
+            className={`${
+              savedModules.includes(module.name) 
+                ? 'text-amber-500 hover:text-amber-600' 
+                : 'text-gray-400 hover:text-gray-500'
+            }`}
+            aria-label={savedModules.includes(module.name) ? "Unsave module" : "Save module"}
+          >
+            <FontAwesomeIcon icon={savedModules.includes(module.name) ? faBookmark : faBookmarkRegular} />
+          </button>
+        </div>
       </div>
-    </div>
-  );
+    );
+  };
   
   // Pillar card component with standardized elx- classes
   const PillarCard = ({ pillar }) => {
