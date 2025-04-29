@@ -2,10 +2,11 @@ import React, { useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { 
   faInfoCircle, faArrowRight, faCalculator, 
-  faLightbulb, faChartLine, faPuzzlePiece,
-  faTools, faShieldAlt, faLayerGroup,
-  faCheckCircle,
-  faPlus, faMinus, faClock, faPercentage, faHandshake
+  faLightbulb, faPuzzlePiece,
+  faShieldAlt, faLayerGroup,
+  faCheckCircle, faNetworkWired,
+  faPlus, faMinus,
+  faChartPie, faRocket
 } from '@fortawesome/free-solid-svg-icons';
 
 const CalculatorIntroduction = ({ onGetStarted }) => {
@@ -65,37 +66,76 @@ const CalculatorIntroduction = ({ onGetStarted }) => {
         <h3 className="elx-heading-2">What You'll Gain</h3>
         
         <div className="elx-grid-3col">
-          <div className="elx-feature border-elx-accent">
-            <div className="elx-card-content">
-              <div className="elx-icon-circle-lg bg-elx-accent bg-opacity-10 text-elx-accent mb-4">
-                <FontAwesomeIcon icon={faPercentage} className="text-xl" />
+          <div className="flex flex-col h-full bg-white rounded-lg overflow-hidden border border-gray-200 shadow-sm">
+            {/* Colored header with primary background and white icon */}
+            <div 
+              className="px-4 py-3 flex items-center w-full"
+              style={{ 
+                backgroundColor: 'var(--elexive-primary)',
+                color: 'white'
+              }}
+            >
+              <div 
+                className="w-10 h-10 flex items-center justify-center mr-2"
+                style={{ backgroundColor: 'transparent' }}
+              >
+                <FontAwesomeIcon icon={faChartPie} size="lg" />
               </div>
-              <h4 className="elx-heading-3">Measurable ROI</h4>
-              <p className="elx-body">
+              <h4 className="font-bold text-white">Measurable ROI</h4>
+            </div>
+            
+            <div className="p-4 flex-grow flex flex-col">
+              <p className="text-sm text-gray-600">
                 Our clients typically see 3-5x return on their transformation investment within 12-18 months.
               </p>
             </div>
           </div>
           
-          <div className="elx-feature border-amber-500">
-            <div className="elx-card-content">
-              <div className="elx-icon-circle-lg bg-amber-100 text-amber-600 mb-4">
-                <FontAwesomeIcon icon={faClock} className="text-xl" />
+          <div className="flex flex-col h-full bg-white rounded-lg overflow-hidden border border-gray-200 shadow-sm">
+            {/* Colored header with primary background and white icon */}
+            <div 
+              className="px-4 py-3 flex items-center w-full"
+              style={{ 
+                backgroundColor: 'var(--elexive-primary)',
+                color: 'white'
+              }}
+            >
+              <div 
+                className="w-10 h-10 flex items-center justify-center mr-2"
+                style={{ backgroundColor: 'transparent' }}
+              >
+                <FontAwesomeIcon icon={faRocket} size="lg" />
               </div>
-              <h4 className="elx-heading-3">Time-to-Value</h4>
-              <p className="elx-body">
+              <h4 className="font-bold text-white">Time-to-Value</h4>
+            </div>
+            
+            <div className="p-4 flex-grow flex flex-col">
+              <p className="text-sm text-gray-600">
                 Start seeing operational improvements and quick wins within the first 4-6 weeks of implementation.
               </p>
             </div>
           </div>
           
-          <div className="elx-feature border-emerald-500">
-            <div className="elx-card-content">
-              <div className="elx-icon-circle-lg bg-emerald-100 text-emerald-600 mb-4">
-                <FontAwesomeIcon icon={faHandshake} className="text-xl" />
+          <div className="flex flex-col h-full bg-white rounded-lg overflow-hidden border border-gray-200 shadow-sm">
+            {/* Colored header with primary background and white icon */}
+            <div 
+              className="px-4 py-3 flex items-center w-full"
+              style={{ 
+                backgroundColor: 'var(--elexive-primary)',
+                color: 'white'
+              }}
+            >
+              <div 
+                className="w-10 h-10 flex items-center justify-center mr-2"
+                style={{ backgroundColor: 'transparent' }}
+              >
+                <FontAwesomeIcon icon={faShieldAlt} size="lg" />
               </div>
-              <h4 className="elx-heading-3">Risk Mitigation</h4>
-              <p className="elx-body">
+              <h4 className="font-bold text-white">Risk Mitigation</h4>
+            </div>
+            
+            <div className="p-4 flex-grow flex flex-col">
+              <p className="text-sm text-gray-600">
                 Modular approach with clear milestones allows for course correction without "all-in" commitments.
               </p>
             </div>
@@ -114,37 +154,76 @@ const CalculatorIntroduction = ({ onGetStarted }) => {
       <div className="mb-8">
         <h3 className="elx-heading-2">Critical Business Challenges We Solve</h3>
         <div className="elx-grid-3col">
-          <div className="elx-feature border-blue-400">
-            <div className="elx-card-content">
-              <div className="elx-icon-circle-lg bg-blue-100 text-blue-600 mb-4">
-                <FontAwesomeIcon icon={faChartLine} className="text-xl" />
+          <div className="flex flex-col h-full bg-white rounded-lg overflow-hidden border border-gray-200 shadow-sm">
+            {/* Colored header with consistent Elexive primary color */}
+            <div 
+              className="px-4 py-3 flex items-center w-full"
+              style={{ 
+                backgroundColor: 'var(--elexive-primary)',
+                color: 'white'
+              }}
+            >
+              <div 
+                className="w-10 h-10 flex items-center justify-center mr-2"
+                style={{ backgroundColor: 'transparent' }}
+              >
+                <FontAwesomeIcon icon={faLightbulb} size="lg" />
               </div>
-              <h4 className="elx-heading-3">Growth & Revenue</h4>
-              <p className="elx-body">
+              <h4 className="font-bold text-white">Growth & Revenue</h4>
+            </div>
+            
+            <div className="p-4 flex-grow flex flex-col">
+              <p className="text-sm text-gray-600">
                 Break revenue plateaus, capitalize on market opportunities, and develop sustainable growth engines that keep your business competitive.
               </p>
             </div>
           </div>
           
-          <div className="elx-feature border-amber-400">
-            <div className="elx-card-content">
-              <div className="elx-icon-circle-lg bg-amber-100 text-amber-600 mb-4">
-                <FontAwesomeIcon icon={faTools} className="text-xl" />
+          <div className="flex flex-col h-full bg-white rounded-lg overflow-hidden border border-gray-200 shadow-sm">
+            {/* Colored header with consistent Elexive primary color */}
+            <div 
+              className="px-4 py-3 flex items-center w-full"
+              style={{ 
+                backgroundColor: 'var(--elexive-primary)',
+                color: 'white'
+              }}
+            >
+              <div 
+                className="w-10 h-10 flex items-center justify-center mr-2"
+                style={{ backgroundColor: 'transparent' }}
+              >
+                <FontAwesomeIcon icon={faNetworkWired} size="lg" />
               </div>
-              <h4 className="elx-heading-3">Execution & Operations</h4>
-              <p className="elx-body">
+              <h4 className="font-bold text-white">Execution & Operations</h4>
+            </div>
+            
+            <div className="p-4 flex-grow flex flex-col">
+              <p className="text-sm text-gray-600">
                 Eliminate operational bottlenecks, streamline decision processes, and build execution capabilities that turn strategy into measurable results.
               </p>
             </div>
           </div>
           
-          <div className="elx-feature border-green-400">
-            <div className="elx-card-content">
-              <div className="elx-icon-circle-lg bg-green-100 text-green-600 mb-4">
-                <FontAwesomeIcon icon={faShieldAlt} className="text-xl" />
+          <div className="flex flex-col h-full bg-white rounded-lg overflow-hidden border border-gray-200 shadow-sm">
+            {/* Colored header with consistent Elexive primary color */}
+            <div 
+              className="px-4 py-3 flex items-center w-full"
+              style={{ 
+                backgroundColor: 'var(--elexive-primary)',
+                color: 'white'
+              }}
+            >
+              <div 
+                className="w-10 h-10 flex items-center justify-center mr-2"
+                style={{ backgroundColor: 'transparent' }}
+              >
+                <FontAwesomeIcon icon={faPuzzlePiece} size="lg" />
               </div>
-              <h4 className="elx-heading-3">Innovation & Resilience</h4>
-              <p className="elx-body">
+              <h4 className="font-bold text-white">Innovation & Resilience</h4>
+            </div>
+            
+            <div className="p-4 flex-grow flex flex-col">
+              <p className="text-sm text-gray-600">
                 Future-proof your business with adaptive capabilities, emerging technology integration, and innovation systems that maintain market leadership.
               </p>
             </div>

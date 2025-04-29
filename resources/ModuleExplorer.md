@@ -13,6 +13,119 @@ The Module Explorer addresses several key customer pain points identified in our
 3. **Difficulty Comparing Options**: Through consistent, comparable module cards
 4. **Inability to "Browse"**: With multiple navigation approaches that match different thinking styles
 
+## Design Principles
+
+The Module Explorer's design is guided by several key principles:
+
+1. **Visual Consistency** - Maintain strong visual relationships between related elements, particularly:
+   - Using consistent color coding across pillars (Transformation: amber/gold, Strategy: orange, Technology: teal, Discovery: purple)
+   - Ensuring module cards visually align with their parent pillar cards
+   - Applying coherent typographic hierarchy throughout the interface
+
+2. **Information Hierarchy** - Present information in a logical order of importance:
+   - Pillar identification as the primary organizational element
+   - Module name and heading as secondary focal points
+   - Supporting details like categories and variants as tertiary elements
+   - Progressive disclosure of complex information through layered interfaces
+
+3. **Intuitive Navigation** - Create multiple pathways that accommodate different user mental models:
+   - Pillar-centric view for organizational thinking
+   - Journey-centric view for sequential process thinking
+   - List view with filtering for direct, search-oriented exploration
+   - Clear tabbed navigation between these primary exploration models
+
+4. **Cognitive Load Management** - Reduce decision fatigue through:
+   - Chunking information into digestible cards
+   - Using consistent patterns and layouts across the interface
+   - Providing visual cues that guide attention to important elements
+   - Limiting the number of choices presented at any given moment
+
+5. **Visual Storytelling** - Use design elements to convey relationships:
+   - Colored headers for module cards that reinforce pillar association
+   - Connected journey stages with directional arrows showing progression
+   - State changes that provide clear feedback for user actions
+   - Iconography that reinforces conceptual categories
+
+## Key UX Decisions
+
+### Module Card Design
+
+The module cards represent a key UX decision point, balancing several competing needs:
+
+1. **Card Headers** - The colored header area of each module card:
+   - Uses the same color as its parent pillar card to create visual association
+   - Prominently displays the pillar name to maintain context
+   - Includes the pillar icon for additional visual reinforcement
+   - Positions the category badge within the header but visually distinct
+
+2. **Content Layout** - The card's main content area:
+   - Places the module name in prominent position with adequate typographic weight
+   - Limits the module heading to 3 lines with ellipsis to maintain card height consistency
+   - Uses subtle typographic distinction between name (heading) and description (body text)
+   - Includes sufficient white space to improve readability while maintaining density
+
+3. **Variant Badges** - The module variant indicators:
+   - Use distinctive color coding (blue for Insight Primer, green for Implementation Accelerator)
+   - Include appropriate iconography (lightbulb for insight, rocket for implementation)
+   - Maintain consistent positioning at the bottom of the content area
+   - Have compact but readable design to accommodate multiple variants
+
+4. **Action Area** - The card footer:
+   - Creates visual separation from content through subtle background color change
+   - Balances primary action (view details) with secondary action (save/bookmark)
+   - Uses consistent interactive elements that match the broader application
+   - Provides clear hover/focus states for all interactive elements
+
+### Navigation System
+
+The three-way navigation system was designed with specific UX considerations:
+
+1. **Tab Design** - The primary navigation tabs:
+   - Use subtle but distinct styling to indicate the active view
+   - Include iconic representations alongside text to improve recognition
+   - Position consistently at the top of the explorer interface
+   - Use accent color indicators to highlight the active tab
+
+2. **Pillar Cards** - The transformation pillar entry points:
+   - Feature larger, more prominent design than module cards to establish hierarchy
+   - Use full-width colored headers with white text for maximum contrast and visibility
+   - Include concise descriptions that communicate the pillar's focus
+   - Respond to interaction with subtle scaling and shadow effects
+
+3. **Journey Visualization** - The customer journey interface:
+   - Uses a horizontal, connected layout that visually represents progression
+   - Implements distinct color coding for each journey stage
+   - Applies dramatic visual state changes between active and inactive stages
+   - Includes numerical indicators (1,2,3,4) to reinforce sequential nature
+
+4. **List View** - The comprehensive module listing:
+   - Prioritizes filtering and search capabilities for efficient exploration
+   - Provides feedback on filter results with count indicators
+   - Maintains consistent card layout with other views for recognition
+   - Includes sort options to allow customization of viewing preference
+
+### Progressive Disclosure Strategy
+
+The interface implements progressive disclosure through:
+
+1. **Filtering Panel** - The expandable filtering interface:
+   - Remains collapsed by default to reduce initial visual complexity
+   - Expands smoothly with animation to show available filtering options
+   - Groups related filters together (pillar, category, variant)
+   - Provides immediate visual feedback when filters are applied
+
+2. **Detail View Transition** - The module detail expansion:
+   - Shifts from card view to comprehensive detail view through clear modal transition
+   - Organizes detailed information into logical sections with visual separation
+   - Uses typography and spacing to create scannable information hierarchy
+   - Includes export and sharing options only at the detailed level
+
+3. **Saved Modules Management** - The bookmarking system:
+   - Shows simple save/unsave toggle on cards for minimal complexity
+   - Reveals additional management options only when saved modules exist
+   - Uses familiar bookmark iconography for immediate recognition
+   - Provides count indicator to show how many modules have been saved
+
 ## Core Functionality
 
 ### Navigation Models
@@ -182,6 +295,38 @@ When implementing or extending the Module Explorer:
 3. Ensure all module cards contain consistent levels of information
 4. Keep animations subtle and purposeful
 5. Prioritize performance with large module datasets
+6. Adhere to the pillar color system consistently throughout the interface
+7. Maintain the module card design pattern with colored headers showing pillar association
+
+## Color System Implementation
+
+The color system for pillars should follow these specific guidelines:
+
+1. **Transformation Pillar**
+   - Header background: #D99000 (darkened amber)
+   - Text: White
+   - Accent elements: #FFBD59
+   - Hover states: 10% darker than base color
+
+2. **Strategy Pillar**
+   - Header background: #C85A30 (darkened orange)
+   - Text: White
+   - Accent elements: #EB8258
+   - Hover states: 10% darker than base color
+
+3. **Technology Pillar**
+   - Header background: #1F776D (teal)
+   - Text: White
+   - Accent elements: #2C7A72
+   - Hover states: 10% darker than base color
+
+4. **Discovery Pillar**
+   - Header background: #2E2266 (purple/primary)
+   - Text: White
+   - Accent elements: #3A2C7E
+   - Hover states: 10% darker than base color
+
+These colors should be consistently applied across pillar cards, module card headers, and related UI elements to maintain visual coherence.
 
 ## Metrics & Success Indicators
 
