@@ -2,8 +2,8 @@ import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { 
   faChartLine, faBullseye, faRocket, 
-  faGears, faArrowRight, faStar,
-  faCompass, faBullhorn
+  faGears, faArrowRight, faCheck,
+  faCompass, faBullhorn, faStar
 } from '@fortawesome/free-solid-svg-icons';
 import calculatorConfig from '../config/calculatorConfig.json';
 import calculatorPresets from '../config/calculatorPresets.json';
@@ -58,52 +58,92 @@ const OnboardingQuiz = ({ intent, handleIntentSelect, resetCalculator }) => {
       {/* Primary Objective Options - 2 columns */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-12">
         {calculatorConfig.intents.map((intentOption) => (
-          <button
+          <div
             key={intentOption.name}
-            className={`p-6 rounded-xl text-left transition-all duration-200 ${
+            className={`flex flex-col bg-white rounded-lg overflow-hidden border transition-all duration-300 cursor-pointer transform hover:-translate-y-1 hover:shadow-lg ${
               intent === intentOption.name
-                ? 'elx-module-card-selected'
-                : 'elx-module-card elx-module-card-unselected'
+                ? 'border-amber-500 shadow-md'
+                : 'border-gray-200 hover:border-gray-300'
             }`}
             onClick={() => handleOptionSelect(intentOption.name)}
           >
-            {/* Preset label at the top */}
-            {(intentOption.name === "Strategic Discovery" || 
-              intentOption.name === "Visionary Growth" || 
-              intentOption.name === "Market Influence" || 
-              intentOption.name === "Turnaround" || 
-              intentOption.name === "Reinvention") && (
-              <div className="flex justify-between mb-2"> 
-                <span className="elx-category-badge elx-category-badge-strategic flex items-center">
-                  <FontAwesomeIcon 
-                    icon={faStar}
-                    className="mr-1" 
-                  />
-                  Ready-Made Solution
-                </span>
-                <span className="elx-evc-label text-sm font-medium">
-                  {getEvcBudget(intentOption.name)}
-                </span>
+            {/* Header section with icon and name - using primary purple background */}
+            <div 
+              className="px-4 py-3 flex items-center w-full"
+              style={{ 
+                backgroundColor: 'var(--elexive-primary)', 
+                color: 'white'
+              }}
+            >
+              <div 
+                className="w-8 h-8 flex items-center justify-center mr-2"
+                style={{ backgroundColor: 'transparent' }}
+              >
+                <FontAwesomeIcon 
+                  icon={
+                    intentOption.name === "Strategic Discovery" ? faCompass :
+                    intentOption.name === "Visionary Growth" ? faChartLine :
+                    intentOption.name === "Market Influence" ? faBullhorn :
+                    intentOption.name === "Turnaround" ? faArrowRight :
+                    intentOption.name === "Reinvention" ? faRocket :
+                    intentOption.name === "Full Custom" ? faGears :
+                    faRocket
+                  } 
+                  className="text-white" 
+                />
               </div>
-            )}
-            
-            <div className="flex items-center mb-2">
-              <FontAwesomeIcon 
-                icon={
-                  intentOption.name === "Strategic Discovery" ? faCompass :
-                  intentOption.name === "Visionary Growth" ? faChartLine :
-                  intentOption.name === "Market Influence" ? faBullhorn :
-                  intentOption.name === "Turnaround" ? faArrowRight :
-                  intentOption.name === "Reinvention" ? faRocket :
-                  intentOption.name === "Full Custom" ? faGears :
-                  faRocket
-                } 
-                className="text-elx-primary mr-2" 
-              />
-              <h3 className="font-bold text-lg text-elx-primary">{intentOption.name}</h3>
+              <div className="flex justify-between items-center w-full">
+                <h3 className="font-bold text-white text-sm">{intentOption.name}</h3>
+              </div>
             </div>
-            <p className="text-gray-600 text-sm">{getDescription(intentOption)}</p>
-          </button>
+            
+            {/* Card content */}
+            <div className="p-4">
+              {/* Ready-Made Solution or Custom Build label and EVC budget on same row */}
+              <div className="flex justify-between items-center mb-3">
+                {intentOption.name !== "Full Custom" ? (
+                  <>
+                    <span className="elx-category-badge elx-category-badge-strategic flex items-center text-xs font-medium">
+                      <FontAwesomeIcon 
+                        icon={faStar}
+                        className="mr-1" 
+                      />
+                      Ready-Made Solution
+                    </span>
+                    <span className="elx-evc-label">
+                      {getEvcBudget(intentOption.name)}
+                    </span>
+                  </>
+                ) : (
+                  <span className="elx-category-badge flex items-center text-xs font-medium bg-gray-50 text-gray-700 border border-gray-200">
+                    <FontAwesomeIcon 
+                      icon={faGears}
+                      className="mr-1" 
+                    />
+                    Custom Build
+                  </span>
+                )}
+              </div>
+              
+              <p className="text-gray-600 text-sm">{getDescription(intentOption)}</p>
+              
+              {/* Selection indicator at bottom */}
+              <div className="mt-3 pt-3 border-t border-gray-100 flex justify-between items-center">
+                <span className="text-xs font-medium">
+                  {intent === intentOption.name ? (
+                    <span className="text-amber-600">Selected</span>
+                  ) : (
+                    <span className="text-elx-primary">Select</span>
+                  )}
+                </span>
+                {intent === intentOption.name ? (
+                  <FontAwesomeIcon icon={faCheck} className="text-amber-500" />
+                ) : (
+                  <FontAwesomeIcon icon={faArrowRight} className="text-elx-primary" />
+                )}
+              </div>
+            </div>
+          </div>
         ))}
       </div>
       
