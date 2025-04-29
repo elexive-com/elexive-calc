@@ -96,8 +96,8 @@ const ResourceAllocationSelector = ({ resourceAllocation = 'focused', setResourc
         different efficiency impacts.
       </p>
       
-      {/* Redesigned allocation strategy cards - side by side */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
+      {/* Redesigned allocation strategy cards - 2x2 grid layout */}
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
         {Object.entries(calculatorConfig.resourceAllocation).map(([key, details]) => (
           <div
             key={key}
@@ -181,6 +181,10 @@ const ResourceAllocationSelector = ({ resourceAllocation = 'focused', setResourc
             </div>
           </div>
         ))}
+        {/* Add an invisible placeholder card when there's 3 cards to maintain 2x2 grid */}
+        {Object.keys(calculatorConfig.resourceAllocation).length === 3 && (
+          <div className="flex flex-col h-full bg-white rounded-lg overflow-hidden border border-gray-200 opacity-0 pointer-events-none"></div>
+        )}
       </div>
       
       {/* Context switching explainer toggle button - moved below cards */}

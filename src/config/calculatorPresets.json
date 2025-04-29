@@ -41,7 +41,7 @@
           "variant": "Insight Primer"
         }
       ],
-      "capacityAllocation": "distributed",
+      "capacityAllocation": "focused",
       "paymentOption": "prepaid",
       "parameters": {
         "onSitePresence": false,
@@ -70,7 +70,7 @@
           "variant": "Insight Primer"
         }
       ],
-      "capacityAllocation": "balanced",
+      "capacityAllocation": "focused",
       "paymentOption": "prepaid",
       "parameters": {
         "onSitePresence": false,
@@ -103,7 +103,7 @@
           "variant": "Insight Primer"
         }
       ],
-      "capacityAllocation": "focused",
+      "capacityAllocation": "balanced",
       "paymentOption": "prepaid",
       "parameters": {
         "onSitePresence": true,

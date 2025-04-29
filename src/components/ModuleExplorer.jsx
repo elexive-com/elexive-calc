@@ -880,10 +880,14 @@ const ModuleExplorer = () => {
                   </button>
                 </div>
               ) : (
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   {filteredModules.slice(0, 6).map((module) => (
                     <ModuleCard key={module.name} module={module} />
                   ))}
+                  {/* Add empty placeholder card if there are exactly 3 cards to maintain 2x2 grid */}
+                  {filteredModules.length === 3 && (
+                    <div className="flex flex-col h-full bg-white rounded-lg overflow-hidden border border-gray-200 opacity-0 pointer-events-none"></div>
+                  )}
                 </div>
               )}
             </>
