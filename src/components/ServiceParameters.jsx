@@ -2,7 +2,8 @@ import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { 
   faCreditCard, faInfoCircle, 
-  faGears, faCheckCircle, faLayerGroup
+  faGears, faCheckCircle, faLayerGroup,
+  faGraduationCap, faUserTie, faShieldAlt
 } from '@fortawesome/free-solid-svg-icons';
 import { getDiscountLabel } from '../utils/iconUtils';
 import calculatorConfig from '../config/calculatorConfig.json';
@@ -14,8 +15,30 @@ const ServiceParameters = ({
   parameters, 
   updateParameter 
 }) => {
-  // Safety check: if serviceParameters is undefined or null, provide an empty array as fallback
-  const serviceParams = serviceParameters || [];
+  // Define default essential business parameters if none provided
+  const defaultParameters = [
+    {
+      id: 'trainingSession',
+      label: 'Training Sessions',
+      description: 'Comprehensive onboarding and knowledge transfer sessions for your team',
+      icon: faGraduationCap
+    },
+    {
+      id: 'accountConcierge',
+      label: 'Account Concierge',
+      description: 'Dedicated account manager for personalized service and strategic guidance',
+      icon: faUserTie
+    },
+    {
+      id: 'premiumSLA',
+      label: 'Premium SLA',
+      description: 'Enhanced response times and service level guarantees for business-critical operations',
+      icon: faShieldAlt
+    }
+  ];
+  
+  // Safety check: if serviceParameters is undefined or null, provide default parameters
+  const serviceParams = serviceParameters?.length ? serviceParameters : defaultParameters;
   
   return (
     <div className="elx-card p-6 mb-6">
@@ -70,7 +93,10 @@ const ServiceParameters = ({
             {serviceParams.map((param) => (
               <div key={param.id} className="flex items-center justify-between">
                 <div>
-                  <span className="font-medium text-elx-primary">{param.label}</span>
+                  <span className="font-medium text-elx-primary">
+                    {param.icon && <FontAwesomeIcon icon={param.icon} className="mr-2 text-elx-accent-light" />}
+                    {param.label}
+                  </span>
                   <p className="text-xs text-gray-500">{param.description}</p>
                 </div>
                 <button

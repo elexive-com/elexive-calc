@@ -14,6 +14,7 @@ The ServiceParameters addresses several key customer needs identified in our res
 2. **Service Customization**: By allowing fine-tuning of delivery parameters to match business constraints
 3. **Value Optimization**: By enabling adjustment of service elements to maximize ROI
 4. **Control Enhancement**: By providing granular configuration options for the consulting engagement
+5. **Business Relationship Management**: By offering dedicated support and service level options
 
 ## Component-Specific Design Decisions
 
@@ -100,6 +101,44 @@ The component influences core calculator functionality by:
    - Applying payment option modifiers to overall pricing calculations
    - Adjusting service delivery based on enabled/disabled parameters
    - Potentially affecting resource allocation and delivery timelines
+
+## Service Parameter Options
+
+The ServiceParameters component provides several business-critical parameter options that allow decision-makers to customize their service experience:
+
+### Core Service Parameters
+
+1. **On-site Presence**
+   - Provides the option for advisors to work directly on the client's premises
+   - Increases resource commitment but accelerates implementation
+   - Valuable for clients requiring deep integration with their teams
+
+2. **Premium Market Data**
+   - Offers access to specialized industry data sources
+   - Improves the quality and depth of strategic insights
+   - Essential for data-driven strategic decision making
+
+### Enhanced Business Parameters
+
+3. **Training Sessions** (Added April 2025)
+   - Provides comprehensive onboarding and knowledge transfer sessions
+   - Ensures effective adoption and capability development within client teams
+   - Essential for organizations seeking to build internal capabilities
+   - Increases service value with a 10% price modifier
+
+4. **Account Concierge** (Added April 2025)
+   - Assigns a dedicated account manager for personalized service
+   - Improves continuity and strategic alignment throughout the engagement
+   - Provides consistent point of contact for all service-related matters
+   - Premium service with a 20% price modifier reflecting the dedicated resource
+
+5. **Premium SLA** (Added April 2025)
+   - Offers enhanced response times and service level guarantees
+   - Prioritizes client needs and ensures consistent service delivery
+   - Critical for business-essential operations requiring guaranteed support
+   - Premium service with a 25% price modifier reflecting the heightened commitment
+
+Each parameter is represented with appropriate iconography to enhance visual recognition and includes detailed descriptions of the business value provided.
 
 ## Implementation Details
 
@@ -197,3 +236,11 @@ The component influences core calculator functionality by:
 5. **Visual Parameter Effects**
    - Add visual representations of how each parameter affects service delivery
    - Provide before/after comparisons when parameters are toggled
+
+6. **Service Bundle Presets**
+   - Create predefined parameter bundles for common business needs
+   - Offer tiered service levels (Standard, Professional, Enterprise) with appropriate parameter combinations
+
+7. **ROI Calculator Integration**
+   - Provide estimates of the business impact for each parameter
+   - Show projected ROI improvement based on parameter selections

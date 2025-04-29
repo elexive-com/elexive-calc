@@ -140,6 +140,30 @@
       "modifier": 1.15,
       "productionImpact": "Improves quality and depth of strategic insights",
       "defaultValue": false
+    },
+    {
+      "id": "trainingSession",
+      "label": "Training Sessions",
+      "description": "Comprehensive onboarding and knowledge transfer sessions for your team",
+      "modifier": 1.1,
+      "productionImpact": "Ensures effective adoption and capability development",
+      "defaultValue": false
+    },
+    {
+      "id": "accountConcierge",
+      "label": "Account Concierge",
+      "description": "Dedicated account manager for personalized service and strategic guidance",
+      "modifier": 1.2,
+      "productionImpact": "Improves continuity and strategic alignment",
+      "defaultValue": false
+    },
+    {
+      "id": "premiumSLA",
+      "label": "Premium SLA",
+      "description": "Enhanced response times and service level guarantees for business-critical operations",
+      "modifier": 1.25,
+      "productionImpact": "Prioritizes your needs and ensures consistent service delivery",
+      "defaultValue": false
     }
   ],
   "defaults": {
