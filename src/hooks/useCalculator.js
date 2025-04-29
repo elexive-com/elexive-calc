@@ -245,13 +245,21 @@ export default function useCalculator() {
     // Round production capacity
     adjustedProductionCapacity = Math.ceil(adjustedProductionCapacity);
     
-    // Calculate output multiplier based on allocation strategy
-    // Note: The outputMultiplier is inversely related to the switchingOverhead
-    // Higher switchingOverhead means lower outputMultiplier
-    // Laser Beam (focused): 0% overhead = 2.25x multiplier
-    // Smart Campaign (balanced): 8% overhead = 1.5x multiplier
-    // Omni-Channel (distributed): 18% overhead = 1.0x multiplier
-    const outputMultiplier = allocation.outputMultiplier;
+    // Calculate output value based on resource allocation strategy
+    // Using a switch statement to determine the multiplier based on resource allocation
+    let outputMultiplier;
+    switch (resourceAllocation) {
+      case 'focused':
+        outputMultiplier = 1.0;
+        break;
+      case 'balanced':
+        outputMultiplier = 1.0;
+        break;
+      case 'distributed':
+      default:
+        outputMultiplier = 1.0;
+        break;
+    }
     
     // Calculate total output (what customer receives)
     const outputValue = Math.ceil(adjustedProductionCapacity * outputMultiplier);

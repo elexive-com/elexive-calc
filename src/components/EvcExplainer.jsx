@@ -96,8 +96,8 @@ const EvcExplainer = ({
               <li className="flex items-start">
                 <FontAwesomeIcon icon={faBullseye} className="text-elx-accent mt-1 mr-2" />
                 <div>
-                  <span className="font-medium">Focused (1.0x):</span>
-                  <span className="text-gray-600"> Concentrated effort on fewer priorities yields 1-to-1 output.</span>
+                  <span className="font-medium">Focused (2.25x):</span>
+                  <span className="text-gray-600"> Concentrated effort on fewer priorities yields maximum output efficiency.</span>
                 </div>
               </li>
               <li className="flex items-start">
@@ -110,8 +110,8 @@ const EvcExplainer = ({
               <li className="flex items-start">
                 <FontAwesomeIcon icon={faTasks} className="text-elx-accent mt-1 mr-2" />
                 <div>
-                  <span className="font-medium">Distributed (2.25x):</span>
-                  <span className="text-gray-600"> Maximum output across multiple initiatives through scale efficiencies.</span>
+                  <span className="font-medium">Distributed (1.0x):</span>
+                  <span className="text-gray-600"> Broadest reach across multiple initiatives with standard efficiency.</span>
                 </div>
               </li>
             </ul>

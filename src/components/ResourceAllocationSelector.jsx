@@ -135,25 +135,85 @@ const ResourceAllocationSelector = ({ resourceAllocation = 'focused', setResourc
               </div>
             </div>
             
-            {/* Card content */}
+            {/* Card content - redesigned middle section */}
             <div className="p-4 flex flex-col h-full">
-              {/* Strategy label and context switching overhead on same row */}
-              <div className="flex justify-between items-center mb-3">
-                <span className="text-xs font-medium text-gray-700">{details.label}</span>
-                <span className={`text-xs font-medium px-2 py-1 rounded-md ${
-                  key === 'focused' 
-                    ? 'bg-green-100 text-green-800' 
-                    : key === 'balanced'
-                      ? 'bg-yellow-100 text-yellow-800'
-                      : 'bg-orange-100 text-orange-800'
-                }`}>
-                  {getOverheadLabel(key)}
-                </span>
+              {/* Strategy focus visual indicator */}
+              <div className="mb-4">
+                <div className="flex items-center justify-between mb-2">
+                  <span className="text-xs font-medium text-gray-700">Focus Distribution</span>
+                  <span className={`text-xs font-medium px-2 py-1 rounded-md ${
+                    key === 'focused' 
+                      ? 'bg-green-100 text-green-800' 
+                      : key === 'balanced'
+                        ? 'bg-yellow-100 text-yellow-800'
+                        : 'bg-orange-100 text-orange-800'
+                  }`}>
+                    {getOverheadLabel(key)} overhead
+                  </span>
+                </div>
+                
+                {/* Visual representation of focus distribution */}
+                <div className="flex gap-1.5 mb-1">
+                  {key === 'focused' && (
+                    <div className="h-3 w-full bg-green-500 rounded"></div>
+                  )}
+                  
+                  {key === 'balanced' && (
+                    <>
+                      <div className="h-3 w-3/5 bg-yellow-500 rounded"></div>
+                      <div className="h-3 w-2/5 bg-yellow-300 rounded"></div>
+                    </>
+                  )}
+                  
+                  {key === 'distributed' && (
+                    <>
+                      <div className="h-3 w-1/5 bg-orange-500 rounded"></div>
+                      <div className="h-3 w-1/5 bg-orange-400 rounded"></div>
+                      <div className="h-3 w-1/5 bg-orange-300 rounded"></div>
+                      <div className="h-3 w-1/5 bg-orange-200 rounded"></div>
+                      <div className="h-3 w-1/5 bg-orange-100 rounded"></div>
+                    </>
+                  )}
+                </div>
+                
+                <p className="text-xs text-gray-500">{details.label}</p>
               </div>
               
-              {/* Value proposition and example */}
-              <p className="text-sm text-gray-600 text-left mb-2 flex-grow">{details.valueProposition}</p>
-              <p className="text-xs text-gray-500 italic mb-3">{getStrategyExample(key)}</p>
+              {/* Key benefits section */}
+              <div className="mb-4">
+                <h4 className="text-xs font-semibold text-gray-700 mb-2">Key Benefits</h4>
+                <p className="text-sm text-gray-600 mb-3">{details.valueProposition}</p>
+                
+                {/* Productivity visualization */}
+                <div className="flex items-center mb-1">
+                  <div className="w-full h-4 bg-gray-100 rounded-full overflow-hidden flex">
+                    <div 
+                      className="bg-green-100 h-full flex items-center justify-center text-xs text-green-700"
+                      style={{ width: `${100 - details.switchingOverhead}%` }}
+                    >
+                      <span className="text-xs">{100 - details.switchingOverhead}% productive</span>
+                    </div>
+                    {details.switchingOverhead > 0 && (
+                      <div 
+                        className={`h-full flex items-center justify-center text-xs ${
+                          key === 'balanced' ? 'bg-yellow-100 text-yellow-700' : 'bg-orange-100 text-orange-700'
+                        }`}
+                        style={{ width: `${details.switchingOverhead}%` }}
+                      >
+                        {details.switchingOverhead > 5 && (
+                          <span className="text-xs">{details.switchingOverhead}%</span>
+                        )}
+                      </div>
+                    )}
+                  </div>
+                </div>
+              </div>
+              
+              {/* Best for section */}
+              <div className="mb-4">
+                <h4 className="text-xs font-semibold text-gray-700 mb-1">Best For</h4>
+                <p className="text-xs text-gray-600 italic">{getStrategyExample(key)}</p>
+              </div>
               
               {/* Recommended badge if applicable */}
               {isRecommendedStrategy(key) && (

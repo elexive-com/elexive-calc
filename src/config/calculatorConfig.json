@@ -47,8 +47,6 @@
   "resourceAllocation": {
     "focused": {
       "description": "Laser Beam",
-      "productionMultiplier": 1.0,
-      "outputMultiplier": 2.25,
       "switchingOverhead": 0,
       "overheadLabel": "None",
       "label": "Maximum depth on 1 strategic priority",
@@ -56,8 +54,6 @@
     },
     "balanced": {
       "description": "Smart Campaign",
-      "productionMultiplier": 1.0,
-      "outputMultiplier": 1.5,
       "switchingOverhead": 8,
       "overheadLabel": "Low",
       "label": "One strategic priority and 1-2 operational initiatives",
@@ -65,8 +61,6 @@
     },
     "distributed": {
       "description": "Omni-Channel",
-      "productionMultiplier": 1.0,
-      "outputMultiplier": 1.0,
       "switchingOverhead": 18,
       "overheadLabel": "Moderate",
       "label": "3-5 concurrent initiatives",
