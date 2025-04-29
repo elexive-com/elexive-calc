@@ -108,6 +108,7 @@ const CalculatorApp = () => {
         onClose={() => setIsEvcModalOpen(false)}
         weeklyProductionCapacity={calculator.weeklyProductionCapacity}
         monthlyOutputValue={calculator.monthlyOutputValue}
+        selectedAllocationStrategy={calculator.resourceAllocation}
       />
     </div>
   );

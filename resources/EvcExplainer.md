@@ -56,6 +56,7 @@ The modal interface balances several competing needs:
    - Explains the input-output relationship in consulting value
    - Provides context for how EVCs relate to business transformation
    - Creates understanding of value measurement in consulting services
+   - Clarifies that overhead affects module consumption, not EVC production
 
 2. **Dynamic Value Visualization**
    - Shows the user's current EVC production capacity
@@ -68,6 +69,7 @@ The modal interface balances several competing needs:
    - Explains how each resource contributes to value creation
    - Provides allocation percentages and production value multipliers
    - Creates clarity around resource efficiency and optimization
+   - Illustrates how allocation strategies impact overhead and module efficiency
 
 4. **Contextual Application**
    - Relates EVC concepts to the user's specific calculator configuration

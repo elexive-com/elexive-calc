@@ -101,9 +101,18 @@ const OnboardingQuiz = ({ intent, handleIntentSelect, resetCalculator, openEvcEx
                 </li>
                 <li className="flex items-start gap-2">
                   <div className="min-w-4 mt-1">•</div>
-                  <div><span className="font-medium">Efficiency factors:</span> Resource allocation strategies impact your effective EVC output</div>
+                  <div><span className="font-medium">Efficiency factors:</span> Resource allocation strategies impact how efficiently modules consume EVCs</div>
                 </li>
               </ul>
+              
+              {/* Add a note about overhead */}
+              <div className="bg-amber-50 p-3 rounded-md border border-amber-200 mb-3">
+                <p className="text-xs text-gray-700 mb-0">
+                  <strong>Important:</strong> Your allocation strategy affects module efficiency. 
+                  Working on multiple initiatives creates overhead, causing modules to consume more EVCs 
+                  than their base value. This reduces how many modules you can implement with your fixed EVC budget.
+                </p>
+              </div>
               
               {/* New note about EVC styling */}
               <div className="bg-gray-100 p-3 rounded-md border border-gray-200 mb-3">

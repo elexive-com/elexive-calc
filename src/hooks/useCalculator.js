@@ -250,14 +250,17 @@ export default function useCalculator() {
     let outputMultiplier;
     switch (resourceAllocation) {
       case 'focused':
+        // Focused has no overhead
         outputMultiplier = 1.0;
         break;
       case 'balanced':
-        outputMultiplier = 1.0;
+        // Balanced has overhead defined in calculatorConfig.json
+        outputMultiplier = 1.0 + (allocation.switchingOverhead / 100);
         break;
       case 'distributed':
       default:
-        outputMultiplier = 1.0;
+        // Distributed has overhead defined in calculatorConfig.json
+        outputMultiplier = 1.0 + (allocation.switchingOverhead / 100);
         break;
     }
     
