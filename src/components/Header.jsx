@@ -30,7 +30,7 @@ const Header = () => {
   
   return (
     <header className="elx-header relative">
-      <div className="container mx-auto flex justify-between items-center p-4">
+      <div className="container mx-auto flex justify-between items-center p-4 max-w-[1100px]">
         <div className="flex items-center">
           <a href="https://elexive.com/" target="_blank" rel="noopener noreferrer">
             <img 
