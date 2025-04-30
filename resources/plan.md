@@ -181,6 +181,30 @@ The ModuleExplorer serves as a crucial bridge in the customer journey:
    - Supplies contextual information for ROI calculations in the SummarySidebar
    - Creates sharable artifacts (PDFs) that support stakeholder alignment
 
+## Service Delivery Model & Resource Allocation
+
+### EVC (Elastic Value Credits) Framework
+
+The calculator implements a sophisticated resource allocation model through our EVC (Elastic Value Credits) framework:
+
+1. **Resource Unit Definition**
+   - EVC represents a standardized unit of consulting value delivery capacity
+   - Each EVC encapsulates a balanced mix of expertise, time, and deliverable value
+   - This abstraction allows for simplified resource allocation without sacrificing accuracy
+
+2. **Reserved EVC Model**
+   - Implements a capacity reservation approach similar to cloud computing resource models
+   - Allows clients to reserve transformation capacity in advance for greater cost efficiency
+   - Provides predictable pricing and guaranteed resource availability
+   - Offers significant discounts for upfront commitment to transformation initiatives
+
+3. **Flexible Allocation**
+   - Enables dynamic distribution of EVCs across transformation, strategy, and technology pillars
+   - Supports reallocation as business priorities shift during transformation journeys
+   - Creates visual representation of resource distribution for executive understanding
+
+This approach translates complex consulting resource allocation into an intuitive model that business decision-makers can easily grasp while maintaining the accuracy needed for proper transformation planning.
+
 ## Customer Journey Transformation Goals
 
 Our implementation of this journey aims to fundamentally transform the consulting sales process by:

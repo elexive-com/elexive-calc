@@ -102,7 +102,7 @@ const ServiceParameters = ({
                     : 'bg-gray-100 text-gray-700 hover:bg-gray-200 border-elx-accent-light'
                 }`}
               >
-                {details.name}
+                {option === 'prepaid' ? 'Reserved' : details.name}
                 {getDiscountLabel(details.priceModifier)}
               </button>
             ))}
@@ -110,7 +110,7 @@ const ServiceParameters = ({
           <p className="text-sm text-gray-500 mt-2">
             <FontAwesomeIcon icon={faInfoCircle} className="mr-1" />
             {paymentOption === 'prepaid' 
-              ? 'Prepaid option offers a discount on the standard rate'
+              ? 'Reserved option allocates capacity in advance for greater efficiency and cost savings'
               : 'Standard monthly billing with no long-term commitment'}
           </p>
         </div>

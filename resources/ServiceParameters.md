@@ -34,6 +34,22 @@ The payment option selectors implement a deliberate decision framework:
    - Provides clear visual connection between selection and pricing impact
    - Implements appropriate typography for financial figures
 
+### Reserved EVC Option
+
+The Reserved EVC option (formerly "Prepaid EVCs") follows a similar concept to how cloud computing resources are reserved in advance:
+
+1. **Reserved Capacity Model**
+   - Allocates Elastic Value Credits (EVC) capacity in advance for the transformation initiative
+   - Provides cost efficiency through upfront commitment
+   - Ensures resource availability throughout the engagement
+   - Follows industry-standard approach similar to cloud computing reserved instances
+
+2. **Business Value Proposition**
+   - Offers predictable pricing for budget planning
+   - Provides cost savings through discount incentives
+   - Ensures capacity is guaranteed for mission-critical initiatives
+   - Simplifies financial planning and approval processes
+
 ### Parameter Toggle Design
 
 The parameter toggle controls balance several competing needs:
