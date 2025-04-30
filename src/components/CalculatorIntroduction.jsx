@@ -61,6 +61,22 @@ const CalculatorIntroduction = ({ onGetStarted }) => {
         </div>
       </div>
 
+      {/* Quick Jump In Button for users who want to skip the introduction */}
+      <div className="mb-8 flex justify-between items-center">
+        <div className="bg-elx-accent-light bg-opacity-30 p-4 rounded-lg text-left max-w-2xl">
+          <p className="text-sm text-elx-primary">
+            Ready to get started? Jump right in to configure your solution or scroll down to learn more.
+          </p>
+        </div>
+        <button
+          onClick={onGetStarted}
+          className="elx-btn-primary"
+        >
+          Build My Custom Solution
+          <FontAwesomeIcon icon={faArrowRight} className="ml-3" />
+        </button>
+      </div>
+
       {/* NEW SECTION: Key Business Outcomes and Timeframes - CEOs need this to decide */}
       <div className="elx-section">
         <h3 className="elx-heading-2">What You'll Gain</h3>
