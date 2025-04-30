@@ -23,6 +23,14 @@ const ModuleDetails = ({
 }) => {
   if (!selectedModule) return null;
   
+  // Define pillar color mapping
+  const pillarColorMap = {
+    'Transformation': '#D99000', // Amber/gold
+    'Strategy': '#C85A30', // Orange/rust
+    'Technology': '#1F776D', // Teal
+    'Discovery': '#2E2266'  // Deep purple (primary)
+  };
+  
   // Get variant definitions for this module
   const variantDefs = selectedModule.variants.map(v => ({
     ...v,
@@ -42,17 +50,11 @@ const ModuleDetails = ({
       <div className="flex flex-col md:flex-row md:justify-between md:items-start mb-4">
         <div>
           <div className="flex items-center mb-2">
-            <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium mr-2 ${
-              selectedModule.pillarConfig.bgColor
-            } ${selectedModule.pillarConfig.textColor}`}>
-              <FontAwesomeIcon icon={selectedModule.pillarConfig.icon} className="mr-1" />
-              {selectedModule.pillar}
-            </span>
             <span className="inline-flex items-center px-2.5 py-0.5 rounded-md text-xs font-medium bg-gray-100 text-gray-700">
               {selectedModule.category}
             </span>
           </div>
-          <h2 className="text-2xl font-bold text-elx-primary">{selectedModule.name}</h2>
+          <h2 className="text-4xl font-bold text-elx-primary">{selectedModule.name}</h2>
         </div>
         
         <div className="flex mt-3 md:mt-0">
@@ -88,11 +90,29 @@ const ModuleDetails = ({
             {selectedModule.heading}
           </h3>
           
-          <div className="bg-gray-50 p-5 rounded-lg mb-6 shadow-inner">
-            <h4 className="text-lg font-medium text-elx-primary mb-2">Module Overview</h4>
-            <p className="text-gray-700">
-              {selectedModule.description}
-            </p>
+          <div className="flex flex-col md:flex-row gap-6 mb-6">
+            <div className="bg-gray-50 p-5 rounded-lg shadow-inner md:w-2/3">
+              <h4 className="text-lg font-medium text-elx-primary mb-2">Module Overview</h4>
+              <p className="text-gray-700">
+                {selectedModule.description}
+              </p>
+            </div>
+            
+            <div 
+              className={`p-5 rounded-lg shadow-md md:w-1/3 flex flex-col items-center justify-center`}
+              style={{ 
+                backgroundColor: pillarColorMap[selectedModule.pillar] || '#2E2266'
+              }}
+            >
+              <h3 className="elx-pillar-title">{selectedModule.pillar}</h3>
+              <div className="text-white text-center">
+                <img 
+                  src="/common-module-white.png" 
+                  alt="Module visualization" 
+                  className="mx-auto max-w-full h-auto w-1/2"
+                />
+              </div>
+            </div>
           </div>
           
           {/* Journey context */}

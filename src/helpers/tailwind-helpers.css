@@ -69,6 +69,12 @@
   .elx-heading-3 {
     @apply text-lg font-bold text-elx-primary mb-2;
   }
+  
+  /* Pillar title for module box */
+  .elx-pillar-title {
+    @apply text-lg font-bold uppercase tracking-wider mb-4 text-white opacity-90 font-['Nunito_Sans'];
+    letter-spacing: 0.1em;
+  }
 
   .elx-body {
     @apply text-gray-600;
