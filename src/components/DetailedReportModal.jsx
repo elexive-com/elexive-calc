@@ -436,12 +436,7 @@ const DetailedReportModal = ({ isOpen, onClose, calculator }) => {
                   <div className="space-y-4 mb-6">
                     {Object.entries(modulesByPillar).map(([pillar, modules]) => (
                       <div key={pillar} className="flex items-start">
-                        <div className={`w-10 h-10 rounded-full flex items-center justify-center mr-4 shadow ${
-                          pillar === 'Transformation' ? 'bg-purple-100 text-purple-600' :
-                          pillar === 'Strategy' ? 'bg-blue-100 text-blue-600' :
-                          pillar === 'Technology' ? 'bg-green-100 text-green-600' :
-                          'bg-amber-100 text-amber-600'
-                        }`}>
+                        <div className={`w-10 h-10 rounded-full flex items-center justify-center mr-4 shadow ${getPillarColorClass(pillar)}`}>
                           <FontAwesomeIcon icon={getPillarIcon(pillar)} size="lg" />
                         </div>
                         <div>
@@ -562,12 +557,7 @@ const DetailedReportModal = ({ isOpen, onClose, calculator }) => {
             {Object.entries(modulesByPillar).map(([pillar, modules]) => (
               <div key={pillar} className="mb-10">
                 <div className="flex items-center mb-6">
-                  <div className={`w-10 h-10 rounded-full flex items-center justify-center mr-4 shadow ${
-                    pillar === 'Transformation' ? 'bg-purple-100 text-purple-600' :
-                    pillar === 'Strategy' ? 'bg-blue-100 text-blue-600' :
-                    pillar === 'Technology' ? 'bg-green-100 text-green-600' :
-                    'bg-amber-100 text-amber-600'
-                  }`}>
+                  <div className={`w-10 h-10 rounded-full flex items-center justify-center mr-4 shadow ${getPillarColorClass(pillar)}`}>
                     <FontAwesomeIcon icon={getPillarIcon(pillar)} size="lg" />
                   </div>
                   <div>
@@ -906,11 +896,7 @@ const DetailedReportModal = ({ isOpen, onClose, calculator }) => {
                   <div>
                     <span className="text-sm font-medium text-elx-primary">Resource Allocation Strategy</span>
                     <div className="text-xs text-gray-500">
-                      {resourceAllocation === 'focused' ? 
-                        'Single-priority focus for maximum efficiency' :
-                      resourceAllocation === 'balanced' ? 
-                        'Balanced approach with moderate context switching' :
-                        'Distributed resources across multiple initiatives'}
+                      {deliverySpeed}
                     </div>
                   </div>
                   <div className="text-right">
@@ -927,13 +913,21 @@ const DetailedReportModal = ({ isOpen, onClose, calculator }) => {
                   .filter(([, enabled]) => enabled)
                   .map(([paramId]) => {
                     const param = serviceParameters.find(p => p.id === paramId);
+                    const evcCost = calculateEvcCost(param);
                     return (
                       <div key={paramId} className="flex justify-between py-3 border-b border-gray-100">
                         <div>
                           <span className="text-sm font-medium text-elx-primary">{param.label}</span>
                           <div className="text-xs text-gray-500">{param.productionImpact}</div>
                         </div>
-                        <span className="text-sm font-semibold text-elx-primary">{param.modifier}x multiplier</span>
+                        <div className="text-right">
+                          <span className="text-sm font-semibold text-elx-primary">{param.modifier}x multiplier</span>
+                          {evcCost && (
+                            <div className="text-xs text-gray-500">
+                              {evcCost} EVCs/week
+                            </div>
+                          )}
+                        </div>
                       </div>
                     );
                   })

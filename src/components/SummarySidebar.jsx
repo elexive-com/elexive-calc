@@ -312,7 +312,7 @@ const SummarySidebar = ({ calculator }) => {
                     style={{ backgroundColor: 'var(--elexive-primary)', color: 'white' }}
                   >
                     <FontAwesomeIcon icon={faFileAlt} className="mr-2" />
-                    View Detailed Report
+                    Detailed Solution Brief
                   </button>
                   
                   {/* This button should use the global state now */}
