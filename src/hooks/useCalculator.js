@@ -37,6 +37,7 @@ export default function useCalculator() {
   const [totalPrice, setTotalPrice] = useState(0);
   const [monthlyEvcs, setMonthlyEvcs] = useState(0);
   const [evcPricePerUnit, setEvcPricePerUnit] = useState(0);
+  const [volumeDiscountPercentage, setVolumeDiscountPercentage] = useState(0);
   const [deliverySpeed, setDeliverySpeed] = useState(
     calculatorConfig.resourceAllocation[defaults.resourceAllocation].description
   );
@@ -308,21 +309,74 @@ export default function useCalculator() {
     // Calculate base price per EVC
     let pricePerEvc = evcBase.basePrice;
     
-    // Apply volume discount based on config
-    evcBase.volumeDiscounts.forEach(({ threshold, discount }) => {
-      if (adjustedProductionCapacity > threshold) {
-        pricePerEvc *= discount;
-      }
-    });
+    // Modified volume discount calculation - apply discount tiers with compounding effect
+    // First, calculate the total price without any volume discounts
+    let totalPriceWithoutDiscount = adjustedProductionCapacity * pricePerEvc;
     
-    // Apply payment option modifier
+    // Sort volume discounts by threshold in ascending order to process smaller thresholds first
+    const sortedDiscounts = [...evcBase.volumeDiscounts].sort((a, b) => a.threshold - b.threshold);
+    
+    // Keep track of tiers and their applied discount multipliers
+    const tiers = [];
+    
+    // Build the tier structure
+    for (let i = 0; i < sortedDiscounts.length; i++) {
+      const { threshold, discount } = sortedDiscounts[i];
+      if (adjustedProductionCapacity > threshold) {
+        // Calculate EVCs in this tier
+        const evcsInThisTier = (i === sortedDiscounts.length - 1)
+          ? adjustedProductionCapacity - threshold // For the highest threshold, all remaining EVCs
+          : Math.min(sortedDiscounts[i+1].threshold, adjustedProductionCapacity) - threshold;
+        
+        // Store tier info
+        tiers.push({
+          evcs: evcsInThisTier,
+          discount: discount,
+          threshold: threshold
+        });
+      }
+    }
+    
+    // Add first tier (no discount) if there are EVCs below the first threshold
+    if (sortedDiscounts.length > 0 && sortedDiscounts[0].threshold > 0 && adjustedProductionCapacity > 0) {
+      const evcsInFirstTier = Math.min(adjustedProductionCapacity, sortedDiscounts[0].threshold);
+      if (evcsInFirstTier > 0) {
+        tiers.unshift({
+          evcs: evcsInFirstTier,
+          discount: 1.0, // No discount
+          threshold: 0
+        });
+      }
+    }
+    
+    // Calculate price with all applicable tiers
+    let discountedPrice = 0;
+    for (const tier of tiers) {
+      discountedPrice += tier.evcs * pricePerEvc * tier.discount;
+    }
+    
+    // If no tiers were applied (no EVCs or no thresholds crossed), use base price
+    if (tiers.length === 0) {
+      discountedPrice = totalPriceWithoutDiscount;
+    }
+    
+    // Calculate the total volume discount percentage
+    const volumeDiscount = (totalPriceWithoutDiscount - discountedPrice) / totalPriceWithoutDiscount * 100;
+    setVolumeDiscountPercentage(volumeDiscount);
+    
+    // Apply payment option modifier to the entire amount
     const paymentModifier = evcBase.paymentOptions[paymentOption].priceModifier;
-    pricePerEvc *= paymentModifier;
+    discountedPrice *= paymentModifier;
+    
+    // Calculate effective price per EVC for display
+    const effectiveEvcPrice = adjustedProductionCapacity > 0 
+      ? discountedPrice / adjustedProductionCapacity 
+      : pricePerEvc * paymentModifier;
     
     // Set final values
     setMonthlyEvcs(adjustedProductionCapacity);
-    setEvcPricePerUnit(pricePerEvc);
-    setTotalPrice(Math.round(adjustedProductionCapacity * pricePerEvc));
+    setEvcPricePerUnit(effectiveEvcPrice);
+    setTotalPrice(Math.round(discountedPrice));
   }, [selectedModules, resourceAllocation, productionCapacity, parameters, paymentOption, parameterModifiers, modules, selectedVariants]);
   
   // Use the memoized callback in useEffect
@@ -347,6 +401,7 @@ export default function useCalculator() {
     totalPrice,
     monthlyEvcs,
     evcPricePerUnit,
+    volumeDiscountPercentage,
     deliverySpeed,
     activePillar,
     completionTimeWeeks,

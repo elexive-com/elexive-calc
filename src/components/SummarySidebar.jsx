@@ -3,7 +3,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { 
   faBullseye, faPuzzlePiece,
   faLayerGroup, faArrowRight, faEnvelope,
-  faCalendarAlt, faFileAlt, faInfoCircle, faCreditCard,
+  faCalendarAlt, faFileAlt, faInfoCircle,
   faCalculator, faCompass, faLightbulb, faBullhorn,
   faGlobe, faCar, faJetFighterUp, faRocket
 } from '@fortawesome/free-solid-svg-icons';
@@ -264,16 +264,6 @@ const SummarySidebar = ({ calculator }) => {
             </div>
           </Section>
           
-          {/* Payment Option */}
-          <Section title="Payment Method" icon={faCreditCard}>
-            <p className="font-medium text-base text-elx-primary">{evcBase.paymentOptions[paymentOption].name}</p>
-            <span className="elx-badge elx-badge-accent inline-block mt-1.5">
-              {paymentOption === 'prepaid' 
-                ? `${((1 - evcBase.paymentOptions[paymentOption].priceModifier) * 100).toFixed(0)}% discount`
-                : 'Standard monthly billing'}
-            </span>
-          </Section>
-          
           {/* Pricing Summary */}
           <div className="mt-5">
             <div className="bg-elx-primary p-0.5 rounded-xl">
@@ -292,6 +282,26 @@ const SummarySidebar = ({ calculator }) => {
                   <div className="flex justify-between items-center text-[11px] text-elx-primary font-medium">
                     <span>Price per EVC:</span>
                     <span className="font-medium">€{evcPricePerUnit.toFixed(2)}</span>
+                  </div>
+                  
+                  {/* Payment option discount/billing info */}
+                  <div className="mt-2 pt-2 border-t border-white border-opacity-50">
+                    <div className={`text-[11px] font-medium px-2 py-1 rounded text-center ${
+                      paymentOption === 'prepaid' 
+                        ? 'bg-green-100 text-green-800' 
+                        : 'bg-blue-100 text-blue-800'
+                    }`}>
+                      {paymentOption === 'prepaid' 
+                        ? `${((1 - evcBase.paymentOptions[paymentOption].priceModifier) * 100).toFixed(0)}% reservation discount`
+                        : 'Standard monthly billing'}
+                    </div>
+                    
+                    {/* Volume discount label - only show if a volume discount is applied */}
+                    {evcBase.volumeDiscounts.some(({ threshold }) => weeklyProductionCapacity > threshold) && (
+                      <div className="mt-2 text-[11px] font-medium px-2 py-1 rounded text-center bg-purple-100 text-purple-800">
+                        Volume discount: {calculator.volumeDiscountPercentage.toFixed(1)}% applied
+                      </div>
+                    )}
                   </div>
                 </div>
                 

@@ -203,6 +203,21 @@ The calculator implements a sophisticated resource allocation model through our 
    - Supports reallocation as business priorities shift during transformation journeys
    - Creates visual representation of resource distribution for executive understanding
 
+4. **Tiered Volume Discount Model**
+   - Implements an enterprise-grade tiered discount structure that rewards increased capacity
+   - Applies discounts incrementally to EVCs above each threshold, similar to tax brackets
+   - Ensures the effective discount percentage always increases with higher volumes
+   - Creates natural incentives for capacity expansion without pricing cliffs
+   - Visualizes volume discounts transparently in the pricing interface
+   - Operates independently from, but complementary to, the Reserved EVC discount
+
+The tiered discount model calculates pricing as follows:
+   - Base EVCs (up to first threshold): Full price
+   - EVCs in Tier 1 (above first threshold): First discount rate 
+   - EVCs in Tier 2 (above second threshold): Second discount rate
+   - EVCs in Tier 3 (above third threshold): Third discount rate
+   - The resulting blended discount percentage is clearly displayed to the customer
+
 This approach translates complex consulting resource allocation into an intuitive model that business decision-makers can easily grasp while maintaining the accuracy needed for proper transformation planning.
 
 ## Customer Journey Transformation Goals

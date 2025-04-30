@@ -2,14 +2,15 @@
   "evcBase": {
     "basePrice": 540,
     "volumeDiscounts": [
-      { "threshold": 10, "discount": 0.9 },
-      { "threshold": 20, "discount": 0.95 }
+      { "threshold": 20, "discount": 0.95 },
+      { "threshold": 40, "discount": 0.9 },
+      { "threshold": 60, "discount": 0.85 }
     ],
     "paymentOptions": {
       "prepaid": {
         "name": "Prepaid EVCs",
         "description": "Purchase EVCs in advance at a discounted rate",
-        "priceModifier": 0.85
+        "priceModifier": 0.9
       },
       "retroactive": {
         "name": "Pay-as-you-go",
