@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { 
-  faCalculator, 
   faLayerGroup, 
   faHome, 
   faBars, 
-  faTimes 
+  faTimes,
+  faCubes
 } from '@fortawesome/free-solid-svg-icons';
 import { useTabContext } from '../contexts/TabContext';
 
@@ -74,8 +74,8 @@ const Header = () => {
                 : 'text-[#FBFAFC] hover:text-white hover:border-b-2 hover:border-gray-300'
             }`}
           >
-            <FontAwesomeIcon icon={faCalculator} className="mr-2" />
-            Guided Calculator
+            <FontAwesomeIcon icon={faCubes} className="mr-2" />
+            Solution Builder
           </button>
           <button
             onClick={() => handleNavClick('explorer')}
@@ -114,8 +114,8 @@ const Header = () => {
                   : 'text-white hover:bg-gray-800'
               }`}
             >
-              <FontAwesomeIcon icon={faCalculator} className="mr-3" />
-              Guided Calculator
+              <FontAwesomeIcon icon={faCubes} className="mr-3" />
+              Solution Builder
             </button>
             <button
               onClick={() => handleNavClick('explorer')}
