@@ -59,6 +59,7 @@ const CalculatorApp = () => {
                 <ProductionCapacitySelector 
                   productionCapacity={calculator.productionCapacity}
                   setProductionCapacity={calculator.setProductionCapacity}
+                  recommendedCapacity={calculator.recommendedCapacity}
                 />
                 
                 {/* Step 3: Resource Strategy */}

@@ -8,7 +8,7 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 import calculatorConfig from '../config/calculatorConfig.json';
 
-const ProductionCapacitySelector = ({ productionCapacity, setProductionCapacity }) => {
+const ProductionCapacitySelector = ({ productionCapacity, setProductionCapacity, recommendedCapacity }) => {
   // Custom handler to ensure "Roadster" option always uses "Laser Beam" allocation
   const handleCapacitySelect = (capacity) => {
     setProductionCapacity(capacity);
@@ -96,6 +96,14 @@ const ProductionCapacitySelector = ({ productionCapacity, setProductionCapacity 
                     </>
                   )}
                 </p>
+                
+                {/* Recommended for preset label */}
+                {recommendedCapacity === key && (
+                  <div className="mb-3 py-1 px-2 bg-green-50 text-green-700 text-xs font-medium rounded-md flex items-center justify-center">
+                    <FontAwesomeIcon icon={faCheckCircle} className="mr-1" />
+                    Recommended for preset
+                  </div>
+                )}
                 
                 {/* Selection indicator at bottom */}
                 <div className="mt-3 pt-3 border-t border-gray-100 flex justify-between items-center">

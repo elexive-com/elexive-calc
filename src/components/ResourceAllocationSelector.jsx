@@ -49,20 +49,6 @@ const ResourceAllocationSelector = ({ resourceAllocation = 'focused', setResourc
     }
   };
   
-  // Helper to generate example use cases based on strategy
-  const getStrategyExample = (strategy) => {
-    switch(strategy) {
-      case 'focused':
-        return "Ideal for transformational initiatives requiring deep expertise";
-      case 'balanced':
-        return "Perfect for maintaining strategic focus while handling operational needs";
-      case 'distributed':
-        return "Best for businesses managing multiple parallel growth initiatives";
-      default:
-        return "";
-    }
-  };
-  
   // Get strategy icon
   const getStrategyIcon = (key) => {
     switch(key) {

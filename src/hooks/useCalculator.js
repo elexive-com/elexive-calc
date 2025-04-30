@@ -11,6 +11,8 @@ export default function useCalculator() {
   const [resourceAllocation, setResourceAllocation] = useState(calculatorConfig.defaults.resourceAllocation);
   // Initial state for production capacity - changed from 'seedling' to 'roadster'
   const [productionCapacity, setProductionCapacity] = useState('roadster');
+  // Track the recommended capacity for the current preset
+  const [recommendedCapacity, setRecommendedCapacity] = useState(null);
   const [paymentOption, setPaymentOption] = useState(calculatorConfig.defaults.paymentOption);
   const [isEvcExplainerVisible, setIsEvcExplainerVisible] = useState(false);
   
@@ -62,6 +64,8 @@ export default function useCalculator() {
     setSelectedModules([]);
     setSelectedVariants({});
     setResourceAllocation("focused"); // Default to "Focused" allocation
+    setProductionCapacity("pathfinder"); // Default to "Pathfinder" capacity
+    setRecommendedCapacity(null); // Clear any recommended capacity
     setPaymentOption(defaults.paymentOption);
     
     // Reset parameters to defaults
@@ -71,7 +75,10 @@ export default function useCalculator() {
     });
     setParameters(resetParams);
     
-    // Force a recalculation to set EVCs to minimum (1)
+    // Reset active pillar
+    setActivePillar("Transformation");
+    
+    // Force a recalculation to update all values
     setTimeout(() => {
       calculatePricing();
     }, 50);
@@ -81,8 +88,15 @@ export default function useCalculator() {
   const handleIntentSelect = (intentName) => {
     setIntent(intentName);
     
+    // If "Full Custom" is selected, reset the calculator to default values
+    if (intentName === "Full Custom") {
+      resetCalculator();
+      setIntent("Full Custom"); // Keep the "Full Custom" intent selected
+      return; // Exit early after resetting
+    }
+    
     // Apply preset if this is a preset intent
-    if (intentName && intentName !== "Full Custom" && calculatorPresets.presets[intentName]) {
+    if (intentName && calculatorPresets.presets[intentName]) {
       console.log("Applying preset for:", intentName);
       const preset = calculatorPresets.presets[intentName];
       
@@ -141,6 +155,9 @@ export default function useCalculator() {
         // Apply the recommended production capacity if specified
         if (preset.recommendedCapacity) {
           setProductionCapacity(preset.recommendedCapacity);
+          setRecommendedCapacity(preset.recommendedCapacity);
+        } else {
+          setRecommendedCapacity(null);
         }
       }, 50);
     }
@@ -334,6 +351,7 @@ export default function useCalculator() {
     activePillar,
     completionTimeWeeks,
     totalModuleEvcs,
+    recommendedCapacity,
     
     // Config
     defaults,

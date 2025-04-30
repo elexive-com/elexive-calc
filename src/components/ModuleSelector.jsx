@@ -18,7 +18,7 @@ const ModuleSelector = ({
 }) => {
   // State for expanded pillars in the accordion
   const [expandedPillars, setExpandedPillars] = useState({
-    Discovery: true,
+    Discovery: false,
     Transformation: false,
     Strategy: false,
     Technology: false
