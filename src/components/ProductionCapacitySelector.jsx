@@ -22,8 +22,7 @@ const ProductionCapacitySelector = ({ productionCapacity, setProductionCapacity 
       </h2>
       
       <p className="text-gray-700 mb-6">
-        Your EVC production capacity determines how quickly we can deliver value to your organization. 
-        Select from options ranging from targeted exploration to enterprise-scale delivery.
+        Think of this as choosing your business transformation pace. Whether you need targeted solutions for specific challenges or enterprise-wide transformation, this selection determines how quickly we'll deliver results together. Your choice here balances speed with the scope of what we can accomplish each week.
       </p>
       
       <div className="mb-4">
@@ -78,7 +77,25 @@ const ProductionCapacitySelector = ({ productionCapacity, setProductionCapacity 
                   </span>
                 </div>
                 
-                <p className="text-sm text-gray-600 text-left mb-3 flex-grow">{details.valueProposition}</p>
+                <p className="text-sm text-gray-600 text-left mb-3 flex-grow">
+                  {key === "pathfinder" ? (
+                    <>
+                      <span className="font-medium text-elx-primary">Exploration & Discovery</span> — Pathfinder is your guide through uncharted territory. Perfect when you're starting your transformation journey and need to validate direction before scaling. Ideal for exploring new strategies or testing assumptions with minimal investment and maximum learning.
+                    </>
+                  ) : key === "roadster" ? (
+                    <>
+                      <span className="font-medium text-elx-primary">Reliability & Momentum</span> — Roadster keeps you moving forward with confidence. Delivers consistent results that build momentum without overwhelming your teams. Great for businesses that need steady transformation without disrupting day-to-day operations.
+                    </>
+                  ) : key === "jetpack" ? (
+                    <>
+                      <span className="font-medium text-elx-primary">Acceleration & Scaling</span> — Jetpack takes you beyond conventional growth limits. Provides the boost when you need to accelerate beyond organic growth. This option is designed for businesses ready to scale quickly and gain competitive advantage through faster implementation of strategic initiatives.
+                    </>
+                  ) : (
+                    <>
+                      <span className="font-medium text-elx-primary">Velocity & Transformation</span> — Rocketship launches your enterprise-level change at maximum speed. Delivers transformative power when time is critical. Choose this when market windows are narrow or when you need to quickly capitalize on emerging opportunities.
+                    </>
+                  )}
+                </p>
                 
                 {/* Selection indicator at bottom */}
                 <div className="mt-3 pt-3 border-t border-gray-100 flex justify-between items-center">
