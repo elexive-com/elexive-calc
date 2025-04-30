@@ -81,8 +81,7 @@ const ServiceParameters = ({
       </h2>
       
       <p className="text-gray-700 mb-6">
-        Customize your service delivery with additional options and payment preferences. Select your 
-        preferred payment method and enable any additional parameters needed for your project.
+        This is where you tailor your transformation experience to your unique business needs. Think of these options as customization levers that enhance your results in specific ways. From premium data access to dedicated support, each choice represents a strategic investment in your transformation success.
       </p>
       
       <div className="space-y-6">

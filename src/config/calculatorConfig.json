@@ -50,21 +50,24 @@
       "switchingOverhead": 0,
       "overheadLabel": "No",
       "label": "Maximum depth on 1 strategic priority",
-      "valueProposition": "Concentrated impact with maximum efficiency per resource"
+      "valueProposition": "Concentrated impact with maximum efficiency per resource",
+      "bestFor": "Companies needing significant momentum on a single, critical priority or those with limited resources that cannot afford diluted effort"
     },
     "balanced": {
       "description": "Smart Campaign",
       "switchingOverhead": 8,
       "overheadLabel": "Low",
       "label": "One strategic priority and 1-2 operational initiatives",
-      "valueProposition": "Balanced progress across key channels with good efficiency"
+      "valueProposition": "Balanced progress across key channels with good efficiency",
+      "bestFor": "Organizations with a clear strategic priority that also need to address operational necessities or complementary initiatives"
     },
     "distributed": {
       "description": "Omni-Channel",
       "switchingOverhead": 18,
       "overheadLabel": "Moderate",
       "label": "3-5 concurrent initiatives",
-      "valueProposition": "Maximum reach across your entire business ecosystem"
+      "valueProposition": "Maximum reach across your entire business ecosystem",
+      "bestFor": "Enterprises managing multiple strategic imperatives that must progress in parallel, with adequate resources to handle the coordination overhead"
     }
   },
   "productionCapacity": {

@@ -91,9 +91,7 @@ const ResourceAllocationSelector = ({ resourceAllocation = 'focused', setResourc
       </h2>
       
       <p className="text-gray-700 mb-6">
-        Your allocation strategy determines how effectively your EVC capacity translates into business results. 
-        Each approach distributes your attention across a different number of concurrent initiatives with 
-        different efficiency impacts.
+        Think of this as choosing how to focus your transformation power. This selection determines whether to concentrate intensely on one strategic area or divide attention across multiple initiatives. Each approach has different benefits depending on your business goals and timeline.
       </p>
       
       {/* Redesigned allocation strategy cards - 2x2 grid layout */}
@@ -181,14 +179,29 @@ const ResourceAllocationSelector = ({ resourceAllocation = 'focused', setResourc
               
               {/* Key benefits section */}
               <div className="mb-4">
-                <h4 className="text-xs font-semibold text-gray-700 mb-2">Key Benefits</h4>
-                <p className="text-sm text-gray-600 mb-3">{details.valueProposition}</p>
+                <p className="text-sm text-gray-600 mb-3">
+                  {key === 'focused' ? (
+                    <>
+                      <span className="font-medium text-elx-primary">Depth & Mastery</span> — {details.description} {details.valueProposition}
+                    </>
+                  ) : key === 'balanced' ? (
+                    <>
+                      <span className="font-medium text-elx-primary">Focus & Flexibility</span> — {details.description} {details.valueProposition}
+                    </>
+                  ) : (
+                    <>
+                      <span className="font-medium text-elx-primary">Breadth & Coordination</span> — {details.description} {details.valueProposition}
+                    </>
+                  )}
+                </p>
               </div>
               
               {/* Best for section */}
               <div className="mb-4">
                 <h4 className="text-xs font-semibold text-gray-700 mb-1">Best For</h4>
-                <p className="text-xs text-gray-600 italic">{getStrategyExample(key)}</p>
+                <p className="text-xs text-gray-600 italic">
+                  {details.bestFor}
+                </p>
               </div>
               
               {/* Recommended badge if applicable */}
