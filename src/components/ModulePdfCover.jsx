@@ -1,6 +1,4 @@
 import React from 'react';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faLightbulb, faRocket } from '@fortawesome/free-solid-svg-icons';
 
 /**
  * ModulePdfCover component
@@ -21,7 +19,7 @@ const ModulePdfCover = ({ module, today = new Date() }) => {
           <div className="flex items-center">
             <img 
               src="/elexive-logo-text.png" 
-              alt="Elexive Consulting" 
+              alt="Elexive Ltd" 
               className="h-10 filter brightness-0 invert"
             />
           </div>
