@@ -13,8 +13,7 @@ import {
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useState, useRef } from 'react';
 import calculatorConfig from '../config/calculatorConfig.json';
-import html2canvas from 'html2canvas';
-import jsPDF from 'jspdf';
+import { generateReportPdf } from '../pdf';
 
 const DetailedReportModal = ({ isOpen, onClose, calculator }) => {
   const [isExporting, setIsExporting] = useState(false);
@@ -157,174 +156,26 @@ const DetailedReportModal = ({ isOpen, onClose, calculator }) => {
     setIsExporting(true);
     
     try {
-      // Get CSS variables for consistent styling
-      const styles = getComputedStyle(document.documentElement);
-      const elexivePrimary = styles.getPropertyValue('--elexive-primary').trim() || '#2E2266';
+      // Prepare the data needed for the PDF generation
+      const reportData = {
+        intent,
+        totalPrice,
+        completionTimeWeeks,
+        totalEvcValue,
+        formatNumber,
+        paymentDetails,
+        paymentOption,
+        annualValue,
+        productionCapacity,
+        calculatorConfig,
+        weeklyEVCs,
+        modulesByPillar,
+        estimatedCompletionWeeks,
+        resourceAllocation
+      };
       
-      // Create a PDF document
-      const pdf = new jsPDF({
-        orientation: 'portrait',
-        unit: 'mm',
-        format: 'a4',
-        compress: true
-      });
-      
-      // Define page dimensions
-      const pdfWidth = pdf.internal.pageSize.getWidth();
-      const pdfHeight = pdf.internal.pageSize.getHeight();
-      const margin = 15;
-      
-      // Capture the report content using html2canvas
-      const reportContent = reportContentRef.current;
-      const canvas = await html2canvas(reportContent, {
-        scale: 2,
-        logging: false,
-        useCORS: true,
-        allowTaint: true,
-        backgroundColor: '#ffffff'
-      });
-      
-      // Convert canvas to image
-      const imgData = canvas.toDataURL('image/png');
-      
-      // Calculate dimensions to maintain aspect ratio
-      const contentWidth = pdfWidth - (margin * 2);
-      const contentHeight = (canvas.height * contentWidth) / canvas.width;
-      
-      // Add title page
-      pdf.setFillColor(elexivePrimary);
-      pdf.rect(0, 0, pdfWidth, 40, 'F');
-      pdf.setTextColor(255, 255, 255);
-      pdf.setFont('helvetica', 'bold');
-      pdf.setFontSize(24);
-      pdf.text('Executive Solution Brief', pdfWidth / 2, 25, { align: 'center' });
-      
-      pdf.setTextColor(0, 0, 0);
-      pdf.setFontSize(16);
-      pdf.text('Strategic Transformation Plan', pdfWidth / 2, 60, { align: 'center' });
-      
-      // Add date
-      const today = new Date();
-      const formattedDate = today.toLocaleDateString('en-US', { 
-        year: 'numeric', 
-        month: 'long', 
-        day: 'numeric' 
-      });
-      pdf.setFontSize(11);
-      pdf.setTextColor(80, 80, 80);
-      pdf.text(`Generated on ${formattedDate}`, pdfWidth / 2, 70, { align: 'center' });
-      
-      // Add intent if available
-      if (intent) {
-        pdf.setFillColor(246, 246, 249);
-        pdf.roundedRect(margin, 80, pdfWidth - (margin * 2), 25, 3, 3, 'F');
-        
-        pdf.setFontSize(10);
-        pdf.setTextColor(100, 100, 100);
-        pdf.text("BUSINESS OBJECTIVE", margin + 5, 88);
-        
-        pdf.setFontSize(14);
-        pdf.setTextColor(40, 40, 40);
-        pdf.setFont('helvetica', 'bold');
-        pdf.text(intent, margin + 5, 96);
-      }
-      
-      // Add key metrics
-      pdf.setFillColor(239, 246, 255);
-      pdf.roundedRect(margin, 115, (pdfWidth - (margin * 2) - 5) / 2, 40, 3, 3, 'F');
-      pdf.setFontSize(10);
-      pdf.setTextColor(59, 130, 246);
-      pdf.text("INVESTMENT", margin + 5, 123);
-      pdf.setFontSize(18);
-      pdf.setTextColor(30, 64, 175);
-      pdf.setFont('helvetica', 'bold');
-      pdf.text(`€${formatNumber(totalPrice)}`, margin + 5, 135);
-      pdf.setFontSize(11);
-      pdf.setTextColor(59, 130, 246);
-      pdf.text("Weekly", margin + 5, 143);
-      
-      pdf.setFillColor(254, 242, 242);
-      pdf.roundedRect(pdfWidth/2 + 2.5, 115, (pdfWidth - (margin * 2) - 5) / 2, 40, 3, 3, 'F');
-      pdf.setFontSize(10);
-      pdf.setTextColor(239, 68, 68);
-      pdf.text("ESTIMATED COMPLETION", pdfWidth/2 + 7.5, 123);
-      pdf.setFontSize(18);
-      pdf.setTextColor(185, 28, 28);
-      pdf.setFont('helvetica', 'bold');
-      pdf.text(`${completionTimeWeeks} weeks`, pdfWidth/2 + 7.5, 135);
-      pdf.setFontSize(11);
-      pdf.setTextColor(239, 68, 68);
-      pdf.text(`${totalEvcValue} EVCs total`, pdfWidth/2 + 7.5, 143);
-      
-      // Add company logo placeholder
-      pdf.setDrawColor(230, 230, 230);
-      pdf.setFillColor(250, 250, 250);
-      pdf.roundedRect(pdfWidth / 2 - 25, 165, 50, 50, 3, 3, 'FD');
-      pdf.setFontSize(14);
-      pdf.setTextColor(150, 150, 150);
-      pdf.text('Elexive', pdfWidth / 2, 195, { align: 'center' });
-      
-      // Add report content on new page
-      pdf.addPage();
-      
-      // Split the content into multiple pages if needed
-      const maxContentHeight = pdfHeight - (margin * 2);
-      if (contentHeight <= maxContentHeight) {
-        // Content fits on one page
-        pdf.addImage(imgData, 'PNG', margin, margin, contentWidth, contentHeight);
-      } else {
-        // Content needs multiple pages
-        const pageCount = Math.ceil(contentHeight / maxContentHeight);
-        
-        for (let i = 0; i < pageCount; i++) {
-          if (i > 0) {
-            pdf.addPage();
-          }
-          
-          // Calculate source and destination dimensions
-          const srcY = (canvas.height / pageCount) * i;
-          const srcHeight = canvas.height / pageCount;
-          
-          // Add portion of the image to this page
-          pdf.addImage(
-            imgData, 
-            'PNG', 
-            margin, 
-            margin, 
-            contentWidth, 
-            maxContentHeight, 
-            '', 
-            'FAST',
-            0,
-            srcY / canvas.height,
-            1,
-            srcHeight / canvas.height
-          );
-        }
-      }
-      
-      // Add footer to all pages
-      const pageCount = pdf.getNumberOfPages();
-      for (let i = 1; i <= pageCount; i++) {
-        pdf.setPage(i);
-        pdf.setFontSize(8);
-        pdf.setTextColor(150, 150, 150);
-        pdf.text(
-          'CONFIDENTIAL: This report was generated by the Elexive Calculator for your organization.',
-          pdfWidth / 2,
-          pdfHeight - 10,
-          { align: 'center' }
-        );
-        pdf.text(
-          `Page ${i} of ${pageCount}`, 
-          pdfWidth - margin, 
-          pdfHeight - 5, 
-          { align: 'right' }
-        );
-      }
-      
-      // Save the PDF
-      pdf.save(`Elexive_Strategic_Solution_${today.toISOString().slice(0, 10)}.pdf`);
+      // Generate the PDF
+      await generateReportPdf(reportContentRef, reportData);
     } catch (error) {
       console.error('Error generating PDF:', error);
       alert('There was an error generating your PDF. Please try again.');

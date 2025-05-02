@@ -115,51 +115,60 @@ const ModuleDetails = ({
             </div>
           </div>
           
-          {/* Journey context */}
+          {/* Journey context - improved vertical alignment */}
           <div className="mb-6 p-4 border border-gray-200 rounded-lg bg-gray-50">
-            <h4 className="text-lg font-medium text-elx-primary mb-2">
+            <h4 className="text-lg font-medium text-elx-primary mb-3">
               Where This Fits in Your Transformation Journey
             </h4>
             
-            <div className="flex items-center overflow-x-auto pb-2 space-x-1">
+            <div className="flex items-center justify-start space-x-4">
               {journeySteps.map((step, index) => {
                 const isActive = step.id === selectedModule.journeyStage;
                 return (
                   <div 
                     key={step.id} 
-                    className={`flex-shrink-0 rounded-full px-3 py-1 text-sm flex items-center space-x-1 ${
+                    className={`flex items-center space-x-1.5 ${
                       isActive 
-                        ? 'bg-blue-100 text-blue-800 font-medium' 
-                        : 'bg-gray-100 text-gray-600'
+                        ? 'text-blue-800 font-medium' 
+                        : 'text-gray-600'
                     }`}
                   >
-                    <FontAwesomeIcon icon={isActive ? faCheckCircle : faCircle} size="xs" />
-                    <span>{step.title}</span>
+                    <FontAwesomeIcon 
+                      icon={isActive ? faCheckCircle : faCircle} 
+                      className={`${isActive ? 'text-blue-500' : 'text-gray-400'}`} 
+                      size="sm" 
+                    />
+                    <span className="text-sm">{step.title}</span>
                   </div>
                 );
               })}
             </div>
           </div>
           
+          {/* Variant cards with improved alignment */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
             {variantDefs.map((variant, index) => (
-              <div key={index} className="border border-gray-200 rounded-lg overflow-hidden">
+              <div key={index} className="border border-gray-200 rounded-lg overflow-hidden h-full">
                 <div className={`p-4 ${
                   variant.type === 'Insight Primer' 
                     ? 'bg-blue-50 border-b border-blue-100' 
                     : 'bg-green-50 border-b border-green-100'
-                }`}>
-                  <h4 className="font-medium flex items-center">
-                    <FontAwesomeIcon icon={variant.type === 'Insight Primer' ? faLightbulb : faRocket} className="mr-2" />
-                    {variant.type}
-                  </h4>
+                } flex items-center`}>
+                  <div className="flex items-center">
+                    <FontAwesomeIcon 
+                      icon={variant.type === 'Insight Primer' ? faLightbulb : faRocket} 
+                      className={`mr-2 ${variant.type === 'Insight Primer' ? 'text-blue-500' : 'text-green-500'}`} 
+                      fixedWidth
+                    />
+                    <h4 className="font-medium">{variant.type}</h4>
+                  </div>
                 </div>
-                <div className="p-4">
-                  <p className="text-sm text-gray-700 mb-3">
+                <div className="p-4 flex flex-col h-full">
+                  <p className="text-sm text-gray-700 mb-4 flex-grow">
                     {variant.description}
                   </p>
-                  <div className="flex items-center justify-between">
-                    <span className="text-xs text-gray-500">Value Units: {variant.evcValue}</span>
+                  <div className="flex items-center justify-between mt-auto">
+                    <span className="text-sm text-gray-500">Value Units: {variant.evcValue}</span>
                     <button className="text-elx-primary hover:text-elx-primary-dark text-sm font-medium">
                       Learn More
                     </button>

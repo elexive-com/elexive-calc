@@ -8,9 +8,9 @@ import {
 import { faBookmark as faBookmarkRegular } from '@fortawesome/free-regular-svg-icons';
 import modulesConfig from '../config/modulesConfig.json';
 import { getModuleIcon } from '../utils/iconUtils';
-import jsPDF from 'jspdf';
-import html2canvas from 'html2canvas';
 import ModuleDetails from './ModuleDetails';
+// Import our new PDF generation module
+import { generateModulePdf } from '../pdf';
 
 /**
  * ModuleExplorer component - Reimagined with modern UX
@@ -232,177 +232,13 @@ const ModuleExplorer = () => {
     setIsExporting(true);
     
     try {
-      // Get CSS variables for consistent styling
-      const styles = getComputedStyle(document.documentElement);
-      const elexivePrimary = styles.getPropertyValue('--elexive-primary').trim() || '#2E2266';
-      const elexiveAccent = styles.getPropertyValue('--elexive-accent').trim() || '#FFBD59';
-      const elexiveSecondary = styles.getPropertyValue('--elexive-secondary').trim() || '#EB8258';
-      const elexiveBg = styles.getPropertyValue('--elexive-bg').trim() || '#FBFAFC';
-      const elexiveEvc = styles.getPropertyValue('--elexive-evc').trim() || '#FF006E';
+      // Use our centralized PDF generation module with just the module name
+      const result = await generateModulePdf(selectedModule.name);
       
-      // Create a temporary div to render the PDF cover with proper sizing
-      const tempDiv = document.createElement('div');
-      tempDiv.style.position = 'absolute';
-      tempDiv.style.left = '-9999px';
-      tempDiv.style.width = '794px'; // Equivalent to 210mm in pixels at 96 DPI
-      tempDiv.style.height = '1123px'; // Equivalent to 297mm in pixels at 96 DPI
-      document.body.appendChild(tempDiv);
-      
-      // We'll use html2canvas to capture the module detail content
-      const contentCanvas = await html2canvas(document.getElementById('module-detail-content'), {
-        scale: 2,
-        logging: false,
-        useCORS: true
-      });
-      
-      // Create PDF document with explicit margins
-      const pdf = new jsPDF({
-        orientation: 'portrait',
-        unit: 'mm',
-        format: 'a4',
-        compress: true
-      });
-      
-      // Define page dimensions and margins
-      const pdfWidth = pdf.internal.pageSize.getWidth();
-      const pdfHeight = pdf.internal.pageSize.getHeight();
-      const margin = 15; // Set a 15mm margin
-      const contentWidth = pdfWidth - (margin * 2);
-      const contentHeight = pdfHeight - (margin * 2);
-      
-      // Render cover page in the tempDiv
-      tempDiv.innerHTML = `
-        <div id="cover-content" style="width: 794px; height: 1123px; background-color: ${elexivePrimary}; display: flex; flex-direction: column; padding: 32px; font-family: 'Poppins', Arial, sans-serif;">
-          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 48px;">
-            <div>
-              <img 
-                src="/elexive-logo-text.png" 
-                alt="Elexive Consulting" 
-                style="height: 40px; filter: brightness(0) invert(1);"
-                crossorigin="anonymous"
-              />
-            </div>
-            <div style="color: white; font-size: 12px; opacity: 0.8;">
-              Generated on ${new Date().toLocaleDateString()}
-            </div>
-          </div>
-          
-          <div style="flex-grow: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 0 32px;">
-            <div style="display: flex; gap: 12px; margin-bottom: 24px;">
-              <span style="display: inline-flex; align-items: center; padding: 4px 12px; border-radius: 16px; font-size: 14px; font-weight: 500; background-color: ${
-                selectedModule.pillarConfig.bgColor === 'bg-purple-100' ? '#FAF5FF' : 
-                selectedModule.pillarConfig.bgColor === 'bg-blue-100' ? '#EBF8FF' : 
-                selectedModule.pillarConfig.bgColor === 'bg-green-100' ? '#F0FFF4' : elexiveBg
-              }; color: ${
-                selectedModule.pillarConfig.textColor === 'text-purple-800' ? '#553C9A' : 
-                selectedModule.pillarConfig.textColor === 'text-blue-800' ? '#2C5282' : 
-                selectedModule.pillarConfig.textColor === 'text-green-800' ? '#276749' : elexivePrimary
-              };">
-                ${selectedModule.pillar}
-              </span>
-              <span style="display: inline-flex; align-items: center; padding: 4px 12px; border-radius: 6px; font-size: 14px; font-weight: 500; background-color: ${elexiveBg}; color: #4A5568;">
-                ${selectedModule.category}
-              </span>
-            </div>
-            
-            <h1 style="font-size: 42px; font-weight: 700; color: ${elexiveAccent}; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 32px; max-width: 80%;">
-              ${selectedModule.name}
-            </h1>
-            
-            <h2 style="font-size: 24px; color: white; font-weight: 300; max-width: 70%;">
-              ${selectedModule.heading}
-            </h2>
-          </div>
-          
-          <div style="margin-top: auto;">
-            <h3 style="font-size: 18px; font-weight: 600; color: white; margin-bottom: 16px; opacity: 0.9;">Available Delivery Options</h3>
-            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px;">
-              ${selectedModule.variants.map((variant, index) => `
-                <div style="display: flex; align-items: flex-start; padding: 16px; border: 1px solid #4A5568; border-radius: 8px; background-color: rgba(26, 32, 44, 0.5);">
-                  <div style="width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-right: 16px; background-color: ${
-                    variant.type === 'Insight Primer' ? '#EBF8FF' : '#F0FFF4'
-                  }; color: ${
-                    variant.type === 'Insight Primer' ? '#3182CE' : '#38A169'
-                  };">
-                    <span style="font-size: 16px;">${variant.type === 'Insight Primer' ? '💡' : '🚀'}</span>
-                  </div>
-                  <div>
-                    <h4 style="font-weight: 500; color: white; margin-bottom: 4px;">${variant.type}</h4>
-                    <p style="color: #E2E8F0; font-size: 14px; margin-bottom: 4px;">${variant.description}</p>
-                    <div style="font-size: 12px; color: #CBD5E0; display: flex; align-items: center;">
-                      <span style="margin-right: 4px;">Value Units:</span> 
-                      <span style="color: ${elexiveEvc}; font-weight: 600;">${variant.evcValue}</span>
-                    </div>
-                  </div>
-                </div>
-              `).join('')}
-            </div>
-          </div>
-          
-          <div style="margin-top: 48px; padding-top: 24px; border-top: 1px solid rgba(74, 85, 104, 0.5); display: flex; justify-content: space-between; align-items: center;">
-            <div style="font-size: 14px; color: #CBD5E0;">
-              &copy; ${new Date().getFullYear()} Elexive Consulting
-            </div>
-            <div style="font-size: 14px; color: ${elexiveSecondary};">
-              www.elexive.com
-            </div>
-          </div>
-        </div>
-      `;
-      
-      // Wait for the DOM to be fully updated
-      await new Promise(resolve => setTimeout(resolve, 100));
-      
-      // Get the specific cover content element
-      const coverContentElement = document.getElementById('cover-content');
-      
-      // Capture the cover with improved options
-      const coverCanvas = await html2canvas(coverContentElement, {
-        scale: 2,
-        logging: false,
-        useCORS: true,
-        allowTaint: true,
-        backgroundColor: elexivePrimary,
-        width: 794,
-        height: 1123,
-        imageTimeout: 0
-      });
-      
-      // Add cover page with proper margins
-      const coverImgData = coverCanvas.toDataURL('image/png');
-      pdf.addImage(coverImgData, 'PNG', margin, margin, contentWidth, (coverCanvas.height * contentWidth) / coverCanvas.width);
-      
-      // Add content on new page
-      pdf.addPage();
-      
-      // Add the content image with proper margins
-      const contentImgData = contentCanvas.toDataURL('image/png');
-      const contentImgWidth = contentCanvas.width;
-      const contentImgHeight = contentCanvas.height;
-      
-      // Calculate the content placement with respect to margins
-      // Maintain aspect ratio but ensure image fits within content area
-      const contentRatio = Math.min(contentWidth / contentImgWidth, contentHeight / contentImgHeight);
-      const scaledWidth = contentImgWidth * contentRatio;
-      const scaledHeight = contentImgHeight * contentRatio;
-      
-      // Center the content horizontally within the margins
-      const xOffset = margin + (contentWidth - scaledWidth) / 2;
-      // Place the content at the top margin
-      const yOffset = margin;
-      
-      pdf.addImage(contentImgData, 'PNG', xOffset, yOffset, scaledWidth, scaledHeight);
-      
-      // Add footer with date
-      pdf.setFontSize(10);
-      pdf.setTextColor(100, 100, 100);
-      pdf.text(`Generated on ${new Date().toLocaleDateString()} | Elexive Consulting`, pdfWidth / 2, pdfHeight - 10, { align: 'center' });
-      
-      // Clean up temporary elements
-      document.body.removeChild(tempDiv);
-      
-      // Save the PDF
-      pdf.save(`elexive-module-${selectedModule.name.replace(/\s+/g, '-').toLowerCase()}.pdf`);
+      // Check the success status of the PDF generation
+      if (!result.success) {
+        throw new Error(result.error || 'PDF generation failed');
+      }
     } catch (error) {
       console.error('PDF export failed:', error);
       alert('Failed to export PDF. Please try again.');
