@@ -251,15 +251,36 @@ export default function useCalculator() {
     // Get production capacity tier
     const capacityTier = capacities[productionCapacity];
     const weeklyEVCs = capacityTier.weeklyEVCs;
-    
-    // Apply service parameter modifiers to production capacity
+
+    // Apply service parameter modifiers to production capacity - FIXED VERSION
     let adjustedProductionCapacity = weeklyEVCs;
+
+    // First calculate the base adjusted capacity using the modifier multipliers
     Object.entries(parameters).forEach(([paramId, isEnabled]) => {
       if (isEnabled) {
+        // Apply the modifier from parameterModifiers
         adjustedProductionCapacity *= parameterModifiers[paramId];
       }
     });
-    
+
+    // Then apply the absolute/relative EVC costs separately
+    Object.entries(parameters).forEach(([paramId, isEnabled]) => {
+      if (isEnabled) {
+        // Find the parameter configuration
+        const paramConfig = serviceParameters.find(p => p.id === paramId);
+        if (paramConfig?.evcCost) {
+          if (paramConfig.evcCost.type === "absolute") {
+            // Add absolute EVC value
+            adjustedProductionCapacity += paramConfig.evcCost.value;
+          } else if (paramConfig.evcCost.type === "relative") {
+            // Add percentage of base capacity
+            const relativeAddition = (weeklyEVCs * paramConfig.evcCost.value / 100);
+            adjustedProductionCapacity += relativeAddition;
+          }
+        }
+      }
+    });
+
     // Round production capacity
     adjustedProductionCapacity = Math.ceil(adjustedProductionCapacity);
     
