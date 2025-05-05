@@ -32,6 +32,38 @@ For a detailed strategic vision of how this tool drives sales and enhances the c
 - JSON-based configuration for easy updates
 - FontAwesome for iconography
 
+## Environment Configuration
+
+The application uses environment variables to control environment-specific behavior:
+
+- `VITE_ENV`: Specifies the environment (`development` or `production`)
+- `VITE_DEBUG`: Enables/disables debug mode (`true` or `false`)
+
+### Environment Indicators
+
+- Development builds display an environment badge (DEV)
+- Production builds hide the badge by default
+- Debug logs are only shown when `VITE_DEBUG=true` or in development mode
+
+### Local Development
+
+Create a `.env.local` file in the root directory with your environment variables:
+
+```bash
+# Development environment with debug enabled
+VITE_ENV=development
+VITE_DEBUG=true
+```
+
+### Netlify Configuration
+
+Environment variables can be configured in the Netlify dashboard:
+1. Go to Site settings > Build & deploy > Environment
+2. Add variables:
+   - `VITE_ENV=production` for production sites
+   - `VITE_DEBUG=false` to disable debug features
+   - Optional: Set `VITE_DEBUG=true` for staging environments
+
 ## Deployment
 
 This project is deployed on Netlify using continuous deployment from the GitHub repository. The `netlify.toml` file contains the configuration for the deployment process, including build settings and redirect rules.
