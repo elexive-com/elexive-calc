@@ -1,17 +1,36 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { 
   faChartLine, faRocket, 
   faGears, faArrowRight, faCheckCircle,
   faCompass, faBullhorn, faStar, faLayerGroup,
   faInfoCircle, faCalculator, faAngleDown, faAngleUp,
-  faExchangeAlt, faUsers, faPuzzlePiece
+  faExchangeAlt, faUsers, faPuzzlePiece, faFileAlt
 } from '@fortawesome/free-solid-svg-icons';
 import calculatorConfig from '../config/calculatorConfig.json';
 import calculatorPresets from '../config/calculatorPresets.json';
 
 const OnboardingQuiz = ({ intent, handleIntentSelect, resetCalculator, openEvcExplainer }) => {
   const [showEvcInfo, setShowEvcInfo] = useState(false);
+  const [isLargeScreen, setIsLargeScreen] = useState(true);
+  
+  // Check screen size on component mount and when window resizes
+  useEffect(() => {
+    const checkScreenSize = () => {
+      setIsLargeScreen(window.matchMedia('(min-width: 1024px)').matches);
+    };
+    
+    // Initial check
+    checkScreenSize();
+    
+    // Add event listener
+    window.addEventListener('resize', checkScreenSize);
+    
+    // Cleanup
+    return () => {
+      window.removeEventListener('resize', checkScreenSize);
+    };
+  }, []);
 
   // Function to get description - use preset description if available
   const getDescription = (intentOption) => {
@@ -272,6 +291,20 @@ const OnboardingQuiz = ({ intent, handleIntentSelect, resetCalculator, openEvcEx
           </div>
         ))}
       </div>
+      
+      {/* Mobile-only Detailed Solution Brief button above the footer buttons */}
+      {!isLargeScreen && intent && intent !== "Full Custom" && (
+        <div className="flex justify-center mb-4">
+          <button
+            onClick={() => window.dispatchEvent(new CustomEvent('open-detailed-report'))}
+            className="elx-btn w-full py-2.5"
+            style={{ backgroundColor: 'var(--elexive-primary)', color: 'white' }}
+          >
+            <FontAwesomeIcon icon={faFileAlt} className="mr-2" />
+            Detailed Solution Brief
+          </button>
+        </div>
+      )}
       
       {/* Reset Calculator Button and Customize Button - positioned at the bottom */}
       <div className="flex justify-between mt-3">

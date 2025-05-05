@@ -45,6 +45,19 @@ const SummarySidebar = ({ calculator }) => {
     };
   }, []);
   
+  // Listen for global event to open the detailed report modal
+  useEffect(() => {
+    const handleOpenDetailedReport = () => {
+      setIsModalOpen(true);
+    };
+    
+    window.addEventListener('open-detailed-report', handleOpenDetailedReport);
+    
+    return () => {
+      window.removeEventListener('open-detailed-report', handleOpenDetailedReport);
+    };
+  }, []);
+  
   const {
     intent,
     selectedModules,
