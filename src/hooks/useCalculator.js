@@ -249,8 +249,11 @@ export default function useCalculator() {
     const capacityTier = capacities[productionCapacity];
     const weeklyEVCs = capacityTier.weeklyEVCs;
 
-    // Apply service parameter modifiers to production capacity
-    let adjustedProductionCapacity = weeklyEVCs;
+    // Store the base production capacity (without parameter modifications)
+    let baseProductionCapacity = weeklyEVCs;
+    
+    // Track add-on EVC costs separately - these don't contribute to module work capacity
+    let totalAddOnEvcCosts = 0;
 
     // Handle parameters with evcCost
     Object.entries(parameters).forEach(([paramId, isEnabled]) => {
@@ -258,59 +261,74 @@ export default function useCalculator() {
         const paramConfig = serviceParameters.find(p => p.id === paramId);
         if (paramConfig?.evcCost) {
           if (paramConfig.evcCost.type === "absolute") {
-            // For absolute costs, simply add the fixed value
-            adjustedProductionCapacity += paramConfig.evcCost.value;
+            // For absolute costs, add to the total add-on costs, not to production capacity
+            totalAddOnEvcCosts += paramConfig.evcCost.value;
           } else if (paramConfig.evcCost.type === "relative") {
-            // For relative costs, add the percentage of the BASE weekly EVCs
-            // This is crucial - we use weeklyEVCs (base capacity) not the adjusted value
-            const relativeAddition = weeklyEVCs * (paramConfig.evcCost.value / 100);
-            adjustedProductionCapacity += relativeAddition;
+            // For relative costs, calculate the EVC cost based on base weekly EVCs
+            const relativeCost = weeklyEVCs * (paramConfig.evcCost.value / 100);
+            totalAddOnEvcCosts += Math.ceil(relativeCost);
           }
         }
       }
     });
 
+    // Use only the base capacity for production work
+    let adjustedProductionCapacity = baseProductionCapacity;
+    
     // Round production capacity
     adjustedProductionCapacity = Math.ceil(adjustedProductionCapacity);
     
     // Calculate output value based on resource allocation strategy
-    // Using a switch statement to determine the multiplier based on resource allocation
-    let outputMultiplier;
-    switch (resourceAllocation) {
-      case 'focused':
-        // Focused has no overhead
-        outputMultiplier = 1.0;
-        break;
-      case 'balanced':
-        // Balanced has overhead defined in calculatorConfig.json
-        outputMultiplier = 1.0 + (allocation.switchingOverhead / 100);
-        break;
-      case 'distributed':
-      default:
-        // Distributed has overhead defined in calculatorConfig.json
-        outputMultiplier = 1.0 + (allocation.switchingOverhead / 100);
-        break;
-    }
-    
-    // Calculate total output (what customer receives)
-    const outputValue = Math.ceil(adjustedProductionCapacity * outputMultiplier);
+    // The production capacity remains constant regardless of resource allocation
+    // It represents the "raw" weekly capacity to produce EVCs
+    const outputValue = adjustedProductionCapacity;
     
     // Calculate estimated completion time in weeks
     if (outputValue === 0) {
       // Prevent division by zero
       setCompletionTimeWeeks(0);
     } else {
-      // Calculate using weekly output value, not monthly
-      // baseModuleEvcs represents total EVCs needed for all modules
-      // outputValue represents weekly output (not monthly)
-      const estimatedWeeks = baseModuleEvcs / outputValue;
+      // For non-focused allocations, we need MORE EVCs to accomplish the same work
+      // due to context switching overhead
+      let effectiveModuleEvcs = baseModuleEvcs;
+      
+      // Apply resource allocation overhead to the module EVCs if not using focused allocation
+      if (resourceAllocation !== 'focused') {
+        const overheadPercentage = allocation.switchingOverhead / 100;
+        // Increase the effective EVCs needed by the overhead percentage
+        effectiveModuleEvcs = baseModuleEvcs * (1 + overheadPercentage);
+      }
+      
+      // Calculate weeks by dividing effective EVCs needed by weekly output capacity
+      const rawWeeks = effectiveModuleEvcs / outputValue;
+      
+      // Force toString to avoid floating point issues, then parse back to number
+      const preciseWeeks = Number(rawWeeks.toFixed(10));
+      
+      // Log the calculation for debugging
+      console.log(`
+        Completion time calculation:
+        - Base Module EVCs: ${baseModuleEvcs}
+        - Resource allocation: ${resourceAllocation}
+        - Overhead percentage: ${allocation.switchingOverhead}%
+        - Effective EVCs with overhead: ${effectiveModuleEvcs}
+        - Weekly capacity: ${outputValue}
+        - Raw result: ${rawWeeks}
+        - Precise result: ${preciseWeeks}
+        - Rounded up: ${Math.ceil(preciseWeeks)}
+      `);
+      
       // Make sure we always show at least 1 week even for very small projects
       const minimumWeeks = 1;
-      setCompletionTimeWeeks(Math.max(minimumWeeks, Math.ceil(estimatedWeeks)));
+      setCompletionTimeWeeks(Math.max(minimumWeeks, Math.ceil(preciseWeeks)));
     }
     
+    // Include the add-on costs in the total production capacity for pricing calculations only
+    // This ensures the customer pays for the add-on services
+    const totalPricingCapacity = adjustedProductionCapacity + totalAddOnEvcCosts;
+    
     // Store the values for display
-    setWeeklyProductionCapacity(adjustedProductionCapacity);
+    setWeeklyProductionCapacity(totalPricingCapacity);
     setMonthlyOutputValue(outputValue * 4); // 4 weeks output
     
     // Set allocation descriptor
@@ -321,7 +339,7 @@ export default function useCalculator() {
     
     // Modified volume discount calculation - apply discount tiers with compounding effect
     // First, calculate the total price without any volume discounts
-    let totalPriceWithoutDiscount = adjustedProductionCapacity * pricePerEvc;
+    let totalPriceWithoutDiscount = totalPricingCapacity * pricePerEvc;
     
     // Sort volume discounts by threshold in ascending order to process smaller thresholds first
     const sortedDiscounts = [...evcBase.volumeDiscounts].sort((a, b) => a.threshold - b.threshold);
@@ -332,11 +350,11 @@ export default function useCalculator() {
     // Build the tier structure
     for (let i = 0; i < sortedDiscounts.length; i++) {
       const { threshold, discount } = sortedDiscounts[i];
-      if (adjustedProductionCapacity > threshold) {
+      if (totalPricingCapacity > threshold) {
         // Calculate EVCs in this tier
         const evcsInThisTier = (i === sortedDiscounts.length - 1)
-          ? adjustedProductionCapacity - threshold // For the highest threshold, all remaining EVCs
-          : Math.min(sortedDiscounts[i+1].threshold, adjustedProductionCapacity) - threshold;
+          ? totalPricingCapacity - threshold // For the highest threshold, all remaining EVCs
+          : Math.min(sortedDiscounts[i+1].threshold, totalPricingCapacity) - threshold;
         
         // Store tier info
         tiers.push({
@@ -348,8 +366,8 @@ export default function useCalculator() {
     }
     
     // Add first tier (no discount) if there are EVCs below the first threshold
-    if (sortedDiscounts.length > 0 && sortedDiscounts[0].threshold > 0 && adjustedProductionCapacity > 0) {
-      const evcsInFirstTier = Math.min(adjustedProductionCapacity, sortedDiscounts[0].threshold);
+    if (sortedDiscounts.length > 0 && sortedDiscounts[0].threshold > 0 && totalPricingCapacity > 0) {
+      const evcsInFirstTier = Math.min(totalPricingCapacity, sortedDiscounts[0].threshold);
       if (evcsInFirstTier > 0) {
         tiers.unshift({
           evcs: evcsInFirstTier,
@@ -379,12 +397,12 @@ export default function useCalculator() {
     discountedPrice *= paymentModifier;
     
     // Calculate effective price per EVC for display
-    const effectiveEvcPrice = adjustedProductionCapacity > 0 
-      ? discountedPrice / adjustedProductionCapacity 
+    const effectiveEvcPrice = totalPricingCapacity > 0 
+      ? discountedPrice / totalPricingCapacity 
       : pricePerEvc * paymentModifier;
     
     // Set final values
-    setMonthlyEvcs(adjustedProductionCapacity);
+    setMonthlyEvcs(totalPricingCapacity);
     setEvcPricePerUnit(effectiveEvcPrice);
     setTotalPrice(Math.round(discountedPrice));
   }, [selectedModules, resourceAllocation, productionCapacity, parameters, paymentOption, modules, selectedVariants, serviceParameters]);
@@ -393,6 +411,70 @@ export default function useCalculator() {
   useEffect(() => {
     calculatePricing();
   }, [calculatePricing]);
+
+  // New function to calculate total modules from modulesByPillar
+  const calculateTotalModules = (modulesByPillar) => {
+    return Object.values(modulesByPillar || {}).flat().length;
+  };
+
+  // New function to calculate module EVCs by pillar
+  const calculateModuleEvcsByPillar = (modulesByPillar) => {
+    const evcsByPillar = {};
+    if (modulesByPillar) {
+      Object.entries(modulesByPillar).forEach(([pillar, modules]) => {
+        evcsByPillar[pillar] = modules.reduce((sum, module) => sum + module.evcValue, 0);
+      });
+    }
+    return evcsByPillar;
+  };
+
+  // New function to calculate overhead EVCs
+  const calculateOverheadEvcs = (totalEvcSum, resourceAllocationKey) => {
+    const allocation = calculatorConfig.resourceAllocation[resourceAllocationKey];
+    const overheadPercentage = allocation?.switchingOverhead || 10;
+    return Math.ceil((totalEvcSum * overheadPercentage) / 100);
+  };
+
+  // New function to calculate parameter impacts on EVCs
+  const calculateParameterEvcCosts = (params, serviceParams, weeklyEvcs) => {
+    if (!params || !serviceParams) return [];
+    
+    return serviceParams
+      .filter(param => params[param.id])
+      .map(param => {
+        const evcCost = calculateEvcCostForParameter(param, weeklyEvcs);
+        return {
+          name: param.label,
+          description: param.productionImpact || param.description,
+          modifier: param.modifier,
+          evcCost: evcCost
+        };
+      });
+  };
+
+  // Helper function to calculate EVC cost for a parameter
+  const calculateEvcCostForParameter = (param, weeklyEvcs) => {
+    if (!param?.evcCost) return null;
+    
+    const { type, value } = param.evcCost;
+    
+    if (type === 'absolute') {
+      return value;
+    } else if (type === 'relative') {
+      return Math.ceil((weeklyEvcs * value) / 100);
+    }
+    
+    return null;
+  };
+
+  // New function to get payment details including name and discount info
+  const getPaymentDetails = () => {
+    const paymentDetail = evcBase.paymentOptions[paymentOption];
+    return {
+      name: paymentDetail?.name || 'Standard',
+      priceModifier: paymentDetail?.priceModifier || 1
+    };
+  };
 
   return {
     // State
@@ -433,6 +515,13 @@ export default function useCalculator() {
     toggleModule,
     setActivePillar,
     setResourceAllocation,
-    calculatePricing
+    calculatePricing,
+    
+    // New utility functions for PDF report
+    calculateTotalModules,
+    calculateModuleEvcsByPillar,
+    calculateOverheadEvcs,
+    calculateParameterEvcCosts,
+    getPaymentDetails
   };
 }

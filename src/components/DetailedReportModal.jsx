@@ -103,10 +103,8 @@ const DetailedReportModal = ({ isOpen, onClose, calculator }) => {
   // Get payment option details
   const paymentDetails = evcBase.paymentOptions[paymentOption];
   
-  // Calculate estimated completion time based on weekly production
-  const estimatedCompletionWeeks = weeklyEVCs > 0 
-    ? Math.max(1, Math.ceil(totalEvcsWithOverhead / weeklyEVCs))
-    : 0;
+  // Use the completion time weeks from the calculator hook for consistency
+  const estimatedCompletionWeeks = completionTimeWeeks;
     
   // Total EVC value across all modules (for display in report)
   const totalEvcValue = totalEvcsWithOverhead;
@@ -171,7 +169,11 @@ const DetailedReportModal = ({ isOpen, onClose, calculator }) => {
         weeklyEVCs,
         modulesByPillar,
         estimatedCompletionWeeks,
-        resourceAllocation
+        resourceAllocation,
+        evcPricePerUnit,
+        parameters,
+        serviceParameters,
+        calculator
       };
       
       // Generate the PDF

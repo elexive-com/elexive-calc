@@ -58,7 +58,8 @@ const SummarySidebar = ({ calculator }) => {
     selectedVariants = {},
     parameters = {},
     serviceParameters = [],
-    weeklyProductionCapacity
+    weeklyProductionCapacity,
+    completionTimeWeeks // Use this directly from calculator object
   } = calculator;
 
   // Get selected modules with their EVC values
@@ -115,13 +116,8 @@ const SummarySidebar = ({ calculator }) => {
     return null;
   };
 
-  // Calculate the estimated completion time based on raw weekly production capacity
-  // Using the raw value from calculatorConfig to match what's displayed in the UI
-  const rawWeeklyCapacity = calculatorConfig.productionCapacity[productionCapacity]?.weeklyEVCs || 0;
-  
-  const estimatedCompletionWeeks = rawWeeklyCapacity > 0 
-    ? Math.max(1, Math.ceil(totalEvcsWithOverhead / rawWeeklyCapacity))
-    : 0;
+  // Use the completion time weeks directly from the calculator for consistency
+  const estimatedCompletionWeeks = completionTimeWeeks;
 
   return (
     <>

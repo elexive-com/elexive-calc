@@ -364,6 +364,382 @@ const styles = StyleSheet.create({
   resourceSegment: {
     height: '100%',
   },
+  
+  // New styles for reimagined Report Content Pages
+  
+  // Pillar Summary Cards
+  pillarSummary: {
+    padding: 10,
+    borderRadius: 5,
+    backgroundColor: '#F6F6F9',
+    width: '100%',
+    marginBottom: 10,
+  },
+  moduleCount: {
+    fontSize: 10,
+    color: '#505050',
+    marginTop: 3,
+  },
+  
+  // Timeline Visualization
+  timelineContainer: {
+    marginTop: 15,
+    marginBottom: 10,
+    width: '100%',
+  },
+  timelineHeader: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    marginBottom: 5,
+  },
+  timelineLabel: {
+    fontSize: 9,
+    color: '#505050',
+    flex: 1,
+    textAlign: 'center',
+  },
+  timelineBar: {
+    height: 30,
+    flexDirection: 'row',
+    borderRadius: 5,
+    overflow: 'hidden',
+  },
+  timelineSegment: {
+    height: '100%',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  timelineText: {
+    color: 'white',
+    fontSize: 10,
+    fontWeight: 'bold',
+  },
+  
+  // Module Detail Cards
+  moduleDetailCard: {
+    padding: 10,
+    borderRadius: 5,
+    backgroundColor: '#F8F8FC',
+    marginBottom: 12,
+    borderLeftWidth: 3,
+    borderLeftColor: colors.primary,
+  },
+  moduleDescription: {
+    fontSize: 10,
+    color: '#505050',
+    marginTop: 5,
+    marginBottom: 5,
+    lineHeight: 1.4,
+  },
+  moduleSubtitle: {
+    fontSize: 10,
+    fontWeight: 'bold',
+    marginTop: 5,
+    marginBottom: 3,
+  },
+  moduleOutcomes: {
+    marginTop: 5,
+  },
+  outcomeItem: {
+    fontSize: 9,
+    color: '#505050',
+    marginBottom: 2,
+    paddingLeft: 5,
+  },
+  
+  // Resource Allocation
+  resourceAllocationContainer: {
+    marginTop: 10,
+    marginBottom: 10,
+  },
+  resourceRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginBottom: 8,
+  },
+  resourceLabel: {
+    fontSize: 11,
+    fontWeight: 'bold',
+    width: 100,
+  },
+  resourceBarContainer: {
+    flex: 1,
+    height: 20,
+    backgroundColor: '#F0F0F0',
+    borderRadius: 10,
+    overflow: 'hidden',
+    position: 'relative',
+  },
+  resourceProgressBar: {
+    height: '100%',
+    position: 'absolute',
+    left: 0,
+    top: 0,
+  },
+  resourcePercentage: {
+    position: 'absolute',
+    right: 10,
+    top: 3,
+    fontSize: 9,
+    color: 'white',
+    fontWeight: 'bold',
+  },
+  
+  // Investment Breakdown
+  investmentBreakdown: {
+    marginTop: 10,
+    padding: 12,
+    backgroundColor: '#F8F8FC',
+    borderRadius: 5,
+  },
+  investmentRow: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    marginBottom: 8,
+    paddingBottom: 5,
+    borderBottomWidth: 1,
+    borderBottomColor: '#EEEEEE',
+  },
+  investmentItemLabel: {
+    fontSize: 11,
+    color: '#505050',
+  },
+  investmentItemValue: {
+    fontSize: 11,
+    fontWeight: 'bold',
+  },
+  investmentValueTotal: {
+    fontSize: 12,
+    fontWeight: 'bold',
+    color: colors.primary,
+  },
+  
+  // Value Timeline
+  valueTimelineContainer: {
+    marginTop: 15,
+  },
+  valueTimeline: {
+    position: 'relative',
+    marginLeft: 15,
+    paddingLeft: 20,
+    borderLeftWidth: 2,
+    borderLeftColor: '#DDDDDD',
+  },
+  valuePoint: {
+    position: 'relative',
+    marginBottom: 25,
+  },
+  valueMarker: {
+    position: 'absolute',
+    left: -31,
+    top: 0,
+    width: 10,
+    height: 10,
+    borderRadius: 5,
+    backgroundColor: colors.primary,
+  },
+  valueWeek: {
+    fontSize: 11,
+    fontWeight: 'bold',
+    marginBottom: 3,
+  },
+  valueDescription: {
+    fontSize: 10,
+    color: '#505050',
+  },
+  
+  // Appendix Styles
+  evcCalculationBox: {
+    marginTop: 10,
+    padding: 12,
+    backgroundColor: '#F8F8FC',
+    borderRadius: 5,
+    borderLeftWidth: 3,
+    borderLeftColor: colors.secondary,
+  },
+  evcCalculationTitle: {
+    fontSize: 11,
+    fontWeight: 'bold',
+    marginBottom: 8,
+  },
+  evcCalculationText: {
+    fontSize: 10,
+    color: '#505050',
+    marginBottom: 5,
+  },
+  engagementModelCard: {
+    marginTop: 10,
+    marginBottom: 10,
+    padding: 12,
+    backgroundColor: '#F8F8FC',
+    borderRadius: 5,
+  },
+  engagementModelTitle: {
+    fontSize: 12,
+    fontWeight: 'bold',
+    marginBottom: 5,
+  },
+  engagementModelDescription: {
+    fontSize: 10,
+    color: '#505050',
+    lineHeight: 1.4,
+  },
+  nextStepsList: {
+    marginTop: 10,
+    marginBottom: 10,
+  },
+  nextStep: {
+    fontSize: 10,
+    color: '#505050',
+    marginBottom: 8,
+  },
+  contactInfo: {
+    fontSize: 10,
+    color: colors.primary,
+    marginTop: 15,
+    fontWeight: 'bold',
+    textAlign: 'center',
+  },
+  
+  // Engagement model features
+  engagementModelFeatures: {
+    marginTop: 10,
+  },
+  engagementModelSubtitle: {
+    fontSize: 10,
+    fontWeight: 'bold',
+    marginBottom: 5,
+  },
+  engagementModelFeatureItem: {
+    fontSize: 9,
+    color: '#505050',
+    marginBottom: 3,
+    paddingLeft: 2,
+  },
+  
+  // Price Calculation Table Styles
+  calculationTable: {
+    marginTop: 30,
+    backgroundColor: '#F8F8FC',
+    borderRadius: 5,
+    padding: 15,
+    border: '1px solid #EEEEEE',
+  },
+  calculationTitle: {
+    fontSize: 14,
+    fontWeight: 'bold',
+    color: colors.primary,
+    marginBottom: 5,
+  },
+  calculationSubtext: {
+    fontSize: 9,
+    color: '#505050',
+    marginBottom: 15,
+  },
+  calculationSection: {
+    marginBottom: 15,
+  },
+  calculationSectionTitle: {
+    fontSize: 11,
+    fontWeight: 'bold',
+    backgroundColor: '#EEEEEE',
+    padding: 5,
+    marginBottom: 8,
+  },
+  calculationRow: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    paddingVertical: 4,
+  },
+  calculationRowHighlight: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    paddingVertical: 4,
+    backgroundColor: '#F0F0F5',
+    padding: 5,
+    borderRadius: 3,
+  },
+  calculationLabel: {
+    fontSize: 10,
+    color: '#505050',
+    flex: 2,
+  },
+  calculationValue: {
+    fontSize: 10,
+    color: '#505050',
+    flex: 2,
+    textAlign: 'right',
+  },
+  calculationTotal: {
+    fontSize: 10,
+    fontWeight: 'bold',
+    color: colors.primary,
+    flex: 1,
+    textAlign: 'right',
+  },
+  calculationSubRow: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    paddingLeft: 15,
+    paddingVertical: 2,
+  },
+  calculationSubLabel: {
+    fontSize: 9,
+    color: '#505050',
+    flex: 2,
+  },
+  calculationSubValue: {
+    fontSize: 9,
+    color: '#505050',
+    flex: 1,
+    textAlign: 'right',
+  },
+  calculationDivider: {
+    borderBottomColor: '#EEEEEE',
+    borderBottomWidth: 1,
+    marginVertical: 5,
+  },
+  calculationSubDivider: {
+    borderBottomColor: '#EEEEEE',
+    borderBottomWidth: 1,
+    marginVertical: 5,
+    marginLeft: 15,
+  },
+  calculationRowTotal: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    backgroundColor: colors.primary,
+    padding: 8,
+    borderRadius: 3,
+    marginTop: 5,
+  },
+  calculationLabelTotal: {
+    fontSize: 11,
+    fontWeight: 'bold',
+    color: 'white',
+  },
+  calculationGrandTotal: {
+    fontSize: 12,
+    fontWeight: 'bold',
+    color: 'white',
+  },
+  calculationNote: {
+    marginTop: 10,
+    padding: 8,
+    backgroundColor: '#FAFAFA',
+    borderRadius: 3,
+    borderLeftWidth: 3,
+    borderLeftColor: '#DDDDDD',
+  },
+  calculationNoteText: {
+    fontSize: 8,
+    color: '#505050',
+    fontStyle: 'italic',
+  },
 });
 
 export default styles;

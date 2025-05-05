@@ -16,7 +16,15 @@ export const generateReportPdf = async (reportContentRef, reportData) => {
     totalEvcValue,
     formatNumber,
     modulesByPillar,
-    resourceAllocation
+    resourceAllocation,
+    evcPricePerUnit,
+    paymentOption,
+    paymentDetails,
+    calculatorConfig,
+    weeklyEVCs,
+    parameters,
+    serviceParameters,
+    calculator
   } = reportData;
 
   try {
@@ -34,14 +42,7 @@ export const generateReportPdf = async (reportContentRef, reportData) => {
     // Create PDF document using the modular components
     const MyDocument = () => (
       <Document>
-        <ReportCoverPage
-          formattedDate={formattedDate}
-          intent={intent}
-          totalPrice={totalPrice}
-          completionTimeWeeks={completionTimeWeeks}
-          totalEvcValue={totalEvcValue}
-          formatNumber={formatNumber}
-        />
+        <ReportCoverPage />
         
         <ReportContentPage
           totalPrice={totalPrice}
@@ -50,6 +51,16 @@ export const generateReportPdf = async (reportContentRef, reportData) => {
           formatNumber={formatNumber}
           modulesByPillar={modulesByPillar}
           resourceAllocation={resourceAllocation}
+          intent={intent}
+          formattedDate={formattedDate}
+          evcPricePerUnit={evcPricePerUnit}
+          paymentOption={paymentOption}
+          paymentDetails={paymentDetails}
+          calculatorConfig={calculatorConfig}
+          weeklyEVCs={weeklyEVCs}
+          parameters={parameters}
+          serviceParameters={serviceParameters}
+          calculator={calculator}
         />
       </Document>
     );
