@@ -4,7 +4,7 @@ import {
   faLayerGroup, faLightbulb, 
   faServer, faCheck, faAngleDown, faAngleUp,
   faCompass, faRocket, faChevronRight, faChevronDown,
-  faInfoCircle
+  faInfoCircle, faArrowRight
 } from '@fortawesome/free-solid-svg-icons';
 
 const ModuleSelector = ({ 
@@ -26,6 +26,13 @@ const ModuleSelector = ({
   
   // State for module options explainer visibility
   const [isOptionsExplainerVisible, setIsOptionsExplainerVisible] = useState(false);
+  
+  // Handler for the Continue button that expands the next step
+  const handleContinue = () => {
+    // Dispatch a custom event to expand and scroll to Step 5
+    const customEvent = new CustomEvent('expand-next-step', { detail: { stepNumber: 5 } });
+    window.dispatchEvent(customEvent);
+  };
   
   // Toggle module options explainer visibility
   const toggleOptionsExplainer = () => {
@@ -352,6 +359,17 @@ const ModuleSelector = ({
             )}
           </div>
         ))}
+      </div>
+      
+      {/* Continue button positioned at the bottom right corner */}
+      <div className="flex justify-end mt-3">
+        <button
+          onClick={handleContinue}
+          className="elx-btn elx-btn-accent px-4 py-2 text-sm"
+        >
+          Continue
+          <FontAwesomeIcon icon={faArrowRight} className="ml-2" />
+        </button>
       </div>
     </div>
   );

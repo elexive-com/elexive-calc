@@ -13,6 +13,13 @@ const ProductionCapacitySelector = ({ productionCapacity, setProductionCapacity,
   const handleCapacitySelect = (capacity) => {
     setProductionCapacity(capacity);
   };
+  
+  // Handler for the Continue button that expands the next step
+  const handleContinue = () => {
+    // Then dispatch a custom event to expand and scroll to Step 3
+    const customEvent = new CustomEvent('expand-next-step', { detail: { stepNumber: 3 } });
+    window.dispatchEvent(customEvent);
+  };
 
   return (
     <div className="elx-card p-6 mb-6">
@@ -124,6 +131,17 @@ const ProductionCapacitySelector = ({ productionCapacity, setProductionCapacity,
             </div>
           ))}
         </div>
+      </div>
+      
+      {/* Continue button positioned at the bottom right corner */}
+      <div className="flex justify-end mt-3">
+        <button
+          onClick={handleContinue}
+          className="elx-btn elx-btn-accent px-4 py-2 text-sm"
+        >
+          Continue
+          <FontAwesomeIcon icon={faArrowRight} className="ml-2" />
+        </button>
       </div>
     </div>
   );

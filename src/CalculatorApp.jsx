@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useMemo } from 'react';
 import useCalculator from './hooks/useCalculator';
 import CalculatorIntroduction from './components/CalculatorIntroduction';
 import OnboardingQuiz from './components/OnboardingQuiz';
@@ -24,14 +24,21 @@ const CalculatorApp = () => {
     5: false
   });
   
-  // Refs for scrolling to steps
-  const stepRefs = {
-    1: useRef(null),
-    2: useRef(null),
-    3: useRef(null),
-    4: useRef(null),
-    5: useRef(null)
-  };
+  // Create refs outside of useMemo to comply with React Hooks rules
+  const step1Ref = useRef(null);
+  const step2Ref = useRef(null);
+  const step3Ref = useRef(null);
+  const step4Ref = useRef(null);
+  const step5Ref = useRef(null);
+  
+  // Refs for scrolling to steps - associate the refs created above
+  const stepRefs = useMemo(() => ({
+    1: step1Ref,
+    2: step2Ref,
+    3: step3Ref,
+    4: step4Ref,
+    5: step5Ref
+  }), []); // Empty dependency array ensures stepRefs is created only once
   
   const handleGetStarted = () => {
     setActiveTab('calculator');
@@ -53,6 +60,42 @@ const CalculatorApp = () => {
       window.removeEventListener('open-evc-explainer', handleOpenEvcExplainer);
     };
   }, []);
+  
+  // Listen for the custom event to expand next step
+  useEffect(() => {
+    const handleExpandNextStep = (event) => {
+      const stepNumber = event.detail.stepNumber;
+      if (stepNumber && stepRefs[stepNumber]?.current) {
+        // Expand the step
+        setExpandedSteps(prev => ({
+          ...prev,
+          [stepNumber]: true
+        }));
+        
+        // Set it as active step
+        setActiveStep(stepNumber);
+        
+        // Scroll to the step
+        setTimeout(() => {
+          const headerRect = stepRefs[stepNumber].current.getBoundingClientRect();
+          const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+          const absoluteTop = headerRect.top + scrollTop;
+          const topOffset = 20; // Adjust this value as needed
+          
+          window.scrollTo({
+            top: absoluteTop - topOffset,
+            behavior: 'smooth'
+          });
+        }, 150);
+      }
+    };
+    
+    window.addEventListener('expand-next-step', handleExpandNextStep);
+    
+    return () => {
+      window.removeEventListener('expand-next-step', handleExpandNextStep);
+    };
+  }, [stepRefs]); // Depend on stepRefs
 
   // Initialize calculator to reset state only on first load - using a ref to track initialization
   const isInitialMount = useRef(true);

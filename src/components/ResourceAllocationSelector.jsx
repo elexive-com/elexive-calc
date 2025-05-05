@@ -13,6 +13,13 @@ import calculatorConfig from '../config/calculatorConfig.json';
 const ResourceAllocationSelector = ({ resourceAllocation = 'focused', setResourceAllocation, productionCapacity }) => {
   const [showExplainer, setShowExplainer] = useState(false);
   
+  // Handler for the Continue button that expands the next step
+  const handleContinue = () => {
+    // Dispatch a custom event to expand and scroll to Step 4
+    const customEvent = new CustomEvent('expand-next-step', { detail: { stepNumber: 4 } });
+    window.dispatchEvent(customEvent);
+  };
+  
   // Helper function to determine if a strategy is recommended for current capacity
   const isRecommendedStrategy = (strategy) => {
     // For pathfinder and roadster tiers, recommend Laser Beam for maximum efficiency
@@ -79,6 +86,137 @@ const ResourceAllocationSelector = ({ resourceAllocation = 'focused', setResourc
       <p className="text-gray-700 mb-6">
         Think of this as choosing how to focus your transformation power. This selection determines whether to concentrate intensely on one strategic area or divide attention across multiple initiatives. Each approach has different benefits depending on your business goals and timeline.
       </p>
+      
+      {/* Context switching explainer toggle button - moved above cards */}
+      <button 
+        onClick={() => setShowExplainer(!showExplainer)}
+        className="flex items-center text-left text-base font-bold text-elx-primary mb-2"
+      >
+        <FontAwesomeIcon icon={faInfoCircle} className="mr-2 text-elx-accent" />
+        <span>How context switching affects productivity</span>
+        <FontAwesomeIcon 
+          icon={showExplainer ? faAngleUp : faAngleDown} 
+          className="ml-2 text-elx-accent"
+        />
+      </button>
+      
+      {/* Detailed context switching explainer - hidden by default */}
+      {showExplainer && (
+        <div className="mb-6 p-5 bg-gray-50 border border-gray-200 rounded-lg animate-fadeIn">
+          <h3 className="elx-section-heading text-lg mb-3">Context Switching & Team Productivity</h3>
+
+          <p className="text-sm text-gray-700">
+              When work is done in parallel across multiple initiatives, context switching creates additional overhead. 
+              This overhead represents extra work that needs to be covered on top of the base EVC requirements.
+              Smart Campaign adds only {getSwitchingCost('balanced')}% additional work overhead by pairing related initiatives.
+              Omni-Channel approach requires {getSwitchingCost('distributed')}% extra work on top of base requirements 
+              while managing multiple parallel workstreams.
+          </p>
+          <br></br>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            {/* Left column - explanation */}
+            <div>
+              <h4 className="elx-section-heading text-base">How We Calculate Overhead</h4>
+              <p className="text-sm text-gray-700 mb-3">
+                Context switching costs vary based on team composition and resource type. Our model accounts for:
+              </p>
+              <ul className="text-sm text-gray-700 space-y-2 mb-4">
+                <li className="flex items-start gap-2">
+                  <div className="min-w-4 mt-1">•</div>
+                  <div><span className="font-medium">Team size effects:</span> Larger teams can distribute work to specialists</div>
+                </li>
+                <li className="flex items-start gap-2">
+                  <div className="min-w-4 mt-1">•</div>
+                  <div><span className="font-medium">Role-based impacts:</span> Coordination roles (e.g., account managers) experience higher switching costs</div>
+                </li>
+                <li className="flex items-start gap-2">
+                  <div className="min-w-4 mt-1">•</div>
+                  <div><span className="font-medium">AI-enhanced work:</span> AI tools maintain consistent performance regardless of parallel tasks</div>
+                </li>
+                <li className="flex items-start gap-2">
+                  <div className="min-w-4 mt-1">•</div>
+                  <div><span className="font-medium">Research basis:</span> Studies show context switching requires 20-40% additional effort to complete the same work</div>
+                </li>
+              </ul>
+            </div>
+            
+            {/* Right column - visual */}
+            <div className="bg-white rounded-lg p-4 border border-gray-200">
+              <h4 className="elx-section-heading text-base text-center mb-4">Total Work by Allocation Strategy</h4>
+              
+              <div className="space-y-6">
+                {/* Laser Beam visualization */}
+                <div>
+                  <div className="flex justify-between items-center mb-2">
+                    <div className="flex items-center gap-2">
+                      <FontAwesomeIcon icon={faLightbulb} className="text-elx-primary" />
+                      <span className="font-medium">Laser Beam</span>
+                    </div>
+                    <span className="text-sm font-bold text-green-600">{getSwitchingCost('focused')}% overhead</span>
+                  </div>
+                  <div className="w-full relative">
+                    {/* Fixed-width container for all green bars (100% base EVC) */}
+                    <div className="w-[200px] h-8 bg-green-100 rounded flex items-center justify-center text-sm text-green-700">
+                      100% base EVC work
+                    </div>
+                  </div>
+                </div>
+                
+                {/* Smart Campaign visualization */}
+                <div>
+                  <div className="flex justify-between items-center mb-2">
+                    <div className="flex items-center gap-2">
+                      <FontAwesomeIcon icon={faBullhorn} className="text-elx-primary" />
+                      <span className="font-medium">Smart Campaign</span>
+                    </div>
+                    <span className="text-sm font-bold text-yellow-600">{getSwitchingCost('balanced')}% overhead</span>
+                  </div>
+                  <div className="w-full relative">
+                    {/* Fixed-width container for all green bars (100% base EVC) */}
+                    <div className="flex items-center">
+                      <div className="w-[200px] h-8 bg-green-100 rounded-l flex items-center justify-center text-sm text-green-700">
+                        100% base EVC work
+                      </div>
+                      <div className="w-[16px] h-8 bg-yellow-200 rounded-r flex items-center justify-center text-sm text-yellow-800">
+                        +
+                      </div>
+                    </div>
+                    <div className="mt-1 text-xs text-gray-500 text-right">
+                      Total: {100 + getSwitchingCost('balanced')}% work required
+                    </div>
+                  </div>
+                </div>
+                
+                {/* Omni-Channel visualization */}
+                <div>
+                  <div className="flex justify-between items-center mb-2">
+                    <div className="flex items-center gap-2">
+                      <FontAwesomeIcon icon={faGlobe} className="text-elx-primary" />
+                      <span className="font-medium">Omni-Channel</span>
+                    </div>
+                    <span className="text-sm font-bold text-orange-600">{getSwitchingCost('distributed')}% overhead</span>
+                  </div>
+                  <div className="w-full relative">
+                    {/* Fixed-width container for all green bars (100% base EVC) */}
+                    <div className="flex items-center">
+                      <div className="w-[200px] h-8 bg-green-100 rounded-l flex items-center justify-center text-sm text-green-700">
+                        100% base EVC work
+                      </div>
+                      <div className="w-[36px] h-8 bg-orange-100 rounded-r flex items-center justify-center text-sm text-orange-700">
+                        +
+                      </div>
+                    </div>
+                    <div className="mt-1 text-xs text-gray-500 text-right">
+                      Total: {100 + getSwitchingCost('distributed')}% work required
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
       
       {/* Redesigned allocation strategy cards - 2x2 grid layout */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
@@ -222,136 +360,16 @@ const ResourceAllocationSelector = ({ resourceAllocation = 'focused', setResourc
         )}
       </div>
       
-      {/* Context switching explainer toggle button - moved below cards */}
-      <button 
-        onClick={() => setShowExplainer(!showExplainer)}
-        className="flex items-center text-left text-base font-bold text-elx-primary mb-2"
-      >
-        <FontAwesomeIcon icon={faInfoCircle} className="mr-2 text-elx-accent" />
-        <span>How context switching affects productivity</span>
-        <FontAwesomeIcon 
-          icon={showExplainer ? faAngleUp : faAngleDown} 
-          className="ml-2 text-elx-accent"
-        />
-      </button>
-      
-      {/* Detailed context switching explainer - hidden by default */}
-      {showExplainer && (
-        <div className="mb-6 p-5 bg-gray-50 border border-gray-200 rounded-lg animate-fadeIn">
-          <h3 className="elx-section-heading text-lg mb-3">Context Switching & Team Productivity</h3>
-
-          <p className="text-sm text-gray-700">
-              When work is done in parallel across multiple initiatives, context switching creates additional overhead. 
-              This overhead represents extra work that needs to be covered on top of the base EVC requirements.
-              Smart Campaign adds only {getSwitchingCost('balanced')}% additional work overhead by pairing related initiatives.
-              Omni-Channel approach requires {getSwitchingCost('distributed')}% extra work on top of base requirements 
-              while managing multiple parallel workstreams.
-          </p>
-          <br></br>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            {/* Left column - explanation */}
-            <div>
-              <h4 className="elx-section-heading text-base">How We Calculate Overhead</h4>
-              <p className="text-sm text-gray-700 mb-3">
-                Context switching costs vary based on team composition and resource type. Our model accounts for:
-              </p>
-              <ul className="text-sm text-gray-700 space-y-2 mb-4">
-                <li className="flex items-start gap-2">
-                  <div className="min-w-4 mt-1">•</div>
-                  <div><span className="font-medium">Team size effects:</span> Larger teams can distribute work to specialists</div>
-                </li>
-                <li className="flex items-start gap-2">
-                  <div className="min-w-4 mt-1">•</div>
-                  <div><span className="font-medium">Role-based impacts:</span> Coordination roles (e.g., account managers) experience higher switching costs</div>
-                </li>
-                <li className="flex items-start gap-2">
-                  <div className="min-w-4 mt-1">•</div>
-                  <div><span className="font-medium">AI-enhanced work:</span> AI tools maintain consistent performance regardless of parallel tasks</div>
-                </li>
-                <li className="flex items-start gap-2">
-                  <div className="min-w-4 mt-1">•</div>
-                  <div><span className="font-medium">Research basis:</span> Studies show context switching requires 20-40% additional effort to complete the same work</div>
-                </li>
-              </ul>
-            </div>
-            
-            {/* Right column - visual */}
-            <div className="bg-white rounded-lg p-4 border border-gray-200">
-              <h4 className="elx-section-heading text-base text-center mb-4">Total Work by Allocation Strategy</h4>
-              
-              <div className="space-y-6">
-                {/* Laser Beam visualization */}
-                <div>
-                  <div className="flex justify-between items-center mb-2">
-                    <div className="flex items-center gap-2">
-                      <FontAwesomeIcon icon={faLightbulb} className="text-elx-primary" />
-                      <span className="font-medium">Laser Beam</span>
-                    </div>
-                    <span className="text-sm font-bold text-green-600">{getSwitchingCost('focused')}% overhead</span>
-                  </div>
-                  <div className="w-full relative">
-                    {/* Fixed-width container for all green bars (100% base EVC) */}
-                    <div className="w-[200px] h-8 bg-green-100 rounded flex items-center justify-center text-sm text-green-700">
-                      100% base EVC work
-                    </div>
-                  </div>
-                </div>
-                
-                {/* Smart Campaign visualization */}
-                <div>
-                  <div className="flex justify-between items-center mb-2">
-                    <div className="flex items-center gap-2">
-                      <FontAwesomeIcon icon={faBullhorn} className="text-elx-primary" />
-                      <span className="font-medium">Smart Campaign</span>
-                    </div>
-                    <span className="text-sm font-bold text-yellow-600">{getSwitchingCost('balanced')}% overhead</span>
-                  </div>
-                  <div className="w-full relative">
-                    {/* Fixed-width container for all green bars (100% base EVC) */}
-                    <div className="flex items-center">
-                      <div className="w-[200px] h-8 bg-green-100 rounded-l flex items-center justify-center text-sm text-green-700">
-                        100% base EVC work
-                      </div>
-                      <div className="w-[16px] h-8 bg-yellow-200 rounded-r flex items-center justify-center text-sm text-yellow-800">
-                        +
-                      </div>
-                    </div>
-                    <div className="mt-1 text-xs text-gray-500 text-right">
-                      Total: {100 + getSwitchingCost('balanced')}% work required
-                    </div>
-                  </div>
-                </div>
-                
-                {/* Omni-Channel visualization */}
-                <div>
-                  <div className="flex justify-between items-center mb-2">
-                    <div className="flex items-center gap-2">
-                      <FontAwesomeIcon icon={faGlobe} className="text-elx-primary" />
-                      <span className="font-medium">Omni-Channel</span>
-                    </div>
-                    <span className="text-sm font-bold text-orange-600">{getSwitchingCost('distributed')}% overhead</span>
-                  </div>
-                  <div className="w-full relative">
-                    {/* Fixed-width container for all green bars (100% base EVC) */}
-                    <div className="flex items-center">
-                      <div className="w-[200px] h-8 bg-green-100 rounded-l flex items-center justify-center text-sm text-green-700">
-                        100% base EVC work
-                      </div>
-                      <div className="w-[36px] h-8 bg-orange-100 rounded-r flex items-center justify-center text-sm text-orange-700">
-                        +
-                      </div>
-                    </div>
-                    <div className="mt-1 text-xs text-gray-500 text-right">
-                      Total: {100 + getSwitchingCost('distributed')}% work required
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      )}
+      {/* Continue button positioned at the bottom right corner */}
+      <div className="flex justify-end mt-3">
+        <button
+          onClick={handleContinue}
+          className="elx-btn elx-btn-accent px-4 py-2 text-sm"
+        >
+          Continue
+          <FontAwesomeIcon icon={faArrowRight} className="ml-2" />
+        </button>
+      </div>
     </div>
   );
 };

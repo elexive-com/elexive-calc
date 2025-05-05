@@ -35,6 +35,16 @@ const OnboardingQuiz = ({ intent, handleIntentSelect, resetCalculator, openEvcEx
     // It already has code to reset the calculator when Full Custom is selected
     handleIntentSelect(intentName);
   };
+  
+  // Handler for the Customize button that expands the next step
+  const handleCustomize = () => {
+    // First, handle current intent selection
+    handleIntentSelect(intent);
+    
+    // Then dispatch a custom event to expand and scroll to Step 2
+    const customEvent = new CustomEvent('expand-next-step', { detail: { stepNumber: 2 } });
+    window.dispatchEvent(customEvent);
+  };
 
   return (
     <div className="elx-card p-6 mb-6 relative">
@@ -263,14 +273,22 @@ const OnboardingQuiz = ({ intent, handleIntentSelect, resetCalculator, openEvcEx
         ))}
       </div>
       
-      {/* Reset Calculator Button - positioned on its own row at the bottom */}
-      <div className="flex justify-end mt-3">
+      {/* Reset Calculator Button and Customize Button - positioned at the bottom */}
+      <div className="flex justify-between mt-3">
         <button
           onClick={resetCalculator}
           className="elx-btn elx-btn-accent px-4 py-2 text-sm"
         >
           <FontAwesomeIcon icon={faArrowRight} className="mr-2 rotate-180" />
           Start Over
+        </button>
+        
+        <button
+          onClick={handleCustomize}
+          className="elx-btn elx-btn-accent px-4 py-2 text-sm"
+        >
+          Customize
+          <FontAwesomeIcon icon={faArrowRight} className="ml-2" />
         </button>
       </div>
     </div>
