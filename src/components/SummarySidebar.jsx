@@ -106,7 +106,18 @@ const SummarySidebar = ({ calculator }) => {
 
   return (
     <>
-      <div className="elx-card p-6 h-fit sticky">
+      <div 
+        className="elx-card p-6 sticky"
+        style={{
+          height: 'auto',
+          maxHeight: 'calc(100vh - 3rem)',
+          overflowY: 'auto',
+          top: '1rem',
+          overscrollBehavior: 'contain',
+          paddingBottom: '3rem',
+          marginBottom: '2rem'
+        }}
+      >
         <h3 className="elx-section-heading mb-5">Your Configuration</h3>
         
         <div className="space-y-4">
