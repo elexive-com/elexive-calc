@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { 
   faBullseye, faPuzzlePiece,
@@ -25,6 +25,25 @@ const Section = ({ title, icon, children }) => {
 
 const SummarySidebar = ({ calculator }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isLargeScreen, setIsLargeScreen] = useState(false);
+  
+  // Detect screen size on component mount and when window resizes
+  useEffect(() => {
+    const checkScreenSize = () => {
+      setIsLargeScreen(window.matchMedia('(min-width: 1024px)').matches);
+    };
+    
+    // Initial check
+    checkScreenSize();
+    
+    // Add event listener
+    window.addEventListener('resize', checkScreenSize);
+    
+    // Cleanup
+    return () => {
+      window.removeEventListener('resize', checkScreenSize);
+    };
+  }, []);
   
   const {
     intent,
@@ -109,9 +128,8 @@ const SummarySidebar = ({ calculator }) => {
       <div 
         className="elx-card p-6 sticky"
         style={{
-          height: 'auto',
-          maxHeight: 'calc(100vh - 3rem)',
-          overflowY: 'auto',
+          maxHeight: isLargeScreen ? 'calc(100vh - 3rem)' : 'none', 
+          overflowY: isLargeScreen ? 'auto' : 'visible',
           top: '1rem',
           overscrollBehavior: 'contain',
           paddingBottom: '3rem',
