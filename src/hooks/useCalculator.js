@@ -398,7 +398,7 @@ export default function useCalculator() {
     setMonthlyEvcs(adjustedProductionCapacity);
     setEvcPricePerUnit(effectiveEvcPrice);
     setTotalPrice(Math.round(discountedPrice));
-  }, [selectedModules, resourceAllocation, productionCapacity, parameters, paymentOption, parameterModifiers, modules, selectedVariants]);
+  }, [selectedModules, resourceAllocation, productionCapacity, parameters, paymentOption, parameterModifiers, modules, selectedVariants, serviceParameters]);
   
   // Use the memoized callback in useEffect
   useEffect(() => {
