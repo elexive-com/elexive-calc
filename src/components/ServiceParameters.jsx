@@ -2,7 +2,7 @@ import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { 
   faCreditCard, faInfoCircle, 
-  faGears, faCheckCircle, faLayerGroup,
+  faGears, faCheckCircle,
   faGraduationCap, faUserTie, faShieldAlt,
   faArrowRight, faLock, faStar
 } from '@fortawesome/free-solid-svg-icons';
@@ -51,11 +51,6 @@ const ServiceParameters = ({
   
   return (
     <div className="elx-card p-6 mb-6">
-      <h2 className="elx-section-heading text-2xl mb-4">
-        <FontAwesomeIcon icon={faLayerGroup} className="text-elx-accent mr-2" />
-        Service Parameters
-      </h2>
-      
       <p className="text-gray-600 mb-8 max-w-3xl">
         These options allow you to customize your transformation experience to your unique business needs. Each parameter enhances specific aspects of your engagement to maximize value.
       </p>

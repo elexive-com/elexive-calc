@@ -115,11 +115,6 @@ const ModuleSelector = ({
   
   return (
     <div className="elx-card mb-6 p-4 sm:p-6">
-      <h2 className="elx-section-heading text-2xl mb-4">
-        <FontAwesomeIcon icon={faLayerGroup} className="text-elx-accent mr-2" />
-        Select Service Modules
-      </h2>
-      
       <p className="text-gray-700 mb-6">
         Each service module is designed to address specific business needs and can be selected at different 
         levels of engagement. Combine modules across our pillars for a comprehensive solution.

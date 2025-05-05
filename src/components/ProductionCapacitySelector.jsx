@@ -1,7 +1,7 @@
 import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { 
-  faLayerGroup, faCar, 
+  faCar, 
   faJetFighterUp, faRocket,
   faCompass, faCheckCircle,
   faArrowRight
@@ -23,11 +23,6 @@ const ProductionCapacitySelector = ({ productionCapacity, setProductionCapacity,
 
   return (
     <div className="elx-card p-6 mb-6">
-      <h2 className="elx-section-heading text-2xl mb-4">
-        <FontAwesomeIcon icon={faLayerGroup} className="text-elx-accent mr-2" />
-        Choose Your Delivery Speed
-      </h2>
-      
       <p className="text-gray-700 mb-6">
         Think of this as choosing your business transformation pace. Whether you need targeted solutions for specific challenges or enterprise-wide transformation, this selection determines how quickly we'll deliver results together. Your choice here balances speed with the scope of what we can accomplish each week.
       </p>

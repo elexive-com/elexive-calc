@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { 
-  faLayerGroup, faLightbulb, 
+  faLightbulb, 
   faBullhorn, faGlobe, 
   faCheckCircle,
   faArrowRight, 
@@ -78,10 +78,7 @@ const ResourceAllocationSelector = ({ resourceAllocation = 'focused', setResourc
 
   return (
     <div className="elx-card p-6 mb-6">
-      <h2 className="elx-section-heading text-2xl mb-4">
-        <FontAwesomeIcon icon={faLayerGroup} className="text-elx-accent mr-2" />
-        Resource Allocation Strategy
-      </h2>
+      {/* h2 heading removed */}
       
       <p className="text-gray-700 mb-6">
         Think of this as choosing how to focus your transformation power. This selection determines whether to concentrate intensely on one strategic area or divide attention across multiple initiatives. Each approach has different benefits depending on your business goals and timeline.

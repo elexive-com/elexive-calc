@@ -3,7 +3,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { 
   faChartLine, faRocket, 
   faGears, faArrowRight, faCheckCircle,
-  faCompass, faBullhorn, faStar, faLayerGroup,
+  faCompass, faBullhorn, faStar,
   faInfoCircle, faCalculator, faAngleDown, faAngleUp,
   faExchangeAlt, faUsers, faPuzzlePiece, faFileAlt
 } from '@fortawesome/free-solid-svg-icons';
@@ -67,11 +67,6 @@ const OnboardingQuiz = ({ intent, handleIntentSelect, resetCalculator, openEvcEx
 
   return (
     <div className="elx-card p-6 mb-6 relative">
-      <h2 className="elx-section-heading text-2xl mb-4">
-        <FontAwesomeIcon icon={faLayerGroup} className="text-elx-accent mr-2" />
-        What's your business priority?
-      </h2>
-      
       <p className="text-gray-700 mb-6">
         Select the option that best aligns with your current business needs. Our ready-made solutions 
         are designed by industry experts for specific business challenges, or choose 'Full Custom' to build 

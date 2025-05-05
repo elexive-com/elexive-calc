@@ -257,7 +257,7 @@ const CalculatorApp = () => {
             </div>
             
             {/* Title */}
-            <h3 className={`font-medium ${
+            <h2 className={`elx-section-heading text-2xl flex items-center leading-none my-0 ${
               isComplete 
                 ? 'text-green-800' 
                 : isActive
@@ -265,7 +265,7 @@ const CalculatorApp = () => {
                   : 'text-gray-700'
             }`}>
               {title}
-            </h3>
+            </h2>
           </div>
           
           {/* Expand/Collapse Icon */}
@@ -303,7 +303,7 @@ const CalculatorApp = () => {
                 {/* Step 1: Business Intent */}
                 {renderStep(
                   1,
-                  "Define Your Business Intent",
+                  "What's Your Business Priority?",
                   <OnboardingQuiz 
                     intent={calculator.intent}
                     handleIntentSelect={calculator.handleIntentSelect}
@@ -315,7 +315,7 @@ const CalculatorApp = () => {
                 {/* Step 2: Delivery Speed */}
                 {renderStep(
                   2,
-                  "Select Your Delivery Speed",
+                  "Choose Your Delivery Speed",
                   <ProductionCapacitySelector 
                     productionCapacity={calculator.productionCapacity}
                     setProductionCapacity={calculator.setProductionCapacity}
@@ -337,7 +337,7 @@ const CalculatorApp = () => {
                 {/* Step 4: Module Selection */}
                 {renderStep(
                   4,
-                  "Select Your Transformation Modules",
+                  "Select Modules From Our Catalog",
                   <ModuleSelector 
                     modules={calculator.modules}
                     selectedModules={calculator.selectedModules}
@@ -352,7 +352,7 @@ const CalculatorApp = () => {
                 {/* Step 5: Payment & Parameters */}
                 {renderStep(
                   5,
-                  "Configure Your Service Parameters",
+                  "Choose Additional Services and Add-ons",
                   <ServiceParameters 
                     serviceParameters={calculator.serviceParameters}
                     paymentOption={calculator.paymentOption}
