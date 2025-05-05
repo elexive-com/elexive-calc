@@ -130,17 +130,27 @@ const CalculatorApp = () => {
   
   // Function to check if a step is complete
   const isStepComplete = (stepNumber) => {
+    // When a preset is selected, all steps should be considered complete
+    if (calculator.intent && calculator.intent !== 'Full Custom') {
+      return true;
+    }
+    
+    // For normal flow, check if the specific steps are complete
     switch(stepNumber) {
       case 1: 
         return calculator.intent !== '';
       case 2:
-        return calculator.productionCapacity > 0;
+        // For step 2, it's complete if a production capacity is selected
+        return calculator.productionCapacity && calculator.productionCapacity !== '';
       case 3:
-        return calculator.resourceAllocation !== '';
+        // For step 3, it's complete if resource allocation is set
+        return calculator.resourceAllocation && calculator.resourceAllocation !== '';
       case 4:
-        return calculator.selectedModules.length > 0;
+        // For step 4, it's complete if at least one module is selected
+        return calculator.selectedModules && calculator.selectedModules.length > 0;
       case 5:
-        return calculator.paymentOption !== '';
+        // For step 5, it's complete if payment option is set
+        return calculator.paymentOption && calculator.paymentOption !== '';
       default:
         return false;
     }
@@ -181,7 +191,7 @@ const CalculatorApp = () => {
           onClick={() => toggleStep(stepNumber)}
         >
           <div className="flex items-center">
-            {/* Step Number or Check Mark */}
+            {/* Step Number with Completion Indicator */}
             <div className={`flex items-center justify-center w-8 h-8 rounded-full mr-3 ${
               isComplete 
                 ? 'bg-green-500 text-white' 
@@ -189,12 +199,16 @@ const CalculatorApp = () => {
                   ? 'bg-blue-500 text-white'
                   : 'bg-gray-300 text-gray-700'
             }`}>
-              {isComplete ? (
-                <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
-                  <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
-                </svg>
-              ) : (
-                stepNumber
+              {/* Always show the step number */}
+              {stepNumber}
+              
+              {/* If complete, show a small checkmark indicator */}
+              {isComplete && (
+                <div className="absolute -right-1 -bottom-1 bg-white rounded-full p-0.5">
+                  <svg xmlns="http://www.w3.org/2000/svg" className="h-3 w-3 text-green-500" viewBox="0 0 20 20" fill="currentColor">
+                    <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+                  </svg>
+                </div>
               )}
             </div>
             
