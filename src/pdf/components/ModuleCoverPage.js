@@ -5,7 +5,6 @@ import React from 'react';
 import { Page, Text, View, Image } from '@react-pdf/renderer';
 import styles from '../utils/pdfStyles';
 import modulesConfig from '../../config/modulesConfig.json';
-import { PLACEHOLDER_IMAGES } from '../utils/pdfHelpers';
 
 const ModuleCoverPage = ({ moduleName }) => {
   // Find the module in the configuration
@@ -27,63 +26,70 @@ const ModuleCoverPage = ({ moduleName }) => {
     day: '2-digit', month: '2-digit', year: 'numeric'
   }).replace(/\//g, '.');
   
-  // Safely handle variant information
-  const hasVariants = module.variants && Array.isArray(module.variants) && module.variants.length > 0;
-  const showVariantTag = !module.singleSizeOnly && hasVariants;
-
+  // Use an absolute URL to ensure the image is accessible in the PDF
+  const logoUrl = `${window.location.origin}/elexive-logo-text.png`;
+  
   return (
     <Page size="A4" style={styles.page}>
-      <View style={styles.coverPage}>
-        {/* Header */}
-        <View style={styles.coverHeader}>
-          {/* Use base64 encoded image to avoid path resolution issues */}
+      <View style={{
+        backgroundColor: '#2E2266', // primary color
+        height: '100%',
+        width: '100%',
+        padding: 40,
+        display: 'flex',
+        flexDirection: 'column',
+        justifyContent: 'space-between',
+      }}>
+        {/* Logo in top left with margin */}
+        <View style={{
+          alignSelf: 'flex-start',
+        }}>
           <Image 
-            src={PLACEHOLDER_IMAGES.LOGO}
-            style={styles.coverLogo}
+            src={logoUrl}
+            style={{
+              width: 180,
+            }}
           />
         </View>
         
-        {/* Content */}
-        <View style={styles.coverContent}>
-          <Text style={styles.coverTitle}>{module.name}</Text>
-          <Text style={styles.coverSubtitle}>{module.heading}</Text>
-          
-          {/* Module variant tag (if applicable) - updated for safer rendering */}
-          {showVariantTag && (
-            <Text style={styles.coverVariantTag}>
-              {module.variants[0].type}
-            </Text>
-          )}
-          
-          <Text style={styles.coverDescription}>{module.description}</Text>
-          
-          {/* Module details */}
-          <View style={styles.rowWithMargin}>
-            <View style={styles.columnWithFlex}>
-              <Text style={styles.coverFooterText}>Pillar</Text>
-              <Text style={styles.coverFooterTextBold}>
-                {module.pillar}
-              </Text>
-            </View>
-            <View style={styles.columnWithFlex}>
-              <Text style={styles.coverFooterText}>Category</Text>
-              <Text style={styles.coverFooterTextBold}>
-                {module.category}
-              </Text>
-            </View>
-          </View>
-        </View>
-        
-        {/* Footer */}
-        <View style={styles.coverFooter}>
-          <Text style={styles.coverFooterText}>
-            Elexive Solution Brief — {formattedDate}
+        {/* Centered content */}
+        <View style={{
+          flexGrow: 1,
+          justifyContent: 'center',
+          alignItems: 'center',
+        }}>
+          {/* Module name in all caps with primary accent color */}
+          <Text style={{
+            fontSize: 36,
+            fontWeight: 'bold',
+            color: '#FFBE59', // secondary accent color
+            textAlign: 'center',
+            textTransform: 'uppercase',
+            marginBottom: 10
+          }}>
+            {module.name}
           </Text>
-          {/* Use base64 encoded image to avoid path resolution issues */}
-          <Image 
-            src={PLACEHOLDER_IMAGES.MODULE_ICON}
-            style={styles.moduleIcon}
-          />
+          
+          {/* White text "Solution Brief" under module name */}
+          <Text style={{
+            fontSize: 18,
+            color: '#FFFFFF',
+            textAlign: 'center'
+          }}>
+            Solution Brief
+          </Text>
+        </View>
+        
+        {/* Date in bottom right corner */}
+        <View style={{
+          alignSelf: 'flex-end'
+        }}>
+          <Text style={{
+            fontSize: 12,
+            color: '#FFFFFF',
+          }}>
+            {formattedDate}
+          </Text>
         </View>
       </View>
     </Page>
