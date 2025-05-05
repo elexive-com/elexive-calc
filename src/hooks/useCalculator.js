@@ -2,6 +2,7 @@ import { useState, useCallback, useEffect } from 'react';
 import calculatorConfig from '../config/calculatorConfig.json';
 import calculatorPresets from '../config/calculatorPresets.json';
 import modulesConfig from '../config/modulesConfig.json';
+import { debugLog } from '../config/environment';
 
 export default function useCalculator() {
   // State for user selections
@@ -94,7 +95,7 @@ export default function useCalculator() {
     
     // Apply preset if this is a preset intent
     if (intentName && calculatorPresets.presets[intentName]) {
-      console.log("Applying preset for:", intentName);
+      debugLog("Applying preset for:", intentName);
       const preset = calculatorPresets.presets[intentName];
       
       // Clear any existing selections first
@@ -102,7 +103,7 @@ export default function useCalculator() {
       setSelectedVariants({});
       
       // Apply the preset modules immediately
-      console.log("Setting modules to:", preset.modules);
+      debugLog("Setting modules to:", preset.modules);
       
       // Handle both old format (array of strings) and new format (array of objects)
       if (preset.modules && preset.modules.length > 0) {
@@ -305,8 +306,7 @@ export default function useCalculator() {
       // Force toString to avoid floating point issues, then parse back to number
       const preciseWeeks = Number(rawWeeks.toFixed(10));
       
-      // Log the calculation for debugging
-      console.log(`
+      debugLog(`
         Completion time calculation:
         - Base Module EVCs: ${baseModuleEvcs}
         - Resource allocation: ${resourceAllocation}

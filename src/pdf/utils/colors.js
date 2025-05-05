@@ -1,6 +1,7 @@
 // Helper functions for extracting colors from CSS variables and handling color logic
 // for PDF generation. This centralizes all color-related code to avoid hardcoding
 // hex values throughout the PDF rendering components.
+import { debugLog } from '../../config/environment';
 
 /**
  * Extracts a CSS variable value from the document root
@@ -18,7 +19,7 @@ export const getColorFromCssVar = (varName, fallback = '#000000') => {
       if (value) return value;
     }
   } catch (err) {
-    console.log('Error accessing document for CSS variable:', err);
+    debugLog('Error accessing document for CSS variable:', err);
   }
   
   // Fallback to hardcoded values if document is not available

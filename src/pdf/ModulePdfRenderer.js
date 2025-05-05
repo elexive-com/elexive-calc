@@ -5,6 +5,7 @@ import { saveAs } from 'file-saver';
 import modulesConfig from '../config/modulesConfig.json';
 import ModuleCoverPage from './components/ModuleCoverPage';
 import ModuleContentPage from './components/ModuleContentPage';
+import { debugLog } from '../config/environment';
 
 // PDF Document Component
 const ModuleDocument = ({ moduleName }) => {
@@ -30,7 +31,7 @@ export const generateModulePdf = async (moduleName) => {
       return { success: false, error: `Module "${moduleName}" not found` };
     }
     
-    console.log(`Generating PDF for module: ${moduleName}`);
+    debugLog(`Generating PDF for module: ${moduleName}`);
     
     // Create document
     const blob = await pdf(<ModuleDocument moduleName={moduleName} />).toBlob();

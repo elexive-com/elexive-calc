@@ -10,6 +10,7 @@ import SummarySidebar from './components/SummarySidebar';
 import ModuleExplorer from './components/ModuleExplorer';
 import EvcExplainer from './components/EvcExplainer';
 import { useTabContext } from './contexts/TabContext';
+import { debugLog } from './config/environment';
 
 const CalculatorApp = () => {
   const calculator = useCalculator();
@@ -129,7 +130,7 @@ const CalculatorApp = () => {
       
       // Check if a preset has been selected (intent is set)
       if (calculator.intent && calculator.intent !== 'Full Custom') {
-        console.log("Preset detected, collapsing all steps except the first one");
+        debugLog("Preset detected, collapsing all steps except the first one");
         
         // Keep only the first step expanded when a preset is selected
         setExpandedSteps({
