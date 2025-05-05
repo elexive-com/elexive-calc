@@ -155,6 +155,15 @@
   @apply w-8 h-8 elx-icon-circle;
 }
 
+/* Collapsible section styling */
+.collapsible-content-wrapper {
+  margin-bottom: -6px; /* Counteract the bottom padding in child components */
+}
+
+.collapsible-content-wrapper > div {
+  margin-bottom: 0 !important;
+}
+
 .elx-icon-circle-md {
   @apply w-10 h-10 elx-icon-circle;
 }

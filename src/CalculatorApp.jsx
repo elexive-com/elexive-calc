@@ -221,7 +221,7 @@ const CalculatorApp = () => {
     
     return (
       <div 
-        className="mb-6 border border-gray-200 rounded-lg shadow-sm overflow-hidden"
+        className="mb-6 border border-gray-200 rounded-xl shadow-sm overflow-hidden"
         id={`step-container-${stepNumber}`}
       >
         {/* Header */}
@@ -229,8 +229,8 @@ const CalculatorApp = () => {
           ref={stepRefs[stepNumber]}
           className={`flex items-center justify-between p-4 cursor-pointer ${
             isExpanded 
-              ? 'bg-blue-50 border-b border-blue-100' 
-              : 'bg-gray-50 border-b border-gray-100'
+              ? 'bg-white border-b border-blue-100' 
+              : 'bg-white border-b border-gray-100'
           }`}
           onClick={() => toggleStep(stepNumber)}
         >
@@ -277,8 +277,14 @@ const CalculatorApp = () => {
         </div>
         
         {/* Content */}
-        <div style={{ display: isExpanded ? 'block' : 'none' }} className="p-4">
-          {children}
+        <div 
+          style={{ display: isExpanded ? 'block' : 'none' }}
+          className="bg-white"
+        >
+          {/* Apply a wrapper div with negative margin to counteract the padding in child components */}
+          <div className="collapsible-content-wrapper">
+            {children}
+          </div>
         </div>
       </div>
     );
