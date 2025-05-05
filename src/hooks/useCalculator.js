@@ -55,7 +55,10 @@ export default function useCalculator() {
   
   // Function to reset calculator to defaults
   const resetCalculator = () => {
+    // First clear intent to ensure proper reset
     setIntent('');
+    
+    // Reset all other state
     setSelectedModules([]);
     setSelectedVariants({});
     setResourceAllocation("focused"); // Default to "Focused" allocation
@@ -74,21 +77,20 @@ export default function useCalculator() {
     setActivePillar("Transformation");
     
     // Force a recalculation to update all values
-    setTimeout(() => {
-      calculatePricing();
-    }, 50);
+    calculatePricing();
   };
   
   // Custom function to handle intent selection and apply presets
   const handleIntentSelect = (intentName) => {
-    setIntent(intentName);
-    
-    // If "Full Custom" is selected, reset the calculator to default values
+    // If "Full Custom" is selected, reset the calculator first, then set intent
     if (intentName === "Full Custom") {
-      resetCalculator();
-      setIntent("Full Custom"); // Keep the "Full Custom" intent selected
-      return; // Exit early after resetting
+      resetCalculator(); // This already clears the intent
+      setIntent("Full Custom"); // Set it back to "Full Custom" after reset
+      return; // Exit early
     }
+    
+    // For other intents, set the intent first
+    setIntent(intentName);
     
     // Apply preset if this is a preset intent
     if (intentName && calculatorPresets.presets[intentName]) {
@@ -99,62 +101,63 @@ export default function useCalculator() {
       setSelectedModules([]);
       setSelectedVariants({});
       
-      // Apply the preset modules with a slight delay to ensure UI updates
-      setTimeout(() => {
-        console.log("Setting modules to:", preset.modules);
-        
-        // Handle both old format (array of strings) and new format (array of objects)
-        if (preset.modules && preset.modules.length > 0) {
-          // Check if we're using the new format (objects with name and variant)
-          if (typeof preset.modules[0] === 'object' && preset.modules[0].name) {
-            // New format with objects
-            const moduleNames = preset.modules.map(module => module.name);
-            setSelectedModules(moduleNames);
-            
-            // Extract variants from the preset modules
-            const newVariants = {};
-            preset.modules.forEach(module => {
-              // Map preset variant names to the format expected by the UI
-              // "Insight Primer" becomes "insightPrimer", "Integrated Execution" becomes "integratedExecution"
-              const variantType = module.variant === "Insight Primer" ? 
-                'insightPrimer' : 'integratedExecution';
-              newVariants[module.name] = variantType;
-            });
-            setSelectedVariants(newVariants);
-          } else {
-            // Old format with just strings
-            setSelectedModules([...preset.modules]);
-            
-            // Create default variants for the preset modules (set all to 'insightPrimer' by default)
-            const newVariants = {};
-            preset.modules.forEach(moduleName => {
-              newVariants[moduleName] = 'insightPrimer';
-            });
-            setSelectedVariants(newVariants);
-          }
-        }
-        
-        // Apply the preset capacity allocation
-        setResourceAllocation(preset.resourceAllocation || preset.capacityAllocation);
-        
-        // Apply the preset payment option
-        setPaymentOption(preset.paymentOption);
-        
-        // Apply the preset parameters
-        const newParameters = { ...parameters };
-        for (const [paramId, value] of Object.entries(preset.parameters)) {
-          newParameters[paramId] = value;
-        }
-        setParameters(newParameters);
-        
-        // Apply the recommended production capacity if specified
-        if (preset.recommendedCapacity) {
-          setProductionCapacity(preset.recommendedCapacity);
-          setRecommendedCapacity(preset.recommendedCapacity);
+      // Apply the preset modules immediately
+      console.log("Setting modules to:", preset.modules);
+      
+      // Handle both old format (array of strings) and new format (array of objects)
+      if (preset.modules && preset.modules.length > 0) {
+        // Check if we're using the new format (objects with name and variant)
+        if (typeof preset.modules[0] === 'object' && preset.modules[0].name) {
+          // New format with objects
+          const moduleNames = preset.modules.map(module => module.name);
+          setSelectedModules(moduleNames);
+          
+          // Extract variants from the preset modules
+          const newVariants = {};
+          preset.modules.forEach(module => {
+            // Map preset variant names to the format expected by the UI
+            // "Insight Primer" becomes "insightPrimer", "Integrated Execution" becomes "integratedExecution"
+            const variantType = module.variant === "Insight Primer" ? 
+              'insightPrimer' : 'integratedExecution';
+            newVariants[module.name] = variantType;
+          });
+          setSelectedVariants(newVariants);
         } else {
-          setRecommendedCapacity(null);
+          // Old format with just strings
+          setSelectedModules([...preset.modules]);
+          
+          // Create default variants for the preset modules (set all to 'insightPrimer' by default)
+          const newVariants = {};
+          preset.modules.forEach(moduleName => {
+            newVariants[moduleName] = 'insightPrimer';
+          });
+          setSelectedVariants(newVariants);
         }
-      }, 50);
+      }
+      
+      // Apply the preset capacity allocation
+      setResourceAllocation(preset.resourceAllocation || preset.capacityAllocation);
+      
+      // Apply the preset payment option
+      setPaymentOption(preset.paymentOption);
+      
+      // Apply the preset parameters
+      const newParameters = { ...parameters };
+      for (const [paramId, value] of Object.entries(preset.parameters)) {
+        newParameters[paramId] = value;
+      }
+      setParameters(newParameters);
+      
+      // Apply the recommended production capacity if specified
+      if (preset.recommendedCapacity) {
+        setProductionCapacity(preset.recommendedCapacity);
+        setRecommendedCapacity(preset.recommendedCapacity);
+      } else {
+        setRecommendedCapacity(null);
+      }
+      
+      // Force a recalculation to update all values
+      calculatePricing();
     }
   };
   

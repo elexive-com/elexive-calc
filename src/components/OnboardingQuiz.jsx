@@ -29,17 +29,11 @@ const OnboardingQuiz = ({ intent, handleIntentSelect, resetCalculator, openEvcEx
     return "";
   };
 
-  // Enhanced intent selection handler that resets calculator when "Full Custom" is selected
+  // Enhanced intent selection handler that handles reset
   const handleOptionSelect = (intentName) => {
-    if (intentName === "Full Custom") {
-      // Reset all values to default when Full Custom is selected
-      resetCalculator();
-      // Still need to set the intent to "Full Custom"
-      handleIntentSelect(intentName);
-    } else {
-      // For other options, just call the normal intent selection handler
-      handleIntentSelect(intentName);
-    }
+    // Let the main handleIntentSelect function in useCalculator handle all the logic
+    // It already has code to reset the calculator when Full Custom is selected
+    handleIntentSelect(intentName);
   };
 
   return (
