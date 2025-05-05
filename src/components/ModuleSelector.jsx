@@ -248,7 +248,7 @@ const ModuleSelector = ({
                       
                       <div className="p-4 flex-grow">
                         <p className="text-xs font-medium text-gray-700 mb-1">{module.heading}</p>
-                        <p className="text-xs text-gray-600 mb-4 line-clamp-3">{module.description}</p>
+                        <p className="text-xs text-gray-600 mb-4">{module.description}</p>
                         
                         {/* Module options at the bottom */}
                         <div className="flex flex-col gap-2 mt-3 border-t pt-3">
