@@ -257,7 +257,7 @@ const CalculatorApp = () => {
             </div>
             
             {/* Title */}
-            <h2 className={`elx-section-heading text-2xl flex items-center leading-none my-0 ${
+            <h2 className={`elx-section-heading text-xl flex items-center leading-none my-0 ${
               isComplete 
                 ? 'text-green-800' 
                 : isActive
