@@ -134,7 +134,6 @@
       "label": "Premium Market Data",
       "description": "Gain strategic advantage with proprietary market intelligence unavailable to competitors. Access insights about emerging opportunities and risks before they appear in public data.",
       "valueProposition": "Strengthens market strategy with exclusive intelligence while identifying high-value opportunities ahead of competitors",
-      "modifier": 1.15,
       "productionImpact": "Improves quality and depth of strategic insights",
       "defaultValue": false,
       "evcCost": {
@@ -147,7 +146,6 @@
       "label": "Training Sessions",
       "description": "Build organizational self-sufficiency through strategic knowledge transfer. Empowers your team to drive transformation independently with less reliance on external consultants.",
       "valueProposition": "Creates sustainable internal capabilities that continue delivering value long after our engagement ends",
-      "modifier": 1.1,
       "productionImpact": "Ensures effective adoption and capability development",
       "defaultValue": false,
       "evcCost": {
@@ -160,7 +158,6 @@
       "label": "Account Concierge",
       "description": "Eliminate coordination overhead and ensure high-level strategic alignment. Your dedicated executive liaison ensures transformation efforts remain connected to evolving business priorities.",
       "valueProposition": "Streamlines executive oversight while accelerating decision-making processes for faster implementation",
-      "modifier": 1.2,
       "productionImpact": "Improves continuity and strategic alignment",
       "defaultValue": false,
       "evcCost": {
@@ -173,7 +170,6 @@
       "label": "Premium SLA",
       "description": "Minimize business disruption with guaranteed response times for mission-critical operations. Includes 24/7 support for urgent issues that could impact business continuity.",
       "valueProposition": "Significantly reduces transformation-related business disruptions, protecting revenue and customer experience",
-      "modifier": 1.25,
       "productionImpact": "Prioritizes your needs and ensures consistent service delivery",
       "defaultValue": false,
       "evcCost": {
@@ -186,7 +182,6 @@
       "label": "On-site Presence",
       "description": "For organizations that prefer or require in-person collaboration, our advisors can work directly at your location. While our standard approach includes remote delivery, we can accommodate on-premises requirements when needed for your specific environment.",
       "valueProposition": "Supports organizations with security, regulatory, or organizational requirements for physical presence, though at additional cost due to travel and operational adjustments",
-      "modifier": 1.3,
       "productionImpact": "Increases resource commitment with higher costs but accommodates on-premises requirements",
       "defaultValue": false,
       "evcCost": {

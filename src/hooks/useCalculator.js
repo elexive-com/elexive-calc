@@ -48,12 +48,6 @@ export default function useCalculator() {
   // State for active pillar tab
   const [activePillar, setActivePillar] = useState("Transformation");
   
-  // Create parameter modifiers map for easy lookup
-  const parameterModifiers = serviceParameters.reduce((acc, param) => {
-    acc[param.id] = param.modifier;
-    return acc;
-  }, {});
-
   // Function to toggle EVC explainer visibility
   const toggleEvcExplainer = () => {
     setIsEvcExplainerVisible(prev => !prev);
@@ -255,30 +249,20 @@ export default function useCalculator() {
     // Apply service parameter modifiers to production capacity
     let adjustedProductionCapacity = weeklyEVCs;
 
-    // Only apply multiplier modifiers to parameters that don't have an evcCost
-    // or for relative percentage-based parameters
+    // Handle parameters with evcCost
     Object.entries(parameters).forEach(([paramId, isEnabled]) => {
       if (isEnabled) {
-        // Find the parameter configuration
         const paramConfig = serviceParameters.find(p => p.id === paramId);
-        
-        // Only apply the multiplier if:
-        // 1. The parameter doesn't have an evcCost (pure multiplier), or
-        // 2. The parameter has a relative evcCost (percentage-based)
-        if (!paramConfig?.evcCost || paramConfig.evcCost.type === "relative") {
-          adjustedProductionCapacity *= parameterModifiers[paramId];
-        }
-      }
-    });
-
-    // Then apply the absolute EVC costs separately
-    Object.entries(parameters).forEach(([paramId, isEnabled]) => {
-      if (isEnabled) {
-        // Find the parameter configuration
-        const paramConfig = serviceParameters.find(p => p.id === paramId);
-        if (paramConfig?.evcCost && paramConfig.evcCost.type === "absolute") {
-          // Add absolute EVC value
-          adjustedProductionCapacity += paramConfig.evcCost.value;
+        if (paramConfig?.evcCost) {
+          if (paramConfig.evcCost.type === "absolute") {
+            // For absolute costs, simply add the fixed value
+            adjustedProductionCapacity += paramConfig.evcCost.value;
+          } else if (paramConfig.evcCost.type === "relative") {
+            // For relative costs, add the percentage of the BASE weekly EVCs
+            // This is crucial - we use weeklyEVCs (base capacity) not the adjusted value
+            const relativeAddition = weeklyEVCs * (paramConfig.evcCost.value / 100);
+            adjustedProductionCapacity += relativeAddition;
+          }
         }
       }
     });
@@ -400,7 +384,7 @@ export default function useCalculator() {
     setMonthlyEvcs(adjustedProductionCapacity);
     setEvcPricePerUnit(effectiveEvcPrice);
     setTotalPrice(Math.round(discountedPrice));
-  }, [selectedModules, resourceAllocation, productionCapacity, parameters, paymentOption, parameterModifiers, modules, selectedVariants, serviceParameters]);
+  }, [selectedModules, resourceAllocation, productionCapacity, parameters, paymentOption, modules, selectedVariants, serviceParameters]);
   
   // Use the memoized callback in useEffect
   useEffect(() => {
@@ -436,7 +420,6 @@ export default function useCalculator() {
     evcBase,
     serviceParameters,
     modules,
-    parameterModifiers,
     
     // Functions
     toggleEvcExplainer,
