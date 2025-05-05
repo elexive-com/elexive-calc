@@ -221,7 +221,7 @@ const CalculatorApp = () => {
     
     return (
       <div 
-        className="mb-6 border border-gray-200 rounded-xl shadow-sm overflow-hidden"
+        className="mb-6 border border-gray-200 rounded-xl shadow-md overflow-hidden"
         id={`step-container-${stepNumber}`}
       >
         {/* Header */}
