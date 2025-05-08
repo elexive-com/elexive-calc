@@ -142,18 +142,6 @@
       }
     },
     {
-      "id": "trainingSession",
-      "label": "Training Sessions",
-      "description": "Build organizational self-sufficiency through strategic knowledge transfer. Empowers your team to drive transformation independently with less reliance on external consultants.",
-      "valueProposition": "Creates sustainable internal capabilities that continue delivering value long after our engagement ends",
-      "productionImpact": "Ensures effective adoption and capability development",
-      "defaultValue": false,
-      "evcCost": {
-        "type": "absolute",
-        "value": 3
-      }
-    },
-    {
       "id": "accountConcierge",
       "label": "Account Concierge",
       "description": "Eliminate coordination overhead and ensure high-level strategic alignment. Your dedicated executive liaison ensures transformation efforts remain connected to evolving business priorities.",
