@@ -7,8 +7,7 @@ import {
   faLock, faSpinner, faFileExport, faEnvelope,
   faInfoCircle, faCheckCircle, faCreditCard,
   faShieldAlt, faGlobe, faLayerGroup, faGraduationCap, faUserTie, faStar,
-  faCalendarAlt, faHandshake, faLongArrowAltRight, faBusinessTime, faChartBar,
-  faMoneyBillWave
+  faHandshake, faLongArrowAltRight, faBusinessTime, faChartBar
 } from '@fortawesome/free-solid-svg-icons';
 
 import { generateReportPdf } from '../pdf';
@@ -470,6 +469,42 @@ const DetailedReportModal = ({ isOpen, onClose, calculator }) => {
                   </div>
                 </div>
               </div>
+              
+              {/* Timeline Calculation Section - moved from Implementation Roadmap */}
+              <div className="mt-6 pt-6 border-t border-gray-100">
+                <h5 className="text-sm font-semibold text-gray-500 uppercase tracking-wider mb-3">Implementation Timeline Calculation</h5>
+                
+                <p className="text-sm text-gray-600 mb-4">
+                  Your implementation timeline is calculated using our Elastic Value Credit (EVC) framework, which provides a precise measurement 
+                  of transformation resource requirements. The calculation below illustrates how your specific module selections and resource allocation 
+                  strategy translate into a realistic implementation timeline.
+                </p>
+                
+                <div className="space-y-3">
+                  {/* Calculation formula */}
+                  <div className="bg-white p-4 rounded-lg mt-4 text-center">
+                    <div className="text-sm text-gray-500 mb-3">Implementation Timeline Calculation</div>
+                    <div className="inline-block font-mono bg-gray-50 py-3 px-5 rounded border border-gray-200 text-sm">
+                      <div className="flex items-center justify-center space-x-3">
+                        <div className="text-center">
+                          <div className="text-sm text-gray-400 mb-1">Total EVCs</div>
+                          <div className="font-bold text-elx-primary">{totalEvcsWithOverhead}</div>
+                        </div>
+                        <div className="text-2xl text-gray-300">÷</div>
+                        <div className="text-center">
+                          <div className="text-sm text-gray-400 mb-1">Weekly Capacity</div>
+                          <div className="font-bold text-elx-primary">{weeklyEVCs}</div>
+                        </div>
+                        <div className="text-2xl text-gray-300">=</div>
+                        <div className="text-center">
+                          <div className="text-sm text-gray-400 mb-1">Timeline</div>
+                          <div className="font-bold text-xl text-elx-primary">{estimatedCompletionWeeks} weeks</div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
           
@@ -843,7 +878,6 @@ const DetailedReportModal = ({ isOpen, onClose, calculator }) => {
           {/* Financial Summary Section */}
           <div className="space-y-6 mb-12">
             <h3 className="text-2xl font-bold text-elx-primary mb-6 pb-2 border-b-2 border-elx-accent flex items-center">
-              <FontAwesomeIcon icon={faMoneyBillWave} className="text-elx-accent mr-3" />
               Financial Investment Framework
             </h3>
             
@@ -961,8 +995,7 @@ const DetailedReportModal = ({ isOpen, onClose, calculator }) => {
           {/* Implementation Plan Section with Enhanced Business Context */}
           <div className="space-y-6 mb-12">
             <h3 className="text-2xl font-bold text-elx-primary mb-6 pb-2 border-b-2 border-elx-accent flex items-center">
-              <FontAwesomeIcon icon={faRocket} className="text-elx-accent mr-3" />
-              Implementation Roadmap
+              Next Steps
             </h3>
             
             {/* Business context for implementation plan */}
@@ -974,289 +1007,7 @@ const DetailedReportModal = ({ isOpen, onClose, calculator }) => {
               </p>
             </div>
             
-            {/* Timeline Summary with enhanced styling */}
-            <div className="bg-white rounded-xl p-6 border border-gray-200 shadow-md">
-              <h4 className="text-lg font-bold text-elx-primary flex items-center mb-4">
-                <FontAwesomeIcon icon={faCalendarAlt} className="text-elx-accent mr-2" />
-                Strategic Implementation Timeline
-              </h4>
-              
-              <div className="flex items-center mb-6">
-                <div className="w-20 h-20 rounded-full bg-gradient-to-br from-elx-primary to-elx-primary-dark text-white font-bold text-3xl flex items-center justify-center shadow-lg">
-                  {estimatedCompletionWeeks}
-                </div>
-                <div className="ml-5">
-                  <div className="text-elx-primary font-bold text-xl">Week Implementation Plan</div>
-                  <div className="text-gray-600 mt-1">Calibrated to your selected production capacity and scope</div>
-                  <div className="text-sm text-gray-500 mt-2">
-                    Based on {weeklyEVCs} EVCs weekly with {
-                      resourceAllocation === 'focused' ? 'focused allocation for maximum efficiency' : 
-                      resourceAllocation === 'balanced' ? 'balanced resource distribution across priorities' : 
-                      'distributed approach across multiple initiatives'
-                    }
-                  </div>
-                </div>
-              </div>
-              
-              {/* Implementation Phases */}
-              <div className="bg-gray-50 p-5 rounded-lg mb-8">
-                <h5 className="font-medium text-elx-primary mb-4">Implementation Phases</h5>
-                
-                <div className="space-y-6">
-                  <div className="flex">
-                    <div className="w-10 flex-shrink-0">
-                      <div className="w-8 h-8 rounded-full bg-blue-100 text-blue-600 flex items-center justify-center">
-                        <span className="font-bold">1</span>
-                      </div>
-                    </div>
-                    <div className="flex-grow border-l-2 border-blue-100 pl-5 pb-6">
-                      <h6 className="font-semibold text-elx-primary mb-2">Discovery & Assessment</h6>
-                      <p className="text-sm text-gray-600 mb-2">
-                        Comprehensive analysis of current state, stakeholder interviews, and strategic alignment sessions to establish clear 
-                        transformation objectives and success metrics.
-                      </p>
-                      <div className="bg-white rounded p-2 border border-gray-200 text-xs text-gray-500">
-                        <span className="font-medium text-elx-primary">Duration:</span> ~{Math.max(1, Math.round(estimatedCompletionWeeks * 0.2))} weeks
-                      </div>
-                    </div>
-                  </div>
-                  
-                  <div className="flex">
-                    <div className="w-10 flex-shrink-0">
-                      <div className="w-8 h-8 rounded-full bg-amber-100 text-amber-600 flex items-center justify-center">
-                        <span className="font-bold">2</span>
-                      </div>
-                    </div>
-                    <div className="flex-grow border-l-2 border-amber-100 pl-5 pb-6">
-                      <h6 className="font-semibold text-elx-primary mb-2">Design & Strategic Planning</h6>
-                      <p className="text-sm text-gray-600 mb-2">
-                        Collaborative development of detailed implementation roadmaps for each module, resource planning, and establishment of 
-                        governance frameworks to ensure successful execution.
-                      </p>
-                      <div className="bg-white rounded p-2 border border-gray-200 text-xs text-gray-500">
-                        <span className="font-medium text-elx-primary">Duration:</span> ~{Math.max(1, Math.round(estimatedCompletionWeeks * 0.25))} weeks
-                      </div>
-                    </div>
-                  </div>
-                  
-                  <div className="flex">
-                    <div className="w-10 flex-shrink-0">
-                      <div className="w-8 h-8 rounded-full bg-green-100 text-green-600 flex items-center justify-center">
-                        <span className="font-bold">3</span>
-                      </div>
-                    </div>
-                    <div className="flex-grow border-l-2 border-green-100 pl-5 pb-6">
-                      <h6 className="font-semibold text-elx-primary mb-2">Implementation & Change Management</h6>
-                      <p className="text-sm text-gray-600 mb-2">
-                        Methodical execution of solution components, stakeholder enablement, change management, and iterative delivery of 
-                        business capabilities with regular checkpoints and adaptation.
-                      </p>
-                      <div className="bg-white rounded p-2 border border-gray-200 text-xs text-gray-500">
-                        <span className="font-medium text-elx-primary">Duration:</span> ~{Math.max(1, Math.round(estimatedCompletionWeeks * 0.4))} weeks
-                      </div>
-                    </div>
-                  </div>
-                  
-                  <div className="flex">
-                    <div className="w-10 flex-shrink-0">
-                      <div className="w-8 h-8 rounded-full bg-purple-100 text-purple-600 flex items-center justify-center">
-                        <span className="font-bold">4</span>
-                      </div>
-                    </div>
-                    <div className="flex-grow border-l-2 border-purple-100 pl-5">
-                      <h6 className="font-semibold text-elx-primary mb-2">Optimization & Sustainability Planning</h6>
-                      <p className="text-sm text-gray-600 mb-2">
-                        Measurement of business outcomes, capability refinement, knowledge transfer, and establishment of ongoing governance to 
-                        ensure sustainable transformation beyond the initial implementation.
-                      </p>
-                      <div className="bg-white rounded p-2 border border-gray-200 text-xs text-gray-500">
-                        <span className="font-medium text-elx-primary">Duration:</span> ~{Math.max(1, Math.round(estimatedCompletionWeeks * 0.15))} weeks
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              
-              {/* EVC Calculation Breakdown with better context */}
-              <div className="bg-gray-50 p-5 rounded-lg mb-6">
-                <h5 className="font-medium text-elx-primary mb-3">Resource Requirements & Timeline Calculation</h5>
-                
-                <p className="text-sm text-gray-600 mb-4">
-                  Your implementation timeline is calculated using our Elastic Value Credit (EVC) framework, which provides a precise measurement 
-                  of transformation resource requirements. The calculation below illustrates how your specific module selections and resource allocation 
-                  strategy translate into a realistic implementation timeline.
-                </p>
-                
-                <div className="space-y-3">
-                  <div className="flex justify-between items-center py-2 px-3 bg-white rounded-md">
-                    <div>
-                      <span className="text-sm font-medium text-elx-primary">Total Module EVC Requirements</span>
-                      <div className="text-xs text-gray-500">Base transformation scope from selected modules</div>
-                    </div>
-                    <span className="bg-rose-50 text-xs font-semibold px-3 py-1.5 rounded-md text-elx-primary border border-rose-200">
-                      {totalEvcSum} EVC
-                    </span>
-                  </div>
-                  
-                  {/* Only show overhead row if there is overhead */}
-                  {absoluteOverheadEvcs > 0 && (
-                    <div className="flex justify-between items-center py-2 px-3 bg-white rounded-md">
-                      <div>
-                        <span className="text-sm font-medium text-elx-primary">Resource Allocation Overhead</span>
-                        <div className="text-xs text-gray-500">
-                          Additional coordination complexity from {resourceAllocation} strategy ({overheadPercentage}%)
-                        </div>
-                      </div>
-                      <span className="bg-rose-50 text-xs font-semibold px-3 py-1.5 rounded-md text-elx-primary border border-rose-200">
-                        +{absoluteOverheadEvcs} EVC
-                      </span>
-                    </div>
-                  )}
-                  
-                  {/* Total EVCs with overhead */}
-                  <div className="flex justify-between items-center py-2 px-3 bg-elx-primary bg-opacity-10 rounded-md">
-                    <div>
-                      <span className="text-sm font-medium text-elx-primary">Total EVCs Required</span>
-                      <div className="text-xs text-gray-500">Complete transformation resource requirements</div>
-                    </div>
-                    <span className="bg-rose-50 text-xs font-semibold px-3 py-1.5 rounded-md text-elx-primary border border-rose-200">
-                      {totalEvcsWithOverhead} EVC
-                    </span>
-                  </div>
-                  
-                  <div className="flex justify-between items-center py-2 px-3 bg-white rounded-md">
-                    <div>
-                      <span className="text-sm font-medium text-elx-primary">Weekly Production Capacity</span>
-                      <div className="text-xs text-gray-500">{calculatorConfig.productionCapacity[productionCapacity].label} tier</div>
-                    </div>
-                    <span className="bg-blue-50 text-xs font-semibold px-3 py-1.5 rounded-md text-blue-700 border border-blue-200">
-                      {weeklyEVCs} EVCs/week
-                    </span>
-                  </div>
-                  
-                  {/* Calculation formula */}
-                  <div className="bg-white p-4 rounded-lg mt-4 text-center">
-                    <div className="text-sm text-gray-500 mb-3">Implementation Timeline Calculation</div>
-                    <div className="inline-block font-mono bg-gray-50 py-3 px-5 rounded border border-gray-200 text-sm">
-                      <div className="flex items-center justify-center space-x-3">
-                        <div className="text-center">
-                          <div className="text-sm text-gray-400 mb-1">Total EVCs</div>
-                          <div className="font-bold text-elx-primary">{totalEvcsWithOverhead}</div>
-                        </div>
-                        <div className="text-2xl text-gray-300">÷</div>
-                        <div className="text-center">
-                          <div className="text-sm text-gray-400 mb-1">Weekly Capacity</div>
-                          <div className="font-bold text-elx-primary">{weeklyEVCs}</div>
-                        </div>
-                        <div className="text-2xl text-gray-300">=</div>
-                        <div className="text-center">
-                          <div className="text-sm text-gray-400 mb-1">Timeline</div>
-                          <div className="font-bold text-xl text-elx-primary">{estimatedCompletionWeeks} weeks</div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              
-              {/* Visual timeline */}
-              <div className="mb-8">
-                <h5 className="font-medium text-elx-primary mb-4">Visual Implementation Timeline</h5>
-                
-                <div className="relative pt-12 pb-8">
-                  {/* Timeline bar */}
-                  <div className="absolute top-8 left-0 w-full h-3 bg-gray-100 rounded-full"></div>
-                  <div className="absolute top-8 left-0 h-3 bg-gradient-to-r from-blue-500 via-green-500 to-purple-500 rounded-full" style={{ width: '100%' }}></div>
-                  
-                  {/* Timeline markers */}
-                  <div className="absolute top-8 left-0 -translate-y-1/2">
-                    <div className="w-6 h-6 rounded-full bg-blue-500 border-4 border-white shadow-md"></div>
-                    <div className="absolute top-10 left-1/2 -translate-x-1/2 text-xs font-medium text-blue-700 w-24 text-center">
-                      Project Start
-                    </div>
-                  </div>
-                  
-                  <div className="absolute top-8 left-[20%] -translate-y-1/2">
-                    <div className="w-6 h-6 rounded-full bg-blue-500 border-4 border-white shadow-md"></div>
-                    <div className="absolute top-10 left-1/2 -translate-x-1/2 text-xs font-medium text-blue-700 w-24 text-center">
-                      Assessment<br />Complete
-                    </div>
-                  </div>
-                  
-                  <div className="absolute top-8 left-[45%] -translate-y-1/2">
-                    <div className="w-6 h-6 rounded-full bg-green-500 border-4 border-white shadow-md"></div>
-                    <div className="absolute top-10 left-1/2 -translate-x-1/2 text-xs font-medium text-green-700 w-24 text-center">
-                      Implementation<br />Kickoff
-                    </div>
-                  </div>
-                  
-                  <div className="absolute top-8 left-[85%] -translate-y-1/2">
-                    <div className="w-6 h-6 rounded-full bg-purple-500 border-4 border-white shadow-md"></div>
-                    <div className="absolute top-10 left-1/2 -translate-x-1/2 text-xs font-medium text-purple-700 w-24 text-center">
-                      Optimization<br />Phase
-                    </div>
-                  </div>
-                  
-                  <div className="absolute top-8 right-0 -translate-y-1/2">
-                    <div className="w-6 h-6 rounded-full bg-purple-500 border-4 border-white shadow-md"></div>
-                    <div className="absolute top-10 right-0 text-xs font-medium text-purple-700 w-24 text-center">
-                      Transformation<br />Complete
-                    </div>
-                  </div>
-                  
-                  {/* Timeline duration */}
-                  <div className="absolute bottom-0 left-0 text-xs text-gray-500">Week 0</div>
-                  <div className="absolute bottom-0 right-0 text-xs text-gray-500">Week {estimatedCompletionWeeks}</div>
-                </div>
-              </div>
-              
-              {/* Business value realization */}
-              <div className="bg-gray-50 rounded-lg p-5 border border-gray-200">
-                <h5 className="font-medium text-elx-primary mb-3">Business Value Realization Timeline</h5>
-                
-                <p className="text-sm text-gray-600 mb-4">
-                  Your transformation initiative will deliver business value throughout the implementation journey, not just at completion.
-                  Below is the projected value realization curve based on your selected modules and implementation approach.
-                </p>
-                
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
-                  <div className="bg-white p-4 rounded-lg border border-gray-200">
-                    <h6 className="text-xs font-semibold text-gray-500 uppercase mb-1">Early Value</h6>
-                    <div className="text-lg font-bold text-elx-primary mb-1">Weeks 1-{Math.max(1, Math.round(estimatedCompletionWeeks * 0.25))}</div>
-                    <p className="text-xs text-gray-600">
-                      Initial diagnostic insights, strategic clarity, and quick wins from operational improvements in targeted areas.
-                    </p>
-                  </div>
-                  
-                  <div className="bg-white p-4 rounded-lg border border-gray-200">
-                    <h6 className="text-xs font-semibold text-gray-500 uppercase mb-1">Main Implementation</h6>
-                    <div className="text-lg font-bold text-elx-primary mb-1">Weeks {Math.max(2, Math.round(estimatedCompletionWeeks * 0.25))}-{Math.max(3, Math.round(estimatedCompletionWeeks * 0.75))}</div>
-                    <p className="text-xs text-gray-600">
-                      Progressive capability deployment, process improvements, and incremental realization of efficiency and effectiveness gains.
-                    </p>
-                  </div>
-                  
-                  <div className="bg-white p-4 rounded-lg border border-gray-200">
-                    <h6 className="text-xs font-semibold text-gray-500 uppercase mb-1">Full Value Realization</h6>
-                    <div className="text-lg font-bold text-elx-primary mb-1">Week {Math.max(4, Math.round(estimatedCompletionWeeks * 0.75))}+</div>
-                    <p className="text-xs text-gray-600">
-                      Complete transformation benefits, sustainable new capabilities, and ongoing optimization for compounding returns.
-                    </p>
-                  </div>
-                </div>
-                
-                <div className="bg-white p-4 rounded-lg border border-gray-200 text-sm text-gray-600">
-                  <div className="flex items-start">
-                    <FontAwesomeIcon icon={faInfoCircle} className="text-elx-accent mt-0.5 mr-2" />
-                    <p>
-                      <span className="font-medium text-gray-700">Note:</span> The {estimatedCompletionWeeks}-week timeline represents the 
-                      implementation phase. Additional value will continue to be realized after implementation as new capabilities mature and 
-                      become fully integrated into your organization.
-                    </p>
-                  </div>
-                </div>
-              </div>
-            </div>
+            
             
             {/* Success Factors */}
             <div className="bg-white rounded-xl p-6 border border-gray-200 shadow-md">
