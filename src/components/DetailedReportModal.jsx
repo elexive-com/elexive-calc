@@ -232,7 +232,7 @@ const DetailedReportModal = ({ isOpen, onClose, calculator }) => {
     <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
       <div className="bg-white rounded-2xl shadow-xl max-w-5xl w-full max-h-[90vh] overflow-hidden flex flex-col">
         {/* Header with title - more professional styling */}
-        <div className="bg-gradient-to-r from-elx-primary to-white shadow-md z-20 border-b">
+        <div className="bg-elx-primary shadow-md z-20 border-b">
           <div className="p-5 flex justify-between items-center">
             <h2 className="text-2xl font-bold text-white flex items-center">
               <FontAwesomeIcon icon={faBookmark} className="text-white mr-3 opacity-90" />
