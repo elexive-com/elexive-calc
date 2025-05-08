@@ -20,6 +20,7 @@ const DetailedReportModal = ({ isOpen, onClose, calculator }) => {
   const [expandedModules, setExpandedModules] = useState({});
   const [expandedAddOns, setExpandedAddOns] = useState({});
   
+  
   if (!isOpen) return null;
 
   // Toggle module expansion
@@ -470,38 +471,101 @@ const DetailedReportModal = ({ isOpen, onClose, calculator }) => {
                 </div>
               </div>
               
-              {/* Timeline Calculation Section - moved from Implementation Roadmap */}
+              {/* Service Delivery Timeline Section */}
               <div className="mt-6 pt-6 border-t border-gray-100">
-                <h5 className="text-sm font-semibold text-gray-500 uppercase tracking-wider mb-3">Implementation Timeline Calculation</h5>
+                <h5 className="text-sm font-semibold text-gray-500 uppercase tracking-wider mb-3">Service Delivery Timeline</h5>
                 
-                <p className="text-sm text-gray-600 mb-4">
-                  Your implementation timeline is calculated using our Elastic Value Credit (EVC) framework, which provides a precise measurement 
-                  of transformation resource requirements. The calculation below illustrates how your specific module selections and resource allocation 
-                  strategy translate into a realistic implementation timeline.
+                <p className="text-sm text-gray-600 mb-5">
+                  Your service delivery timeline is based on our Elastic Value Credit (EVC) framework, which measures transformation 
+                  resource requirements. This visualization shows how your service capacity and scope requirements create a predictable
+                  delivery timeline.
                 </p>
                 
-                <div className="space-y-3">
-                  {/* Calculation formula */}
-                  <div className="bg-white p-4 rounded-lg mt-4 text-center">
-                    <div className="text-sm text-gray-500 mb-3">Implementation Timeline Calculation</div>
-                    <div className="inline-block font-mono bg-gray-50 py-3 px-5 rounded border border-gray-200 text-sm">
-                      <div className="flex items-center justify-center space-x-3">
-                        <div className="text-center">
-                          <div className="text-sm text-gray-400 mb-1">Total EVCs</div>
-                          <div className="font-bold text-elx-primary">{totalEvcsWithOverhead}</div>
-                        </div>
-                        <div className="text-2xl text-gray-300">÷</div>
-                        <div className="text-center">
-                          <div className="text-sm text-gray-400 mb-1">Weekly Capacity</div>
-                          <div className="font-bold text-elx-primary">{weeklyEVCs}</div>
-                        </div>
-                        <div className="text-2xl text-gray-300">=</div>
-                        <div className="text-center">
-                          <div className="text-sm text-gray-400 mb-1">Timeline</div>
-                          <div className="font-bold text-xl text-elx-primary">{estimatedCompletionWeeks} weeks</div>
-                        </div>
-                      </div>
+                {/* EVC delivery blocks visualization */}
+                <div className="bg-white rounded-lg shadow-sm p-4 border border-gray-200 mb-5">
+                  <div className="flex justify-between items-center mb-3">
+                    <div className="text-sm font-medium text-gray-700">Continuous Service Delivery</div>
+                    <div className="text-lg font-semibold text-elx-primary flex items-center">
+                      {estimatedCompletionWeeks}
+                      <span className="text-xs ml-1 text-gray-500">weeks</span>
                     </div>
+                  </div>
+                  
+                  <div className="h-10 bg-gray-50 rounded-lg overflow-hidden border border-gray-100 mb-1">
+                    {/* Generate week blocks based on estimatedCompletionWeeks */}
+                    <div className="flex h-full">
+                      {Array.from({ length: Math.min(estimatedCompletionWeeks, 20) }).map((_, index) => (
+                        <div 
+                          key={index} 
+                          className={`h-full ${index < estimatedCompletionWeeks - 1 ? 'border-r' : ''} border-gray-200 flex items-center justify-center`}
+                          style={{ width: `${100 / Math.min(estimatedCompletionWeeks, 20)}%` }}
+                        >
+                          <div className="w-full h-full bg-blue-500 bg-opacity-20 flex items-center justify-center">
+                            {(estimatedCompletionWeeks <= 12 || index % 2 === 0 || index === estimatedCompletionWeeks - 1) && (
+                              <span className="text-xs font-medium text-blue-700">
+                                {weeklyEVCs}
+                              </span>
+                            )}
+                          </div>
+                        </div>
+                      ))}
+                      
+                      {/* If more than 20 weeks, show ellipsis */}
+                      {estimatedCompletionWeeks > 20 && (
+                        <div className="absolute right-0 top-0 bottom-0 flex items-center pr-2">
+                          <span className="text-xs font-medium text-gray-500">...</span>
+                        </div>
+                      )}
+                    </div>
+                  </div>
+                  
+                  {/* Week markers */}
+                  <div className="flex justify-between px-1 text-[10px] text-gray-500 mb-4">
+                    <div>Week 1</div>
+                    {estimatedCompletionWeeks <= 10 ? (
+                      // If 10 or fewer weeks, show all week markers
+                      Array.from({ length: estimatedCompletionWeeks - 2 }).map((_, index) => (
+                        <div key={index}>Week {index + 2}</div>
+                      ))
+                    ) : (
+                      // Otherwise, show some markers strategically
+                      <>
+                        <div>Week {Math.round(estimatedCompletionWeeks * 0.25)}</div>
+                        <div>Week {Math.round(estimatedCompletionWeeks * 0.5)}</div>
+                        <div>Week {Math.round(estimatedCompletionWeeks * 0.75)}</div>
+                      </>
+                    )}
+                    <div>Week {estimatedCompletionWeeks}</div>
+                  </div>
+                  
+                  {/* Formula visualization - simplified */}
+                  <div className="flex items-center justify-center text-sm bg-gray-50 rounded-lg py-3 border border-gray-100">
+                    <div className="text-center px-3">
+                      <span className="font-semibold text-elx-primary">{totalEvcsWithOverhead}</span>
+                      <span className="text-xs text-gray-500 block">Total EVCs</span>
+                    </div>
+                    <div className="px-2 text-xl text-gray-400">÷</div>
+                    <div className="text-center px-3">
+                      <span className="font-semibold text-blue-600">{weeklyEVCs}</span>
+                      <span className="text-xs text-gray-500 block">EVCs/week</span>
+                    </div>
+                    <div className="px-2 text-xl text-gray-400">=</div>
+                    <div className="text-center px-3">
+                      <span className="font-semibold text-gray-700">{estimatedCompletionWeeks}</span>
+                      <span className="text-xs text-gray-500 block">weeks</span>
+                    </div>
+                  </div>
+                </div>
+                
+                {/* Service approach context */}
+                <div className="bg-gray-50 rounded-lg p-3 text-xs text-gray-600 border border-gray-200">
+                  <div className="flex items-start">
+                    <FontAwesomeIcon icon={faInfoCircle} className="text-elx-accent mt-0.5 mr-2" />
+                    <p>
+                      Our service model delivers consistent value through a weekly EVC capacity of {weeklyEVCs}. 
+                      With your selected {resourceAllocation} resource allocation strategy, we'll deliver the complete {totalEvcsWithOverhead} EVC scope over {estimatedCompletionWeeks} weeks, 
+                      enabling continuous transformation without disrupting your operations.
+                    </p>
                   </div>
                 </div>
               </div>
@@ -1125,18 +1189,7 @@ const DetailedReportModal = ({ isOpen, onClose, calculator }) => {
                 </div>
               </div>
               
-              <div className="mt-6 pt-6 border-t border-elx-primary border-opacity-20 text-center">
-                <button
-                  onClick={() => window.location.href = 'mailto:transform@elexive.com?subject=Strategic%20Solution%20Implementation%20Request&body=I%20would%20like%20to%20schedule%20an%20executive%20briefing%20based%20on%20the%20solution%20brief%20I%20created.'}
-                  className="bg-elx-primary text-white py-3 px-6 rounded-lg font-medium shadow-md hover:bg-opacity-90 transition-colors"
-                >
-                  <FontAwesomeIcon icon={faEnvelope} className="mr-2" />
-                  Schedule Executive Briefing
-                </button>
-                <p className="text-xs text-gray-500 mt-3">
-                  Or contact our transformation team directly at <span className="font-medium">transform@elexive.com</span>
-                </p>
-              </div>
+
             </div>
           </div>
         </div>
@@ -1166,7 +1219,7 @@ const DetailedReportModal = ({ isOpen, onClose, calculator }) => {
             className="elx-btn elx-btn-secondary px-6 py-3"
           >
             <FontAwesomeIcon icon={faEnvelope} className="mr-2" />
-            Request Detailed Proposal
+            Schedule Executive Briefing
           </button>
         </div>
       </div>
