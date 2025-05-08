@@ -4,7 +4,8 @@ import {
   faMoneyBillWave, faGears, faCheck, faBuilding, 
   faRocket, faLightbulb, faShieldAlt, faServer,
   faNetworkWired, faDatabase, faUsers,
-  faRobot, faArrowRight, faMap, faCompass
+  faRobot, faArrowRight, faMap, faCompass,
+  faGlobe, faLayerGroup
 } from '@fortawesome/free-solid-svg-icons';
 import modulesConfig from '../config/modulesConfig.json';
 
@@ -20,6 +21,22 @@ export const getDiscountLabel = (priceModifier) => {
   return null;
 };
 
+// Helper function to get icon from string name
+export const getIcon = (iconName) => {
+  // Import all FontAwesome icons that are used in the app
+  const iconMap = {
+    faChartLine, faBullseye, faPuzzlePiece, 
+    faMoneyBillWave, faGears, faCheck, faBuilding, 
+    faRocket, faLightbulb, faShieldAlt, faServer,
+    faNetworkWired, faDatabase, faUsers,
+    faRobot, faArrowRight, faMap, faCompass,
+    faGlobe, faLayerGroup
+  };
+  
+  // Return the icon if it exists, otherwise return a default
+  return iconMap[iconName] || faPuzzlePiece;
+};
+
 // Helper function to get icon for module
 export const getModuleIcon = (pillar, name) => {
   // Import all FontAwesome icons that are used in the app
@@ -28,7 +45,8 @@ export const getModuleIcon = (pillar, name) => {
     faMoneyBillWave, faGears, faCheck, faBuilding, 
     faRocket, faLightbulb, faShieldAlt, faServer,
     faNetworkWired, faDatabase, faUsers,
-    faRobot, faArrowRight, faMap, faCompass
+    faRobot, faArrowRight, faMap, faCompass,
+    faGlobe, faLayerGroup
   };
   
   // Find the module in the modules array from modulesConfig

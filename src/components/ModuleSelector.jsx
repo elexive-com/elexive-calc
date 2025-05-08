@@ -7,6 +7,8 @@ import {
   faInfoCircle, faArrowRight
 } from '@fortawesome/free-solid-svg-icons';
 import modulesConfig from '../config/modulesConfig.json';
+import calculatorConfig from '../config/calculatorConfig.json';
+import { getIcon } from '../utils/iconUtils';
 
 const ModuleSelector = ({ 
   modules, 
@@ -18,11 +20,13 @@ const ModuleSelector = ({
   setSelectedVariants
 }) => {
   // State for expanded pillars in the accordion
-  const [expandedPillars, setExpandedPillars] = useState({
-    Discovery: false,
-    Transformation: false,
-    Strategy: false,
-    Technology: false
+  const [expandedPillars, setExpandedPillars] = useState(() => {
+    // Initialize with all pillars from config set to false (collapsed)
+    const initialState = {};
+    calculatorConfig.pillars.forEach(pillar => {
+      initialState[pillar.label] = false;
+    });
+    return initialState;
   });
   
   // State for module options explainer visibility
@@ -77,12 +81,13 @@ const ModuleSelector = ({
   };
   
   // Group modules by pillar
-  const modulesByPillar = {
-    Discovery: modules.filter(module => module.pillar === "Discovery"),
-    Transformation: modules.filter(module => module.pillar === "Transformation"),
-    Strategy: modules.filter(module => module.pillar === "Strategy"),
-    Technology: modules.filter(module => module.pillar === "Technology")
-  };
+  const modulesByPillar = {};
+  
+  // Dynamically populate the modulesByPillar using pillars from config
+  calculatorConfig.pillars.forEach(pillar => {
+    modulesByPillar[pillar.label] = modules.filter(module => 
+      module.pillar === pillar.label);
+  });
   
   // Toggle accordion expansion for a pillar
   const togglePillarExpansion = (pillar) => {
@@ -94,6 +99,16 @@ const ModuleSelector = ({
 
   // Get pillar icon based on pillar type
   const getPillarIcon = (pillar) => {
+    // Find the pillar in the configuration
+    const pillarConfig = calculatorConfig.pillars.find(
+      p => p.label.toLowerCase() === pillar.toLowerCase()
+    );
+    
+    if (pillarConfig && pillarConfig.icon) {
+      return getIcon(pillarConfig.icon);
+    }
+    
+    // Fallback to default icons if not found in config
     switch(pillar.toLowerCase()) {
       case 'discovery': return faCompass;
       case 'transformation': return faLayerGroup; 
@@ -103,15 +118,34 @@ const ModuleSelector = ({
     }
   };
   
+  // Get pillar tagline
+  const getPillarTagline = (pillar) => {
+    // Find the pillar in the configuration
+    const pillarConfig = calculatorConfig.pillars.find(
+      p => p.label.toLowerCase() === pillar.toLowerCase()
+    );
+    
+    return pillarConfig ? pillarConfig.tagline : '';
+  };
+  
   // Get pillar color based on pillar type
   const getPillarColor = (pillar) => {
-    switch(pillar.toLowerCase()) {
-      case 'transformation': return '#D99000'; // Darkened from #FFBE59 for better contrast
-      case 'strategy': return '#C85A30'; // Darkened from #EB8258 for better contrast
-      case 'technology': return '#1F776D'; // Already had good contrast
-      case 'discovery': return '#2E2266'; // Primary color for discovery
-      default: return '#D99000';
+    // Predefined colors for backward compatibility
+    const pillarColors = {
+      'transformation': '#D99000', // Darkened from #FFBE59 for better contrast
+      'strategy': '#C85A30', // Darkened from #EB8258 for better contrast
+      'technology': '#1F776D', // Already had good contrast
+      'discovery': '#2E2266' // Primary color for discovery
+    };
+    
+    // Try to find the pillar in the lowercase map first
+    const pillarLower = pillar.toLowerCase();
+    if (pillarColors[pillarLower]) {
+      return pillarColors[pillarLower];
     }
+    
+    // If not found, return a default color
+    return '#D99000'; // Default to the transformation color
   };
   
   return (
@@ -229,6 +263,11 @@ const ModuleSelector = ({
             {/* Pillar Content - Shown when expanded */}
             {expandedPillars[pillar] && (
               <div className="bg-white p-4">
+                {/* Pillar tagline at the top of the expanded content */}
+                <div className="mb-4 pb-3 border-b border-gray-100">
+                  <p className="text-sm text-gray-700">{getPillarTagline(pillar)}</p>
+                </div>
+                
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   {pillarModules.map((module) => (
                     <div
@@ -244,13 +283,10 @@ const ModuleSelector = ({
                         <div className="flex items-center">
                           <h3 className="font-semibold text-sm sm:text-base text-gray-800">{module.name}</h3>
                         </div>
-                        <span className="inline-flex items-center px-2 py-0.5 rounded-md text-xs font-medium bg-gray-200 text-gray-700">
-                          {module.category}
-                        </span>
                       </div>
                       
                       <div className="p-4 flex-grow">
-                        <p className="text-xs font-medium text-gray-700 mb-1">{module.heading}</p>
+                        <p className="text-xs font-bold text-gray-700 mb-1">{module.heading}</p>
                         <p className="text-xs text-gray-600 mb-4">{module.description}</p>
                         
                         {/* Module options at the bottom */}

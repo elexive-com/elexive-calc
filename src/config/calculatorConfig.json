@@ -190,6 +190,36 @@
       }
     }
   ],
+  "pillars": [
+    {
+      "id": "discovery",
+      "label": "Discovery",
+      "tagline": "Understand your current state and define success metrics",
+      "description": "Comprehensive assessment and analysis of your current business situation to establish clear, measurable objectives for transformation.",
+      "icon": "faCompass"
+    },
+    {
+      "id": "transformation",
+      "label": "Transformation",
+      "tagline": "Implement solutions and drive organizational change",
+      "description": "Executable strategies and frameworks that create fundamental shifts in how your organization operates, competes, and delivers value.",
+      "icon": "faUsers"
+    },
+    {
+      "id": "strategy",
+      "label": "Strategy",
+      "tagline": "Develop roadmaps for long-term success",
+      "description": "Forward-looking approaches to position your business for sustainable growth and competitive advantage in evolving markets.",
+      "icon": "faLightbulb"
+    },
+    {
+      "id": "technology",
+      "label": "Technology",
+      "tagline": "Leverage digital capabilities for business advantage",
+      "description": "Practical application of technological solutions to overcome challenges, create efficiencies, and enable new business capabilities.",
+      "icon": "faServer"
+    }
+  ],
   "defaults": {
     "weeklyCapacity": 10,
     "resourceAllocation": "balanced",

@@ -46,8 +46,13 @@ export default function useCalculator() {
   const [completionTimeWeeks, setCompletionTimeWeeks] = useState(0);
   const [totalModuleEvcs, setTotalModuleEvcs] = useState(0);
   
-  // State for active pillar tab
-  const [activePillar, setActivePillar] = useState("Transformation");
+  // Get available pillars from config
+  const availablePillars = calculatorConfig.pillars.map(pillar => pillar.label);
+  
+  // State for active pillar tab - use the first pillar from config as default
+  const [activePillar, setActivePillar] = useState(
+    availablePillars.length > 0 ? availablePillars[0] : "Transformation"
+  );
   
   // Function to toggle EVC explainer visibility
   const toggleEvcExplainer = () => {
@@ -74,8 +79,8 @@ export default function useCalculator() {
     });
     setParameters(resetParams);
     
-    // Reset active pillar
-    setActivePillar("Transformation");
+    // Reset active pillar to first pillar in config
+    setActivePillar(availablePillars.length > 0 ? availablePillars[0] : "Transformation");
     
     // Force a recalculation to update all values
     calculatePricing();
@@ -505,6 +510,8 @@ export default function useCalculator() {
     evcBase,
     serviceParameters,
     modules,
+    pillars: calculatorConfig.pillars,
+    availablePillars,
     
     // Functions
     toggleEvcExplainer,

@@ -13,6 +13,7 @@ import {
 import { generateReportPdf } from '../pdf';
 import calculatorConfig from '../config/calculatorConfig.json';
 import modulesConfig from '../config/modulesConfig.json';
+import { getIcon } from '../utils/iconUtils';
 
 const DetailedReportModal = ({ isOpen, onClose, calculator }) => {
   const [isExporting, setIsExporting] = useState(false);
@@ -163,6 +164,16 @@ const DetailedReportModal = ({ isOpen, onClose, calculator }) => {
   
   // Get pillar icon
   const getPillarIcon = (pillar) => {
+    // Find the pillar in the configuration
+    const pillarConfig = calculatorConfig.pillars.find(
+      p => p.label.toLowerCase() === pillar.toLowerCase()
+    );
+    
+    if (pillarConfig && pillarConfig.icon) {
+      return getIcon(pillarConfig.icon);
+    }
+    
+    // Fallback to default icons if not found in config
     switch(pillar) {
       case 'Transformation': return faUsers;
       case 'Strategy': return faChartLine;
@@ -174,6 +185,23 @@ const DetailedReportModal = ({ isOpen, onClose, calculator }) => {
   
   // Get pillar color class
   const getPillarColorClass = (pillar) => {
+    // Try to find the pillar in the configuration
+    const pillarConfig = calculatorConfig.pillars.find(
+      p => p.label.toLowerCase() === pillar.toLowerCase()
+    );
+    
+    if (pillarConfig) {
+      // If the pillar is found in the config, return a color class based on the pillar's id
+      switch(pillarConfig.id.toLowerCase()) {
+        case 'transformation': return 'text-purple-600 bg-purple-50 border-purple-200';
+        case 'strategy': return 'text-blue-600 bg-blue-50 border-blue-200';
+        case 'technology': return 'text-green-600 bg-green-50 border-green-200';
+        case 'discovery': return 'text-amber-600 bg-amber-50 border-amber-200';
+        default: return 'text-gray-600 bg-gray-50 border-gray-200';
+      }
+    }
+    
+    // Fallback to legacy color mapping if not found in config
     switch(pillar) {
       case 'Transformation': return 'text-purple-600 bg-purple-50 border-purple-200';
       case 'Strategy': return 'text-blue-600 bg-blue-50 border-blue-200';
