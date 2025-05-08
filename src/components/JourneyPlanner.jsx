@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useMemo } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { 
-  faSearch, faBookmark, faChevronRight, faChevronDown,
+  faSearch, faBookmark, faChevronRight,
   faLightbulb, faRocket, faCompass, faArrowRight, faChartLine,
   faLayerGroup
 } from '@fortawesome/free-solid-svg-icons';
@@ -33,7 +33,7 @@ const JourneyPlanner = () => {
   const [isDetailView, setIsDetailView] = useState(false);
   const [isExporting, setIsExporting] = useState(false);
   const [activeJourneyStep, setActiveJourneyStep] = useState(0);
-  const [showFilter, setShowFilter] = useState(false);
+  const [showFilter] = useState(false);
   
   // State for secondary journey stages
   const [activeSecondaryStage, setActiveSecondaryStage] = useState(null);
@@ -912,7 +912,6 @@ const JourneyPlanner = () => {
                   </button>
                 </div>
               )}
-              
             </div>
           </div>
           
