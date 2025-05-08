@@ -304,38 +304,70 @@ const ModuleExplorer = () => {
   const ModernFilterPanel = () => (
     <div className="mb-6">
       <div className="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden">
-        {/* Search bar section */}
+        {/* Search bar section with saved modules and clear filters */}
         <div className="p-4 border-b border-gray-100 bg-gradient-to-r from-elx-primary-light to-white">
-          <div className="relative">
-            <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
-              <FontAwesomeIcon icon={faSearch} className="text-elx-primary" />
+          <div className="flex items-center gap-3">
+            {/* Search input */}
+            <div className="relative flex-grow">
+              <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+                <FontAwesomeIcon icon={faSearch} className="text-elx-primary" />
+              </div>
+              <input
+                type="text"
+                placeholder="Search for modules by name or description..."
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                className="block w-full pl-11 pr-10 py-3 border-2 border-elx-primary-light rounded-lg text-gray-700 
+                bg-white bg-opacity-90 shadow-md focus:ring-2 focus:ring-elx-primary focus:ring-opacity-50 
+                focus:border-elx-primary focus:outline-none transition-all"
+                autoComplete="off"
+              />
+              {searchQuery && (
+                <button
+                  onClick={() => setSearchQuery('')}
+                  className="absolute inset-y-0 right-0 pr-3 flex items-center text-gray-400 hover:text-gray-600"
+                  type="button"
+                  tabIndex="-1" // Prevent focus stealing
+                  aria-label="Clear search"
+                >
+                  <FontAwesomeIcon icon={faTimes} className="h-4 w-4" />
+                </button>
+              )}
             </div>
-            <input
-              type="text"
-              placeholder="Search for modules by name or description..."
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-              className="block w-full pl-11 pr-10 py-3 border-0 rounded-lg text-gray-700 bg-white bg-opacity-90 shadow-inner focus:ring-2 focus:ring-elx-primary focus:ring-opacity-50 focus:outline-none"
-              autoComplete="off"
-            />
-            {searchQuery && (
+            
+            {/* Clear filters button */}
+            {(!selectedPillars.has('all') || !selectedCategories.has('all') || showSavedOnly) && (
               <button
-                onClick={() => setSearchQuery('')}
-                className="absolute inset-y-0 right-0 pr-3 flex items-center text-gray-400 hover:text-gray-600"
-                type="button"
-                tabIndex="-1" // Prevent focus stealing
-                aria-label="Clear search"
+                onClick={clearAllFilters}
+                className="whitespace-nowrap py-2 px-3 text-sm font-medium text-gray-600 bg-gray-100 hover:bg-gray-200 hover:text-elx-primary border border-gray-200 rounded-lg transition-colors flex items-center"
               >
-                <FontAwesomeIcon icon={faTimes} className="h-4 w-4" />
+                <FontAwesomeIcon icon={faTimes} className="mr-2 text-gray-500" />
+                Clear filters
               </button>
             )}
+            
+            {/* Saved modules button */}
+            <button 
+              onClick={() => setShowSavedOnly(!showSavedOnly)}
+              disabled={savedModules.length === 0}
+              className={`flex items-center justify-center py-2 px-3 rounded-lg text-sm font-medium transition-colors whitespace-nowrap ${
+                savedModules.length === 0 
+                  ? 'bg-gray-100 text-gray-400 cursor-not-allowed' 
+                  : showSavedOnly 
+                    ? 'bg-amber-500 text-white hover:bg-amber-600' 
+                    : 'bg-gray-50 text-gray-700 border border-gray-200 hover:bg-gray-100'
+              }`}
+            >
+              <FontAwesomeIcon icon={faBookmark} className={`mr-2 ${showSavedOnly ? 'text-white' : 'text-amber-500'}`} />
+              {showSavedOnly ? 'Show All' : `Saved (${savedModules.length})`}
+            </button>
           </div>
         </div>
         
         {/* Filters section */}
         <div className="p-4 bg-white">
           {/* Filters in two columns for better space usage */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             {/* Pillar Toggles */}
             <div>
               <label className="text-xs font-medium text-gray-500 mb-2 ml-1 block">Pillars</label>
@@ -375,35 +407,6 @@ const ModuleExplorer = () => {
                 ))}
               </div>
             </div>
-          </div>
-          
-          {/* Bottom controls */}
-          <div className="flex justify-between items-center mt-2">
-            {/* Clear filters button */}
-            {(!selectedPillars.has('all') || !selectedCategories.has('all') || showSavedOnly) && (
-              <button
-                onClick={clearAllFilters}
-                className="text-sm text-gray-500 hover:text-elx-primary hover:underline"
-              >
-                Clear all filters
-              </button>
-            )}
-            
-            {/* Saved modules button */}
-            <button 
-              onClick={() => setShowSavedOnly(!showSavedOnly)}
-              disabled={savedModules.length === 0}
-              className={`flex items-center justify-center py-2 px-4 rounded-lg text-sm font-medium transition-colors ml-auto ${
-                savedModules.length === 0 
-                  ? 'bg-gray-100 text-gray-400 cursor-not-allowed' 
-                  : showSavedOnly 
-                    ? 'bg-amber-500 text-white hover:bg-amber-600' 
-                    : 'bg-gray-50 text-gray-700 border border-gray-200 hover:bg-gray-100'
-              }`}
-            >
-              <FontAwesomeIcon icon={faBookmark} className={`mr-2 ${showSavedOnly ? 'text-white' : 'text-amber-500'}`} />
-              {showSavedOnly ? 'Show All' : `Saved (${savedModules.length})`}
-            </button>
           </div>
         </div>
       </div>
