@@ -39,6 +39,20 @@
       "category": "Immediate Impact",
       "heading": "Effective Transformation, Agility & Organizational Growth",
       "description": "Change moves fast, and the best leaders use it to grow, adapt, and level up their teams. They know success means balancing the strategy with the people side—ditching old playbooks, embracing fresh mindsets, and leading with confidence into what's next.",
+      "fix": "We provide structured change leadership frameworks. Bridge the strategy-execution gap, using proven methods and tying to revenue-driving models.",
+      "benefits": [
+        "Strategy to Action",
+        "Rapid Team Alignment",
+        "Outpace the Competition",
+        "Agile Leadership Mindset"
+      ],
+      "deliveryOptions": [
+        "Advisory Sprint: Organizational agility audit & leadership adaptation framework",
+        "Strategy Deep Dive: Enterprise-wide transformation roadmap & execution coaching",
+        "Integrated Execution: Long-term change leadership development with set metrics and unified dashboards"
+      ],
+      "callToAction": "Let's talk Leadership Today",
+      "whoIsItFor": "Change-makers who are ready to turn big ideas into real actions without confusion or burnout.",
       "icon": "faCheck",
       "variants": [
         {
@@ -57,6 +71,20 @@
       "category": "Immediate Impact",
       "heading": "Leadership Culture & Performance Mastery",
       "description": "Great strategies deserve teams that move fast and think big—but even talented teams can lose momentum if culture and execution aren't aligned. High-performing companies build a culture where decisions flow easily, alignment happens naturally, and execution becomes second nature.",
+      "fix": "We help teams create a high-performance culture, align execution habits with company strategy, and embed leadership accountability.",
+      "benefits": [
+        "Culture of Execution",
+        "Leadership Team Alignment",
+        "Scale Leadership Impact",
+        "Accountability and Trust"
+      ],
+      "deliveryOptions": [
+        "Advisory Sprint: Culture impact assessment & leadership alignment strategies",
+        "Strategy Deep Dive: Leadership culture transformation & accountability system design",
+        "Integrated Execution: Long-term cultural shift coaching"
+      ],
+      "callToAction": "Let's talk Leadership Today",
+      "whoIsItFor": "Leaders looking to ignite motivation, inspire teams, and get everyone moving together.",
       "icon": "faPuzzlePiece",
       "variants": [
         {
@@ -75,6 +103,20 @@
       "category": "Immediate Impact",
       "heading": "Mastering Decision-Making in an AI-Driven World",
       "description": "AI is reshaping what's possible in leadership—opening doors for faster, smarter decisions and freeing leaders from routine tasks. The leaders who lean into AI can amplify their instincts, drive better outcomes, and stay ahead of what's next.",
+      "fix": "We help leaders integrate AI into strategic decision-making, ensuring human intuition and AI intelligence work together.",
+      "benefits": [
+        "Smarter Decisions",
+        "Automate Leadership Work",
+        "Responsible AI Governance",
+        "Future-proof Your Leadership"
+      ],
+      "deliveryOptions": [
+        "Advisory Sprint: AI-powered leadership strategy",
+        "Strategy Deep Dive: AI governance & executive AI literacy",
+        "Integrated Execution: AI-powered leadership coaching"
+      ],
+      "callToAction": "Let's talk Leadership Today",
+      "whoIsItFor": "Forward-thinking leaders excited to use AI to elevate their decisions and sharpen their edge.",
       "icon": "faRobot",
       "variants": [
         {
@@ -93,6 +135,20 @@
       "category": "Vested Value",
       "heading": "Building the Workplace Everyone Wants to Join",
       "description": "Great companies aren't built by chance—they're powered by passionate people at every level. To keep thriving, businesses need to spot talent early, nurture everyone's potential, and create an environment where growth and purpose become everyday experiences.",
+      "fix": "We help you build an inspiring workplace where everyone—not just leaders—can learn, grow, and do their best work. By combining data-driven insights with personalized development programs, we ensure every team member can shape a meaningful career, unlocking their full potential and driving company-wide success.",
+      "benefits": [
+        "Create career paths that excite and retain your best people",
+        "Boost Team Engagement by giving everyone opportunities to grow",
+        "Personalized Talent Development",
+        "Culture of Belonging"
+      ],
+      "deliveryOptions": [
+        "Advisory Sprint: Quick-win talent audit, employee growth mapping, and personalized development roadmap.",
+        "Strategy Deep Dive: Comprehensive talent and career development strategy, employee engagement programs, and internal growth initiatives.",
+        "Integrated Execution: Ongoing implementation of personalized learning programs, career progression coaching, and talent retention strategies."
+      ],
+      "callToAction": "Let's talk Leadership Today",
+      "whoIsItFor": "People-focused leaders determined to build a workplace employees want to advocate for.",
       "icon": "faUsers",
       "variants": [
         {
@@ -111,6 +167,20 @@
       "category": "Vested Value",
       "heading": "Future Vision, Innovation & Decision-Making",
       "description": "The future belongs to leaders who think strategically, spotting opportunities before others see them. The best leaders step away from day-to-day pressures, confidently pursue bold ideas, and inspire their teams to strategically shape what's next.",
+      "fix": "We provide leaders with future-focused strategy frameworks, innovation roadmaps, and advanced decision-making tools.",
+      "benefits": [
+        "Anticipate the Future",
+        "Make bold, high-impact decisions",
+        "Innovation Meets Execution",
+        "Future-proof Your Business"
+      ],
+      "deliveryOptions": [
+        "Advisory Sprint: Strategic foresight training & decision mapping",
+        "Strategy Deep Dive: Comprehensive innovation strategy & leadership vision planning",
+        "Integrated Execution: Ongoing strategy coaching & transformation leadership"
+      ],
+      "callToAction": "Shape the future with fearless decision-making.",
+      "whoIsItFor": "Visionaries who want to clearly define what's next and inspire others to follow.",
       "icon": "faChartLine",
       "variants": [
         {
@@ -129,6 +199,20 @@
       "category": "Vested Value",
       "heading": "Adapting & Thriving in Uncertain Environments",
       "description": "Change is the new normal—and agile leaders see it as their greatest opportunity. Today's best executives thrive on uncertainty, confidently adapt to shifting conditions, and empower their teams to pivot quickly and keep winning.",
+      "fix": "We help executives develop leadership agility, providing mental models and adaptive strategy frameworks.",
+      "benefits": [
+        "Thrive Through Uncertainty",
+        "Build Resilient Leaders",
+        "Focused, Agile Leadership",
+        "Lead Transformational Change"
+      ],
+      "deliveryOptions": [
+        "Advisory Sprint: Executive agility assessment & fast-adaptation frameworks",
+        "Strategy Deep Dive: High-performance leadership under uncertainty",
+        "Integrated Execution: Long-term adaptability coaching & market response strategy execution"
+      ],
+      "callToAction": "Stay sharp, adapt fast, and thrive in uncertainty.",
+      "whoIsItFor": "Leaders navigating unpredictable environments who need quick pivots and steady nerves.",
       "icon": "faArrowRight",
       "variants": [
         {
@@ -147,6 +231,20 @@
       "category": "Immediate Impact",
       "heading": "Optimizing Pricing & Unlocking New Growth",
       "description": "Every business has untapped potential to boost revenue and growth. Smart companies know their worth, confidently price their value, and are always on the lookout for fresh opportunities to unlock new income streams.",
+      "fix": "We help businesses rethink their revenue strategy, using AI-driven pricing insights, new business model innovations, and data-backed monetization frameworks.",
+      "benefits": [
+        "Maximize Your Value",
+        "Find new revenue streams",
+        "AI-Optimized Pricing",
+        "Grow Customer Value"
+      ],
+      "deliveryOptions": [
+        "Advisory Sprint: Quick pricing & revenue audit",
+        "Strategy Deep Dive: Comprehensive pricing transformation & customer value strategy",
+        "Integrated Execution: Ongoing revenue optimization & business model expansion"
+      ],
+      "callToAction": "Charge right, grow fast, and maximize revenue.",
+      "whoIsItFor": "Leaders who sense they could charge more, sell smarter, or create new income streams.",
       "icon": "faMoneyBillWave",
       "variants": [
         {
@@ -165,6 +263,20 @@
       "category": "Immediate Impact",
       "heading": "Embedding Customer-First Thinking into Business Strategy",
       "description": "The strongest businesses build their strategy around what customers genuinely want and value. Companies that tune into customer needs, create awesome experiences, and continuously evolve stay ahead and relevant.",
+      "fix": "We help organizations embed customer-centricity into their strategy, ensuring business models and digital investments are designed around real customer expectations.",
+      "benefits": [
+        "Align with Customers",
+        "Boost Market Loyalty",
+        "Customer-led Innovation",
+        "Build Competitive Edge"
+      ],
+      "deliveryOptions": [
+        "Advisory Sprint: Customer strategy audit & journey mapping",
+        "Strategy Deep Dive: Full-scale customer insight integration & business model transformation",
+        "Integrated Execution: End-to-end implementation of a customer-led strategic framework"
+      ],
+      "callToAction": "Make customers your strategy's secret weapon.",
+      "whoIsItFor": "Leaders who deeply care about understanding their customers and want every strategy to reflect that.",
       "icon": "faUsers",
       "variants": [
         {
@@ -183,6 +295,20 @@
       "category": "Vested Value",
       "heading": "Predicting Disruptions & Staying Ahead of the Curve",
       "description": "The best companies don't just react to change—they anticipate it and get ahead of the curve. By spotting trends early, embracing uncertainty, and turning disruptions into opportunities, these businesses shape the future instead of chasing it.",
+      "fix": "We help leaders develop strategic foresight through AI-driven forecasting, scenario planning, and disruption risk analysis.",
+      "benefits": [
+        "Anticipate Market Shifts",
+        "Bold Strategic Moves",
+        "Future-proof Your Business",
+        "Uncertainty to Opportunity"
+      ],
+      "deliveryOptions": [
+        "Advisory Sprint: Trend analysis & risk mapping",
+        "Strategy Deep Dive: Scenario planning & foresight-driven strategy",
+        "Integrated Execution: Market trend tracking & adaptation consulting"
+      ],
+      "callToAction": "Spot market shifts early and stay ahead.",
+      "whoIsItFor": "Leaders who want to see around corners, predict trends, and lead proactively.",
       "icon": "faChartLine",
       "variants": [
         {
@@ -201,6 +327,20 @@
       "category": "Vested Value",
       "heading": "Reinventing & Adapting Business Models for Future Success",
       "description": "Winning companies regularly rethink their business models, turning industry shifts into opportunities. Instead of sticking with outdated playbooks, they proactively adapt, innovate, and create new paths for sustainable growth.",
+      "fix": "We help organizations analyze, refine, or pivot their business models, ensuring revenue streams and operational efficiency are optimized for the future.",
+      "benefits": [
+        "Identify Scalable Business Models",
+        "Rapid Industry Adaptation",
+        "Optimize Cost Efficiency",
+        "Future-Proof Business Growth"
+      ],
+      "deliveryOptions": [
+        "Advisory Sprint: Business model assessment & quick-hit optimization roadmap",
+        "Strategy Deep Dive: Comprehensive model transformation & revenue innovation strategy",
+        "Integrated Execution: Long-term business model reinvention & operational scaling"
+      ],
+      "callToAction": "Reinvent your business before the market forces you to.",
+      "whoIsItFor": "Innovators ready to reinvent their business and outsmart industry disruptions.",
       "icon": "faPuzzlePiece",
       "variants": [
         {
@@ -219,6 +359,20 @@
       "category": "Immediate Impact",
       "heading": "Building a Brand-Led Business Strategy",
       "description": "Your brand isn't just marketing—it's the heartbeat of your business. Companies that lead with their brand build deep connections, inspire customer loyalty, and set themselves apart by staying true to who they are.",
+      "fix": "We help organizations build a brand-first business strategy, ensuring positioning, customer experience, and engagement to drive market leadership.",
+      "benefits": [
+        "Distinct Market Position",
+        "Align marketing & business strategy",
+        "Deepen Customer Loyalty",
+        "Sustainable Brand Growth"
+      ],
+      "deliveryOptions": [
+        "Advisory Sprint: Brand strategy audit & positioning refinement",
+        "Strategy Deep Dive: Comprehensive brand architecture & differentiation model",
+        "Integrated Execution: Brand-led business transformation & customer engagement strategy"
+      ],
+      "callToAction": "Turn your brand into your biggest growth engine.",
+      "whoIsItFor": "Leaders passionate about building a brand that's authentic, memorable, and resonates deeply.",
       "icon": "faBullseye",
       "variants": [
         {
@@ -237,6 +391,20 @@
       "category": "Vested Value",
       "heading": "Maximizing Brand Equity, Pricing Power & Market Leadership",
       "description": "Great brands aren't built overnight—they become iconic by consistently delivering value and standing out in their category. Companies that harness their brand's full power command premium pricing, lead their markets, and build lasting relationships with customers.",
+      "fix": "We help organizations build strong brand equity, command premium pricing, and establish market dominance through strategic brand positioning.",
+      "benefits": [
+        "Grow Brand Value",
+        "Command Premium Pricing",
+        "Establish category leadership and brand authority",
+        "Sustain Competitive Differentiation"
+      ],
+      "deliveryOptions": [
+        "Advisory Sprint: Brand equity assessment & competitive differentiation strategy",
+        "Strategy Deep Dive: Full-scale brand power framework & pricing strategy",
+        "Integrated Execution: Long-term brand equity growth & leadership positioning"
+      ],
+      "callToAction": "",
+      "whoIsItFor": "Leaders aiming to build iconic brands known for quality, leadership, and premium pricing.",
       "icon": "faBullseye",
       "variants": [
         {
@@ -255,6 +423,20 @@
       "category": "Immediate Impact",
       "heading": "Transforming Business Operations with AI",
       "description": "AI isn't just tech hype—it's your team's new superpower. Companies that embrace AI can simplify workflows, automate busywork, and unlock smarter decisions, empowering their people to achieve more every day.",
+      "fix": "We help leaders implement AI for smarter decision-making, automation, and operational efficiency, ensuring AI delivers measurable business value.",
+      "benefits": [
+        "Make smarter, faster decisions",
+        "Automate key operations",
+        "Increase efficiency & cut costs",
+        "Use AI responsibly"
+      ],
+      "deliveryOptions": [
+        "Advisory Sprint: AI business impact audit & quick AI-driven optimizations",
+        "Strategy Deep Dive: AI-powered business intelligence framework",
+        "Integrated Execution: AI adoption strategy, AI governance & AI-enabled operations"
+      ],
+      "callToAction": "Put AI to work and make smarter moves today.",
+      "whoIsItFor": "Leaders ready to see immediate impact by putting AI into daily workflows.",
       "icon": "faRobot",
       "variants": [
         {
@@ -273,6 +455,20 @@
       "category": "Immediate Impact",
       "heading": "Cyber Resilience for Business Continuity & Trust",
       "description": "Smart companies put digital security front and center, turning protection into confidence. By proactively safeguarding data, staying effortlessly compliant, and building resilience, they create trust with customers and stay ready for anything.",
+      "fix": "We help organizations develop a cybersecurity strategy that prevents attacks, protects customer trust, and ensures compliance with global security regulations.",
+      "benefits": [
+        "Prevent cyber threats before they happen",
+        "Protect customer data & trust",
+        "Avoid costly breaches & downtime",
+        "Make compliance seamless"
+      ],
+      "deliveryOptions": [
+        "Advisory Sprint: Cyber risk assessment & security framework setup",
+        "Strategy Deep Dive: Enterprise-wide cybersecurity implementation",
+        "Integrated Execution: Ongoing cybersecurity coaching & real-time threat monitoring"
+      ],
+      "callToAction": "Lock down security before a cyber threat hits.",
+      "whoIsItFor": "Leaders determined to protect their teams and customers without constant worry about cybersecurity.",
       "icon": "faShieldAlt",
       "variants": [
         {
@@ -291,6 +487,20 @@
       "category": "Immediate Impact",
       "heading": "Ensuring Business Continuity Amid Disruptions & Cyber Threats",
       "description": "In a connected world, staying online means staying ahead. Companies that invest in digital resilience handle disruptions effortlessly, protect revenue streams, and ensure smooth operations—no matter what comes their way.",
+      "fix": "We help organizations design resilient digital infrastructures, integrating AI-powered risk detection, multi-cloud failover, and real-time disaster recovery strategies.",
+      "benefits": [
+        "Eliminate downtime",
+        "Protect critical operations",
+        "Ensure seamless global connectivity",
+        "Prevent revenue loss"
+      ],
+      "deliveryOptions": [
+        "Advisory Sprint: Digital risk audit & quick-fix continuity upgrades",
+        "Strategy Deep Dive: Enterprise-wide resilience framework & disaster recovery planning",
+        "Integrated Execution: Real-time threat monitoring, failover testing, and crisis management"
+      ],
+      "callToAction": "Keep your business online, no matter what.",
+      "whoIsItFor": "Leaders committed to keeping business running smoothly, even during disruptions.",
       "icon": "faShieldAlt",
       "variants": [
         {
@@ -309,6 +519,20 @@
       "category": "Vested Value",
       "heading": "Scalable, Secure & Future-Ready IT Infrastructure",
       "description": "Today's best companies use cloud infrastructure that's flexible enough to run seamlessly wherever it's needed—whether that's in the cloud, at the edge, or on-premises. Businesses that leverage distributed cloud solutions gain speed, scalability, and security, enabling them to innovate faster and stay closer to their customers.",
+      "fix": "We design cloud-first, distributed architectures, ensuring seamless scalability, cost optimization, and security across multi-cloud environments.",
+      "benefits": [
+        "Ensure seamless IT scalability",
+        "Reduce cloud costs & optimize usage",
+        "Strengthen security & compliance",
+        "Enable real-time processing"
+      ],
+      "deliveryOptions": [
+        "Advisory Sprint: Cloud architecture audit & quick optimization roadmap",
+        "Strategy Deep Dive: Cloud transformation plan & multi-cloud security framework",
+        "Integrated Execution: Cloud migration, infrastructure optimization & governance"
+      ],
+      "callToAction": "Scale with secure, flexible cloud systems.",
+      "whoIsItFor": "Leaders looking to flexibly scale their technology to support growth anywhere in the world.",
       "icon": "faNetworkWired",
       "variants": [
         {
@@ -327,6 +551,20 @@
       "category": "Vested Value",
       "heading": "Leveraging Business Intelligence for Smarter Decisions",
       "description": "Data is your business's secret weapon—but only if it's accurate and reliable. Companies that harness high-quality data fuel powerful AI, make smarter decisions, and empower their teams to act confidently, knowing they're backed by insights they can trust.",
+      "fix": "We help businesses develop a data-driven culture, optimizing data strategies, governance models, and analytics capabilities to drive informed decision-making and operational intelligence.",
+      "benefits": [
+        "Make real-time, data-backed decisions",
+        "Monetize your data",
+        "Enhance operational efficiency",
+        "Improve data security & compliance"
+      ],
+      "deliveryOptions": [
+        "Advisory Sprint: Data strategy assessment & analytics implementation roadmap",
+        "Strategy Deep Dive: Enterprise-wide data architecture, governance, and monetization strategy",
+        "Integrated Execution: Full data-driven transformation & AI-powered analytics adoption"
+      ],
+      "callToAction": "Turn data into decisions that drive results.",
+      "whoIsItFor": "Leaders seeking trustworthy data insights to make confident, informed decisions.",
       "icon": "faDatabase",
       "variants": [
         {
@@ -345,6 +583,20 @@
       "category": "Vested Value",
       "heading": "Executing High-Impact Technology Strategy",
       "description": "Winning companies combine creativity and tech innovation to make real impact—not just hype. By turning bold ideas into actionable strategies, these businesses stay ahead, disrupt markets, and keep their teams inspired to think differently.",
+      "fix": "We help businesses align technology innovation with strategic business goals, ensuring new technology adoption directly drives value, competitive differentiation, and operational efficiency.",
+      "benefits": [
+        "Prioritize high-impact technology investments",
+        "Accelerate innovation cycles",
+        "Drive competitive differentiation",
+        "Scale technology innovation effectively"
+      ],
+      "deliveryOptions": [
+        "Advisory Sprint: Innovation readiness audit & quick-impact tech strategy alignment",
+        "Strategy Deep Dive: Structured innovation framework & business-aligned tech adoption roadmap",
+        "Integrated Execution: Ongoing innovation management & technology governance"
+      ],
+      "callToAction": "Turn emerging tech into real business impact.",
+      "whoIsItFor": "Creative leaders eager to move from inspiring ideas to real-world innovation.",
       "icon": "faGears",
       "variants": [
         {
