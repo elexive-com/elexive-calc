@@ -1,8 +1,8 @@
 import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { 
-  faArrowLeft, faDownload, faCheckCircle, faCircle, 
-  faLightbulb, faRocket, faBookmark, faUsers
+  faArrowLeft, faCircle, faCheckCircle, faBookmark as faBookmarkSolid,
+  faDownload, faUsers, faLightbulb, faRocket
 } from '@fortawesome/free-solid-svg-icons';
 import { faBookmark as faBookmarkRegular } from '@fortawesome/free-regular-svg-icons';
 import modulesConfig from '../config/modulesConfig.json';
@@ -77,7 +77,7 @@ const ModuleDetails = ({
             } py-2 px-4 flex items-center`}
           >
             <FontAwesomeIcon 
-              icon={savedModules.includes(selectedModule.name) ? faBookmark : faBookmarkRegular} 
+              icon={savedModules.includes(selectedModule.name) ? faBookmarkSolid : faBookmarkRegular} 
               className="mr-1" 
             />
             {savedModules.includes(selectedModule.name) ? 'Saved' : 'Save Module'}
@@ -133,19 +133,22 @@ const ModuleDetails = ({
             
             <div className="flex items-center justify-start space-x-4">
               {journeySteps.map((step, index) => {
-                const isActive = step.id === selectedModule.journeyStage;
+                const isActive = step.id === selectedModule.primaryJourneyStage;
+                const isSecondary = selectedModule.secondaryJourneyStages && selectedModule.secondaryJourneyStages.includes(step.id);
                 return (
                   <div 
                     key={step.id} 
                     className={`flex items-center space-x-1.5 ${
                       isActive 
                         ? 'text-blue-800 font-medium' 
-                        : 'text-gray-600'
+                        : isSecondary
+                          ? 'text-blue-600'
+                          : 'text-gray-600'
                     }`}
                   >
                     <FontAwesomeIcon 
-                      icon={isActive ? faCheckCircle : faCircle} 
-                      className={`${isActive ? 'text-blue-500' : 'text-gray-400'}`} 
+                      icon={isActive ? faCheckCircle : isSecondary ? faCheckCircle : faCircle} 
+                      className={`${isActive ? 'text-blue-500' : isSecondary ? 'text-blue-300' : 'text-gray-400'}`} 
                       size="sm" 
                     />
                     <span className="text-sm">{step.title}</span>
@@ -274,7 +277,7 @@ const ModuleDetails = ({
                 onClick={() => toggleSaveModule(selectedModule.name)}
                 className={`elx-btn elx-btn-outline py-2 px-4 flex items-center`}
               >
-                <FontAwesomeIcon icon={savedModules.includes(selectedModule.name) ? faBookmark : faBookmarkRegular} className="mr-1" />
+                <FontAwesomeIcon icon={savedModules.includes(selectedModule.name) ? faBookmarkSolid : faBookmarkRegular} className="mr-1" />
                 {savedModules.includes(selectedModule.name) ? 'Saved' : 'Save for Later'}
               </button>
               <button className="elx-btn elx-btn-primary py-2 px-4">

@@ -2,22 +2,21 @@ import React, { useState, useEffect, useMemo } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { 
   faSearch, faBookmark, faChevronRight, faChevronDown,
-  faLightbulb, faRocket, faCompass
+  faLightbulb, faRocket, faCompass, faArrowRight, faChartLine
 } from '@fortawesome/free-solid-svg-icons';
 import { faBookmark as faBookmarkRegular } from '@fortawesome/free-regular-svg-icons';
 import modulesConfig from '../config/modulesConfig.json';
 import { getModuleIcon } from '../utils/iconUtils';
 import ModuleDetails from './ModuleDetails';
-// Import our PDF generation module
 import { generateModulePdf } from '../pdf';
 
 /**
- * ModuleExplorer component - Simplified to Browse All Modules view
+ * CustomerJourney component
  * 
- * Provides an interactive interface for exploring consulting modules with
- * comprehensive filtering capabilities.
+ * A dedicated component that visualizes the customer transformation journey
+ * and shows modules relevant to each journey stage.
  */
-const ModuleExplorer = () => {
+const CustomerJourney = () => {
   // State for module data and views
   const [modules, setModules] = useState([]);
   const [filteredModules, setFilteredModules] = useState([]);
@@ -32,14 +31,10 @@ const ModuleExplorer = () => {
   const [selectedModule, setSelectedModule] = useState(null);
   const [isDetailView, setIsDetailView] = useState(false);
   const [isExporting, setIsExporting] = useState(false);
+  const [activeJourneyStep, setActiveJourneyStep] = useState(0);
   const [showFilter, setShowFilter] = useState(false);
   
-  // Get unique pillars, categories, and variant types from modules
-  const pillars = [...new Set(modulesConfig.modules.map(module => module.pillar))];
-  const categories = [...new Set(modulesConfig.modules.map(module => module.category))];
-  const variantTypes = Object.keys(modulesConfig.variantDefinitions);
-  
-  // For journey stages reference in module details
+  // Get journey stages from centralized configuration
   const journeySteps = useMemo(() => {
     return modulesConfig.journeyStages.map(stage => {
       // Use a safer approach than eval to map string icon names to icon objects
@@ -48,6 +43,7 @@ const ModuleExplorer = () => {
         case 'faCompass': iconObject = faCompass; break;
         case 'faLightbulb': iconObject = faLightbulb; break; 
         case 'faRocket': iconObject = faRocket; break;
+        case 'faChartLine': iconObject = faChartLine; break;
         default: iconObject = faCompass; // Default icon
       }
 
@@ -60,6 +56,10 @@ const ModuleExplorer = () => {
       };
     });
   }, []);
+  
+  // Get unique categories and variant types from modules
+  const categories = [...new Set(modulesConfig.modules.map(module => module.category))];
+  const variantTypes = Object.keys(modulesConfig.variantDefinitions);
   
   // Load modules data on component mount
   useEffect(() => {
@@ -110,6 +110,12 @@ const ModuleExplorer = () => {
       result = result.filter(module => module.category === selectedCategory);
     }
     
+    // Filter by journey stage
+    if (activeJourneyStep >= 0) {
+      const stageId = journeySteps[activeJourneyStep].id;
+      result = result.filter(module => module.journeyStage === stageId);
+    }
+    
     // Filter by variant type
     if (selectedVariant !== 'all') {
       result = result.filter(module => 
@@ -130,7 +136,9 @@ const ModuleExplorer = () => {
     selectedCategory, 
     selectedVariant, 
     savedModules, 
-    showSavedOnly
+    showSavedOnly,
+    activeJourneyStep,
+    journeySteps
   ]);
 
   // Toggle save/unsave module
@@ -185,7 +193,7 @@ const ModuleExplorer = () => {
 
     return (
       <div className="flex flex-col h-full bg-white rounded-lg overflow-hidden border border-gray-200 shadow-sm hover:shadow-md transition-all duration-300">
-        {/* Colored header section with pillar name */}
+        {/* Colored header section with pillar name - matching pillar card style */}
         <div 
           className="px-4 py-3 flex items-center w-full"
           style={{ 
@@ -260,6 +268,75 @@ const ModuleExplorer = () => {
       </div>
     );
   };
+  
+  // Journey step component
+  const JourneyStep = ({ step, index }) => {
+    const isActive = index === activeJourneyStep;
+    const colors = ['blue', 'amber', 'green', 'purple'];
+    const color = colors[index % colors.length];
+    
+    const colorClasses = {
+      blue: {
+        bg: isActive ? 'bg-blue-500' : 'bg-blue-100',
+        text: isActive ? 'text-white' : 'text-blue-800',
+        border: 'border-blue-200',
+        hover: 'hover:bg-blue-200'
+      },
+      amber: {
+        bg: isActive ? 'bg-amber-500' : 'bg-amber-100',
+        text: isActive ? 'text-white' : 'text-amber-800',
+        border: 'border-amber-200',
+        hover: 'hover:bg-amber-200'
+      },
+      green: {
+        bg: isActive ? 'bg-green-500' : 'bg-green-100',
+        text: isActive ? 'text-white' : 'text-green-800',
+        border: 'border-green-200',
+        hover: 'hover:bg-green-200'
+      },
+      purple: {
+        bg: isActive ? 'bg-purple-500' : 'bg-purple-100',
+        text: isActive ? 'text-white' : 'text-purple-800',
+        border: 'border-purple-200',
+        hover: 'hover:bg-purple-200'
+      }
+    };
+    
+    return (
+      <div 
+        className={`relative rounded-xl p-5 cursor-pointer border transition-all duration-300 ${
+          isActive 
+            ? `${colorClasses[color].bg} ${colorClasses[color].text} shadow-md` 
+            : `bg-white ${colorClasses[color].border} ${colorClasses[color].hover} hover:shadow-md`
+        }`}
+        onClick={() => setActiveJourneyStep(index)}
+      >
+        <div className="flex items-center justify-between mb-2">
+          <div className={`w-8 h-8 rounded-full ${
+            isActive ? 'bg-white text-elx-primary' : `${colorClasses[color].bg} text-white`
+          } flex items-center justify-center font-bold`}>
+            {index + 1}
+          </div>
+          <FontAwesomeIcon icon={step.icon} className={isActive ? 'text-white opacity-80' : ''} />
+        </div>
+        
+        <h3 className={`text-lg font-bold ${isActive ? 'text-white' : 'text-elx-primary'}`}>
+          {step.title}
+        </h3>
+        
+        <p className={`text-sm mt-1 ${isActive ? 'text-white opacity-90' : 'text-gray-600'}`}>
+          {step.description}
+        </p>
+        
+        {/* Connection line to next step */}
+        {index < journeySteps.length - 1 && (
+          <div className="hidden md:block absolute -right-8 top-1/2 transform -translate-y-1/2 z-10">
+            <FontAwesomeIcon icon={faArrowRight} className="text-gray-300 fa-lg" />
+          </div>
+        )}
+      </div>
+    );
+  };
 
   // Filter and search panel
   const FilterPanel = () => (
@@ -286,7 +363,7 @@ const ModuleExplorer = () => {
               className="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-elx-primary focus:border-elx-primary sm:text-sm"
             >
               <option value="all">All Pillars</option>
-              {pillars.map((pillar) => (
+              {['Transformation', 'Strategy', 'Technology', 'Discovery'].map((pillar) => (
                 <option key={pillar} value={pillar}>{pillar}</option>
               ))}
             </select>
@@ -331,16 +408,16 @@ const ModuleExplorer = () => {
           onBack={() => setIsDetailView(false)}
         />
       ) : (
-        <div className="module-explorer">
+        <div className="customer-journey">
           {/* Header and search/filter toggle */}
           <div className="mb-4 flex flex-col md:flex-row md:justify-between md:items-center">
             <div className="flex-1">
               <h2 className="text-2xl font-bold text-elx-primary mb-3 md:mb-0">
-                Module Explorer
+                Customer Journey
               </h2>
               <p className="text-gray-600 mb-4 max-w-3xl">
-                Browse our complete catalog of consulting modules across all pillars and categories. 
-                Use the filters to find modules that match your specific requirements.
+                Navigate through the customer transformation journey from assessment to optimization. 
+                Discover modules that support each phase of your transformation.
               </p>
             </div>
             
@@ -374,35 +451,45 @@ const ModuleExplorer = () => {
           {/* Filter panel (expandable) */}
           <FilterPanel />
           
-          {/* Module listing */}
+          {/* Journey Steps */}
           <div className="mb-8">
-            <div className="mb-4 flex justify-between items-center">
-              <p className="text-sm text-gray-500">
-                Showing {filteredModules.length} of {modules.length} modules
-              </p>
+            <div className="grid grid-cols-1 md:grid-cols-4 gap-4 md:gap-8 mb-8 relative">
+              {/* Line connecting journey steps (visible on desktop) */}
+              <div className="hidden md:block absolute top-1/2 left-0 right-0 h-0.5 bg-gray-200 z-0"></div>
+              
+              {journeySteps.map((step, index) => (
+                <JourneyStep key={step.id} step={step} index={index} />
+              ))}
             </div>
             
-            {filteredModules.length === 0 ? (
+            {filteredModules.length > 0 ? (
+              <>
+                <div className="flex items-center justify-between mb-4">
+                  <h3 className="text-xl font-bold text-elx-primary">
+                    {journeySteps[activeJourneyStep].title} Phase Modules
+                  </h3>
+                </div>
+                
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                  {filteredModules.map((module) => (
+                    <ModuleCard key={module.name} module={module} />
+                  ))}
+                </div>
+              </>
+            ) : (
               <div className="bg-gray-50 border border-gray-100 rounded-lg p-8 text-center">
-                <p className="text-gray-500">No modules match your current filters.</p>
+                <p className="text-gray-500">No modules found for this journey phase with your current filters.</p>
                 <button
                   onClick={() => {
                     setSearchQuery('');
                     setSelectedPillar('all');
                     setSelectedCategory('all');
                     setSelectedVariant('all');
-                    setShowSavedOnly(false);
                   }}
                   className="mt-2 text-elx-primary hover:underline"
                 >
                   Clear all filters
                 </button>
-              </div>
-            ) : (
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                {filteredModules.map((module) => (
-                  <ModuleCard key={module.name} module={module} />
-                ))}
               </div>
             )}
           </div>
@@ -412,4 +499,4 @@ const ModuleExplorer = () => {
   );
 };
 
-export default ModuleExplorer;
+export default CustomerJourney;

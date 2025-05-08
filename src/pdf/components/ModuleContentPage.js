@@ -2,17 +2,30 @@
 // Content page component for PDF generation
 
 import React from 'react';
-import { Page, Text, View, Image, StyleSheet } from '@react-pdf/renderer';
-import styles from '../utils/pdfStyles';
+import { Text, View, Image, Page, StyleSheet } from '@react-pdf/renderer';
 import modulesConfig from '../../config/modulesConfig.json';
+import styles from '../utils/pdfStyles';
 import { getPillarColor } from '../utils/colors';
 
-// Helper function to determine journey stage based on category
-const determineJourneyStage = (category) => {
-  if (category === 'Strategic Assessment') return { id: 'assess', title: 'Assess', description: 'Understanding your current state and defining success metrics' };
-  if (category === 'Immediate Impact') return { id: 'execute', title: 'Execute', description: 'Implementing solutions and driving organizational change' };
-  if (category === 'Vested Value') return { id: 'optimize', title: 'Optimize', description: 'Refining approaches and maximizing transformation outcomes' };
-  return { id: 'plan', title: 'Plan', description: 'Developing strategies and roadmaps for transformation success' }; // Default
+// Helper function to determine journey stage based on module configuration
+const determineJourneyStage = (module) => {
+  // Get the journey stage from modulesConfig based on the module's primaryJourneyStage
+  const journeyStageId = module.primaryJourneyStage || 'journey-stage-3'; // Default to Build if not defined
+  const stageDefinition = modulesConfig.journeyStages.find(stage => stage.id === journeyStageId);
+  
+  if (stageDefinition) {
+    return {
+      id: stageDefinition.id,
+      title: stageDefinition.title,
+      description: stageDefinition.description
+    };
+  }
+  
+  // Fallback to default mapping if not found in config
+  if (module.category === 'Strategic Assessment') return { id: 'journey-stage-1', title: 'Discover', description: 'Understanding your current state and defining success metrics' };
+  if (module.category === 'Immediate Impact') return { id: 'journey-stage-3', title: 'Build', description: 'Implementing solutions and driving organizational change' };
+  if (module.category === 'Vested Value') return { id: 'journey-stage-4', title: 'Scale', description: 'Refining approaches and maximizing transformation outcomes' };
+  return { id: 'journey-stage-2', title: 'Design', description: 'Developing strategies and roadmaps for transformation success' }; // Default
 };
 
 // Component for a page footer
@@ -343,15 +356,13 @@ const ModuleContentPage = ({ moduleName }) => {
   const pillarColor = getPillarColor(module.pillar);
   
   // Get journey stage information
-  const journeyStage = determineJourneyStage(module.category);
+  const journeyStage = determineJourneyStage(module);
   
-  // Define journey stages for visualization
-  const journeyStages = [
-    { id: 'assess', title: 'Assess' },
-    { id: 'plan', title: 'Plan' },
-    { id: 'execute', title: 'Execute' },
-    { id: 'optimize', title: 'Optimize' }
-  ];
+  // Define journey stages for visualization from the centralized config
+  const journeyStages = modulesConfig.journeyStages.map(stage => ({
+    id: stage.id,
+    title: stage.title
+  }));
   
   // Use absolute URLs to ensure images are accessible in the PDF
   const moduleIconUrl = `${window.location.origin}/common-module-white.png`;
@@ -413,6 +424,8 @@ const ModuleContentPage = ({ moduleName }) => {
                   <View style={dynamicStyles.journeyRow}>
                     {journeyStages.map((stage, index) => {
                       const isActive = stage.id === journeyStage.id;
+                      const isSecondary = module.secondaryJourneyStages && 
+                        module.secondaryJourneyStages.includes(stage.id);
                       
                       return (
                         <View key={stage.id} style={dynamicStyles.stageItem}>
@@ -424,7 +437,13 @@ const ModuleContentPage = ({ moduleName }) => {
                           {/* Stage circle */}
                           <View style={[
                             dynamicStyles.stageCircle, 
-                            { backgroundColor: isActive ? 'white' : 'rgba(255, 255, 255, 0.3)' }
+                            { 
+                              backgroundColor: isActive 
+                                ? 'white' 
+                                : isSecondary 
+                                  ? 'rgba(255, 255, 255, 0.6)' 
+                                  : 'rgba(255, 255, 255, 0.3)' 
+                            }
                           ]}>
                             {isActive && (
                               <View style={[
@@ -438,8 +457,16 @@ const ModuleContentPage = ({ moduleName }) => {
                           <Text style={[
                             dynamicStyles.stageName,
                             { 
-                              color: isActive ? 'white' : 'rgba(255, 255, 255, 0.7)',
-                              fontWeight: isActive ? 'bold' : 'normal'
+                              color: isActive 
+                                ? 'white' 
+                                : isSecondary 
+                                  ? 'rgba(255, 255, 255, 0.9)' 
+                                  : 'rgba(255, 255, 255, 0.7)',
+                              fontWeight: isActive 
+                                ? 'bold' 
+                                : isSecondary 
+                                  ? 'medium' 
+                                  : 'normal'
                             }
                           ]}>
                             {stage.title}

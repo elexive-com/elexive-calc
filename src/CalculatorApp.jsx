@@ -8,6 +8,7 @@ import ProductionCapacitySelector from './components/ProductionCapacitySelector'
 import ServiceParameters from './components/ServiceParameters';
 import SummarySidebar from './components/SummarySidebar';
 import ModuleExplorer from './components/ModuleExplorer';
+import CustomerJourney from './components/CustomerJourney';
 import EvcExplainer from './components/EvcExplainer';
 import { useTabContext } from './contexts/TabContext';
 import { debugLog } from './config/environment';
@@ -372,9 +373,11 @@ const CalculatorApp = () => {
                 />
               </div>
             </div>
-          ) : (
+          ) : activeTab === 'modules' ? (
             <ModuleExplorer />
-          )}
+          ) : activeTab === 'journey' ? (
+            <CustomerJourney />
+          ) : null}
         </>
       )}
       

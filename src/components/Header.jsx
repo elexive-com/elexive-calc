@@ -5,7 +5,8 @@ import {
   faHome, 
   faBars, 
   faTimes,
-  faCubes
+  faCubes,
+  faRoad
 } from '@fortawesome/free-solid-svg-icons';
 import { useTabContext } from '../contexts/TabContext';
 
@@ -78,9 +79,20 @@ const Header = () => {
             Solution Builder
           </button>
           <button
-            onClick={() => handleNavClick('explorer')}
+            onClick={() => handleNavClick('journey')}
             className={`flex items-center py-3 px-4 text-sm font-medium transition-colors ${
-              activeTab === 'explorer'
+              activeTab === 'journey'
+                ? 'text-elx-accent border-b-2 border-elx-accent'
+                : 'text-[#FBFAFC] hover:text-white hover:border-b-2 hover:border-gray-300'
+            }`}
+          >
+            <FontAwesomeIcon icon={faRoad} className="mr-2" />
+            Customer Journey
+          </button>
+          <button
+            onClick={() => handleNavClick('modules')}
+            className={`flex items-center py-3 px-4 text-sm font-medium transition-colors ${
+              activeTab === 'modules'
                 ? 'text-elx-accent border-b-2 border-elx-accent'
                 : 'text-[#FBFAFC] hover:text-white hover:border-b-2 hover:border-gray-300'
             }`}
@@ -118,9 +130,20 @@ const Header = () => {
               Solution Builder
             </button>
             <button
-              onClick={() => handleNavClick('explorer')}
+              onClick={() => handleNavClick('journey')}
               className={`w-full flex items-center py-4 px-4 text-base font-medium ${
-                activeTab === 'explorer'
+                activeTab === 'journey'
+                  ? 'text-elx-accent bg-gray-800'
+                  : 'text-white hover:bg-gray-800'
+              }`}
+            >
+              <FontAwesomeIcon icon={faRoad} className="mr-3" />
+              Customer Journey
+            </button>
+            <button
+              onClick={() => handleNavClick('modules')}
+              className={`w-full flex items-center py-4 px-4 text-base font-medium ${
+                activeTab === 'modules'
                   ? 'text-elx-accent bg-gray-800'
                   : 'text-white hover:bg-gray-800'
               }`}
