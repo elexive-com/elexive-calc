@@ -19,7 +19,11 @@ const DetailedReportModal = ({ isOpen, onClose, calculator }) => {
   const reportContentRef = useRef(null);
   const [expandedModules, setExpandedModules] = useState({});
   const [expandedAddOns, setExpandedAddOns] = useState({});
-  
+  // Add new state for strategic approach items
+  const [expandedStrategicItems, setExpandedStrategicItems] = useState({
+    pillars: {},
+    delivery: {}
+  });
   
   if (!isOpen) return null;
 
@@ -36,6 +40,28 @@ const DetailedReportModal = ({ isOpen, onClose, calculator }) => {
     setExpandedAddOns(prev => ({
       ...prev,
       [addOnId]: !prev[addOnId]
+    }));
+  };
+  
+  // Toggle strategic pillar expansion
+  const togglePillar = (pillar) => {
+    setExpandedStrategicItems(prev => ({
+      ...prev,
+      pillars: {
+        ...prev.pillars,
+        [pillar]: !prev.pillars[pillar]
+      }
+    }));
+  };
+
+  // Toggle delivery framework item expansion
+  const toggleDeliveryItem = (item) => {
+    setExpandedStrategicItems(prev => ({
+      ...prev,
+      delivery: {
+        ...prev.delivery,
+        [item]: !prev.delivery[item]
+      }
     }));
   };
 
@@ -303,22 +329,49 @@ const DetailedReportModal = ({ isOpen, onClose, calculator }) => {
                   <h5 className="text-sm font-semibold text-gray-500 uppercase tracking-wider mb-3">Strategic Pillars</h5>
                   <div className="space-y-4 mb-6">
                     {Object.entries(modulesByPillar).map(([pillar, modules]) => (
-                      <div key={pillar} className="flex items-start">
-                        <div className={`w-10 h-10 rounded-full flex items-center justify-center mr-4 shadow ${getPillarColorClass(pillar)}`}>
-                          <FontAwesomeIcon icon={getPillarIcon(pillar)} size="lg" />
+                      <div key={pillar} className="bg-white rounded-lg border border-gray-200 overflow-hidden shadow-sm">
+                        <div 
+                          className="flex items-start p-3 cursor-pointer hover:bg-gray-50 transition-colors"
+                          onClick={() => togglePillar(pillar)}
+                        >
+                          <div className={`w-10 h-10 rounded-full flex items-center justify-center mr-4 shadow ${getPillarColorClass(pillar)}`}>
+                            <FontAwesomeIcon icon={getPillarIcon(pillar)} size="lg" />
+                          </div>
+                          <div className="flex-1">
+                            <div className="font-semibold text-elx-primary">{pillar}</div>
+                            <div className="text-sm text-gray-600">{modules.length} modules selected</div>
+                          </div>
+                          <div className="ml-2 text-gray-400">
+                            <FontAwesomeIcon 
+                              icon={expandedStrategicItems.pillars[pillar] ? faChevronUp : faChevronDown} 
+                              className="transition-transform"
+                            />
+                          </div>
                         </div>
-                        <div>
-                          <div className="font-semibold text-elx-primary">{pillar}</div>
-                          <div className="text-sm text-gray-600">{modules.length} modules selected</div>
-                          <p className="text-xs text-gray-500 mt-1">
-                            {pillar === 'Transformation' ? 
-                              'Focus on people, processes, and organizational change management to enable successful business transformation.' :
-                            pillar === 'Strategy' ? 
-                              'Establish clear direction, market positioning, and competitive differentiation to drive business outcomes.' :
-                            pillar === 'Technology' ? 
-                              'Implement and optimize technological capabilities to support business innovation and efficiency.' :
-                            'Explore new opportunities and build foundational knowledge to inform strategic decisions.'}
-                          </p>
+                        
+                        {/* Collapsible content */}
+                        <div className={`overflow-hidden transition-all duration-300 ${
+                          expandedStrategicItems.pillars[pillar] ? 'max-h-[500px]' : 'max-h-0'
+                        }`}>
+                          <div className="p-3 pt-0 border-t border-gray-100 bg-gray-50">
+                            <p className="text-sm text-gray-600 mb-2">
+                              {pillar === 'Transformation' ? 
+                                'Focus on people, processes, and organizational change management to enable successful business transformation.' :
+                              pillar === 'Strategy' ? 
+                                'Establish clear direction, market positioning, and competitive differentiation to drive business outcomes.' :
+                              pillar === 'Technology' ? 
+                                'Implement and optimize technological capabilities to support business innovation and efficiency.' :
+                              'Explore new opportunities and build foundational knowledge to inform strategic decisions.'}
+                            </p>
+                            <div className="text-xs font-medium text-gray-500 uppercase mb-1 mt-3">Key Modules</div>
+                            <div className="flex flex-wrap gap-2">
+                              {modules.map(module => (
+                                <div key={module.name} className="bg-gray-100 text-xs px-3 py-1.5 rounded-full text-gray-700 border border-gray-200">
+                                  {module.name}
+                                </div>
+                              ))}
+                            </div>
+                          </div>
                         </div>
                       </div>
                     ))}
@@ -327,55 +380,153 @@ const DetailedReportModal = ({ isOpen, onClose, calculator }) => {
                 
                 <div>
                   <h5 className="text-sm font-semibold text-gray-500 uppercase tracking-wider mb-3">Delivery Framework</h5>
-                  <div className="space-y-5">
-                    <div className="flex items-start">
-                      <div className="w-10 h-10 rounded-full bg-purple-100 text-purple-600 flex items-center justify-center mr-4 shadow">
-                        <FontAwesomeIcon icon={faRocket} size="lg" />
+                  <div className="space-y-4">
+                    <div className="bg-white rounded-lg border border-gray-200 overflow-hidden shadow-sm">
+                      <div 
+                        className="flex items-start p-3 cursor-pointer hover:bg-gray-50 transition-colors"
+                        onClick={() => toggleDeliveryItem('velocity')}
+                      >
+                        <div className="w-10 h-10 rounded-full bg-purple-100 text-purple-600 flex items-center justify-center mr-4 shadow">
+                          <FontAwesomeIcon icon={faRocket} size="lg" />
+                        </div>
+                        <div className="flex-1">
+                          <div className="font-semibold text-elx-primary">Transformation Velocity</div>
+                          <div className="text-sm text-gray-600">{calculatorConfig.productionCapacity[productionCapacity].label} ({weeklyEVCs} EVCs/week)</div>
+                        </div>
+                        <div className="ml-2 text-gray-400">
+                          <FontAwesomeIcon 
+                            icon={expandedStrategicItems.delivery.velocity ? faChevronUp : faChevronDown} 
+                            className="transition-transform"
+                          />
+                        </div>
                       </div>
-                      <div>
-                        <div className="font-semibold text-elx-primary">Transformation Velocity</div>
-                        <div className="text-sm text-gray-600">{calculatorConfig.productionCapacity[productionCapacity].label} ({weeklyEVCs} EVCs/week)</div>
-                        <p className="text-xs text-gray-500 mt-1">
-                          {productionCapacity === 'pathfinder' ? 
-                            'Focused exploration and initial implementation for targeted challenges.' :
-                          productionCapacity === 'roadster' ? 
-                            'Balanced approach delivering consistent progress without disrupting operations.' :
-                          productionCapacity === 'jetpack' ? 
-                            'Accelerated transformation with significant business impact and rapid results.' :
-                            'Enterprise-grade transformation with maximum velocity for critical initiatives.'}
-                        </p>
+                      
+                      {/* Collapsible content */}
+                      <div className={`overflow-hidden transition-all duration-300 ${
+                        expandedStrategicItems.delivery.velocity ? 'max-h-[500px]' : 'max-h-0'
+                      }`}>
+                        <div className="p-3 pt-0 border-t border-gray-100 bg-gray-50">
+                          <p className="text-sm text-gray-600">
+                            {productionCapacity === 'pathfinder' ? 
+                              'Focused exploration and initial implementation for targeted challenges. This approach provides a controlled pace suitable for organizations starting their transformation journey or addressing specific pain points.' :
+                            productionCapacity === 'roadster' ? 
+                              'Balanced approach delivering consistent progress without disrupting operations. This mid-tier velocity is ideal for organizations that need meaningful change while maintaining operational stability.' :
+                            productionCapacity === 'jetpack' ? 
+                              'Accelerated transformation with significant business impact and rapid results. This high-velocity approach enables organizations to quickly respond to market pressures and drive competitive advantage.' :
+                              'Enterprise-grade transformation with maximum velocity for critical initiatives. This approach dedicates significant resources to drive comprehensive change across the organization for maximum strategic impact.'}
+                          </p>
+                          
+                          <div className="mt-3 flex items-center">
+                            <div className="flex-1 pr-4">
+                              <div className="w-full bg-gray-200 rounded-full h-2.5">
+                                <div className="bg-purple-600 h-2.5 rounded-full" style={{ 
+                                  width: productionCapacity === 'pathfinder' ? '25%' : 
+                                         productionCapacity === 'roadster' ? '50%' : 
+                                         productionCapacity === 'jetpack' ? '75%' : '100%' 
+                                }}></div>
+                              </div>
+                            </div>
+                            <div className="text-xs font-medium text-purple-700 whitespace-nowrap">
+                              {weeklyEVCs} EVCs/week
+                            </div>
+                          </div>
+                        </div>
                       </div>
                     </div>
                     
-                    <div className="flex items-start">
-                      <div className="w-10 h-10 rounded-full bg-blue-100 text-blue-600 flex items-center justify-center mr-4 shadow">
-                        <FontAwesomeIcon icon={faColumns} size="lg" />
+                    <div className="bg-white rounded-lg border border-gray-200 overflow-hidden shadow-sm">
+                      <div 
+                        className="flex items-start p-3 cursor-pointer hover:bg-gray-50 transition-colors"
+                        onClick={() => toggleDeliveryItem('allocation')}
+                      >
+                        <div className="w-10 h-10 rounded-full bg-blue-100 text-blue-600 flex items-center justify-center mr-4 shadow">
+                          <FontAwesomeIcon icon={faColumns} size="lg" />
+                        </div>
+                        <div className="flex-1">
+                          <div className="font-semibold text-elx-primary">Resource Allocation</div>
+                          <div className="text-sm text-gray-600">{calculatorConfig.resourceAllocation[resourceAllocation].description}</div>
+                        </div>
+                        <div className="ml-2 text-gray-400">
+                          <FontAwesomeIcon 
+                            icon={expandedStrategicItems.delivery.allocation ? faChevronUp : faChevronDown} 
+                            className="transition-transform"
+                          />
+                        </div>
                       </div>
-                      <div>
-                        <div className="font-semibold text-elx-primary">Resource Allocation</div>
-                        <div className="text-sm text-gray-600">{calculatorConfig.resourceAllocation[resourceAllocation].description}</div>
-                        <p className="text-xs text-gray-500 mt-1">
-                          {resourceAllocation === 'focused' ? 
-                            'Laser-focused approach with minimal context switching for maximum efficiency on a single strategic priority.' :
-                          resourceAllocation === 'balanced' ? 
-                            'Strategic balance between key priorities and operational initiatives with moderate coordination overhead.' :
-                            'Distributed approach addressing multiple concurrent initiatives across your organization.'}
-                        </p>
+                      
+                      {/* Collapsible content */}
+                      <div className={`overflow-hidden transition-all duration-300 ${
+                        expandedStrategicItems.delivery.allocation ? 'max-h-[500px]' : 'max-h-0'
+                      }`}>
+                        <div className="p-3 pt-0 border-t border-gray-100 bg-gray-50">
+                          <p className="text-sm text-gray-600">
+                            {resourceAllocation === 'focused' ? 
+                              'Laser-focused approach with minimal context switching for maximum efficiency on a single strategic priority. This approach minimizes coordination overhead and delivers the fastest possible results for your highest-priority initiative.' :
+                            resourceAllocation === 'balanced' ? 
+                              'Strategic balance between key priorities and operational initiatives with moderate coordination overhead. This approach enables parallel work on multiple interconnected initiatives with efficient resource sharing and knowledge transfer.' :
+                              'Distributed approach addressing multiple concurrent initiatives across your organization. This approach enables broad transformation across multiple business units or functions with specialized expertise for each area.'}
+                          </p>
+                          
+                          <div className="mt-3 grid grid-cols-3 gap-2 text-center text-xs">
+                            <div className={`rounded p-2 ${resourceAllocation === 'focused' ? 'bg-blue-100 text-blue-700 font-medium' : 'bg-gray-100 text-gray-500'}`}>
+                              Focused<br/>
+                              <span className="text-[10px]">{calculatorConfig.resourceAllocation.focused?.switchingOverhead || 0}% overhead</span>
+                            </div>
+                            <div className={`rounded p-2 ${resourceAllocation === 'balanced' ? 'bg-blue-100 text-blue-700 font-medium' : 'bg-gray-100 text-gray-500'}`}>
+                              Balanced<br/>
+                              <span className="text-[10px]">{calculatorConfig.resourceAllocation.balanced?.switchingOverhead || 0}% overhead</span>
+                            </div>
+                            <div className={`rounded p-2 ${resourceAllocation === 'distributed' ? 'bg-blue-100 text-blue-700 font-medium' : 'bg-gray-100 text-gray-500'}`}>
+                              Distributed<br/>
+                              <span className="text-[10px]">{calculatorConfig.resourceAllocation.distributed?.switchingOverhead || 0}% overhead</span>
+                            </div>
+                          </div>
+                        </div>
                       </div>
                     </div>
                     
-                    <div className="flex items-start">
-                      <div className="w-10 h-10 rounded-full bg-green-100 text-green-600 flex items-center justify-center mr-4 shadow">
-                        <FontAwesomeIcon icon={faCreditCard} size="lg" />
+                    <div className="bg-white rounded-lg border border-gray-200 overflow-hidden shadow-sm">
+                      <div 
+                        className="flex items-start p-3 cursor-pointer hover:bg-gray-50 transition-colors"
+                        onClick={() => toggleDeliveryItem('payment')}
+                      >
+                        <div className="w-10 h-10 rounded-full bg-green-100 text-green-600 flex items-center justify-center mr-4 shadow">
+                          <FontAwesomeIcon icon={faCreditCard} size="lg" />
+                        </div>
+                        <div className="flex-1">
+                          <div className="font-semibold text-elx-primary">Financial Model</div>
+                          <div className="text-sm text-gray-600">{paymentDetails.name}</div>
+                        </div>
+                        <div className="ml-2 text-gray-400">
+                          <FontAwesomeIcon 
+                            icon={expandedStrategicItems.delivery.payment ? faChevronUp : faChevronDown} 
+                            className="transition-transform"
+                          />
+                        </div>
                       </div>
-                      <div>
-                        <div className="font-semibold text-elx-primary">Financial Model</div>
-                        <div className="text-sm text-gray-600">{paymentDetails.name}</div>
-                        <p className="text-xs text-gray-500 mt-1">
-                          {paymentOption === 'prepaid' ? 
-                            `Provides ${((1 - paymentDetails.priceModifier) * 100).toFixed(0)}% discount through capacity reservation, ensuring dedicated resources and predictable budgeting.` : 
-                            'Maintains maximum financial flexibility with no upfront commitment, ideal for uncertain transformation timelines.'}
-                        </p>
+                      
+                      {/* Collapsible content */}
+                      <div className={`overflow-hidden transition-all duration-300 ${
+                        expandedStrategicItems.delivery.payment ? 'max-h-[500px]' : 'max-h-0'
+                      }`}>
+                        <div className="p-3 pt-0 border-t border-gray-100 bg-gray-50">
+                          <p className="text-sm text-gray-600">
+                            {paymentOption === 'prepaid' ? 
+                              `Provides ${((1 - paymentDetails.priceModifier) * 100).toFixed(0)}% discount through capacity reservation, ensuring dedicated resources and predictable budgeting. This model secures priority access to transformation resources and maximizes cost efficiency through reduced rates.` : 
+                              'Maintains maximum financial flexibility with no upfront commitment, ideal for uncertain transformation timelines. This model provides complete flexibility to adjust your investment as your business needs evolve, without upfront financial commitments.'}
+                          </p>
+                          
+                          <div className="mt-3 grid grid-cols-2 gap-2 text-center text-xs">
+                            <div className={`rounded p-2 ${paymentOption === 'prepaid' ? 'bg-green-100 text-green-700 font-medium' : 'bg-gray-100 text-gray-500'}`}>
+                              Prepaid Reservation<br/>
+                              <span className="text-[10px]">{((1 - evcBase.paymentOptions.prepaid.priceModifier) * 100).toFixed(0)}% discount</span>
+                            </div>
+                            <div className={`rounded p-2 ${paymentOption === 'standard' ? 'bg-green-100 text-green-700 font-medium' : 'bg-gray-100 text-gray-500'}`}>
+                              Standard Billing<br/>
+                              <span className="text-[10px]">Maximum flexibility</span>
+                            </div>
+                          </div>
+                        </div>
                       </div>
                     </div>
                   </div>
