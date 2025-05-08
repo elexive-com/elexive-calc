@@ -19,6 +19,36 @@
     "Strategy": "faLightbulb",
     "Technology": "faServer"
   },
+  "journeyStages": [
+    {
+      "id": "journey-stage-1",
+      "title": "Discover",
+      "description": "Understanding your current state and defining success metrics",
+      "icon": "faCompass",
+      "categories": ["Strategic Assessment"]
+    },
+    {
+      "id": "journey-stage-2",
+      "title": "Design",
+      "description": "Developing strategies and roadmaps for transformation success",
+      "icon": "faLightbulb",
+      "categories": ["Immediate Impact", "Vested Value"]
+    },
+    {
+      "id": "journey-stage-3",
+      "title": "Build",
+      "description": "Implementing solutions and driving organizational change",
+      "icon": "faRocket",
+      "categories": ["Immediate Impact"]
+    },
+    {
+      "id": "journey-stage-4",
+      "title": "Scale",
+      "description": "Refining approaches and maximizing transformation outcomes",
+      "icon": "faChartLine",
+      "categories": ["Vested Value"]
+    }
+  ],
   "modules": [
     {
       "name": "Foundation Mapping",
@@ -36,6 +66,9 @@
       "callToAction": "Begin with clarity before your transformation journey",
       "whoIsItFor": "Leaders seeking to understand their starting point before embarking on strategic transformation initiatives.",
       "icon": "faMap",
+      "primaryJourneyStage": "journey-stage-1",
+      "secondaryJourneyStages": ["journey-stage-2"],
+      "journeyStageRationale": "This foundational module is primarily about discovery but extends into design as it provides the basis for transformation planning and strategy development.",
       "singleSizeOnly": true,
       "variants": [
         {
@@ -61,6 +94,9 @@
       "callToAction": "Let's talk Leadership Today",
       "whoIsItFor": "Change-makers who are ready to turn big ideas into real actions without confusion or burnout.",
       "icon": "faCheck",
+      "primaryJourneyStage": "journey-stage-3",
+      "secondaryJourneyStages": ["journey-stage-2", "journey-stage-4"],
+      "journeyStageRationale": "This change leadership module spans three stages because effective transformation requires upfront strategy design, focused implementation, and ongoing reinforcement to ensure changes become sustainable.",
       "variants": [
         {
           "type": "Insight Primer",
@@ -90,6 +126,9 @@
       "callToAction": "Let's talk Leadership Today",
       "whoIsItFor": "Leaders looking to ignite motivation, inspire teams, and get everyone moving together.",
       "icon": "faPuzzlePiece",
+      "primaryJourneyStage": "journey-stage-3",
+      "secondaryJourneyStages": ["journey-stage-2", "journey-stage-4"],
+      "journeyStageRationale": "Cultural transformation is primarily focused on implementation but requires strategic design beforehand and extends into scaling to ensure cultural changes become self-sustaining throughout the organization.",
       "variants": [
         {
           "type": "Insight Primer",
@@ -119,6 +158,9 @@
       "callToAction": "Let's talk Leadership Today",
       "whoIsItFor": "Forward-thinking leaders excited to use AI to elevate their decisions and sharpen their edge.",
       "icon": "faRobot",
+      "primaryJourneyStage": "journey-stage-3",
+      "secondaryJourneyStages": ["journey-stage-2", "journey-stage-4"],
+      "journeyStageRationale": "AI-driven leadership transformation spans strategy development, active implementation of AI tools and processes, and ongoing optimization of AI-augmented leadership approaches to ensure sustainable adoption.",
       "variants": [
         {
           "type": "Insight Primer",
@@ -148,6 +190,9 @@
       "callToAction": "Let's talk Leadership Today",
       "whoIsItFor": "People-focused leaders determined to build a workplace employees want to advocate for.",
       "icon": "faUsers",
+      "primaryJourneyStage": "journey-stage-4",
+      "secondaryJourneyStages": ["journey-stage-3"],
+      "journeyStageRationale": "This talent development module primarily focuses on scaling and optimizing workplace culture but requires build phase involvement to implement the foundational programs and processes that enable a continuously improving workplace.",
       "variants": [
         {
           "type": "Insight Primer",
@@ -177,6 +222,9 @@
       "callToAction": "Shape the future with fearless decision-making.",
       "whoIsItFor": "Visionaries who want to clearly define what's next and inspire others to follow.",
       "icon": "faChartLine",
+      "primaryJourneyStage": "journey-stage-4",
+      "secondaryJourneyStages": ["journey-stage-2"],
+      "journeyStageRationale": "This leadership module focuses primarily on scaling strategic capabilities with ongoing optimization, but requires design phase involvement to establish the frameworks and approaches for strategic thinking.",
       "variants": [
         {
           "type": "Insight Primer",
@@ -206,6 +254,9 @@
       "callToAction": "Stay sharp, adapt fast, and thrive in uncertainty.",
       "whoIsItFor": "Leaders navigating unpredictable environments who need quick pivots and steady nerves.",
       "icon": "faArrowRight",
+      "primaryJourneyStage": "journey-stage-4",
+      "secondaryJourneyStages": ["journey-stage-3"],
+      "journeyStageRationale": "This agility module is primarily about scaling leadership adaptability but requires build phase involvement to implement the practices and routines that enable leaders to navigate uncertainty effectively.",
       "variants": [
         {
           "type": "Insight Primer",
@@ -235,6 +286,9 @@
       "callToAction": "Charge right, grow fast, and maximize revenue.",
       "whoIsItFor": "Leaders who sense they could charge more, sell smarter, or create new income streams.",
       "icon": "faMoneyBillWave",
+      "primaryJourneyStage": "journey-stage-3",
+      "secondaryJourneyStages": ["journey-stage-2", "journey-stage-4"],
+      "journeyStageRationale": "Revenue optimization spans from strategy design through implementation to continuous refinement, requiring involvement across planning, building new revenue approaches, and ongoing optimization of pricing and business models.",
       "variants": [
         {
           "type": "Insight Primer",
@@ -264,6 +318,9 @@
       "callToAction": "Make customers your strategy's secret weapon.",
       "whoIsItFor": "Leaders who deeply care about understanding their customers and want every strategy to reflect that.",
       "icon": "faUsers",
+      "primaryJourneyStage": "journey-stage-2",
+      "secondaryJourneyStages": ["journey-stage-3"],
+      "journeyStageRationale": "This customer-focused module is primarily about designing customer-centric strategies but extends into the build phase for implementing customer experience improvements and engagement frameworks.",
       "variants": [
         {
           "type": "Insight Primer",
@@ -293,6 +350,9 @@
       "callToAction": "Spot market shifts early and stay ahead.",
       "whoIsItFor": "Leaders who want to see around corners, predict trends, and lead proactively.",
       "icon": "faChartLine",
+      "primaryJourneyStage": "journey-stage-2",
+      "secondaryJourneyStages": ["journey-stage-1", "journey-stage-4"],
+      "journeyStageRationale": "Strategic foresight spans from discovery through design to scale because it requires initial assessment of trends, focuses primarily on designing forward-looking strategies, and extends to continuous refinement of predictions and market responses.",
       "variants": [
         {
           "type": "Insight Primer",
@@ -322,6 +382,9 @@
       "callToAction": "Reinvent your business before the market forces you to.",
       "whoIsItFor": "Innovators ready to reinvent their business and outsmart industry disruptions.",
       "icon": "faPuzzlePiece",
+      "primaryJourneyStage": "journey-stage-2",
+      "secondaryJourneyStages": ["journey-stage-4"],
+      "journeyStageRationale": "This business model module primarily focuses on designing new approaches but extends to scale because business models require continuous refinement and adaptation as market conditions change.",
       "variants": [
         {
           "type": "Insight Primer",
@@ -351,6 +414,9 @@
       "callToAction": "Turn your brand into your biggest growth engine.",
       "whoIsItFor": "Leaders passionate about building a brand that's authentic, memorable, and resonates deeply.",
       "icon": "faBullseye",
+      "primaryJourneyStage": "journey-stage-2",
+      "secondaryJourneyStages": ["journey-stage-3"],
+      "journeyStageRationale": "This brand strategy module focuses primarily on designing brand positioning and strategy but extends into the build phase to implement brand-led initiatives and customer experience improvements.",
       "variants": [
         {
           "type": "Insight Primer",
@@ -380,6 +446,9 @@
       "callToAction": "",
       "whoIsItFor": "Leaders aiming to build iconic brands known for quality, leadership, and premium pricing.",
       "icon": "faBullseye",
+      "primaryJourneyStage": "journey-stage-4",
+      "secondaryJourneyStages": ["journey-stage-2"],
+      "journeyStageRationale": "This brand equity module focuses on scaling and maximizing brand value but requires design stage involvement to develop premium positioning strategies and market leadership approaches.",
       "variants": [
         {
           "type": "Insight Primer",
@@ -409,6 +478,9 @@
       "callToAction": "Put AI to work and make smarter moves today.",
       "whoIsItFor": "Leaders ready to see immediate impact by putting AI into daily workflows.",
       "icon": "faRobot",
+      "primaryJourneyStage": "journey-stage-3",
+      "secondaryJourneyStages": ["journey-stage-2"],
+      "journeyStageRationale": "This AI implementation module focuses primarily on building AI-powered solutions but requires design stage involvement to plan effective AI integration strategies and use cases.",
       "variants": [
         {
           "type": "Insight Primer",
@@ -438,6 +510,9 @@
       "callToAction": "Lock down security before a cyber threat hits.",
       "whoIsItFor": "Leaders determined to protect their teams and customers without constant worry about cybersecurity.",
       "icon": "faShieldAlt",
+      "primaryJourneyStage": "journey-stage-3",
+      "secondaryJourneyStages": ["journey-stage-1", "journey-stage-2"],
+      "journeyStageRationale": "This cybersecurity module spans from discovery through design to implementation, requiring initial security assessment, strategy development, and active implementation of security measures to establish a strong defensive posture.",
       "variants": [
         {
           "type": "Insight Primer",
@@ -467,6 +542,9 @@
       "callToAction": "Keep your business online, no matter what.",
       "whoIsItFor": "Leaders committed to keeping business running smoothly, even during disruptions.",
       "icon": "faShieldAlt",
+      "primaryJourneyStage": "journey-stage-3",
+      "secondaryJourneyStages": ["journey-stage-2", "journey-stage-4"],
+      "journeyStageRationale": "This digital resilience module focuses primarily on implementing solutions but spans from strategy design through ongoing optimization, requiring planning for resilient architectures and continuous refinement of protective measures.",
       "variants": [
         {
           "type": "Insight Primer",
@@ -495,7 +573,10 @@
       ],
       "callToAction": "Scale with secure, flexible cloud systems.",
       "whoIsItFor": "Leaders looking to flexibly scale their technology to support growth anywhere in the world.",
-      "icon": "faNetworkWired",
+      "icon": "faCloud",
+      "primaryJourneyStage": "journey-stage-3",
+      "secondaryJourneyStages": ["journey-stage-2", "journey-stage-4"],
+      "journeyStageRationale": "This cloud infrastructure module primarily focuses on implementation but spans from architecture planning through continuous optimization, requiring strategic design and ongoing evolution of cloud capabilities.",
       "variants": [
         {
           "type": "Insight Primer",
@@ -525,6 +606,9 @@
       "callToAction": "Turn data into decisions that drive results.",
       "whoIsItFor": "Leaders seeking trustworthy data insights to make confident, informed decisions.",
       "icon": "faDatabase",
+      "primaryJourneyStage": "journey-stage-4",
+      "secondaryJourneyStages": ["journey-stage-2", "journey-stage-3"],
+      "journeyStageRationale": "This data capability module focuses primarily on scaling and continuously optimizing data assets, but requires design for data strategy development and build for implementing data platforms and governance frameworks.",
       "variants": [
         {
           "type": "Insight Primer",
@@ -554,6 +638,9 @@
       "callToAction": "Turn emerging tech into real business impact.",
       "whoIsItFor": "Creative leaders eager to move from inspiring ideas to real-world innovation.",
       "icon": "faGears",
+      "primaryJourneyStage": "journey-stage-4",
+      "secondaryJourneyStages": ["journey-stage-2", "journey-stage-3"],
+      "journeyStageRationale": "This innovation module primarily focuses on scaling technology innovation capabilities but requires design for innovation strategy development and build for implementing innovation management processes and governance frameworks.",
       "variants": [
         {
           "type": "Insight Primer",
