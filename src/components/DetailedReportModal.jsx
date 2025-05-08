@@ -162,8 +162,8 @@ const DetailedReportModal = ({ isOpen, onClose, calculator }) => {
     return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
   };
   
-  // Calculate estimated annual value
-  const annualValue = totalPrice * 52;
+  // Calculate total projected cost for the entire implementation
+  const totalProjectedCost = totalPrice * estimatedCompletionWeeks;
   
   // PDF export function
   const exportToPdf = async () => {
@@ -179,7 +179,7 @@ const DetailedReportModal = ({ isOpen, onClose, calculator }) => {
         formatNumber,
         paymentDetails,
         paymentOption,
-        annualValue,
+        totalProjectedCost,
         productionCapacity,
         calculatorConfig,
         weeklyEVCs,
@@ -260,7 +260,7 @@ const DetailedReportModal = ({ isOpen, onClose, calculator }) => {
                 <div className="text-3xl font-bold text-elx-primary mb-2">€{formatNumber(totalPrice)}</div>
                 <div className="text-gray-600 text-sm">Weekly investment</div>
                 <div className="bg-blue-50 text-blue-700 text-sm px-3 py-1 rounded-lg inline-block mt-3 font-medium">
-                  €{formatNumber(annualValue)} projected annually
+                  €{formatNumber(totalProjectedCost)} total projected cost
                 </div>
                 <p className="text-gray-500 text-xs mt-3">
                   {paymentOption === 'prepaid' ? 
@@ -888,8 +888,8 @@ const DetailedReportModal = ({ isOpen, onClose, calculator }) => {
                       <td className="py-3 text-right font-semibold text-elx-primary">€{formatNumber(totalPrice * 13)}</td>
                     </tr>
                     <tr>
-                      <td className="py-3 text-gray-600">Annual Investment</td>
-                      <td className="py-3 text-right font-bold text-elx-primary text-lg">€{formatNumber(annualValue)}</td>
+                      <td className="py-3 text-gray-600">Total Projected Cost</td>
+                      <td className="py-3 text-right font-bold text-elx-primary text-lg">€{formatNumber(totalProjectedCost)}</td>
                     </tr>
                   </tbody>
                 </table>
