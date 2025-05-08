@@ -1,32 +1,49 @@
-import { 
-  faChartLine, faChartPie, 
-  faCreditCard, faRocket, 
-  faPuzzlePiece, faCalculator, faSlidersH,
-  faCheckCircle, faEnvelope, faLightbulb, faTools,
-  faTimes, faFileExport, faSpinner,
-  faCalendarAlt, faMoneyBillWave,
-  faHandshake, faUsers,
-  faShieldAlt, faGlobe, faColumns,
-  faBusinessTime, faChartBar, faLongArrowAltRight,
-  faBriefcase, faBookmark, faInfoCircle
-} from '@fortawesome/free-solid-svg-icons';
+import React, { useState, useRef } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { useState, useRef } from 'react';
-import calculatorConfig from '../config/calculatorConfig.json';
+import { 
+  faBookmark, faTimes, faChartLine, faPuzzlePiece, faUsers, 
+  faLightbulb, faTools, faBriefcase, faCalculator,
+  faColumns, faRocket, faChevronUp, faChevronDown,
+  faLock, faSpinner, faFileExport, faEnvelope,
+  faInfoCircle, faCheckCircle, faCreditCard,
+  faShieldAlt, faGlobe, faLayerGroup, faGraduationCap, faUserTie, faStar,
+  faChartPie, faSlidersH, faCalendarAlt, faHandshake, faLongArrowAltRight, faBusinessTime, faChartBar,
+  faMoneyBillWave
+} from '@fortawesome/free-solid-svg-icons';
+
 import { generateReportPdf } from '../pdf';
+import calculatorConfig from '../config/calculatorConfig.json';
+import modulesConfig from '../config/modulesConfig.json';
 
 const DetailedReportModal = ({ isOpen, onClose, calculator }) => {
   const [isExporting, setIsExporting] = useState(false);
   const reportContentRef = useRef(null);
+  const [expandedModules, setExpandedModules] = useState({});
+  const [expandedAddOns, setExpandedAddOns] = useState({});
   
   if (!isOpen) return null;
+
+  // Toggle module expansion
+  const toggleModule = (moduleName) => {
+    setExpandedModules(prev => ({
+      ...prev,
+      [moduleName]: !prev[moduleName]
+    }));
+  };
+
+  // Toggle add-on expansion
+  const toggleAddOn = (addOnId) => {
+    setExpandedAddOns(prev => ({
+      ...prev,
+      [addOnId]: !prev[addOnId]
+    }));
+  };
 
   const { 
     totalPrice,
     monthlyEvcs,
     evcPricePerUnit,
     paymentOption,
-    deliverySpeed,
     intent,
     selectedModules,
     modules,
@@ -213,7 +230,6 @@ const DetailedReportModal = ({ isOpen, onClose, calculator }) => {
           {/* Executive Summary Section with detailed context */}
           <div className="space-y-6 mb-12">
             <h3 className="text-2xl font-bold text-elx-primary mb-6 pb-2 border-b-2 border-elx-accent flex items-center">
-              <FontAwesomeIcon icon={faChartLine} className="text-elx-accent mr-3" />
               Executive Summary
             </h3>
 
@@ -394,7 +410,6 @@ const DetailedReportModal = ({ isOpen, onClose, calculator }) => {
           {/* Solution Components Section with Detailed Context */}
           <div className="space-y-6 mb-12">
             <h3 className="text-2xl font-bold text-elx-primary mb-6 pb-2 border-b-2 border-elx-accent flex items-center">
-              <FontAwesomeIcon icon={faPuzzlePiece} className="text-elx-accent mr-3" />
               Strategic Solution Components
             </h3>
             
@@ -410,9 +425,6 @@ const DetailedReportModal = ({ isOpen, onClose, calculator }) => {
             {Object.entries(modulesByPillar).map(([pillar, modules]) => (
               <div key={pillar} className="mb-10">
                 <div className="flex items-center mb-6">
-                  <div className={`w-10 h-10 rounded-full flex items-center justify-center mr-4 shadow ${getPillarColorClass(pillar)}`}>
-                    <FontAwesomeIcon icon={getPillarIcon(pillar)} size="lg" />
-                  </div>
                   <div>
                     <h4 className="text-xl font-bold text-elx-primary">{pillar} Pillar</h4>
                     <p className="text-sm text-gray-600">
@@ -427,88 +439,176 @@ const DetailedReportModal = ({ isOpen, onClose, calculator }) => {
                   </div>
                 </div>
                 
-                <div className="space-y-6">
+                <div className="space-y-4">
                   {modules.map(module => (
-                    <div key={module.name} className="bg-white rounded-xl p-6 border border-gray-200 shadow-md">
-                      <div className="flex justify-between items-start mb-5">
-                        <div>
-                          <div className="flex items-center mb-2">
-                            <div className={`px-3 py-1 rounded-full text-xs font-medium ${
-                              module.category === 'Immediate Impact' 
-                                ? 'bg-amber-100 text-amber-800' 
-                                : module.category === 'Strategic Assessment'
-                                  ? 'bg-blue-100 text-blue-800'
-                                  : 'bg-green-100 text-green-800'
-                            }`}>
-                              {module.category}
-                            </div>
+                    <div key={module.name} className="bg-white rounded-xl border border-gray-200 shadow-md overflow-hidden">
+                      {/* Collapsible header - always visible */}
+                      <div 
+                        className={`p-3 flex justify-between items-center cursor-pointer ${
+                          pillar === 'Transformation' ? 'bg-amber-600' :
+                          pillar === 'Strategy' ? 'bg-orange-600' :
+                          pillar === 'Technology' ? 'bg-teal-600' :
+                          'bg-indigo-800'
+                        }`}
+                        onClick={() => toggleModule(module.name)}
+                      >
+                        <div className="flex items-center">
+                          <div className="w-8 h-8 rounded-full bg-white bg-opacity-20 flex items-center justify-center mr-3 text-white">
+                            <FontAwesomeIcon icon={faLayerGroup} />
                           </div>
-                          <h5 className="text-lg font-bold text-elx-primary">{module.name}</h5>
-                          <p className="text-sm font-medium text-gray-700 mt-1">{module.heading}</p>
+                          <div>
+                            <h5 className="text-md font-bold text-white">{module.name}</h5>
+                          </div>
                         </div>
-                        <div className="bg-elx-primary bg-opacity-10 rounded-lg p-3 text-center min-w-[80px]">
-                          <div className="text-xs text-elx-primary font-medium uppercase">Scope</div>
-                          <div className="text-xl font-bold text-elx-primary">{module.evcValue}</div>
-                          <div className="text-xs text-elx-primary">EVCs</div>
+                        
+                        <div className="flex items-center">
+                          <div className="bg-white rounded-lg p-1.5 text-center mr-3 min-w-[60px] shadow-sm">
+                            <div className="text-lg font-bold text-elx-primary">{module.evcValue} <span className="text-xs font-normal align-middle">EVCs</span></div>
+                          </div>
+                          <FontAwesomeIcon 
+                            icon={expandedModules[module.name] ? faChevronUp : faChevronDown} 
+                            className="text-white transition-transform"
+                          />
                         </div>
                       </div>
                       
-                      <div className="space-y-4">
-                        <div>
-                          <h6 className="text-sm font-semibold text-elx-primary mb-2">Business Context</h6>
-                          <p className="text-sm text-gray-600">{module.description}</p>
-                        </div>
-                        
-                        <div>
-                          <h6 className="text-sm font-semibold text-elx-primary mb-2">Implementation Approach</h6>
-                          <div className="bg-gray-50 rounded-lg p-4">
-                            <div className="flex items-center mb-3">
-                              <div className={`w-8 h-8 rounded-full flex items-center justify-center mr-3 ${
-                                module.selectedVariant === 'insightPrimer' 
-                                  ? 'bg-blue-100 text-blue-600' 
-                                  : 'bg-green-100 text-green-600'
-                              }`}>
-                                <FontAwesomeIcon icon={getVariantIcon(module.selectedVariant)} />
-                              </div>
-                              <div>
-                                <div className="font-medium text-gray-800">{getVariantDisplayName(module.selectedVariant)}</div>
-                                <div className="text-xs text-gray-500">
+                      {/* Collapsible content - shown when expanded */}
+                      <div 
+                        className={`transition-all duration-300 overflow-hidden ${
+                          expandedModules[module.name] ? 'max-h-[2000px]' : 'max-h-0'
+                        }`}
+                      >
+                        <div className="p-5 border-t border-gray-200">
+                          <div className="space-y-4">
+                            <div>
+                              <h6 className="text-sm font-semibold text-elx-primary mb-2">Business Context</h6>
+                              <p className="text-sm text-gray-600">{module.description}</p>
+                            </div>
+                            
+                            <div>
+                              <h6 className="text-sm font-semibold text-elx-primary mb-2">Implementation Approach</h6>
+                              <div className="bg-gray-50 rounded-lg p-4">
+                                <div className="flex items-center mb-3">
+                                  <div className={`w-8 h-8 rounded-full flex items-center justify-center mr-3 ${
+                                    module.selectedVariant === 'insightPrimer' 
+                                      ? 'bg-blue-100 text-blue-600' 
+                                      : 'bg-green-100 text-green-600'
+                                  }`}>
+                                    <FontAwesomeIcon icon={getVariantIcon(module.selectedVariant)} />
+                                  </div>
+                                  <div>
+                                    <div className="font-medium text-gray-800">{getVariantDisplayName(module.selectedVariant)}</div>
+                                    <div className="text-xs text-gray-500">
+                                      {module.selectedVariant === 'insightPrimer' 
+                                        ? 'Focused assessment and strategic recommendations' 
+                                        : 'Comprehensive implementation with hands-on execution'}
+                                    </div>
+                                  </div>
+                                </div>
+                                
+                                <p className="text-sm text-gray-600">
                                   {module.selectedVariant === 'insightPrimer' 
-                                    ? 'Focused assessment and strategic recommendations' 
-                                    : 'Comprehensive implementation with hands-on execution'}
+                                    ? `Our experts will conduct a thorough assessment of your current ${module.name.toLowerCase()} capabilities, identify gaps and opportunities, and deliver actionable recommendations with a practical implementation roadmap.` 
+                                    : `Our team will work alongside yours to fully implement the ${module.name.toLowerCase()} initiative, from initial planning through execution, ensuring successful adoption and delivering measurable business outcomes.`}
+                                </p>
+                              </div>
+                            </div>
+                            
+                            <div>
+                              <h6 className="text-sm font-semibold text-elx-primary mb-2">Expected Business Outcomes</h6>
+                              <div className="grid grid-cols-1 gap-3">
+                                {/* Display module-specific benefits from config */}
+                                {modulesConfig.modules.find(m => m.name === module.name)?.benefits && (
+                                  <div>
+                                    <div className="text-xs font-medium text-gray-500 uppercase mb-1">Key Benefits</div>
+                                    <div className="flex flex-wrap gap-2 mb-3">
+                                      {modulesConfig.modules.find(m => m.name === module.name)?.benefits.map((benefit, idx) => (
+                                        <div key={idx} className="bg-green-50 text-xs px-3 py-1.5 rounded-full text-green-700 border border-green-200">
+                                          {benefit}
+                                        </div>
+                                      ))}
+                                    </div>
+                                  </div>
+                                )}
+                                
+                                <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+                                  <div className="bg-gray-50 rounded-lg p-3 border-l-2 border-green-500">
+                                    <div className="text-xs font-medium text-gray-500 uppercase mb-1">Primary Benefit</div>
+                                    <div className="text-sm text-gray-700">
+                                      {module.category === 'Immediate Impact' 
+                                        ? 'Rapid operational improvements with measurable ROI' 
+                                        : module.category === 'Strategic Assessment'
+                                          ? 'Clear strategic direction with validated business case'
+                                          : 'Long-term competitive advantage and organizational capability'}
+                                    </div>
+                                  </div>
+                                  <div className="bg-gray-50 rounded-lg p-3 border-l-2 border-blue-500">
+                                    <div className="text-xs font-medium text-gray-500 uppercase mb-1">Timeline Impact</div>
+                                    <div className="text-sm text-gray-700">
+                                      {module.selectedVariant === 'insightPrimer' 
+                                        ? 'Results within 2-4 weeks with minimal disruption' 
+                                        : 'Comprehensive implementation over the full engagement period'}
+                                    </div>
+                                  </div>
                                 </div>
                               </div>
                             </div>
                             
-                            <p className="text-sm text-gray-600">
-                              {module.selectedVariant === 'insightPrimer' 
-                                ? `Our experts will conduct a thorough assessment of your current ${module.name.toLowerCase()} capabilities, identify gaps and opportunities, and deliver actionable recommendations with a practical implementation roadmap.` 
-                                : `Our team will work alongside yours to fully implement the ${module.name.toLowerCase()} initiative, from initial planning through execution, ensuring successful adoption and delivering measurable business outcomes.`}
-                            </p>
-                          </div>
-                        </div>
-                        
-                        <div>
-                          <h6 className="text-sm font-semibold text-elx-primary mb-2">Expected Business Outcomes</h6>
-                          <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
-                            <div className="bg-gray-50 rounded-lg p-3 border-l-2 border-green-500">
-                              <div className="text-xs font-medium text-gray-500 uppercase mb-1">Primary Benefit</div>
-                              <div className="text-sm text-gray-700">
-                                {module.category === 'Immediate Impact' 
-                                  ? 'Rapid operational improvements with measurable ROI' 
-                                  : module.category === 'Strategic Assessment'
-                                    ? 'Clear strategic direction with validated business case'
-                                    : 'Long-term competitive advantage and organizational capability'}
+                            {/* Journey Stage Section */}
+                            {modulesConfig.modules.find(m => m.name === module.name)?.primaryJourneyStage && (
+                              <div>
+                                <h6 className="text-sm font-semibold text-elx-primary mb-2">Transformation Journey Stages</h6>
+                                <div className="bg-gray-50 rounded-lg p-4">
+                                  {(() => {
+                                    const moduleConfig = modulesConfig.modules.find(m => m.name === module.name);
+                                    if (!moduleConfig) return null;
+                                    
+                                    const primaryStageId = moduleConfig.primaryJourneyStage;
+                                    const secondaryStageIds = moduleConfig.secondaryJourneyStages || [];
+                                    
+                                    const primaryStage = modulesConfig.journeyStages.find(js => js.id === primaryStageId);
+                                    const secondaryStages = modulesConfig.journeyStages.filter(js => secondaryStageIds.includes(js.id));
+                                    
+                                    return (
+                                      <>
+                                        <div className="mb-3">
+                                          <div className="text-xs font-medium text-gray-500 uppercase mb-2">Primary Focus</div>
+                                          {primaryStage && (
+                                            <div className="flex items-center">
+                                              <div className="bg-elx-primary text-white rounded-full px-3 py-1 text-xs font-medium">
+                                                {primaryStage.title}
+                                              </div>
+                                              <div className="ml-2 text-xs text-gray-600">{primaryStage.description}</div>
+                                            </div>
+                                          )}
+                                        </div>
+                                        
+                                        {secondaryStages.length > 0 && (
+                                          <div>
+                                            <div className="text-xs font-medium text-gray-500 uppercase mb-2">Supporting Focus</div>
+                                            <div className="flex flex-wrap gap-2">
+                                              {secondaryStages.map(stage => (
+                                                <div key={stage.id} className="flex items-center">
+                                                  <div className="bg-gray-200 text-gray-700 rounded-full px-3 py-1 text-xs font-medium">
+                                                    {stage.title}
+                                                  </div>
+                                                </div>
+                                              ))}
+                                            </div>
+                                          </div>
+                                        )}
+                                        
+                                        {moduleConfig.journeyStageRationale && (
+                                          <div className="mt-3 text-xs text-gray-600 italic border-t border-gray-200 pt-2">
+                                            {moduleConfig.journeyStageRationale}
+                                          </div>
+                                        )}
+                                      </>
+                                    );
+                                  })()}
+                                </div>
                               </div>
-                            </div>
-                            <div className="bg-gray-50 rounded-lg p-3 border-l-2 border-blue-500">
-                              <div className="text-xs font-medium text-gray-500 uppercase mb-1">Timeline Impact</div>
-                              <div className="text-sm text-gray-700">
-                                {module.selectedVariant === 'insightPrimer' 
-                                  ? 'Results within 2-4 weeks with minimal disruption' 
-                                  : 'Comprehensive implementation over the full engagement period'}
-                              </div>
-                            </div>
+                            )}
                           </div>
                         </div>
                       </div>
@@ -519,7 +619,162 @@ const DetailedReportModal = ({ isOpen, onClose, calculator }) => {
             ))}
           </div>
           
-          {/* Financial Details Section with Enhanced Business Context */}
+          {/* Modules Sum - Total EVCs from all modules */}
+          <div className="mt-4 bg-white rounded-xl border border-gray-200 shadow-md overflow-hidden">
+            <div className="p-3 bg-black text-white flex justify-between items-center">
+              <div className="flex items-center">
+                <div className="w-8 h-8 rounded-full bg-white bg-opacity-20 flex items-center justify-center mr-3 text-white">
+                  <FontAwesomeIcon icon={faCalculator} />
+                </div>
+                <div>
+                  <h5 className="text-md font-bold text-white">Modules Sum</h5>
+                </div>
+              </div>
+              <div className="flex items-center">
+                <div className="bg-white rounded-lg p-1.5 text-center min-w-[60px] shadow-sm">
+                  <div className="text-lg font-bold text-elx-primary">{totalEvcSum} <span className="text-xs font-normal align-middle">EVCs</span></div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Additional Services and Add Ons */}
+          <div className="space-y-6 mb-12">
+            <h3 className="text-2xl font-bold text-elx-primary mb-6 pb-2 border-b-2 border-elx-accent flex items-center">
+                Additional Services and Add Ons
+            </h3>
+            
+            {/* Business context for additional services */}
+            <div className="bg-white rounded-xl p-6 border border-gray-200 shadow-sm mb-8">
+              <p className="text-gray-700 leading-relaxed">
+                Your solution includes the following additional services and add-ons, carefully selected to enhance your transformation experience
+                and maximize the impact of your strategic initiative. Each service adds specific capabilities to your transformation toolkit,
+                ensuring comprehensive support aligned with your business needs.
+              </p>
+            </div>
+            
+            {/* Check if any parameters are enabled */}
+            {serviceParameters.filter(param => parameters[param.id]).length > 0 ? (
+              <div className="space-y-4">
+                {serviceParameters
+                  .filter(param => parameters[param.id])
+                  .map((param) => {
+                    // Calculate EVC cost for the parameter
+                    const evcCost = calculateEvcCost(param);
+                    
+                    return (
+                      <div key={param.id} className="bg-white rounded-xl border border-gray-200 shadow-md overflow-hidden">
+                        {/* Collapsible header - always visible */}
+                        <div 
+                          className="p-3 flex justify-between items-center cursor-pointer bg-gray-800"
+                          onClick={() => toggleAddOn(param.id)}
+                        >
+                          <div className="flex items-center">
+                            <div className="w-8 h-8 rounded-full bg-white bg-opacity-20 flex items-center justify-center mr-3 text-white">
+                              <FontAwesomeIcon icon={
+                                param.id === 'trainingSession' ? faGraduationCap :
+                                param.id === 'accountConcierge' ? faUserTie :
+                                param.id === 'premiumSLA' ? faShieldAlt : 
+                                faStar
+                              } />
+                            </div>
+                            <div>
+                              <h5 className="text-md font-bold text-white">{param.label}</h5>
+                            </div>
+                          </div>
+                          
+                          <div className="flex items-center">
+                            {evcCost && (
+                              <div className="bg-white rounded-lg p-1.5 text-center mr-3 min-w-[60px] shadow-sm">
+                                <div className="text-lg font-bold text-elx-primary">{evcCost} <span className="text-xs font-normal align-middle">EVC</span></div>
+                              </div>
+                            )}
+                            <FontAwesomeIcon 
+                              icon={expandedAddOns[param.id] ? faChevronUp : faChevronDown} 
+                              className="text-white transition-transform"
+                            />
+                          </div>
+                        </div>
+                        
+                        {/* Collapsible content - shown when expanded */}
+                        <div 
+                          className={`transition-all duration-300 overflow-hidden ${
+                            expandedAddOns[param.id] ? 'max-h-[2000px]' : 'max-h-0'
+                          }`}
+                        >
+                          <div className="p-5 border-t border-gray-200">
+                            <div className="space-y-4">
+                              <div>
+                                <h6 className="text-sm font-semibold text-elx-primary mb-2">Description</h6>
+                                <p className="text-sm text-gray-600">{param.description}</p>
+                              </div>
+                              
+                              {param.productionImpact && (
+                                <div>
+                                  <h6 className="text-sm font-semibold text-elx-primary mb-2">Business Impact</h6>
+                                  <div className="bg-blue-50 rounded-lg p-3 text-xs text-blue-700 border border-blue-100">
+                                    <FontAwesomeIcon icon={faInfoCircle} className="mr-2" />
+                                    <span className="font-medium">Impact:</span> {param.productionImpact}
+                                  </div>
+                                </div>
+                              )}
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    );
+                  })}
+              </div>
+            ) : (
+              <div className="bg-gray-50 rounded-xl p-6 border border-gray-200 text-center">
+                <div className="text-gray-400 mb-3">
+                  <FontAwesomeIcon icon={faInfoCircle} size="2x" />
+                </div>
+                <h4 className="text-lg font-medium text-gray-500 mb-2">No Additional Services Selected</h4>
+                <p className="text-sm text-gray-600 max-w-md mx-auto">
+                  Your solution is configured with the core transformation modules only. Add-on services can be included to enhance specific aspects of your engagement.
+                </p>
+              </div>
+            )}
+            
+            {/* Payment option information */}
+            <div className="bg-white rounded-xl p-6 border border-gray-200 shadow-md">
+              <h4 className="text-lg font-bold text-elx-primary flex items-center mb-4">
+                <FontAwesomeIcon icon={faCreditCard} className="text-elx-accent mr-2" />
+                Selected Payment Option
+              </h4>
+              
+              <div className="flex items-start">
+                <div className="w-12 h-12 rounded-full flex items-center justify-center mr-4 shadow-md" 
+                  style={{ backgroundColor: 'var(--elexive-primary)' }}>
+                  <FontAwesomeIcon 
+                    icon={paymentOption === 'prepaid' ? faLock : faCreditCard} 
+                    className="text-white" 
+                    size="lg"
+                  />
+                </div>
+                <div className="flex-1">
+                  <h5 className="font-bold text-elx-primary text-lg mb-1">
+                    {evcBase.paymentOptions[paymentOption].name}
+                  </h5>
+                  <p className="text-gray-600 text-sm mb-2">
+                    {paymentOption === 'prepaid' ? 
+                      'Reserved capacity with allocated resources and predictable costs. Includes reduced pricing through our capacity reservation program.' : 
+                      'Standard monthly billing with maximum financial flexibility. Pay only for the services you use with no long-term commitment required.'}
+                  </p>
+                  
+                  {paymentOption === 'prepaid' && (
+                    <div className="bg-green-50 text-green-700 text-sm px-3 py-2 rounded inline-block">
+                      <FontAwesomeIcon icon={faCheckCircle} className="mr-1" />
+                      {((1 - evcBase.paymentOptions[paymentOption].priceModifier) * 100).toFixed(0)}% cost reduction
+                    </div>
+                  )}
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          {/* Financial Summary Section */}
           <div className="space-y-6 mb-12">
             <h3 className="text-2xl font-bold text-elx-primary mb-6 pb-2 border-b-2 border-elx-accent flex items-center">
               <FontAwesomeIcon icon={faMoneyBillWave} className="text-elx-accent mr-3" />
@@ -662,7 +917,7 @@ const DetailedReportModal = ({ isOpen, onClose, calculator }) => {
                             pillar === 'Technology' ? 'bg-green-600' :
                             'bg-amber-600'
                           }`}>
-                            <FontAwesomeIcon icon={getPillarIcon(pillar)} />
+                            <FontAwesomeIcon icon={getPillarIcon(pillar)} className="text-white" />
                           </div>
                           <div>
                             <span className="text-gray-800 font-medium">{pillar}</span>
@@ -749,7 +1004,7 @@ const DetailedReportModal = ({ isOpen, onClose, calculator }) => {
                   <div>
                     <span className="text-sm font-medium text-elx-primary">Resource Allocation Strategy</span>
                     <div className="text-xs text-gray-500">
-                      {deliverySpeed}
+                      {calculatorConfig.resourceAllocation[resourceAllocation]?.description || ''}
                     </div>
                   </div>
                   <div className="text-right">
@@ -766,6 +1021,7 @@ const DetailedReportModal = ({ isOpen, onClose, calculator }) => {
                   .filter(([, enabled]) => enabled)
                   .map(([paramId]) => {
                     const param = serviceParameters.find(p => p.id === paramId);
+                    if (!param) return null;
                     const evcCost = calculateEvcCost(param);
                     return (
                       <div key={paramId} className="flex justify-between py-3 border-b border-gray-100">
@@ -774,7 +1030,9 @@ const DetailedReportModal = ({ isOpen, onClose, calculator }) => {
                           <div className="text-xs text-gray-500">{param.productionImpact}</div>
                         </div>
                         <div className="text-right">
-                          <span className="text-sm font-semibold text-elx-primary">{param.modifier}x multiplier</span>
+                          {param.modifier && (
+                            <span className="text-sm font-semibold text-elx-primary">{param.modifier}x multiplier</span>
+                          )}
                           {evcCost && (
                             <div className="text-xs text-gray-500">
                               {evcCost} EVCs/week
@@ -932,7 +1190,7 @@ const DetailedReportModal = ({ isOpen, onClose, calculator }) => {
                       <span className="text-sm font-medium text-elx-primary">Total Module EVC Requirements</span>
                       <div className="text-xs text-gray-500">Base transformation scope from selected modules</div>
                     </div>
-                    <span className="bg-rose-50 text-xs font-semibold px-3 py-1.5 rounded-md text-elx-evc border border-rose-200">
+                    <span className="bg-rose-50 text-xs font-semibold px-3 py-1.5 rounded-md text-elx-primary border border-rose-200">
                       {totalEvcSum} EVC
                     </span>
                   </div>
@@ -946,7 +1204,7 @@ const DetailedReportModal = ({ isOpen, onClose, calculator }) => {
                           Additional coordination complexity from {resourceAllocation} strategy ({overheadPercentage}%)
                         </div>
                       </div>
-                      <span className="bg-rose-50 text-xs font-semibold px-3 py-1.5 rounded-md text-elx-evc border border-rose-200">
+                      <span className="bg-rose-50 text-xs font-semibold px-3 py-1.5 rounded-md text-elx-primary border border-rose-200">
                         +{absoluteOverheadEvcs} EVC
                       </span>
                     </div>
@@ -958,7 +1216,7 @@ const DetailedReportModal = ({ isOpen, onClose, calculator }) => {
                       <span className="text-sm font-medium text-elx-primary">Total EVCs Required</span>
                       <div className="text-xs text-gray-500">Complete transformation resource requirements</div>
                     </div>
-                    <span className="bg-rose-50 text-xs font-semibold px-3 py-1.5 rounded-md text-elx-evc border border-rose-200">
+                    <span className="bg-rose-50 text-xs font-semibold px-3 py-1.5 rounded-md text-elx-primary border border-rose-200">
                       {totalEvcsWithOverhead} EVC
                     </span>
                   </div>
