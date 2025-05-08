@@ -2,7 +2,8 @@ import React, { useState, useEffect, useMemo } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { 
   faSearch, faBookmark, faChevronRight, faChevronDown,
-  faLightbulb, faRocket, faCompass
+  faLightbulb, faRocket, faCompass,
+  faLayerGroup
 } from '@fortawesome/free-solid-svg-icons';
 import { faBookmark as faBookmarkRegular } from '@fortawesome/free-regular-svg-icons';
 import modulesConfig from '../config/modulesConfig.json';
@@ -197,13 +198,10 @@ const ModuleExplorer = () => {
             className="w-8 h-8 flex items-center justify-center mr-2"
             style={{ backgroundColor: 'transparent' }}
           >
-            <FontAwesomeIcon icon={module.iconObject || faCompass} />
+            <FontAwesomeIcon icon={faLayerGroup} />
           </div>
           <div className="flex justify-between items-center w-full">
             <h3 className="font-bold text-white text-sm">{module.pillar}</h3>
-            <span className="inline-flex items-center px-2 py-0.5 rounded-md text-xs font-medium bg-white bg-opacity-20 text-white">
-              {module.category}
-            </span>
           </div>
         </div>
         
@@ -216,22 +214,6 @@ const ModuleExplorer = () => {
             {module.heading}
           </p>
           
-          <div className="mt-auto flex flex-wrap gap-1.5">
-            {module.variants.map((variant, index) => (
-              <span key={index} className={`inline-flex items-center px-2 py-1 rounded-md text-xs font-medium ${
-                variant.type === 'Insight Primer' 
-                  ? 'bg-blue-50 text-blue-700' 
-                  : 'bg-green-50 text-green-700'
-              }`}>
-                <FontAwesomeIcon 
-                  icon={variant.type === 'Insight Primer' ? faLightbulb : faRocket} 
-                  className="mr-1" 
-                  size="xs" 
-                />
-                {variant.type}
-              </span>
-            ))}
-          </div>
         </div>
         
         <div className="border-t border-gray-100 p-3 bg-gray-50 flex justify-between items-center">
@@ -399,7 +381,7 @@ const ModuleExplorer = () => {
                 </button>
               </div>
             ) : (
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
                 {filteredModules.map((module) => (
                   <ModuleCard key={module.name} module={module} />
                 ))}
