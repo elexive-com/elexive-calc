@@ -1,9 +1,9 @@
 import React, { useState, useEffect, useMemo } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { 
-  faSearch, faBookmark, faChevronRight, faChevronDown,
-  faLightbulb, faRocket, faCompass,
-  faLayerGroup
+  faSearch, faBookmark, faChevronRight, 
+  faLightbulb, faRocket, faCompass, faLayerGroup,
+  faTimes, faList
 } from '@fortawesome/free-solid-svg-icons';
 import { faBookmark as faBookmarkRegular } from '@fortawesome/free-regular-svg-icons';
 import modulesConfig from '../config/modulesConfig.json';
@@ -23,9 +23,8 @@ const ModuleExplorer = () => {
   const [modules, setModules] = useState([]);
   const [filteredModules, setFilteredModules] = useState([]);
   const [searchQuery, setSearchQuery] = useState('');
-  const [selectedPillar, setSelectedPillar] = useState('all');
-  const [selectedCategory, setSelectedCategory] = useState('all');
-  const [selectedVariant, setSelectedVariant] = useState('all');
+  const [selectedPillars, setSelectedPillars] = useState(new Set(['all']));
+  const [selectedCategories, setSelectedCategories] = useState(new Set(['all']));
   const [savedModules, setSavedModules] = useState([]);
   const [showSavedOnly, setShowSavedOnly] = useState(false);
   
@@ -33,12 +32,10 @@ const ModuleExplorer = () => {
   const [selectedModule, setSelectedModule] = useState(null);
   const [isDetailView, setIsDetailView] = useState(false);
   const [isExporting, setIsExporting] = useState(false);
-  const [showFilter, setShowFilter] = useState(false);
   
   // Get unique pillars, categories, and variant types from modules
   const pillars = [...new Set(modulesConfig.modules.map(module => module.pillar))];
   const categories = [...new Set(modulesConfig.modules.map(module => module.category))];
-  const variantTypes = Object.keys(modulesConfig.variantDefinitions);
   
   // For journey stages reference in module details
   const journeySteps = useMemo(() => {
@@ -101,21 +98,14 @@ const ModuleExplorer = () => {
       );
     }
     
-    // Filter by pillar
-    if (selectedPillar !== 'all') {
-      result = result.filter(module => module.pillar === selectedPillar);
+    // Filter by pillars
+    if (!selectedPillars.has('all')) {
+      result = result.filter(module => selectedPillars.has(module.pillar));
     }
     
-    // Filter by category
-    if (selectedCategory !== 'all') {
-      result = result.filter(module => module.category === selectedCategory);
-    }
-    
-    // Filter by variant type
-    if (selectedVariant !== 'all') {
-      result = result.filter(module => 
-        module.variants.some(variant => variant.type === selectedVariant)
-      );
+    // Filter by categories
+    if (!selectedCategories.has('all')) {
+      result = result.filter(module => selectedCategories.has(module.category));
     }
     
     // Filter by saved modules
@@ -127,9 +117,8 @@ const ModuleExplorer = () => {
   }, [
     modules, 
     searchQuery, 
-    selectedPillar, 
-    selectedCategory, 
-    selectedVariant, 
+    selectedPillars, 
+    selectedCategories, 
     savedModules, 
     showSavedOnly
   ]);
@@ -169,6 +158,74 @@ const ModuleExplorer = () => {
     } finally {
       setIsExporting(false);
     }
+  };
+
+  // Clear all filters
+  const clearAllFilters = () => {
+    setSearchQuery('');
+    setSelectedPillars(new Set(['all']));
+    setSelectedCategories(new Set(['all']));
+    setShowSavedOnly(false);
+  };
+
+  // Toggle pillar filter
+  const togglePillarFilter = (pillar) => {
+    setSelectedPillars((prev) => {
+      const newSet = new Set(prev);
+      
+      // If 'all' is currently selected and user selects a specific pillar
+      if (newSet.has('all') && pillar !== 'all') {
+        newSet.clear(); // Clear the 'all' selection first
+        newSet.add(pillar); // Add just this pillar
+        return newSet;
+      }
+      
+      // If this pillar is already selected, toggle it off
+      if (newSet.has(pillar)) {
+        newSet.delete(pillar);
+        // If no pillars are selected after this removal, set back to 'all'
+        if (newSet.size === 0) {
+          newSet.add('all');
+        }
+      } else {
+        // If 'all' is not selected, just toggle this pillar
+        newSet.add(pillar);
+        // Remove 'all' if it exists since we now have specific filters
+        newSet.delete('all');
+      }
+      
+      return newSet;
+    });
+  };
+
+  // Toggle category filter
+  const toggleCategoryFilter = (category) => {
+    setSelectedCategories((prev) => {
+      const newSet = new Set(prev);
+      
+      // If 'all' is currently selected and user selects a specific category
+      if (newSet.has('all') && category !== 'all') {
+        newSet.clear(); // Clear the 'all' selection first
+        newSet.add(category); // Add just this category
+        return newSet;
+      }
+      
+      // If this category is already selected, toggle it off
+      if (newSet.has(category)) {
+        newSet.delete(category);
+        // If no categories are selected after this removal, set back to 'all'
+        if (newSet.size === 0) {
+          newSet.add('all');
+        }
+      } else {
+        // If 'all' is not selected, just toggle this category
+        newSet.add(category);
+        // Remove 'all' if it exists since we now have specific filters
+        newSet.delete('all');
+      }
+      
+      return newSet;
+    });
   };
 
   // Module card component with standardized elx- classes
@@ -243,58 +300,111 @@ const ModuleExplorer = () => {
     );
   };
 
-  // Filter and search panel
-  const FilterPanel = () => (
-    <div className={`transition-all duration-300 overflow-hidden ${showFilter ? 'max-h-60' : 'max-h-0'}`}>
-      <div className="p-4 bg-gray-50 rounded-lg border border-gray-200 mt-2 mb-4">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+  // Modern always-visible filter panel
+  const ModernFilterPanel = () => (
+    <div className="mb-6">
+      <div className="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden">
+        {/* Search bar section */}
+        <div className="p-4 border-b border-gray-100 bg-gradient-to-r from-elx-primary-light to-white">
           <div className="relative">
-            <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-              <FontAwesomeIcon icon={faSearch} className="text-gray-400" />
+            <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+              <FontAwesomeIcon icon={faSearch} className="text-elx-primary" />
             </div>
             <input
               type="text"
-              placeholder="Search modules..."
+              placeholder="Search for modules by name or description..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="block w-full pl-10 pr-3 py-2 border border-gray-300 rounded-md leading-5 bg-white placeholder-gray-500 focus:outline-none focus:ring-elx-primary focus:border-elx-primary sm:text-sm"
+              className="block w-full pl-11 pr-10 py-3 border-0 rounded-lg text-gray-700 bg-white bg-opacity-90 shadow-inner focus:ring-2 focus:ring-elx-primary focus:ring-opacity-50 focus:outline-none"
+              autoComplete="off"
             />
+            {searchQuery && (
+              <button
+                onClick={() => setSearchQuery('')}
+                className="absolute inset-y-0 right-0 pr-3 flex items-center text-gray-400 hover:text-gray-600"
+                type="button"
+                tabIndex="-1" // Prevent focus stealing
+                aria-label="Clear search"
+              >
+                <FontAwesomeIcon icon={faTimes} className="h-4 w-4" />
+              </button>
+            )}
           </div>
-          
-          <div className="grid grid-cols-2 gap-2">
-            <select
-              value={selectedPillar}
-              onChange={(e) => setSelectedPillar(e.target.value)}
-              className="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-elx-primary focus:border-elx-primary sm:text-sm"
-            >
-              <option value="all">All Pillars</option>
-              {pillars.map((pillar) => (
-                <option key={pillar} value={pillar}>{pillar}</option>
-              ))}
-            </select>
+        </div>
+        
+        {/* Filters section */}
+        <div className="p-4 bg-white">
+          {/* Filters in two columns for better space usage */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+            {/* Pillar Toggles */}
+            <div>
+              <label className="text-xs font-medium text-gray-500 mb-2 ml-1 block">Pillars</label>
+              <div className="flex flex-wrap gap-2">
+                {pillars.map((pillar) => (
+                  <button
+                    key={pillar}
+                    onClick={() => togglePillarFilter(pillar)}
+                    className={`px-3 py-1.5 rounded-md text-sm font-medium transition-colors ${
+                      selectedPillars.has(pillar) && !selectedPillars.has('all')
+                        ? 'bg-elx-primary text-white' 
+                        : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
+                    }`}
+                  >
+                    {pillar}
+                  </button>
+                ))}
+              </div>
+            </div>
             
-            <select
-              value={selectedCategory}
-              onChange={(e) => setSelectedCategory(e.target.value)}
-              className="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-elx-primary focus:border-elx-primary sm:text-sm"
-            >
-              <option value="all">All Categories</option>
-              {categories.map((category) => (
-                <option key={category} value={category}>{category}</option>
-              ))}
-            </select>
+            {/* Category Toggles */}
+            <div>
+              <label className="text-xs font-medium text-gray-500 mb-2 ml-1 block">Categories</label>
+              <div className="flex flex-wrap gap-2">
+                {categories.map((category) => (
+                  <button
+                    key={category}
+                    onClick={() => toggleCategoryFilter(category)}
+                    className={`px-3 py-1.5 rounded-md text-sm font-medium transition-colors ${
+                      selectedCategories.has(category) && !selectedCategories.has('all')
+                        ? 'bg-elx-primary text-white' 
+                        : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
+                    }`}
+                  >
+                    {category}
+                  </button>
+                ))}
+              </div>
+            </div>
           </div>
           
-          <select
-            value={selectedVariant}
-            onChange={(e) => setSelectedVariant(e.target.value)}
-            className="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-elx-primary focus:border-elx-primary sm:text-sm"
-          >
-            <option value="all">All Variant Types</option>
-            {variantTypes.map((variant) => (
-              <option key={variant} value={variant}>{variant}</option>
-            ))}
-          </select>
+          {/* Bottom controls */}
+          <div className="flex justify-between items-center mt-2">
+            {/* Clear filters button */}
+            {(!selectedPillars.has('all') || !selectedCategories.has('all') || showSavedOnly) && (
+              <button
+                onClick={clearAllFilters}
+                className="text-sm text-gray-500 hover:text-elx-primary hover:underline"
+              >
+                Clear all filters
+              </button>
+            )}
+            
+            {/* Saved modules button */}
+            <button 
+              onClick={() => setShowSavedOnly(!showSavedOnly)}
+              disabled={savedModules.length === 0}
+              className={`flex items-center justify-center py-2 px-4 rounded-lg text-sm font-medium transition-colors ml-auto ${
+                savedModules.length === 0 
+                  ? 'bg-gray-100 text-gray-400 cursor-not-allowed' 
+                  : showSavedOnly 
+                    ? 'bg-amber-500 text-white hover:bg-amber-600' 
+                    : 'bg-gray-50 text-gray-700 border border-gray-200 hover:bg-gray-100'
+              }`}
+            >
+              <FontAwesomeIcon icon={faBookmark} className={`mr-2 ${showSavedOnly ? 'text-white' : 'text-amber-500'}`} />
+              {showSavedOnly ? 'Show All' : `Saved (${savedModules.length})`}
+            </button>
+          </div>
         </div>
       </div>
     </div>
@@ -314,68 +424,48 @@ const ModuleExplorer = () => {
         />
       ) : (
         <div className="module-explorer">
-          {/* Header and search/filter toggle */}
-          <div className="mb-4 flex flex-col md:flex-row md:justify-between md:items-center">
-            <div className="flex-1">
-              <h2 className="text-2xl font-bold text-elx-primary mb-3 md:mb-0">
-                Module Explorer
-              </h2>
-              <p className="text-gray-600 mb-4 max-w-3xl">
-                Browse our complete catalog of consulting modules across all pillars and categories. 
-                Use the filters to find modules that match your specific requirements.
-              </p>
-            </div>
-            
-            <div className="flex items-center space-x-3">
-              {savedModules.length > 0 && (
-                <div className="flex items-center">
-                  <button 
-                    onClick={() => setShowSavedOnly(!showSavedOnly)}
-                    className={`elx-btn ${showSavedOnly ? 'elx-btn-secondary' : 'elx-btn-outline'} py-1 px-3 text-sm flex items-center`}
-                  >
-                    <FontAwesomeIcon icon={faBookmark} className="mr-1" />
-                    {showSavedOnly ? 'Show All' : `Saved (${savedModules.length})`}
-                  </button>
-                </div>
-              )}
-              
-              <button 
-                onClick={() => setShowFilter(!showFilter)}
-                className="elx-btn elx-btn-outline py-1 px-3 text-sm flex items-center"
-              >
-                <FontAwesomeIcon icon={faSearch} className="mr-1" />
-                {showFilter ? 'Hide Filters' : 'Filters & Search'}
-                <FontAwesomeIcon 
-                  icon={showFilter ? faChevronDown : faChevronRight} 
-                  className="ml-1 text-xs" 
-                />
-              </button>
-            </div>
+          {/* Header */}
+          <div className="mb-6">
+            <h2 className="text-2xl font-bold text-elx-primary mb-2">
+              Module Explorer
+            </h2>
+            <p className="text-gray-600 max-w-3xl">
+              Browse our complete catalog of consulting modules across all pillars and categories. 
+              Use the filters to find modules that match your specific requirements.
+            </p>
           </div>
           
-          {/* Filter panel (expandable) */}
-          <FilterPanel />
+          {/* Always visible modern filter panel */}
+          <ModernFilterPanel />
           
           {/* Module listing */}
           <div className="mb-8">
             <div className="mb-4 flex justify-between items-center">
-              <p className="text-sm text-gray-500">
-                Showing {filteredModules.length} of {modules.length} modules
-              </p>
+              <div className="flex items-center">
+                <p className="text-sm text-gray-500">
+                  Showing <span className="font-medium text-gray-700">{filteredModules.length}</span> of {modules.length} modules
+                </p>
+              </div>
+              
+              {filteredModules.length > 0 && (
+                <div className="flex items-center">
+                  <button className="p-2 rounded-md text-gray-500 hover:text-elx-primary hover:bg-gray-50">
+                    <FontAwesomeIcon icon={faList} />
+                  </button>
+                </div>
+              )}
             </div>
             
             {filteredModules.length === 0 ? (
-              <div className="bg-gray-50 border border-gray-100 rounded-lg p-8 text-center">
-                <p className="text-gray-500">No modules match your current filters.</p>
+              <div className="bg-white border border-gray-100 rounded-xl p-8 text-center shadow-sm">
+                <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-gray-100 mb-4">
+                  <FontAwesomeIcon icon={faSearch} className="text-gray-400 text-2xl" />
+                </div>
+                <p className="text-gray-600 mb-2">No modules match your current filters.</p>
+                <p className="text-gray-500 text-sm mb-4">Try adjusting your search criteria or clearing filters.</p>
                 <button
-                  onClick={() => {
-                    setSearchQuery('');
-                    setSelectedPillar('all');
-                    setSelectedCategory('all');
-                    setSelectedVariant('all');
-                    setShowSavedOnly(false);
-                  }}
-                  className="mt-2 text-elx-primary hover:underline"
+                  onClick={clearAllFilters}
+                  className="elx-btn elx-btn-outline py-2 px-4"
                 >
                   Clear all filters
                 </button>
