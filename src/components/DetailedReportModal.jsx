@@ -804,9 +804,9 @@ const DetailedReportModal = ({ isOpen, onClose, calculator }) => {
           </div>
 
           {/* Additional Services and Add Ons */}
-          <div className="space-y-6 mb-12">
+          <div className="space-y-6 mb-12 mt-12">
             <h3 className="text-2xl font-bold text-elx-primary mb-6 pb-2 border-b-2 border-elx-accent flex items-center">
-                Additional Services and Add Ons
+              Additional Services and Add Ons
             </h3>
             
             {/* Business context for additional services */}
