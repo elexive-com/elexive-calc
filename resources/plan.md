@@ -41,13 +41,14 @@ The calculator is architected around a customer journey that builds trust, demon
    - Creates immediate value through ready-made solutions for common business transformation scenarios
    - **Implementation Approach**: Intuitive, conversational interface that guides executives through a brief assessment of their transformation needs without technical jargon
 
-### 2. **Guided Exploration** ([ModuleExplorer](./ModuleExplorer.md), [ModuleSelector](./ModuleSelector.md), [ProductionCapacitySelector](./ProductionCapacitySelector.md))
-   - Presents consulting modules through multiple navigation paradigms to match executive thinking styles
-   - Organizes offerings by transformation pillars (Transformation, Strategy, Technology) and journey stages
+### 2. **Guided Exploration** ([CustomerJourney](./CustomerJourney.md), [ModuleExplorer](./ModuleExplorer.md), [ModuleSelector](./ModuleSelector.md), [ProductionCapacitySelector](./ProductionCapacitySelector.md))
+   - Presents consulting modules through dedicated navigation paradigms to match executive thinking styles
+   - The Customer Journey provides a sequential view of transformation organized by journey stages (Assess, Plan, Execute, Optimize)
+   - The Module Explorer offers comprehensive browsing with powerful filtering capabilities
    - Uses visual storytelling to make complex service choices intuitive
    - Empowers self-guided discovery with filtering, search, and save functionality
    - Progressively reveals complexity only as needed ("progressive disclosure")
-   - **Current Implementation**: The ModuleExplorer provides three distinct navigation methods (pillar-based, journey-based, and list-based browsing) with comprehensive filtering options, visual differentiation between pillars, journey visualization with connecting arrows, bookmark/save features, and progressive disclosure of detailed information
+   - **Current Implementation**: The Customer Journey provides journey-based navigation with visual connection between stages and comprehensive filtering. The ModuleExplorer offers a streamlined browsing experience with powerful search and filter capabilities for the complete module catalog.
 
 ### 3. **Strategic Optimization** ([ResourceAllocationSelector](./ResourceAllocationSelector.md), [ServiceParameters](./ServiceParameters.md))
    - Frames consulting decisions in terms of business outcomes
@@ -67,38 +68,44 @@ The calculator is architected around a customer journey that builds trust, demon
    - Captures value-signaling data that enables personalized follow-up
    - **Implementation Approach**: Strategically placed CTAs with varied commitment levels (download report, schedule consultation, request proposal) integrated throughout the experience
 
-## ModuleExplorer: The Heart of the Guided Exploration Experience
+## ModuleExplorer: Comprehensive Module Browsing
 
 ### Strategic Purpose
 
-The ModuleExplorer is a cornerstone of our customer journey, designed to address several key customer pain points:
+The ModuleExplorer is designed to address several key customer pain points:
 
-1. **Information Overload**: By organizing consulting modules into meaningful categories with visual hierarchy
-2. **Context Lacking**: By situating modules within both business pillars and journey stages
-3. **Difficulty Comparing Options**: Through consistent, comparable module cards
-4. **Inability to "Browse"**: With multiple navigation approaches that match different thinking styles
+1. **Information Overload**: By organizing all consulting modules with powerful filtering
+2. **Difficulty Comparing Options**: Through consistent, comparable module cards
+3. **Efficient Discovery**: With comprehensive search and multi-dimensional filtering
+4. **Module Organization**: With saved module features for personal collections
 
-### Core Navigation Models
+### Core Features
 
-The ModuleExplorer offers three distinct ways to discover relevant consulting modules, accommodating different executive thinking styles:
+The ModuleExplorer offers a streamlined way to discover relevant consulting modules:
 
-1. **Transformation Pillars View**
-   - Groups modules by core business transformation areas: Transformation (People & Process), Strategy (Vision & Direction), and Technology (Tools & Systems)
-   - Visualizes each pillar with distinctive color-coding (purple, blue, green) and iconography
-   - Provides contextual descriptions of each pillar's focus and business impact
-   - Shows relevant modules in a visually cohesive grid below the highlighted pillar
+1. **Complete Module Catalog**
+   - Presents all modules in a consistent grid layout
+   - Provides count indicators showing total and filtered modules
+   - Supports rapid browsing with consistent information architecture
+   - Shows modules across all pillars and categories in one unified view
 
-2. **Customer Journey View**
-   - Organizes modules according to the client transformation journey stages: Assess, Plan, Execute, Optimize
-   - Creates a chronological narrative with connecting arrows that helps users understand the sequential nature of transformation
-   - Color-codes journey stages (blue, amber, green, purple) for visual differentiation
-   - Automatically filters modules to show only those relevant to the selected journey stage
+2. **Advanced Filtering System**
+   - Multi-dimensional filtering by pillar, category, and module variant
+   - Progressive disclosure of filter options through expandable panel
+   - Clear visual feedback for applied filters with option to reset
+   - Results immediately update as filters are modified
 
-3. **Comprehensive List View**
-   - Presents all modules with powerful filtering and search capabilities
-   - Supports advanced filtering by pillar, category, and module variant
-   - Provides a familiar catalog view for executives who prefer direct browsing
-   - Includes module count tracking and search result feedback
+3. **Search Capabilities**
+   - Comprehensive search across module names, descriptions, and headings
+   - Real-time search results with count indicators and feedback
+   - Intelligent handling of partial matches and related terms
+   - Clear feedback when no results match search criteria
+
+4. **Module Management**
+   - Module bookmarking/saving for later reference
+   - "Saved modules" view to quickly access modules of interest
+   - PDF export of module details for offline review and sharing
+   - Session persistence for saved module selections
 
 ### Module Cards & Detail View
 
@@ -118,249 +125,64 @@ Each consulting module is represented using a consistent information architectur
    - Export to PDF functionality with professional formatting for stakeholder sharing
    - Clear call-to-action options based on decision readiness
 
-### Self-Guided Discovery Features
-
-The ModuleExplorer empowers executives with robust discovery tools:
-
-1. **Advanced Filtering**
-   - Multi-dimensional filtering by pillar, category, and module variant
-   - Progressive disclosure of filter options through expandable panel
-   - Smart filtering that contextually adapts to the active view (pillars, journey, list)
-   - Clear visual feedback for applied filters with option to reset
-
-2. **Search Capabilities**
-   - Comprehensive search across module names, descriptions, and headings
-   - Real-time search results with count indicators and feedback
-   - Intelligent handling of partial matches and related terms
-   - Contextual presentation of search results within the active view
-
-3. **Personalization Features**
-   - Module bookmarking/saving for later reference
-   - "Saved modules" view to quickly access modules of interest
-   - PDF export of module details for offline review and sharing
-   - Persistent state management that remembers user preferences
-
 ### Progressive Disclosure Implementation
 
 The ModuleExplorer implements a sophisticated progressive disclosure approach:
 
 1. **Information Hierarchy**
-   - Initial presentation of high-level concepts (pillars, journey stages)
-   - Secondary layer of module cards with essential information
-   - Tertiary layer of detailed module information upon request
+   - Initial presentation of module cards with essential information
+   - Secondary layer of detailed module information upon request
    - "Just enough" information at each level to support decision-making
 
 2. **Interface Progression**
-   - Expandable filter panel that only reveals advanced options when needed
-   - Tab-based navigation that segments complex views until requested
-   - View transitions that maintain context while adding depth
+   - Expandable filter panel that only reveals options when needed
    - Detailed module view that organizes comprehensive information into logical sections
+   - Visual feedback that guides the exploration process
 
 3. **Visual Feedback Systems**
    - Clear visual indicators for active selections and applied filters
-   - Consistent color-coding and iconography across navigation paradigms
-   - Subtle animations that guide attention to relevant information
+   - Consistent color-coding and iconography throughout
    - Empty state handling with helpful guidance for recovery
+   - Count indicators showing how many modules match current criteria
 
-### Integration with Customer Journey
+## Customer Journey: Transformation Pathway Visualization
 
-The ModuleExplorer serves as a crucial bridge in the customer journey:
+### Strategic Purpose
 
-1. **From Onboarding to Selection**
-   - Receives context from the initial OnboardingQuiz to highlight relevant modules
-   - Provides educational content that builds transformation literacy
-   - Creates a foundation of understanding that informs module selection
+The Customer Journey component addresses crucial needs in the transformation process:
 
-2. **Towards Strategic Optimization**
-   - Feeds selected modules into the ModuleSelector for configuration
-   - Establishes pillar-based thinking that informs resource allocation
-   - Creates mental models of transformation that guide optimization decisions
+1. **Sequential Understanding**: By visualizing transformation as a chronological process
+2. **Stage-Specific Focus**: By allowing executives to focus on their current phase
+3. **Contextual Module Discovery**: By organizing modules according to journey stages
+4. **Transformation Storytelling**: By creating a narrative flow through the process
 
-3. **Supporting Value Validation**
-   - Provides detailed module information for the DetailedReportModal
-   - Supplies contextual information for ROI calculations in the SummarySidebar
-   - Creates sharable artifacts (PDFs) that support stakeholder alignment
+### Core Features
 
-## Service Delivery Model & Resource Allocation
+The Customer Journey creates an immersive visualization of the transformation process:
 
-### EVC (Elastic Value Credits) Framework
+1. **Journey Stage Visualization**
+   - Visual representation of the four key transformation stages: Assess, Plan, Execute, Optimize
+   - Color-coded stages with distinctive iconography for each phase
+   - Connected visualization showing progression through transformation
+   - Interactive selection of the current stage with clear visual feedback
 
-The calculator implements a sophisticated resource allocation model through our EVC (Elastic Value Credits) framework:
+2. **Stage-Specific Module Display**
+   - Automatic filtering of modules to show those relevant to the selected stage
+   - Clear indication of which stage is currently active
+   - Modules presented in consistent card format across all stages
+   - Visual feedback when no modules match additional filter criteria
 
-1. **Resource Unit Definition**
-   - EVC represents a standardized unit of consulting value delivery capacity
-   - Each EVC encapsulates a balanced mix of expertise, time, and deliverable value
-   - This abstraction allows for simplified resource allocation without sacrificing accuracy
+3. **Contextual Filtering**
+   - Search and filtering within the context of the selected journey stage
+   - Multi-dimensional filtering by pillar, category, and variant
+   - Clear indicators showing how many modules match current criteria
+   - Easy reset options to clear filters and start over
 
-2. **Reserved EVC Model**
-   - Implements a capacity reservation approach similar to cloud computing resource models
-   - Allows clients to reserve transformation capacity in advance for greater cost efficiency
-   - Provides predictable pricing and guaranteed resource availability
-   - Offers significant discounts for upfront commitment to transformation initiatives
-
-3. **Flexible Allocation**
-   - Enables dynamic distribution of EVCs across transformation, strategy, and technology pillars
-   - Supports reallocation as business priorities shift during transformation journeys
-   - Creates visual representation of resource distribution for executive understanding
-
-4. **Tiered Volume Discount Model**
-   - Implements an enterprise-grade tiered discount structure that rewards increased capacity
-   - Applies discounts incrementally to EVCs above each threshold, similar to tax brackets
-   - Ensures the effective discount percentage always increases with higher volumes
-   - Creates natural incentives for capacity expansion without pricing cliffs
-   - Visualizes volume discounts transparently in the pricing interface
-   - Operates independently from, but complementary to, the Reserved EVC discount
-
-The tiered discount model calculates pricing as follows:
-   - Base EVCs (up to first threshold): Full price
-   - EVCs in Tier 1 (above first threshold): First discount rate 
-   - EVCs in Tier 2 (above second threshold): Second discount rate
-   - EVCs in Tier 3 (above third threshold): Third discount rate
-   - The resulting blended discount percentage is clearly displayed to the customer
-
-This approach translates complex consulting resource allocation into an intuitive model that business decision-makers can easily grasp while maintaining the accuracy needed for proper transformation planning.
-
-## Customer Journey Transformation Goals
-
-Our implementation of this journey aims to fundamentally transform the consulting sales process by:
-
-1. **Shifting Control**: From consultant-driven to customer-driven exploration
-2. **Changing Timing**: From premature sales pressure to self-paced discovery
-3. **Inverting Value Delivery**: From value after purchase to value before commitment
-4. **Transforming Transparency**: From opaque pricing to clear value-based metrics
-5. **Reimagining Education**: From consultant expertise hoarding to customer enablement
-
-## Current Implementation Maturity
-
-As of April 2025, components of the customer journey are at different stages of implementation:
-
-- **Fully Implemented**: ModuleExplorer, CalculatorIntroduction, DetailedReportModal
-- **Partially Implemented**: ModuleSelector, ServiceParameters, SummarySidebar
-- **Under Development**: ProductionCapacitySelector, ResourceAllocationSelector
-- **Planned**: Enhanced conversion pathways, industry-specific presets
-
-The most mature component, ModuleExplorer, demonstrates our approach to reducing information asymmetry and complexity overwhelm while increasing customer control through visual organization, multiple navigation paradigms, and progressive disclosure of information.
-
-## Understanding Our Customer: Motivations, Behaviors & Buying Psychology
-
-### Beyond Features: The Emotional Journey of Decision-Making
-
-The millennial executive approaching management consulting decisions isn't merely evaluating service offerings—they're navigating a complex emotional landscape shaped by:
-
-1. **Professional Identity Alignment**
-   - Sees business transformation leadership as core to personal brand and legacy
-   - Views consulting partner selection as a statement about their leadership style
-   - Seeks to be perceived as forward-thinking yet pragmatically results-driven
-   - Measures self against peer executives making similar future-focused investments
-
-2. **Risk-Reward Calculation**
-   - Fears looking uninformed when selecting consulting partners
-   - Concerned about opportunity costs of delayed business transformation
-   - Anxious about committing to long-term consulting relationships
-   - Needs validation that decisions align with broader industry movement
-
-3. **Stakeholder Management Reality**
-   - Must build internal consensus across technical and business stakeholders
-   - Requires compelling, accessible narratives to justify consulting investments
-   - Needs to appear thoroughly prepared when presenting transformation initiatives to board/investors
-   - Values tools that help translate consulting outcomes into executive language
-
-### The Self-Directed B2B Buyer's Behavior Pattern
-
-Research shows that today's B2B buyers complete 70-80% of their decision journey before engaging with sales. The Elexive Calculator is designed around this new behavior pattern:
-
-1. **The Information-Gathering Phase** (Pre-Calculator)
-   - Conducts anonymous research across multiple consulting options
-   - Seeks social proof through peer recommendations and case studies
-   - Develops preliminary evaluation criteria based on industry content
-   - Hesitates to engage with consulting-specific tools fearing "sales traps"
-
-2. **The Consideration Phase** (Initial Calculator Engagement)
-   - Values transparency and control above all else
-   - Tests consultant credibility through quality of educational content
-   - Evaluates tools based on their respect for the buyer's intelligence
-   - Will immediately abandon experiences that feel sales-driven rather than value-driven
-
-3. **The Commitment-Building Phase** (Deep Calculator Engagement)
-   - Invests time in personalizing consulting modules as commitment increases
-   - Seeks validation that their specific situation has been understood
-   - Looks for opportunities to collaborate and co-create solutions
-   - Becomes increasingly willing to exchange information for customized insights
-
-4. **The Decision Validation Phase** (Pre-Conversion)
-   - Uses calculator outputs to build internal business cases for consulting investment
-   - Seeks to reduce perceived implementation complexity of transformation initiatives
-   - Requires clear next steps that match their readiness level
-   - Values pathways that don't force premature commitment to long-term partnerships
-
-### Psychological Triggers for Conversion
-
-The calculator strategically incorporates psychological principles that respectfully guide users toward conversion to ongoing consulting relationships:
-
-1. **Investment Principle**
-   - As users invest time configuring consulting modules, psychological ownership increases
-   - Personalized configurations become "their transformation roadmap" rather than "our service offering"
-   - The calculator acknowledges this investment through savable/sharable configurations
-
-2. **Uncertainty Reduction**
-   - Each step in the calculator process systematically reduces decision uncertainty around consulting
-   - Visual progress indicators create momentum and completion motivation
-   - Real-time validation provides constant reinforcement and confidence building
-
-3. **Social Proof Integration**
-   - Subtle integration of aggregated user behavior ("Popular choice", "Top selection")
-   - Industry-specific benchmarking creates normative guidance
-   - Case study snippets at decision points provide contextual reassurance
-
-4. **Authority Positioning**
-   - Educational content establishes Elexive's thought leadership in transformation, strategy, and technology
-   - Expert insights are woven into the experience rather than presented as sales messages
-   - Detailed calculations demonstrate analytical rigor and domain expertise
-
-5. **Reciprocity Triggers**
-   - Calculator delivers immediate value before requesting contact information
-   - Detailed downloadable content creates exchange opportunities 
-   - Personalized insights generate "return-the-favor" response motivating conversion
-
-### From Interest to Advocacy: The Extended Customer Journey
-
-Our approach recognizes that the calculator isn't just a conversion tool—it's the beginning of a continuous consulting relationship that extends through implementation and beyond:
-
-1. **The Pre-Customer Evangelist**
-   - Shares calculator insights with colleagues before becoming a customer
-   - Uses calculator outputs in internal presentations to build transformation cases
-   - Validates our approach by inviting peers into the discovery process
-
-2. **The Implementation Partner**
-   - References calculator outputs to maintain project alignment
-   - Uses calculator configurations as transformation blueprints
-   - Values continuity between sales promise and consulting delivery reality
-
-3. **The Success Storyteller**
-   - Re-engages with calculator to plan expansion of consulting relationship after initial success
-   - Provides testimonials that validate the calculator's accuracy in predicting transformation outcomes
-   - Becomes reference customer whose journey started with self-service
-
-By designing the calculator experience around these deep motivational and behavioral insights, we create a tool that respects the modern B2B buyer's journey while effectively guiding them toward meaningful conversion to long-term consulting partnerships.
-
-## Key Conversion Pathways
-
-The calculator is strategically designed to drive conversions through multiple pathways that accommodate different decision-making styles:
-
-1. **Fast-Track Decision Makers**
-   - Complete self-service experience from exploration to proposal request
-   - Emphasis on speed, simplicity, and immediate next steps
-   - Conversion Goal: Direct proposal request for continuous consulting engagement with pre-configured modules
-
-2. **Collaborative Explorers**
-   - Tools for sharing configurations and insights with stakeholder teams
-   - Features that support iterative scenario planning and comparison across consulting modules
-   - Conversion Goal: Scheduled consultation with partially completed configuration
-
-3. **Methodical Analyzers**
-   - Deep educational content with detailed analysis capabilities for transformation initiatives
-   - Emphasis on transparency, detail, and comprehensive understanding
-   - Conversion Goal: Educational content engagement leading to consulting relationship
+4. **Journey Progression**
+   - Sequential organization that mirrors actual transformation processes
+   - Visual connections between stages to show relationships
+   - Numerical indicators reinforcing the sequential nature of transformation
+   - Subtle animations to enhance the sense of progression
 
 ## Component Strategy
 
@@ -373,7 +195,8 @@ Each component serves a specific role in the customer journey and conversion pro
 
 - **Engagement-Driving Components**:
   - [OnboardingQuiz](./OnboardingQuiz.md) - Creates personalized relevance through self-identification of transformation needs
-  - [ModuleExplorer](./ModuleExplorer.md) - Provides multiple navigation paradigms for module discovery with pillar, journey, and list-based views
+  - [CustomerJourney](./CustomerJourney.md) - Visualizes the transformation journey with stage-specific module recommendations
+  - [ModuleExplorer](./ModuleExplorer.md) - Provides powerful browsing and filtering of the complete module catalog
   - [ModuleSelector](./ModuleSelector.md) - Offers tangible consulting modules organized by transformation, strategy, and technology pillars
   - [ProductionCapacitySelector](./ProductionCapacitySelector.md) - Connects consulting scale to business outcomes
 
