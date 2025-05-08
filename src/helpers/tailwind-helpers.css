@@ -22,6 +22,12 @@
     --pillar-technology-hover-bg: theme('colors.teal.100');
     --pillar-technology-border: theme('colors.teal.200');
     
+    /* Catalyst pillar */
+    --pillar-catalyst-color: #0A4DA1;
+    --pillar-catalyst-bg: theme('colors.blue.50');
+    --pillar-catalyst-hover-bg: theme('colors.blue.100');
+    --pillar-catalyst-border: theme('colors.blue.200');
+    
     /* Original color variables for backward compatibility */
     /* Transformation pillar */
     --pillar-transformation-color-original: theme('colors.purple.700');
@@ -110,6 +116,13 @@
     --pillar-border: var(--pillar-technology-border);
   }
   
+  .elx-pillar-catalyst {
+    --pillar-color: var(--pillar-catalyst-color);
+    --pillar-bg: var(--pillar-catalyst-bg);
+    --pillar-hover-bg: var(--pillar-catalyst-hover-bg);
+    --pillar-border: var(--pillar-catalyst-border);
+  }
+  
   /* Custom pillar color classes with elx-pillar-color- prefix */
   .elx-pillar-color-transformation {
     color: #FFBE59;
@@ -121,6 +134,10 @@
   
   .elx-pillar-color-technology {
     color: #1F776D;
+  }
+  
+  .elx-pillar-color-catalyst {
+    color: #0A4DA1;
   }
   
   /* Section layouts */

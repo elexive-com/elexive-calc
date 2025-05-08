@@ -17,7 +17,8 @@
     "Discovery": "faCompass",
     "Transformation": "faUsers",
     "Strategy": "faLightbulb",
-    "Technology": "faServer"
+    "Technology": "faServer",
+    "Catalyst": "faBolt"
   },
   "journeyStages": [
     {
@@ -651,6 +652,85 @@
           "type": "Integrated Execution",
           "evcValue": 40,
           "description": "Ongoing innovation management & technology governance"
+        }
+      ]
+    },
+
+    {
+      "name": "GenAI for Business Leaders",
+      "pillar": "Catalyst",
+      "category": "Enablement",
+      "heading": "Confidently apply AI in daily leadership decisions",
+      "description": "This practical session demystifies AI for strategic leaders. Learn to leverage tools like ChatGPT, Claude, and CoPilot to speed up decisions, elevate communication, and unlock personal productivity—without writing a line of code.",
+      "fix": "We give executives the mindset, tools, and real-world examples to responsibly and efficiently integrate generative AI into their workflows.",
+      "benefits": [
+        "AI Confidence for Non-Technical Leaders",
+        "Faster, Higher-Quality Decision-Making",
+        "Time-Saving Communication Templates",
+        "Immediate Personal Productivity Boost"
+      ],
+      "callToAction": "Upgrade your leadership with AI in one day",
+      "whoIsItFor": "Executives, founders, and senior managers who want to make better decisions, faster—with AI as a thinking partner.",
+      "icon": "faRobot",
+      "primaryJourneyStage": "journey-stage-2",
+      "singleSizeOnly": true,
+      "variants": [
+        {
+          "type": "Insight Primer",
+          "evcValue": 3,
+          "description": "Interactive half-day session with demos and tailored use cases"
+        }
+      ]
+    },
+    {
+      "name": "Strategic Storytelling",
+      "pillar": "Catalyst",
+      "category": "Enablement",
+      "heading": "Turn business logic into boardroom buy-in",
+      "description": "Equip your leaders with the storytelling frameworks used by elite execs to pitch transformation, secure alignment, and communicate strategy with clarity and conviction.",
+      "fix": "We teach your team to move beyond facts and slides—to narratives that drive decisions, land funding, and motivate teams.",
+      "benefits": [
+        "Clarity in Strategic Narratives",
+        "Investor-Ready Messaging",
+        "Internal Buy-In Acceleration",
+        "Stronger Influence with Stakeholders"
+      ],
+      "callToAction": "Tell stories that move strategy forward",
+      "whoIsItFor": "Leaders presenting to boards, exec teams, investors, or cross-functional stakeholders.",
+      "icon": "faBullhorn",
+      "primaryJourneyStage": "journey-stage-2",
+      "singleSizeOnly": true,
+      "variants": [
+        {
+          "type": "Insight Primer",
+          "evcValue": 2,
+          "description": "Workshop with practical examples, slides-to-story rewrites, and executive coaching"
+        }
+      ]
+    },
+    {
+      "name": "Culture Feedback Rituals",
+      "pillar": "Catalyst",
+      "category": "Enablement",
+      "heading": "Install scalable feedback systems that people actually use",
+      "description": "A modern feedback operating system that goes beyond annual surveys. Learn to implement team-based, continuous feedback rituals that build trust, boost clarity, and drive performance.",
+      "fix": "We help you design and implement simple, lightweight feedback loops that align with your leadership style and culture maturity.",
+      "benefits": [
+        "Psychological Safety through Structure",
+        "Rapid Feedback Cycle Adoption",
+        "Peer-to-Peer Accountability",
+        "Scalable, Low-Friction Implementation"
+      ],
+      "callToAction": "Level up your culture—one ritual at a time",
+      "whoIsItFor": "People-first leaders seeking modern, practical ways to boost feedback and trust without HR bloat.",
+      "icon": "faComments",
+      "primaryJourneyStage": "journey-stage-4",
+      "singleSizeOnly": true,
+      "variants": [
+        {
+          "type": "Insight Primer",
+          "evcValue": 3,
+          "description": "Workshop to design, test, and scale one feedback ritual across a team or business unit"
         }
       ]
     }

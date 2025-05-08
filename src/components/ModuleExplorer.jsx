@@ -237,6 +237,7 @@ const ModuleExplorer = () => {
         case 'strategy': return '#C85A30'; // Darkened from #EB8258 for better contrast
         case 'technology': return '#1F776D'; // Already had good contrast
         case 'discovery': return '#2E2266'; // Primary color for discovery
+        case 'catalyst': return '#0A4DA1'; // Dark blue for catalyst
         default: return '#D99000';
       }
     };

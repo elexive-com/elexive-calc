@@ -107,6 +107,7 @@ const SummarySidebar = ({ calculator }) => {
       case 'strategy': return 'rgba(200, 90, 48, 0.9)'; // Darkened orange background
       case 'technology': return 'rgba(31, 119, 109, 0.9)'; // Darkened teal background
       case 'discovery': return 'rgba(46, 34, 102, 0.9)'; // Darkened purple background
+      case 'catalyst': return 'rgba(10, 77, 161, 0.9)'; // Darkened blue background
       default: return 'rgba(217, 144, 0, 0.9)'; // Default to transformation color
     }
   };

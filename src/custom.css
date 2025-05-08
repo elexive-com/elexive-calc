@@ -137,6 +137,23 @@
   background-color: #E3E0EE; /* Slightly darker purple for hover */
 }
 
+/* Catalyst pillar - #0A4DA1 (Dark blue) */
+.elx-pillar-color-catalyst {
+  color: #0A4DA1;
+}
+
+.elx-pillar-bg-catalyst {
+  background-color: #E8F0FB; /* Light blue background */
+}
+
+.elx-pillar-border-catalyst {
+  border-color: #0A4DA1;
+}
+
+.elx-pillar-hover-catalyst:hover {
+  background-color: #D4E3F7; /* Slightly darker blue for hover */
+}
+
 /* Expandable sections */
 .elx-expandable-header {
   @apply flex items-center justify-between p-4 cursor-pointer bg-gray-50 hover:bg-gray-100 transition-colors duration-200;

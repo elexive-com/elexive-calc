@@ -29,7 +29,8 @@ const ModuleDetails = ({
     'Transformation': '#D99000', // Amber/gold
     'Strategy': '#C85A30', // Orange/rust
     'Technology': '#1F776D', // Teal
-    'Discovery': '#2E2266'  // Deep purple (primary)
+    'Discovery': '#2E2266',  // Deep purple (primary)
+    'Catalyst': '#0A4DA1'    // Dark blue
   };
   
   // Get variant definitions for this module

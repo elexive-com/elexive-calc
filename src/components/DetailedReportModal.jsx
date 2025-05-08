@@ -197,6 +197,7 @@ const DetailedReportModal = ({ isOpen, onClose, calculator }) => {
         case 'strategy': return 'text-blue-600 bg-blue-50 border-blue-200';
         case 'technology': return 'text-green-600 bg-green-50 border-green-200';
         case 'discovery': return 'text-amber-600 bg-amber-50 border-amber-200';
+        case 'catalyst': return 'text-blue-800 bg-blue-50 border-blue-300';
         default: return 'text-gray-600 bg-gray-50 border-gray-200';
       }
     }
@@ -207,6 +208,7 @@ const DetailedReportModal = ({ isOpen, onClose, calculator }) => {
       case 'Strategy': return 'text-blue-600 bg-blue-50 border-blue-200';
       case 'Technology': return 'text-green-600 bg-green-50 border-green-200';
       case 'Discovery': return 'text-amber-600 bg-amber-50 border-amber-200';
+      case 'Catalyst': return 'text-blue-800 bg-blue-50 border-blue-300';
       default: return 'text-gray-600 bg-gray-50 border-gray-200';
     }
   };

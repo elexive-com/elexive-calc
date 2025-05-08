@@ -218,6 +218,13 @@
       "tagline": "Leverage digital capabilities for business advantage",
       "description": "Practical application of technological solutions to overcome challenges, create efficiencies, and enable new business capabilities.",
       "icon": "faServer"
+    },
+    {
+      "id": "catalyst",
+      "label": "Catalyst",
+      "tagline": "Ignite progress with high-impact accelerators",
+      "description": "Short-form, high-leverage modules designed to unlock momentum, boost internal capability, or remove friction from your strategic execution. Catalysts are standalone offerings that amplify outcomes across any stage of your transformation journey.",
+      "icon": "faBolt"
     }
   ],
   "defaults": {

@@ -135,7 +135,8 @@ const ModuleSelector = ({
       'transformation': '#D99000', // Darkened from #FFBE59 for better contrast
       'strategy': '#C85A30', // Darkened from #EB8258 for better contrast
       'technology': '#1F776D', // Already had good contrast
-      'discovery': '#2E2266' // Primary color for discovery
+      'discovery': '#2E2266', // Primary color for discovery
+      'catalyst': '#0A4DA1'  // Dark blue for catalyst
     };
     
     // Try to find the pillar in the lowercase map first
