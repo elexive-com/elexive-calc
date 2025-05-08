@@ -7,7 +7,7 @@ import {
   faLock, faSpinner, faFileExport, faEnvelope,
   faInfoCircle, faCheckCircle, faCreditCard,
   faShieldAlt, faGlobe, faLayerGroup, faGraduationCap, faUserTie, faStar,
-  faChartPie, faSlidersH, faCalendarAlt, faHandshake, faLongArrowAltRight, faBusinessTime, faChartBar,
+  faCalendarAlt, faHandshake, faLongArrowAltRight, faBusinessTime, faChartBar,
   faMoneyBillWave
 } from '@fortawesome/free-solid-svg-icons';
 
@@ -41,7 +41,6 @@ const DetailedReportModal = ({ isOpen, onClose, calculator }) => {
 
   const { 
     totalPrice,
-    monthlyEvcs,
     evcPricePerUnit,
     paymentOption,
     intent,
@@ -383,27 +382,94 @@ const DetailedReportModal = ({ isOpen, onClose, calculator }) => {
                 </div>
               </div>
               
-              {/* Key Parameters */}
-              {serviceParameters.filter(param => parameters[param.id]).length > 0 && (
-                <div className="mt-6 pt-6 border-t border-gray-100">
-                  <h5 className="text-sm font-semibold text-gray-500 uppercase tracking-wider mb-3">Custom Configuration Parameters</h5>
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    {serviceParameters
-                      .filter(param => parameters[param.id])
-                      .map(param => (
-                        <div key={param.id} className="bg-gray-50 rounded-lg p-3 border border-gray-100">
-                          <div className="flex items-center mb-2">
-                            <div className="w-6 h-6 rounded-full bg-elx-primary bg-opacity-10 flex items-center justify-center mr-2">
-                              <FontAwesomeIcon icon={faCheckCircle} className="text-elx-accent text-xs" />
-                            </div>
-                            <span className="font-medium text-sm text-elx-primary">{param.label}</span>
-                          </div>
-                          <p className="text-xs text-gray-600 pl-8">{param.description}</p>
+              {/* Strategic Resource Allocation graph - moved from Financial section */}
+              <div className="mt-6 pt-6 border-t border-gray-100">
+                <h5 className="text-sm font-semibold text-gray-500 uppercase tracking-wider mb-3">Strategic Resource Allocation</h5>
+                <p className="text-sm text-gray-600 mb-4">
+                  The distribution of EVCs across strategic pillars shows how transformation resources will be allocated to achieve your business objectives.
+                  This allocation ensures appropriate balance between immediate operational improvements and long-term strategic capabilities.
+                  {absoluteOverheadEvcs > 0 && ` An additional ${absoluteOverheadEvcs} EVCs (${overheadPercentage}%) are allocated to coordination overhead from the ${resourceAllocation} resource allocation strategy.`}
+                </p>
+
+                {/* Single bar showing proportional allocation of EVCs across all pillars */}
+                <div className="mb-6">
+                  <div className="flex justify-between mb-2">
+                    <div className="text-sm text-gray-600">Resource allocation by strategic pillar</div>
+                    <div className="text-sm text-gray-600">{totalEvcValue} Total EVCs</div>
+                  </div>
+                  
+                  <div className="w-full h-10 rounded-lg overflow-hidden flex mb-3">
+                    {Object.entries(modulesByPillar).map(([pillar, modules], index) => {
+                      const pillarTotal = modules.reduce((sum, module) => sum + module.evcValue, 0);
+                      const pillarPercentage = (pillarTotal / totalEvcValue * 100).toFixed(2);
+                      
+                      return (
+                        <div 
+                          key={pillar}
+                          className={`h-full flex items-center justify-center ${
+                            pillar === 'Transformation' ? 'bg-amber-600' :
+                            pillar === 'Strategy' ? 'bg-orange-600' :
+                            pillar === 'Technology' ? 'bg-teal-600' :
+                            'bg-indigo-800'
+                          }`} 
+                          style={{ width: `${pillarPercentage}%` }}
+                        >
+                          {pillarPercentage > 10 && (
+                            <span className="text-white text-xs font-medium px-2">{Math.round(pillarPercentage)}%</span>
+                          )}
                         </div>
-                      ))}
+                      );
+                    })}
+                    {/* Add resource allocation overhead if it exists */}
+                    {absoluteOverheadEvcs > 0 && (
+                      <div 
+                        className="h-full flex items-center justify-center bg-gray-500"
+                        style={{ width: `${(absoluteOverheadEvcs / totalEvcValue * 100).toFixed(2)}%` }}
+                      >
+                        {(absoluteOverheadEvcs / totalEvcValue * 100) > 5 && (
+                          <span className="text-white text-xs font-medium px-2">
+                            {Math.round(absoluteOverheadEvcs / totalEvcValue * 100)}%
+                          </span>
+                        )}
+                      </div>
+                    )}
+                  </div>
+                  
+                  <div className="flex flex-wrap gap-4">
+                    {Object.entries(modulesByPillar).map(([pillar, modules]) => {
+                      const pillarTotal = modules.reduce((sum, module) => sum + module.evcValue, 0);
+                      const pillarPercentage = (pillarTotal / totalEvcValue * 100).toFixed(0);
+                      
+                      return (
+                        <div key={pillar} className="flex items-center">
+                          <div className={`w-4 h-4 rounded-sm mr-2 ${
+                            pillar === 'Transformation' ? 'bg-amber-600' :
+                            pillar === 'Strategy' ? 'bg-orange-600' :
+                            pillar === 'Technology' ? 'bg-teal-600' :
+                            'bg-indigo-800'
+                          }`}></div>
+                          <div>
+                            <span className="text-sm font-medium">{pillar}</span>
+                            <span className="text-xs text-gray-500 ml-2">{pillarTotal} EVCs ({pillarPercentage}%)</span>
+                          </div>
+                        </div>
+                      );
+                    })}
+                    {/* Add legend item for coordination overhead */}
+                    {absoluteOverheadEvcs > 0 && (
+                      <div className="flex items-center">
+                        <div className="w-4 h-4 rounded-sm mr-2 bg-gray-500"></div>
+                        <div>
+                          <span className="text-sm font-medium">Coordination Overhead</span>
+                          <span className="text-xs text-gray-500 ml-2">
+                            {absoluteOverheadEvcs} EVCs ({Math.round(absoluteOverheadEvcs / totalEvcValue * 100)}%)
+                          </span>
+                        </div>
+                      </div>
+                    )}
                   </div>
                 </div>
-              )}
+              </div>
             </div>
           </div>
           
@@ -890,169 +956,6 @@ const DetailedReportModal = ({ isOpen, onClose, calculator }) => {
               </div>
             </div>
             
-            {/* EVC Distribution visualization with business context */}
-            <div className="bg-white rounded-xl p-6 border border-gray-200 shadow-md">
-              <h4 className="text-lg font-bold text-elx-primary flex items-center mb-4">
-                <FontAwesomeIcon icon={faChartPie} className="text-elx-accent mr-2" />
-                Strategic Resource Allocation
-              </h4>
-              
-              <p className="text-sm text-gray-600 mb-5">
-                The distribution of EVCs across strategic pillars shows how transformation resources will be allocated to achieve your business objectives.
-                This allocation ensures appropriate balance between immediate operational improvements and long-term strategic capabilities.
-              </p>
-              
-              <div className="space-y-5">
-                {Object.entries(modulesByPillar).map(([pillar, modules]) => {
-                  const pillarTotal = modules.reduce((sum, module) => sum + module.evcValue, 0);
-                  const pillarPercentage = (pillarTotal / totalEvcValue * 100).toFixed(0);
-                  
-                  return (
-                    <div key={pillar} className="mb-4">
-                      <div className="flex justify-between mb-2">
-                        <div className="flex items-center">
-                          <div className={`w-8 h-8 rounded-full flex items-center justify-center mr-3 shadow ${
-                            pillar === 'Transformation' ? 'bg-purple-600' :
-                            pillar === 'Strategy' ? 'bg-blue-600' :
-                            pillar === 'Technology' ? 'bg-green-600' :
-                            'bg-amber-600'
-                          }`}>
-                            <FontAwesomeIcon icon={getPillarIcon(pillar)} className="text-white" />
-                          </div>
-                          <div>
-                            <span className="text-gray-800 font-medium">{pillar}</span>
-                            <div className="text-xs text-gray-500">
-                              {pillar === 'Transformation' ? 
-                                'People, processes, and organizational change' :
-                              pillar === 'Strategy' ? 
-                                'Direction setting and competitive positioning' :
-                              pillar === 'Technology' ? 
-                                'Technical capabilities and systems' :
-                                'Research and opportunity identification'}
-                            </div>
-                          </div>
-                        </div>
-                        <div className="flex items-center">
-                          <div className="text-right">
-                            <span className="text-gray-700 font-medium">{pillarTotal} EVCs</span>
-                            <div className="text-xs text-gray-500">{pillarPercentage}% of total resources</div>
-                          </div>
-                        </div>
-                      </div>
-                      
-                      <div className="w-full bg-gray-100 rounded-full h-3 mb-4">
-                        <div className={`h-3 rounded-full ${
-                          pillar === 'Transformation' ? 'bg-purple-600' :
-                          pillar === 'Strategy' ? 'bg-blue-600' :
-                          pillar === 'Technology' ? 'bg-green-600' :
-                          'bg-amber-600'
-                        }`} style={{ width: `${pillarPercentage}%` }}></div>
-                      </div>
-                      
-                      <div className="ml-11 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2 mb-6">
-                        {modules.map(module => (
-                          <div key={module.name} className="bg-gray-50 rounded px-3 py-2 border border-gray-100 text-xs">
-                            <div className="font-medium text-gray-700 mb-1">{module.name}</div>
-                            <div className="flex justify-between">
-                              <span className="text-gray-500">{getVariantDisplayName(module.selectedVariant)}</span>
-                              <span className="font-medium text-elx-primary">{module.evcValue} EVCs</span>
-                            </div>
-                          </div>
-                        ))}
-                      </div>
-                    </div>
-                  );
-                })}
-              </div>
-            </div>
-            
-            {/* Delivery Model Factors */}
-            <div className="bg-white rounded-xl p-6 border border-gray-200 shadow-md">
-              <h4 className="text-lg font-bold text-elx-primary flex items-center mb-4">
-                <FontAwesomeIcon icon={faSlidersH} className="text-elx-accent mr-2" />
-                Delivery Model Configuration
-              </h4>
-              
-              <p className="text-sm text-gray-600 mb-5">
-                Your solution's delivery model has been tailored to your specific business needs through several key configuration parameters.
-                These factors affect your weekly production capacity and overall transformation approach.
-              </p>
-              
-              <div className="space-y-2">
-                <div className="flex justify-between py-3 border-b border-gray-100">
-                  <div>
-                    <span className="text-sm font-medium text-elx-primary">Base Weekly Capacity</span>
-                    <div className="text-xs text-gray-500">
-                      {productionCapacity === 'pathfinder' ? 
-                        'Focused exploration tier for targeted solutions' :
-                      productionCapacity === 'roadster' ? 
-                        'Standard capacity for balanced implementation pace' :
-                      productionCapacity === 'jetpack' ? 
-                        'Accelerated delivery for critical business priorities' :
-                        'Maximum velocity for enterprise-wide transformation'}
-                    </div>
-                  </div>
-                  <div className="text-right">
-                    <span className="text-sm font-semibold text-elx-primary">
-                      {calculatorConfig.productionCapacity[productionCapacity].weeklyEVCs} EVCs
-                    </span>
-                    <div className="text-xs text-gray-500">{calculatorConfig.productionCapacity[productionCapacity].label} tier</div>
-                  </div>
-                </div>
-                
-                <div className="flex justify-between py-3 border-b border-gray-100">
-                  <div>
-                    <span className="text-sm font-medium text-elx-primary">Resource Allocation Strategy</span>
-                    <div className="text-xs text-gray-500">
-                      {calculatorConfig.resourceAllocation[resourceAllocation]?.description || ''}
-                    </div>
-                  </div>
-                  <div className="text-right">
-                    <span className="text-sm font-semibold text-elx-primary">
-                      {overheadPercentage}% overhead
-                    </span>
-                    <div className="text-xs text-gray-500">
-                      {calculatorConfig.resourceAllocation[resourceAllocation]?.overheadLabel || ''} context switching
-                    </div>
-                  </div>
-                </div>
-                
-                {Object.entries(parameters)
-                  .filter(([, enabled]) => enabled)
-                  .map(([paramId]) => {
-                    const param = serviceParameters.find(p => p.id === paramId);
-                    if (!param) return null;
-                    const evcCost = calculateEvcCost(param);
-                    return (
-                      <div key={paramId} className="flex justify-between py-3 border-b border-gray-100">
-                        <div>
-                          <span className="text-sm font-medium text-elx-primary">{param.label}</span>
-                          <div className="text-xs text-gray-500">{param.productionImpact}</div>
-                        </div>
-                        <div className="text-right">
-                          {param.modifier && (
-                            <span className="text-sm font-semibold text-elx-primary">{param.modifier}x multiplier</span>
-                          )}
-                          {evcCost && (
-                            <div className="text-xs text-gray-500">
-                              {evcCost} EVCs/week
-                            </div>
-                          )}
-                        </div>
-                      </div>
-                    );
-                  })
-                }
-                
-                <div className="flex justify-between py-3 font-medium bg-gray-50 p-3 rounded-lg mt-2">
-                  <div>
-                    <span className="text-elx-primary">Final Weekly Production Capacity</span>
-                    <div className="text-xs text-gray-500">After all modifiers applied</div>
-                  </div>
-                  <span className="text-lg font-bold text-elx-primary">{monthlyEvcs} EVCs</span>
-                </div>
-              </div>
-            </div>
           </div>
           
           {/* Implementation Plan Section with Enhanced Business Context */}
