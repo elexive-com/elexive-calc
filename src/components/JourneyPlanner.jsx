@@ -2,7 +2,8 @@ import React, { useState, useEffect, useMemo } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { 
   faSearch, faBookmark, faChevronRight, faChevronDown,
-  faLightbulb, faRocket, faCompass, faArrowRight, faChartLine
+  faLightbulb, faRocket, faCompass, faArrowRight, faChartLine,
+  faLayerGroup
 } from '@fortawesome/free-solid-svg-icons';
 import { faBookmark as faBookmarkRegular } from '@fortawesome/free-regular-svg-icons';
 import modulesConfig from '../config/modulesConfig.json';
@@ -323,13 +324,10 @@ const JourneyPlanner = () => {
             className="w-8 h-8 flex items-center justify-center mr-2"
             style={{ backgroundColor: 'transparent' }}
           >
-            <FontAwesomeIcon icon={module.iconObject || faCompass} />
+            <FontAwesomeIcon icon={faLayerGroup} />
           </div>
           <div className="flex justify-between items-center w-full">
             <h3 className="font-bold text-white text-sm">{module.pillar}</h3>
-            <span className="inline-flex items-center px-2 py-0.5 rounded-md text-xs font-medium bg-white bg-opacity-20 text-white">
-              {module.category}
-            </span>
           </div>
         </div>
         
@@ -342,22 +340,7 @@ const JourneyPlanner = () => {
             {module.heading}
           </p>
           
-          <div className="mt-auto flex flex-wrap gap-1.5">
-            {module.variants.map((variant, index) => (
-              <span key={index} className={`inline-flex items-center px-2 py-1 rounded-md text-xs font-medium ${
-                variant.type === 'Insight Primer' 
-                  ? 'bg-blue-50 text-blue-700' 
-                  : 'bg-green-50 text-green-700'
-              }`}>
-                <FontAwesomeIcon 
-                  icon={variant.type === 'Insight Primer' ? faLightbulb : faRocket} 
-                  className="mr-1" 
-                  size="xs" 
-                />
-                {variant.type}
-              </span>
-            ))}
-          </div>
+          {/* No variant labels or delivery option icons - completely removed */}
         </div>
         
         <div className="border-t border-gray-100 p-3 bg-gray-50 flex justify-between items-center">
@@ -594,30 +577,32 @@ const JourneyPlanner = () => {
     };
     
     return (
-      <div className="mb-8 mt-6 animate-fadeIn border rounded-lg p-5 bg-white shadow-sm">
+      <div className="mb-8 mt-6 animate-fadeIn">
         {/* Enhanced title section */}
-        <div className="flex justify-between items-start border-b pb-4 mb-4">
-          <div className="flex items-center">
-            <div className="bg-indigo-100 text-indigo-700 p-2 rounded-lg mr-3">
-              <FontAwesomeIcon icon={faCompass} className="text-lg" />
-            </div>
-            <div>
-              <h3 className="font-bold text-lg text-gray-800">Journey Paths</h3>
-              <p className="text-sm text-gray-600">Select a primary or secondary path to focus your transformation journey</p>
-            </div>
+        <div className="flex justify-between items-center mb-4">
+          <div>
+            <h2 className="text-2xl font-bold text-elx-primary mb-1">Journey Paths</h2>
+            <p className="text-gray-600">Select a primary or secondary path to focus your transformation journey</p>
           </div>
           <button 
             onClick={() => setShowTooltip(!showTooltip)}
-            className="text-gray-500 hover:text-gray-700 bg-gray-100 hover:bg-gray-200 p-2 rounded-md transition-colors"
+            className="text-gray-500 hover:text-gray-700 px-3 py-1 rounded-md transition-colors flex items-center"
             aria-label={showTooltip ? "Hide explanation" : "Show explanation"}
           >
-            <FontAwesomeIcon icon={showTooltip ? faChevronDown : faChevronRight} className="mr-1" />
-            {showTooltip ? "Hide" : "Learn more"}
+            Learn more
+            <div className={`transform transition-transform duration-300 ml-1 ${showTooltip ? 'rotate-180' : ''}`}>
+              <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-gray-500" viewBox="0 0 20 20" fill="currentColor">
+                <path fillRule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a 1 1 0 010-1.414z" clipRule="evenodd" />
+              </svg>
+            </div>
           </button>
         </div>
           
-        {/* Explanation that can be toggled */}
-        <div className={`transition-all duration-300 overflow-hidden ${showTooltip ? 'max-h-96 mb-6 opacity-100' : 'max-h-0 opacity-0'}`}>
+        {/* Explanation that can be toggled - using the same animation style as CalculatorApp */}
+        <div 
+          className="bg-white"
+          style={{ display: showTooltip ? 'block' : 'none' }}
+        >
           <div className="bg-indigo-50 border border-indigo-100 rounded-lg p-4 mb-4">
             <h4 className="font-semibold text-indigo-800 mb-2">How Journey Paths Work</h4>
             <p className="text-sm text-gray-700 mb-3">
@@ -656,157 +641,144 @@ const JourneyPlanner = () => {
         </div>
         
         <div className="flex flex-col gap-5">
-          {/* Primary Path - Redesigned as a prominent selection */}
-          <div className="border rounded-lg p-4 bg-gray-50">
-            <h4 className="text-sm uppercase font-semibold text-gray-500 mb-3 flex items-center">
-              <div className="w-5 h-5 rounded-full mr-2 flex items-center justify-center" 
-                  style={{backgroundColor: primaryStageColor.baseColor}}>
-                <span className="text-xs font-bold text-white">P</span>
-              </div>
-              Primary Path
-            </h4>
+          {/* Primary Path - More streamlined design */}
+          <button
+            key={primaryStage?.id}
+            onClick={() => setActiveSecondaryStage(primaryStage?.id)}
+            className={`w-full px-4 py-3 rounded-lg transition-all duration-300 flex items-center gap-3 ${
+              activeSecondaryStage === primaryStage?.id 
+                ? 'bg-opacity-100 text-white shadow-md' 
+                : 'bg-white text-gray-700 hover:bg-opacity-20'
+            } border-2`}
+            style={{
+              backgroundColor: activeSecondaryStage === primaryStage?.id ? primaryStageColor.baseColor : 'white',
+              borderColor: primaryStageColor.baseColor,
+            }}
+          >
+            <div className="w-10 h-10 rounded-full bg-white bg-opacity-20 flex items-center justify-center">
+              <FontAwesomeIcon 
+                icon={primaryStage?.icon} 
+                className={`text-xl ${activeSecondaryStage === primaryStage?.id ? 'text-white' : ''}`}
+                style={{color: activeSecondaryStage === primaryStage?.id ? 'white' : primaryStageColor.baseColor}} 
+              />
+            </div>
             
-            <button
-              key={primaryStage?.id}
-              onClick={() => setActiveSecondaryStage(primaryStage?.id)}
-              className={`w-full px-4 py-3 rounded-lg transition-all duration-300 flex items-center gap-3 ${
-                activeSecondaryStage === primaryStage?.id 
-                  ? 'bg-opacity-100 text-white shadow-md' 
-                  : 'bg-white text-gray-700 hover:bg-opacity-20'
-              } border-2`}
-              style={{
-                backgroundColor: activeSecondaryStage === primaryStage?.id ? primaryStageColor.baseColor : 'white',
-                borderColor: primaryStageColor.baseColor,
-              }}
-            >
-              <div className="w-10 h-10 rounded-full bg-white bg-opacity-20 flex items-center justify-center">
-                <FontAwesomeIcon 
-                  icon={primaryStage?.icon} 
-                  className={`text-xl ${activeSecondaryStage === primaryStage?.id ? 'text-white' : ''}`}
-                  style={{color: activeSecondaryStage === primaryStage?.id ? 'white' : primaryStageColor.baseColor}} 
-                />
+            <div className="flex-1 text-left">
+              <div className="font-bold text-base">{primaryStage?.title} <span className="text-sm font-medium ml-1">(Primary Path)</span></div>
+              <div className={`text-sm ${activeSecondaryStage === primaryStage?.id ? 'text-white text-opacity-90' : 'text-gray-500'}`}>
+                Main focus of your current journey
               </div>
-              
-              <div className="flex-1 text-left">
-                <div className="font-bold text-base">{primaryStage?.title}</div>
-                <div className={`text-sm ${activeSecondaryStage === primaryStage?.id ? 'text-white text-opacity-90' : 'text-gray-500'}`}>
-                  Main focus of your current journey
-                </div>
-              </div>
-              
-              <span className={`inline-flex items-center justify-center min-w-8 h-8 text-sm rounded-full font-medium ${
-                activeSecondaryStage === primaryStage?.id ? 'bg-white text-gray-800' : 'bg-gray-100 text-gray-700'
-              } px-2`}>
-                {getFilteredModuleCountForStage(primaryStage?.id)}
-              </span>
-            </button>
-          </div>
+            </div>
+            
+            <span className={`inline-flex items-center justify-center min-w-8 h-8 text-sm rounded-full font-medium ${
+              activeSecondaryStage === primaryStage?.id ? 'bg-white text-gray-800' : 'bg-gray-100 text-gray-700'
+            } px-2`}>
+              {getFilteredModuleCountForStage(primaryStage?.id)}
+            </span>
+          </button>
 
-          {/* Secondary Paths - Redesigned as a list of options */}
-          <div className="border rounded-lg p-4 bg-gray-50">
-            <h4 className="text-sm uppercase font-semibold text-gray-500 mb-3 flex items-center">
+          {/* Secondary Paths - More streamlined list */}
+          <div className="flex flex-col gap-2">
+            <div className="text-sm uppercase font-semibold text-gray-500 mb-2 flex items-center">
               <div className="w-5 h-5 rounded-full mr-2 flex items-center justify-center border-2"
                   style={{borderColor: primaryStageColor.baseColor}}>
                 <span className="text-xs font-bold" style={{color: primaryStageColor.baseColor}}>S</span>
               </div>
               Secondary Paths
-            </h4>
-            
-            <div className="flex flex-col gap-2">
-              {secondaryStages
-                .filter(stage => stage.id !== primaryStage?.id)
-                .map((stage) => {
-                  const isActive = activeSecondaryStage === stage.id;
-                  const moduleCount = getFilteredModuleCountForStage(stage.id);
-                  
-                  // Skip stages with no modules
-                  if (moduleCount === 0) return null;
-                  
-                  // Find the color for this stage
-                  const stageIndex = journeySteps.findIndex(s => s.id === stage.id);
-                  const stageColor = stageColors[stageIndex] || primaryStageColor;
-                  
-                  const relationshipStrength = calculateRelationshipStrength(stage.id);
-                  
-                  return (
-                    <button
-                      key={stage.id}
-                      onClick={() => setActiveSecondaryStage(stage.id)}
-                      className={`w-full px-4 py-3 rounded-lg transition-all duration-300 flex items-center gap-3 relative ${
-                        isActive 
-                          ? 'bg-opacity-100 text-white shadow-md' 
-                          : 'bg-white text-gray-700 hover:bg-gray-100'
-                      } border`}
-                      style={{
-                        backgroundColor: isActive ? stageColor.baseColor : 'white',
-                        borderColor: isActive ? stageColor.baseColor : '#E5E7EB',
-                      }}
-                    >
-                      {/* Visual indicator of relationship strength */}
-                      {!isActive && (
-                        <div className="absolute left-0 top-0 bottom-0 w-1 rounded-l-lg"
-                             style={{
-                               backgroundColor: stageColor.baseColor,
-                               opacity: relationshipStrength === 'strong' ? 0.8 : 
-                                        relationshipStrength === 'moderate' ? 0.5 : 0.3
-                             }}
-                        ></div>
-                      )}
-                      
-                      <div className="w-10 h-10 rounded-full bg-white bg-opacity-20 flex items-center justify-center"
-                           style={{
-                             backgroundColor: isActive ? 'rgba(255,255,255,0.2)' : stageColor.lightColor
-                           }}>
-                        <FontAwesomeIcon 
-                          icon={stage.icon} 
-                          className="text-xl"
-                          style={{color: isActive ? 'white' : stageColor.baseColor}}
-                        />
-                      </div>
-                      
-                      <div className="flex-1 text-left">
-                        <div className="font-bold text-base">{stage.title}</div>
-                        <div className={`text-sm ${isActive ? 'text-white text-opacity-90' : 'text-gray-500'}`}>
-                          {relationshipStrength === 'strong' 
-                            ? 'Strongly connected to your primary path' 
-                            : relationshipStrength === 'moderate'
-                              ? 'Moderately connected to your primary path'
-                              : 'Complementary to your primary path'}
-                        </div>
-                      </div>
-                      
-                      <span className={`inline-flex items-center justify-center min-w-8 h-8 text-sm rounded-full font-medium ${
-                        isActive ? 'bg-white text-gray-800' : 'bg-gray-100 text-gray-700'
-                      } px-2`}>
-                        {moduleCount}
-                      </span>
-                    </button>
-                  );
-              })}
-              
-              {/* If there are no secondary stages with modules, show a message */}
-              {secondaryStages.filter(stage => 
-                stage.id !== primaryStage?.id && 
-                getFilteredModuleCountForStage(stage.id) > 0
-              ).length === 0 && (
-                <div className="text-center py-4 text-gray-500 italic bg-gray-50 rounded-lg border border-dashed">
-                  No secondary paths available with the current filters
-                </div>
-              )}
             </div>
+            
+            {secondaryStages
+              .filter(stage => stage.id !== primaryStage?.id)
+              .map((stage) => {
+                const isActive = activeSecondaryStage === stage.id;
+                const moduleCount = getFilteredModuleCountForStage(stage.id);
+                
+                // Skip stages with no modules
+                if (moduleCount === 0) return null;
+                
+                // Find the color for this stage
+                const stageIndex = journeySteps.findIndex(s => s.id === stage.id);
+                const stageColor = stageColors[stageIndex] || primaryStageColor;
+                
+                const relationshipStrength = calculateRelationshipStrength(stage.id);
+                
+                return (
+                  <button
+                    key={stage.id}
+                    onClick={() => setActiveSecondaryStage(stage.id)}
+                    className={`w-full px-4 py-3 rounded-lg transition-all duration-300 flex items-center gap-3 relative ${
+                      isActive 
+                        ? 'bg-opacity-100 text-white shadow-md' 
+                        : 'bg-white text-gray-700 hover:bg-gray-100'
+                    } border`}
+                    style={{
+                      backgroundColor: isActive ? stageColor.baseColor : 'white',
+                      borderColor: isActive ? stageColor.baseColor : '#E5E7EB',
+                    }}
+                  >
+                    {/* Visual indicator of relationship strength */}
+                    {!isActive && (
+                      <div className="absolute left-0 top-0 bottom-0 w-1 rounded-l-lg"
+                           style={{
+                             backgroundColor: stageColor.baseColor,
+                             opacity: relationshipStrength === 'strong' ? 0.8 : 
+                                      relationshipStrength === 'moderate' ? 0.5 : 0.3
+                           }}
+                      ></div>
+                    )}
+                    
+                    <div className="w-10 h-10 rounded-full bg-white bg-opacity-20 flex items-center justify-center"
+                         style={{
+                           backgroundColor: isActive ? 'rgba(255,255,255,0.2)' : stageColor.lightColor
+                         }}>
+                      <FontAwesomeIcon 
+                        icon={stage.icon} 
+                        className="text-xl"
+                        style={{color: isActive ? 'white' : stageColor.baseColor}}
+                      />
+                    </div>
+                    
+                    <div className="flex-1 text-left">
+                      <div className="font-bold text-base">{stage.title}</div>
+                      <div className={`text-sm ${isActive ? 'text-white text-opacity-90' : 'text-gray-500'}`}>
+                        {relationshipStrength === 'strong' 
+                          ? 'Strongly connected to your primary path' 
+                          : relationshipStrength === 'moderate'
+                            ? 'Moderately connected to your primary path'
+                            : 'Complementary to your primary path'}
+                      </div>
+                    </div>
+                    
+                    <span className={`inline-flex items-center justify-center min-w-8 h-8 text-sm rounded-full font-medium ${
+                      isActive ? 'bg-white text-gray-800' : 'bg-gray-100 text-gray-700'
+                    } px-2`}>
+                      {moduleCount}
+                    </span>
+                  </button>
+                );
+            })}
+            
+            {/* If there are no secondary stages with modules, show a message */}
+            {secondaryStages.filter(stage => 
+              stage.id !== primaryStage?.id && 
+              getFilteredModuleCountForStage(stage.id) > 0
+            ).length === 0 && (
+              <div className="text-center py-4 text-gray-500 italic bg-gray-50 rounded-lg border border-dashed">
+                No secondary paths available with the current filters
+              </div>
+            )}
           </div>
           
           {/* Visual representation of current path selection */}
           {activeSecondaryStage && (
-            <div className="flex flex-col items-center justify-center py-4 mb-2 text-sm">
+            <div className="flex flex-col items-center justify-center py-2 text-sm">
               <div className="px-4 py-2 rounded-lg bg-gray-50 border border-gray-200 text-center">
-                <p className="font-medium text-gray-700 mb-2">Currently viewing modules from:</p>
                 <div className="flex items-center justify-center gap-2 font-bold" 
                      style={{color: stageColors[journeySteps.findIndex(s => s.id === activeSecondaryStage)]?.baseColor || primaryStageColor.baseColor}}>
                   <FontAwesomeIcon 
                     icon={journeySteps.find(s => s.id === activeSecondaryStage)?.icon || primaryStage?.icon} 
                   />
-                  <span>{journeySteps.find(s => s.id === activeSecondaryStage)?.title || primaryStage?.title} Path</span>
+                  <span>Currently viewing: {journeySteps.find(s => s.id === activeSecondaryStage)?.title || primaryStage?.title} Path</span>
                 </div>
               </div>
             </div>
@@ -877,7 +849,7 @@ const JourneyPlanner = () => {
   const ModulesBySecondaryStage = () => {
     if (!activeSecondaryStage || !modulesBySecondaryStage[activeSecondaryStage]) {
       return (
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
           {filteredModules.map((module) => (
             <ModuleCard key={module.name} module={module} />
           ))}
@@ -893,7 +865,7 @@ const JourneyPlanner = () => {
           {activeStage?.title} Phase Modules
         </h3>
         
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
           {filteredModules.map((module) => (
             <ModuleCard key={module.name} module={module} />
           ))}
@@ -941,17 +913,6 @@ const JourneyPlanner = () => {
                 </div>
               )}
               
-              <button 
-                onClick={() => setShowFilter(!showFilter)}
-                className="elx-btn elx-btn-outline py-1 px-3 text-sm flex items-center"
-              >
-                <FontAwesomeIcon icon={faSearch} className="mr-1" />
-                {showFilter ? 'Hide Filters' : 'Filters & Search'}
-                <FontAwesomeIcon 
-                  icon={showFilter ? faChevronDown : faChevronRight} 
-                  className="ml-1 text-xs" 
-                />
-              </button>
             </div>
           </div>
           
