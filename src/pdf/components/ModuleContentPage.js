@@ -2,10 +2,322 @@
 // Content page component for PDF generation
 
 import React from 'react';
-import { Page, Text, View, Image } from '@react-pdf/renderer';
+import { Page, Text, View, Image, StyleSheet } from '@react-pdf/renderer';
 import styles from '../utils/pdfStyles';
 import modulesConfig from '../../config/modulesConfig.json';
 import { getPillarColor } from '../utils/colors';
+
+// Helper function to determine journey stage based on category
+const determineJourneyStage = (category) => {
+  if (category === 'Strategic Assessment') return { id: 'assess', title: 'Assess', description: 'Understanding your current state and defining success metrics' };
+  if (category === 'Immediate Impact') return { id: 'execute', title: 'Execute', description: 'Implementing solutions and driving organizational change' };
+  if (category === 'Vested Value') return { id: 'optimize', title: 'Optimize', description: 'Refining approaches and maximizing transformation outcomes' };
+  return { id: 'plan', title: 'Plan', description: 'Developing strategies and roadmaps for transformation success' }; // Default
+};
+
+// Component for a page footer
+const PageFooter = ({ formattedDate, pageNumber }) => (
+  <View style={{
+    position: 'absolute',
+    bottom: 30,
+    left: 40,
+    right: 40,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    borderTopWidth: 1,
+    borderTopColor: '#eee',
+    paddingTop: 10,
+  }}>
+    <Text style={{
+      fontSize: 9,
+      color: '#888',
+    }}>
+      Elexive Ltd • Solution Brief
+    </Text>
+    <Text style={{
+      fontSize: 9,
+      color: '#888',
+    }}>
+      Generated on {formattedDate} • Page {pageNumber}
+    </Text>
+  </View>
+);
+
+// Component for header with logo
+const PageHeader = ({ pillarColor, logoUrl }) => (
+  <>
+    {/* Decorative header strip */}
+    <View style={{
+      position: 'absolute',
+      top: 0,
+      left: 0,
+      right: 0,
+      height: 12,
+      backgroundColor: pillarColor,
+    }} />
+    
+    {/* Small logo in top right */}
+    <View style={{
+      position: 'absolute',
+      top: 20,
+      right: 40,
+    }}>
+      <Image 
+        src={logoUrl}
+        style={{
+          width: 100,
+        }}
+      />
+    </View>
+  </>
+);
+
+// Create static styles to optimize rendering
+const dynamicStyles = StyleSheet.create({
+  contentContainer: {
+    paddingTop: 40,
+    paddingBottom: 20,
+  },
+  bannerSection: {
+    borderRadius: 8,
+    padding: 20, // Reduced padding from 25 to 20
+    marginBottom: 20, // Reduced margin from 25 to 20
+    position: 'relative',
+  },
+  moduleIcon: {
+    position: 'absolute',
+    right: 20, // Moved icon closer to edge
+    top: 20,
+    width: 70, // Slightly smaller icon
+    height: 70,
+    opacity: 0.9,
+  },
+  moduleInfo: {
+    width: '75%',
+  },
+  pillarName: {
+    color: 'white',
+    fontSize: 11, // Smaller font
+    opacity: 0.9,
+    textTransform: 'uppercase',
+    letterSpacing: 1,
+    marginBottom: 3, // Reduced margin
+  },
+  moduleName: {
+    color: 'white',
+    fontSize: 24, // Smaller font
+    fontWeight: 'bold',
+    marginBottom: 8, // Reduced margin
+  },
+  categoryBadge: {
+    backgroundColor: 'rgba(255, 255, 255, 0.2)',
+    paddingVertical: 3, // Reduced padding
+    paddingHorizontal: 8,
+    borderRadius: 4,
+    alignSelf: 'flex-start',
+    marginBottom: 12, // Reduced margin
+  },
+  categoryText: {
+    color: 'white',
+    fontSize: 12, // Smaller font
+    fontWeight: 'medium',
+  },
+  journeySection: {
+    marginTop: 8, // Reduced margin
+  },
+  journeyLabel: {
+    color: 'white',
+    fontSize: 11, // Smaller font
+    marginBottom: 6, // Reduced margin
+    opacity: 0.9,
+  },
+  journeyRow: {
+    flexDirection: 'row',
+    justifyContent: 'flex-start',
+    alignItems: 'center',
+    marginTop: 3, // Reduced margin
+  },
+  stageItem: {
+    alignItems: 'center',
+    marginRight: 18, // Reduced margin
+    position: 'relative',
+  },
+  connectorLine: {
+    position: 'absolute',
+    top: 10,
+    left: -23,
+    width: 18, // Shorter line
+    height: 2,
+    backgroundColor: 'rgba(255, 255, 255, 0.4)',
+  },
+  stageCircle: {
+    width: 18, // Smaller circle
+    height: 18,
+    borderRadius: 9,
+    marginBottom: 4, // Reduced margin
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  stageIndicator: {
+    width: 7, // Smaller indicator
+    height: 7,
+    borderRadius: 3.5,
+  },
+  stageName: {
+    fontSize: 9, // Smaller font
+  },
+  summarySection: {
+    marginBottom: 20, // Reduced margin
+    backgroundColor: '#f8f9fa',
+    padding: 15, // Reduced padding from 20 to 15
+    borderRadius: 8,
+    borderLeft: '4 solid',
+  },
+  sectionTitle: {
+    fontSize: 16, // Smaller font
+    fontWeight: 'bold',
+    color: '#333',
+    marginBottom: 12, // Reduced margin
+  },
+  infoBlock: {
+    marginBottom: 12, // Reduced margin
+  },
+  infoHeading: {
+    fontSize: 13, // Smaller font
+    fontWeight: 'bold',
+    marginBottom: 3, // Reduced margin
+  },
+  infoText: {
+    fontSize: 11, // Smaller font
+    lineHeight: 1.5, // Reduced line height
+    color: '#444',
+  },
+  benefitsSection: {
+    marginBottom: 20, // Reduced margin
+  },
+  benefitsContainer: {
+    backgroundColor: '#f0f4f8',
+    padding: 15, // Reduced padding from 20 to 15
+    borderRadius: 8,
+    marginBottom: 10, // Reduced margin
+  },
+  benefitRow: {
+    flexDirection: 'row',
+    alignItems: 'flex-start',
+    marginBottom: 6, // Reduced margin
+  },
+  benefitNumber: {
+    width: 20, // Smaller circle
+    height: 20,
+    borderRadius: 10,
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginRight: 6, // Reduced margin
+  },
+  benefitNumberText: {
+    fontSize: 9, // Smaller font
+    color: 'white',
+    fontWeight: 'bold',
+  },
+  benefitText: {
+    fontSize: 11, // Smaller font
+    color: '#444',
+    lineHeight: 1.5, // Reduced line height
+    flex: 1,
+  },
+  // Page 2 styles
+  engagementSection: {
+    marginBottom: 20, // Reduced margin
+  },
+  variantsRow: {
+    flexDirection: 'row',
+    gap: 15,
+    marginBottom: 18, // Reduced margin
+  },
+  variantCard: {
+    flex: 1,
+    padding: 15, // Reduced padding from 20 to 15
+    borderRadius: 8,
+  },
+  variantHeader: {
+    color: 'white',
+    fontSize: 14, // Smaller font
+    fontWeight: 'bold',
+    marginBottom: 10, // Reduced margin
+    backgroundColor: '#2E2266',
+    padding: 8, // Reduced padding from 10 to 8
+    borderRadius: 4,
+    textTransform: 'uppercase',
+  },
+  variantTagline: {
+    fontSize: 11, // Smaller font
+    color: '#555',
+    marginBottom: 8, // Reduced margin
+    fontStyle: 'italic',
+  },
+  variantDescription: {
+    backgroundColor: 'rgba(255, 255, 255, 0.7)',
+    padding: 8, // Reduced padding from 10 to 8
+    borderRadius: 5,
+    marginBottom: 12, // Reduced margin
+  },
+  variantDescriptionText: {
+    fontSize: 10, // Smaller font
+    fontStyle: 'italic',
+    color: '#444',
+    lineHeight: 1.4, // Reduced line height
+  },
+  variantDetailsRow: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+  },
+  variantDetailLabel: {
+    fontSize: 10, // Smaller font
+    color: '#666',
+  },
+  variantDetailValue: {
+    fontSize: 13, // Smaller font
+    fontWeight: 'bold',
+    color: '#333',
+  },
+  ctaSection: {
+    marginBottom: 15, // Reduced margin
+  },
+  ctaBox: {
+    backgroundColor: '#f8f9fa',
+    padding: 15, // Reduced padding from 20 to 15
+    borderRadius: 8,
+    alignItems: 'center',
+    borderWidth: 1,
+    borderColor: '#e0e0e0',
+  },
+  ctaTitle: {
+    fontSize: 15, // Smaller font
+    fontWeight: 'bold',
+    color: '#333',
+    marginBottom: 8, // Reduced margin
+  },
+  ctaText: {
+    fontSize: 11, // Smaller font
+    color: '#444',
+    textAlign: 'center',
+    marginBottom: 12, // Reduced margin
+    lineHeight: 1.5, // Reduced line height
+    maxWidth: '80%',
+  },
+  ctaButton: {
+    paddingVertical: 8, // Reduced padding
+    paddingHorizontal: 20, // Reduced padding
+    borderRadius: 5,
+  },
+  ctaButtonText: {
+    color: 'white',
+    fontSize: 13, // Smaller font
+    fontWeight: 'bold',
+  },
+});
 
 const ModuleContentPage = ({ moduleName }) => {
   // Find the module in the configuration
@@ -30,570 +342,310 @@ const ModuleContentPage = ({ moduleName }) => {
   // Get pillar-specific color
   const pillarColor = getPillarColor(module.pillar);
   
+  // Get journey stage information
+  const journeyStage = determineJourneyStage(module.category);
+  
+  // Define journey stages for visualization
+  const journeyStages = [
+    { id: 'assess', title: 'Assess' },
+    { id: 'plan', title: 'Plan' },
+    { id: 'execute', title: 'Execute' },
+    { id: 'optimize', title: 'Optimize' }
+  ];
+  
   // Use absolute URLs to ensure images are accessible in the PDF
   const moduleIconUrl = `${window.location.origin}/common-module-white.png`;
   const logoUrl = `${window.location.origin}/elexive-logo-text.png`;
 
+  // Truncate description if it's too long to prevent layout issues
+  const truncateText = (text, maxLength = 140) => {
+    if (!text) return "";
+    return text.length > maxLength ? `${text.substring(0, maxLength)}...` : text;
+  };
+
   return (
-    <Page size="A4" style={styles.page}>
-      <View style={styles.contentPage}>
-        {/* Decorative header strip */}
-        <View style={{
-          position: 'absolute',
-          top: 0,
-          left: 0,
-          right: 0,
-          height: 12,
-          backgroundColor: pillarColor,
-        }} />
-        
-        {/* Small logo in top right */}
-        <View style={{
-          position: 'absolute',
-          top: 20,
-          right: 40,
-        }}>
-          <Image 
-            src={logoUrl}
-            style={{
-              width: 100,
-            }}
-          />
-        </View>
-        
-        {/* Main content container with extra top padding for the header strip */}
-        <View style={{
-          paddingTop: 40,
-          paddingBottom: 20,
-        }}>
-          {/* Hero section with module info */}
-          <View style={{
-            backgroundColor: pillarColor,
-            borderRadius: 8,
-            padding: 20,
-            marginBottom: 30,
-            position: 'relative',
-            minHeight: 120,
-            boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)',
-          }}>
-            {/* Module icon */}
-            <View style={{
-              position: 'absolute',
-              right: 30,
-              top: 20,
-              width: 80,
-              height: 80,
-              opacity: 0.9,
-            }}>
-              <Image 
-                src={moduleIconUrl}
-                style={{
-                  width: '100%',
-                  height: '100%',
-                }}
-              />
+    <>
+      {/* PAGE 1: Top Banner, Executive Summary & Strategic Impact */}
+      <Page size="A4" style={styles.page}>
+        <View style={styles.contentPage}>
+          <PageHeader pillarColor={pillarColor} logoUrl={logoUrl} />
+          
+          {/* Main content container with extra top padding for the header strip */}
+          <View style={dynamicStyles.contentContainer}>
+            {/* 1. TOP BANNER SECTION */}
+            <View style={[dynamicStyles.bannerSection, { backgroundColor: pillarColor }]}>
+              {/* Module icon */}
+              <View style={dynamicStyles.moduleIcon}>
+                <Image 
+                  src={moduleIconUrl}
+                  style={{
+                    width: '100%',
+                    height: '100%',
+                  }}
+                />
+              </View>
+              
+              {/* Module info */}
+              <View style={dynamicStyles.moduleInfo}>
+                {/* Pillar name as small header */}
+                <Text style={dynamicStyles.pillarName}>
+                  {module.pillar}
+                </Text>
+                
+                {/* Module name as large title */}
+                <Text style={dynamicStyles.moduleName}>
+                  {module.name}
+                </Text>
+                
+                {/* Module type with badge styling */}
+                <View style={dynamicStyles.categoryBadge}>
+                  <Text style={dynamicStyles.categoryText}>
+                    {module.category}
+                  </Text>
+                </View>
+                
+                {/* Transformation Journey visualization */}
+                <View style={dynamicStyles.journeySection}>
+                  <Text style={dynamicStyles.journeyLabel}>
+                    Transformation Journey:
+                  </Text>
+                  
+                  <View style={dynamicStyles.journeyRow}>
+                    {journeyStages.map((stage, index) => {
+                      const isActive = stage.id === journeyStage.id;
+                      
+                      return (
+                        <View key={stage.id} style={dynamicStyles.stageItem}>
+                          {/* Connector line */}
+                          {index > 0 && (
+                            <View style={dynamicStyles.connectorLine} />
+                          )}
+                          
+                          {/* Stage circle */}
+                          <View style={[
+                            dynamicStyles.stageCircle, 
+                            { backgroundColor: isActive ? 'white' : 'rgba(255, 255, 255, 0.3)' }
+                          ]}>
+                            {isActive && (
+                              <View style={[
+                                dynamicStyles.stageIndicator,
+                                { backgroundColor: pillarColor }
+                              ]} />
+                            )}
+                          </View>
+                          
+                          {/* Stage name */}
+                          <Text style={[
+                            dynamicStyles.stageName,
+                            { 
+                              color: isActive ? 'white' : 'rgba(255, 255, 255, 0.7)',
+                              fontWeight: isActive ? 'bold' : 'normal'
+                            }
+                          ]}>
+                            {stage.title}
+                          </Text>
+                        </View>
+                      );
+                    })}
+                  </View>
+                </View>
+              </View>
             </View>
             
-            {/* Module info */}
-            <View style={{
-              width: '75%',
-            }}>
-              <Text style={{
-                color: 'white',
-                fontSize: 12,
-                marginBottom: 5,
-                opacity: 0.9,
-                textTransform: 'uppercase',
-                letterSpacing: 1,
-              }}>
-                {module.pillar}
-              </Text>
-              <Text style={{
-                color: 'white',
-                fontSize: 24,
-                fontWeight: 'bold',
-                marginBottom: 10,
-              }}>
-                {module.name}
-              </Text>
-              <Text style={{
-                color: 'white',
-                fontSize: 14,
-                opacity: 0.9,
-              }}>
-                {module.category}
-              </Text>
-            </View>
-          </View>
-          
-          {/* Module heading section */}
-          <View style={{
-            marginBottom: 20,
-          }}>
-            <Text style={{
-              fontSize: 18,
-              fontWeight: 'bold',
-              color: '#333',
-              marginBottom: 10,
-            }}>
-              {module.heading || module.name}
-            </Text>
-          </View>
-          
-          {/* Module description section */}
-          <View style={{
-            marginBottom: 20,
-            backgroundColor: '#f8f9fa',
-            padding: 20,
-            borderRadius: 8,
-            borderLeft: `4 solid ${pillarColor}`,
-          }}>
-            <Text style={{
-              fontSize: 16,
-              fontWeight: 'bold',
-              color: '#333',
-              marginBottom: 10,
-            }}>
-              Overview
-            </Text>
-            <Text style={{
-              fontSize: 12,
-              lineHeight: 1.6,
-              color: '#444',
-            }}>
-              {module.description || "This module helps organizations improve their capabilities in key areas. It provides a structured approach to implementing best practices and achieving measurable outcomes."}
-            </Text>
-          </View>
-          
-          {/* How we help section (fix) */}
-          {module.fix && (
-            <View style={{
-              marginBottom: 20,
-              backgroundColor: 'white',
-              padding: 20,
-              borderRadius: 8,
-              borderLeft: `4 solid ${pillarColor}`,
-              borderColor: '#e0e0e0',
-              borderWidth: 1,
-            }}>
-              <Text style={{
-                fontSize: 16,
-                fontWeight: 'bold',
-                color: '#333',
-                marginBottom: 10,
-              }}>
-                How We Help
-              </Text>
-              <Text style={{
-                fontSize: 12,
-                lineHeight: 1.6,
-                color: '#444',
-              }}>
-                {module.fix}
-              </Text>
-            </View>
-          )}
-          
-          {/* Benefits section */}
-          {module.benefits && module.benefits.length > 0 && (
-            <View style={{
-              marginBottom: 20,
-              backgroundColor: '#f8f9fa',
-              padding: 20,
-              borderRadius: 8,
-            }}>
-              <Text style={{
-                fontSize: 16,
-                fontWeight: 'bold',
-                color: '#333',
-                marginBottom: 10,
-              }}>
-                Key Business Benefits
+            {/* 2. EXECUTIVE SUMMARY SECTION */}
+            <View style={[dynamicStyles.summarySection, { borderLeftColor: pillarColor }]}>
+              <Text style={dynamicStyles.sectionTitle}>
+                Executive Summary
               </Text>
               
-              {module.benefits.map((benefit, index) => (
-                <View key={index} style={{
-                  flexDirection: 'row',
-                  alignItems: 'flex-start',
-                  marginBottom: 8,
-                }}>
-                  <Text style={{
-                    fontSize: 12,
-                    color: pillarColor,
-                    marginRight: 5,
-                    lineHeight: 1.6,
-                  }}>
-                    •
-                  </Text>
-                  <Text style={{
-                    fontSize: 12,
-                    color: '#444',
-                    lineHeight: 1.6,
-                    flex: 1,
-                  }}>
-                    {benefit}
-                  </Text>
-                </View>
-              ))}
-            </View>
-          )}
-          
-          {/* Target audience section */}
-          {module.whoIsItFor && (
-            <View style={{
-              marginBottom: 20,
-              backgroundColor: '#edf5ff',
-              padding: 20,
-              borderRadius: 8,
-            }}>
-              <Text style={{
-                fontSize: 16,
-                fontWeight: 'bold',
-                color: '#333',
-                marginBottom: 10,
-              }}>
-                Who This Is For
-              </Text>
-              <Text style={{
-                fontSize: 12,
-                lineHeight: 1.6,
-                color: '#444',
-              }}>
-                {module.whoIsItFor}
-              </Text>
-            </View>
-          )}
-          
-          {/* Module details in a three-column layout */}
-          <View style={{
-            flexDirection: 'row',
-            marginBottom: 20,
-            gap: 15,
-          }}>
-            {/* Column 1: Key Features */}
-            <View style={{
-              flex: 1,
-              backgroundColor: '#f8f9fa',
-              padding: 15,
-              borderRadius: 8,
-            }}>
-              <Text style={{
-                fontSize: 14,
-                fontWeight: 'bold',
-                color: pillarColor,
-                marginBottom: 10,
-              }}>
-                Key Features
-              </Text>
-              {(module.features || ["Structured approach", "Best practices", "Expert guidance"]).map((feature, index) => (
-                <View key={index} style={{
-                  flexDirection: 'row',
-                  alignItems: 'center',
-                  marginBottom: 5,
-                }}>
-                  <Text style={{
-                    fontSize: 12,
-                    color: pillarColor,
-                    marginRight: 5,
-                  }}>
-                    •
-                  </Text>
-                  <Text style={{
-                    fontSize: 11,
-                    color: '#444',
-                  }}>
-                    {feature}
-                  </Text>
-                </View>
-              ))}
-            </View>
-            
-            {/* Column 2: Outcomes */}
-            <View style={{
-              flex: 1,
-              backgroundColor: '#f8f9fa',
-              padding: 15,
-              borderRadius: 8,
-            }}>
-              <Text style={{
-                fontSize: 14,
-                fontWeight: 'bold',
-                color: pillarColor,
-                marginBottom: 10,
-              }}>
-                Expected Outcomes
-              </Text>
-              {(module.outcomes || ["Improved efficiency", "Enhanced capabilities", "Measurable results"]).map((outcome, index) => (
-                <View key={index} style={{
-                  flexDirection: 'row',
-                  alignItems: 'center',
-                  marginBottom: 5,
-                }}>
-                  <Text style={{
-                    fontSize: 12,
-                    color: pillarColor,
-                    marginRight: 5,
-                  }}>
-                    •
-                  </Text>
-                  <Text style={{
-                    fontSize: 11,
-                    color: '#444',
-                  }}>
-                    {outcome}
-                  </Text>
-                </View>
-              ))}
-            </View>
-            
-            {/* Column 3: Implementation */}
-            <View style={{
-              flex: 1,
-              backgroundColor: '#f8f9fa',
-              padding: 15,
-              borderRadius: 8,
-            }}>
-              <Text style={{
-                fontSize: 14,
-                fontWeight: 'bold',
-                color: pillarColor,
-                marginBottom: 10,
-              }}>
-                Implementation
-              </Text>
-              <View style={{
-                flexDirection: 'row',
-                alignItems: 'center',
-                marginBottom: 5,
-              }}>
-                <Text style={{
-                  fontSize: 12,
-                  color: pillarColor,
-                  marginRight: 5,
-                }}>
-                  •
+              {/* What is this module */}
+              <View style={dynamicStyles.infoBlock}>
+                <Text style={[dynamicStyles.infoHeading, { color: pillarColor }]}>
+                  What is this module?
                 </Text>
-                <Text style={{
-                  fontSize: 11,
-                  color: '#444',
-                }}>
-                  Duration: {module.duration || "4-6 weeks"}
-                </Text>
-              </View>
-              <View style={{
-                flexDirection: 'row',
-                alignItems: 'center',
-                marginBottom: 5,
-              }}>
-                <Text style={{
-                  fontSize: 12,
-                  color: pillarColor,
-                  marginRight: 5,
-                }}>
-                  •
-                </Text>
-                <Text style={{
-                  fontSize: 11,
-                  color: '#444',
-                }}>
-                  Effort: {module.effort || "Medium"}
-                </Text>
-              </View>
-              <View style={{
-                flexDirection: 'row',
-                alignItems: 'center',
-                marginBottom: 5,
-              }}>
-                <Text style={{
-                  fontSize: 12,
-                  color: pillarColor,
-                  marginRight: 5,
-                }}>
-                  •
-                </Text>
-                <Text style={{
-                  fontSize: 11,
-                  color: '#444',
-                }}>
-                  Resources: {module.resources || "2-3 team members"}
-                </Text>
-              </View>
-            </View>
-          </View>
-          
-          {/* Module variants section */}
-          <View style={{
-            marginBottom: 20,
-          }}>
-            <Text style={{
-              fontSize: 16,
-              fontWeight: 'bold',
-              color: '#333',
-              marginBottom: 10,
-            }}>
-              Available Options
-            </Text>
-            
-            <View style={{
-              flexDirection: 'row',
-              gap: 15,
-            }}>
-              {module.variants.map((variant, index) => (
-                <View key={index} style={{
-                  flex: 1,
-                  backgroundColor: variant.type === 'Insight Primer' ? '#e6f2ff' : '#e6fff2',
-                  padding: 15,
-                  borderRadius: 8,
-                  borderTop: variant.type === 'Insight Primer' ? '4 solid #3498db' : '4 solid #2ecc71',
-                }}>
-                  <Text style={{
-                    color: variant.type === 'Insight Primer' ? '#3498db' : '#2ecc71',
-                    fontSize: 14,
-                    fontWeight: 'bold',
-                    marginBottom: 8,
-                  }}>
-                    {variant.type}
-                  </Text>
-                  <Text style={{
-                    fontSize: 11,
-                    color: '#444',
-                    marginBottom: 10,
-                    lineHeight: 1.4,
-                  }}>
-                    {variant.description}
-                  </Text>
-                  <Text style={{
-                    fontSize: 10,
-                    color: '#666',
-                  }}>
-                    Value Units: {variant.evcValue}
-                  </Text>
-                </View>
-              ))}
-            </View>
-          </View>
-          
-          {/* Value proposition */}
-          <View style={{
-            backgroundColor: 'rgba(0, 0, 0, 0.03)',
-            padding: 20,
-            borderRadius: 8,
-            marginBottom: 20,
-          }}>
-            <Text style={{
-              fontSize: 16,
-              fontWeight: 'bold',
-              color: '#333',
-              marginBottom: 10,
-            }}>
-              Value Proposition
-            </Text>
-            <Text style={{
-              fontSize: 12,
-              lineHeight: 1.6,
-              color: '#444',
-              fontStyle: 'italic',
-            }}>
-              "{module.callToAction || module.valueProposition || "This module delivers measurable value by implementing industry best practices and proven methodologies that drive significant improvements in organizational capabilities."}"
-            </Text>
-          </View>
-          
-          {/* Next steps section with button-like elements */}
-          <View style={{
-            marginBottom: 20,
-          }}>
-            <Text style={{
-              fontSize: 16,
-              fontWeight: 'bold',
-              color: '#333',
-              marginBottom: 15,
-            }}>
-              Next Steps
-            </Text>
-            
-            <View style={{
-              flexDirection: 'row',
-              gap: 15,
-            }}>
-              <View style={{
-                backgroundColor: pillarColor,
-                padding: 15,
-                borderRadius: 8,
-                flex: 1,
-                alignItems: 'center',
-              }}>
-                <Text style={{
-                  color: 'white',
-                  fontSize: 12,
-                  fontWeight: 'bold',
-                }}>
-                  Consultation
+                <Text style={dynamicStyles.infoText}>
+                  {truncateText(module.description, 160) || "No description available."}
                 </Text>
               </View>
               
-              <View style={{
-                backgroundColor: pillarColor,
-                padding: 15,
-                borderRadius: 8,
-                flex: 1,
-                alignItems: 'center',
-              }}>
-                <Text style={{
-                  color: 'white',
-                  fontSize: 12,
-                  fontWeight: 'bold',
-                }}>
-                  Assessment
+              {/* Who is it for */}
+              <View style={dynamicStyles.infoBlock}>
+                <Text style={[dynamicStyles.infoHeading, { color: pillarColor }]}>
+                  Who is it for?
+                </Text>
+                <Text style={dynamicStyles.infoText}>
+                  {truncateText(module.whoIsItFor, 120) || "No target audience specified."}
                 </Text>
               </View>
               
-              <View style={{
-                backgroundColor: pillarColor,
-                padding: 15,
-                borderRadius: 8,
-                flex: 1,
-                alignItems: 'center',
-              }}>
-                <Text style={{
-                  color: 'white',
-                  fontSize: 12,
-                  fontWeight: 'bold',
-                }}>
-                  Implementation
+              {/* Why it matters now */}
+              <View>
+                <Text style={[dynamicStyles.infoHeading, { color: pillarColor }]}>
+                  Why it matters now?
+                </Text>
+                <Text style={dynamicStyles.infoText}>
+                  {truncateText(module.fix, 160) || "No solution approach specified."}
                 </Text>
               </View>
             </View>
+            
+            {/* 3. STRATEGIC IMPACT CLUSTER */}
+            <View style={dynamicStyles.benefitsSection}>
+              <Text style={dynamicStyles.sectionTitle}>
+                Strategic Impact
+              </Text>
+              
+              {/* Key Benefits */}
+              <View style={dynamicStyles.benefitsContainer}>
+                <Text style={[dynamicStyles.infoHeading, { color: '#333', marginBottom: 8 }]}>
+                  Key Benefits
+                </Text>
+                
+                {/* Limit benefits to 4 to ensure they fit on page */}
+                {(module.benefits || ["No benefits specified"]).slice(0, 4).map((benefit, index) => (
+                  <View key={index} style={dynamicStyles.benefitRow}>
+                    <View style={[
+                      dynamicStyles.benefitNumber,
+                      { backgroundColor: pillarColor }
+                    ]}>
+                      <Text style={dynamicStyles.benefitNumberText}>
+                        {index + 1}
+                      </Text>
+                    </View>
+                    <Text style={dynamicStyles.benefitText}>
+                      {truncateText(benefit, 100)}
+                    </Text>
+                  </View>
+                ))}
+              </View>
+            </View>
           </View>
+          
+          <PageFooter formattedDate={formattedDate} pageNumber={1} />
         </View>
-        
-        {/* Footer with date and page number */}
-        <View style={{
-          position: 'absolute',
-          bottom: 30,
-          left: 40,
-          right: 40,
-          flexDirection: 'row',
-          justifyContent: 'space-between',
-          alignItems: 'center',
-          borderTopWidth: 1,
-          borderTopColor: '#eee',
-          paddingTop: 10,
-        }}>
-          <Text style={{
-            fontSize: 9,
-            color: '#888',
-          }}>
-            Elexive Ltd • Solution Brief
-          </Text>
-          <Text style={{
-            fontSize: 9,
-            color: '#888',
-          }}>
-            Generated on {formattedDate}
-          </Text>
+      </Page>
+      
+      {/* PAGE 2: Engagement Models & Call to Action */}
+      <Page size="A4" style={styles.page}>
+        <View style={styles.contentPage}>
+          <PageHeader pillarColor={pillarColor} logoUrl={logoUrl} />
+          
+          {/* Main content container with padding */}
+          <View style={dynamicStyles.contentContainer}>
+            {/* ENGAGEMENT MODELS */}
+            <View style={dynamicStyles.engagementSection}>
+              <Text style={dynamicStyles.sectionTitle}>
+                Engagement Models
+              </Text>
+              
+              <View style={dynamicStyles.variantsRow}>
+                {/* Only show variants that are available in the configuration */}
+                {module.variants && module.variants.map((variant, index) => {
+                  const isInsightPrimer = variant.type === "Insight Primer";
+                  const color = isInsightPrimer ? '#3498db' : '#2ecc71';
+                  const bgColor = isInsightPrimer ? '#e6f2ff' : '#e6fff2';
+                  
+                  // Find the variant definition to get additional information
+                  const variantDef = modulesConfig.variantDefinitions[variant.type];
+                  
+                  return (
+                    <View key={index} style={[dynamicStyles.variantCard, { backgroundColor: bgColor }]}>
+                      <Text style={dynamicStyles.variantHeader}>
+                        {variant.type}
+                      </Text>
+                      
+                      {/* Add tagline if available */}
+                      {variantDef?.tagline && (
+                        <Text style={dynamicStyles.variantTagline}>
+                          {truncateText(variantDef.tagline, 80)}
+                        </Text>
+                      )}
+                      
+                      <View style={dynamicStyles.variantDescription}>
+                        <Text style={dynamicStyles.variantDescriptionText}>
+                          {truncateText(variantDef?.description || variant.description, 120) || "No description available."}
+                        </Text>
+                      </View>
+                      
+                      <View style={dynamicStyles.variantDetailsRow}>
+                        <View>
+                          <Text style={dynamicStyles.variantDetailLabel}>
+                            Type
+                          </Text>
+                          <Text style={dynamicStyles.variantDetailValue}>
+                            {isInsightPrimer ? "Fixed-scope" : "Continuous"}
+                          </Text>
+                        </View>
+                        
+                        <View>
+                          <Text style={dynamicStyles.variantDetailLabel}>
+                            Value Units
+                          </Text>
+                          <Text style={[dynamicStyles.variantDetailValue, { color }]}>
+                            {variant.evcValue || 0} EVCs
+                          </Text>
+                        </View>
+                      </View>
+                    </View>
+                  );
+                })}
+              </View>
+            </View>
+            
+            {/* If there are more than 4 benefits, show the remaining ones on page 2 */}
+            {module.benefits && module.benefits.length > 4 && (
+              <View style={{ marginBottom: 20 }}>
+                <Text style={dynamicStyles.sectionTitle}>
+                  Additional Benefits
+                </Text>
+                
+                <View style={dynamicStyles.benefitsContainer}>
+                  {module.benefits.slice(4).map((benefit, index) => (
+                    <View key={index} style={dynamicStyles.benefitRow}>
+                      <View style={[
+                        dynamicStyles.benefitNumber,
+                        { backgroundColor: pillarColor }
+                      ]}>
+                        <Text style={dynamicStyles.benefitNumberText}>
+                          {index + 5}
+                        </Text>
+                      </View>
+                      <Text style={dynamicStyles.benefitText}>
+                        {benefit}
+                      </Text>
+                    </View>
+                  ))}
+                </View>
+              </View>
+            )}
+            
+            {/* WHAT TO DO NOW (CTA) */}
+            <View style={dynamicStyles.ctaSection}>
+              <Text style={dynamicStyles.sectionTitle}>
+                Next Steps
+              </Text>
+              
+              {/* CTA box */}
+              <View style={dynamicStyles.ctaBox}>
+                <Text style={dynamicStyles.ctaTitle}>
+                  Ready to get started?
+                </Text>
+                <Text style={dynamicStyles.ctaText}>
+                  {truncateText(module.callToAction, 120) || "Add this module to your transformation journey and take the next step toward enhanced business capabilities."}
+                </Text>
+                <View style={[dynamicStyles.ctaButton, { backgroundColor: pillarColor }]}>
+                  <Text style={dynamicStyles.ctaButtonText}>
+                    Contact us at transform@elexive.com
+                  </Text>
+                </View>
+              </View>
+            </View>
+          </View>
+          
+          <PageFooter formattedDate={formattedDate} pageNumber={2} />
         </View>
-      </View>
-    </Page>
+      </Page>
+    </>
   );
 };
 

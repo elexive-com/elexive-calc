@@ -2,10 +2,10 @@ import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { 
   faArrowLeft, faDownload, faCheckCircle, faCircle, 
-  faLightbulb, faRocket, faBookmark, faUsers, faCheck, 
-  faChartLine, faHandshake, faBullseye, faArrowRight
+  faLightbulb, faRocket, faBookmark, faUsers
 } from '@fortawesome/free-solid-svg-icons';
 import { faBookmark as faBookmarkRegular } from '@fortawesome/free-regular-svg-icons';
+import modulesConfig from '../config/modulesConfig.json';
 
 /**
  * ModuleDetails component
@@ -38,12 +38,6 @@ const ModuleDetails = ({
     ...v.definitions // The variant definitions should be already included in the module
   }));
 
-  // Map icons for benefits display
-  const getBenefitIcon = (index) => {
-    const icons = [faCheck, faChartLine, faHandshake, faBullseye, faArrowRight];
-    return icons[index % icons.length];
-  };
-  
   return (
     <div className="module-detail">
       <button 
@@ -170,8 +164,11 @@ const ModuleDetails = ({
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 {selectedModule.benefits.map((benefit, index) => (
                   <div key={index} className="flex items-start">
-                    <div className="p-2 rounded-full bg-blue-50 text-blue-600 mr-3 flex-shrink-0">
-                      <FontAwesomeIcon icon={getBenefitIcon(index)} />
+                    <div 
+                      className="h-6 w-6 rounded-full flex-shrink-0 mr-3 flex items-center justify-center font-medium text-white"
+                      style={{ backgroundColor: pillarColorMap[selectedModule.pillar] || '#2E2266' }}
+                    >
+                      {index + 1}
                     </div>
                     <p className="text-gray-700">{benefit}</p>
                   </div>
@@ -203,22 +200,41 @@ const ModuleDetails = ({
               <div key={index} className="border border-gray-200 rounded-lg overflow-hidden h-full">
                 <div className={`p-4 ${
                   variant.type === 'Insight Primer' 
-                    ? 'bg-blue-50 border-b border-blue-100' 
-                    : 'bg-green-50 border-b border-green-100'
+                    ? 'bg-elx-primary text-white' 
+                    : 'bg-elx-primary text-white'
                 } flex items-center`}>
                   <div className="flex items-center">
                     <FontAwesomeIcon 
                       icon={variant.type === 'Insight Primer' ? faLightbulb : faRocket} 
-                      className={`mr-2 ${variant.type === 'Insight Primer' ? 'text-blue-500' : 'text-green-500'}`} 
+                      className="mr-2 text-white" 
                       fixedWidth
                     />
-                    <h4 className="font-medium">{variant.type}</h4>
+                    <h4 className="font-medium uppercase">{variant.type}</h4>
                   </div>
                 </div>
                 <div className="p-4 flex flex-col h-full">
-                  <p className="text-sm text-gray-700 mb-4 flex-grow">
+                  {/* Variant tagline (new) */}
+                  {variant.type === 'Insight Primer' || variant.type === 'Integrated Execution' ? (
+                    <p className="text-md text-gray-900 mb-2">
+                      {variant.type === 'Insight Primer' 
+                        ? modulesConfig.variantDefinitions['Insight Primer'].tagline
+                        : modulesConfig.variantDefinitions['Integrated Execution'].tagline}
+                    </p>
+                  ) : null}
+                  
+                  {/* Generic description from variantDefinitions */}
+                  <p className="text-md text-gray-700 mb-2 pb-2 border-b border-gray-100">
+                    {variant.type === 'Insight Primer' 
+                      ? modulesConfig.variantDefinitions['Insight Primer'].description
+                      : modulesConfig.variantDefinitions['Integrated Execution'].description}
+                  </p>
+                  
+                  {/* Module-specific description */}
+                  <p className="text-md text-gray-700 mb-4 flex-grow pt-2">
+                    <span className="font-medium">For this module: </span>
                     {variant.description}
                   </p>
+                  
                   <div className="flex items-center justify-between mt-auto">
                     <span className="text-sm text-gray-500">Value Units: {variant.evcValue}</span>
                     <button className="text-elx-primary hover:text-elx-primary-dark text-sm font-medium">

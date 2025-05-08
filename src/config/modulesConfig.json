@@ -1,12 +1,14 @@
 {
   "variantDefinitions": {
     "Insight Primer": {
-      "description": "A clear direction before investing in execution. Fixed-price, fixed-scope module: a timeboxed 2–4 week calendar time engagement with clear takeaways and effective next steps.",
+      "tagline": "A clear direction before investing in execution.",
+      "description": "Fixed-price, fixed-scope module: a timeboxed 2–4 week calendar time engagement with clear takeaways and effective next steps.",
       "icon": "faLightbulb",
       "evcValue": 10
     },
     "Integrated Execution": {
-      "description": "A strategic partner to build and scale with you. Continuous service model combining the agile, sprint-based methodology with tailored and specific implementation.",
+      "tagline": "A strategic partner to build and scale with you.",
+      "description": "Continuous service model combining the agile, sprint-based methodology with tailored and specific implementation.",
       "icon": "faRocket",
       "evcValue": 40
     }

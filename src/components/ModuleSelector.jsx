@@ -6,6 +6,7 @@ import {
   faCompass, faRocket, faChevronRight, faChevronDown,
   faInfoCircle, faArrowRight
 } from '@fortawesome/free-solid-svg-icons';
+import modulesConfig from '../config/modulesConfig.json';
 
 const ModuleSelector = ({ 
   modules, 
@@ -139,14 +140,14 @@ const ModuleSelector = ({
         {isOptionsExplainerVisible && (
           <div className="flex flex-col md:flex-row gap-4 my-4 animate-fadeIn">
             <div className="bg-blue-50 p-4 rounded-xl flex-1 border border-blue-100">
-              <div className="flex items-center mb-2">
-                <div className="w-8 h-8 rounded-full bg-blue-100 text-blue-600 flex items-center justify-center mr-2">
+              <div className="flex items-center mb-2 bg-elx-primary p-2 rounded-lg">
+                <div className="w-8 h-8 rounded-full bg-white bg-opacity-20 text-white flex items-center justify-center mr-2">
                   <FontAwesomeIcon icon={faLightbulb} />
                 </div>
-                <h3 className="font-bold text-base text-gray-800">Insight Primer</h3>
+                <h3 className="font-bold text-base text-white uppercase">Insight Primer</h3>
               </div>
-              <p className="text-sm text-gray-700 mb-2">A clear direction before investing in execution.</p>
-              <p className="text-xs text-gray-600 mb-3">Fixed-price, fixed-scope module: a timeboxed 2–4 week calendar time engagement with clear takeaways and effective next steps.</p>
+              <p className="text-sm text-gray-700 mb-2 mt-2">{modulesConfig.variantDefinitions['Insight Primer'].tagline}</p>
+              <p className="text-xs text-gray-600 mb-3">{modulesConfig.variantDefinitions['Insight Primer'].description}</p>
               
               <h4 className="text-sm font-semibold text-gray-800 mb-1">When to choose Insight Primer:</h4>
               <ul className="text-xs text-gray-700 list-disc pl-4 mb-3">
@@ -164,14 +165,14 @@ const ModuleSelector = ({
             </div>
             
             <div className="bg-green-50 p-4 rounded-xl flex-1 border border-green-100">
-              <div className="flex items-center mb-2">
-                <div className="w-8 h-8 rounded-full bg-green-100 text-green-600 flex items-center justify-center mr-2">
+              <div className="flex items-center mb-2 bg-elx-primary p-2 rounded-lg">
+                <div className="w-8 h-8 rounded-full bg-white bg-opacity-20 text-white flex items-center justify-center mr-2">
                   <FontAwesomeIcon icon={faRocket} />
                 </div>
-                <h3 className="font-bold text-base text-gray-800">Integrated Execution</h3>
+                <h3 className="font-bold text-base text-white uppercase">Integrated Execution</h3>
               </div>
-              <p className="text-sm text-gray-700 mb-2">A strategic partner to build and scale with you.</p>
-              <p className="text-xs text-gray-600 mb-3">Continuous service model combining the agile, sprint-based methodology with tailored and specific implementation. Typically spans 3-12 months based on scope and complexity.</p>
+              <p className="text-sm text-gray-700 mb-2 mt-2">{modulesConfig.variantDefinitions['Integrated Execution'].tagline}</p>
+              <p className="text-xs text-gray-600 mb-3">{modulesConfig.variantDefinitions['Integrated Execution'].description} Typically spans 3-12 months based on scope and complexity.</p>
               
               <h4 className="text-sm font-semibold text-gray-800 mb-1">When to choose Integrated Execution:</h4>
               <ul className="text-xs text-gray-700 list-disc pl-4 mb-3">
