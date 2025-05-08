@@ -2,7 +2,8 @@ import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { 
   faArrowLeft, faDownload, faCheckCircle, faCircle, 
-  faLightbulb, faRocket, faBookmark
+  faLightbulb, faRocket, faBookmark, faUsers, faCheck, 
+  faChartLine, faHandshake, faBullseye, faArrowRight
 } from '@fortawesome/free-solid-svg-icons';
 import { faBookmark as faBookmarkRegular } from '@fortawesome/free-regular-svg-icons';
 
@@ -36,6 +37,12 @@ const ModuleDetails = ({
     ...v,
     ...v.definitions // The variant definitions should be already included in the module
   }));
+
+  // Map icons for benefits display
+  const getBenefitIcon = (index) => {
+    const icons = [faCheck, faChartLine, faHandshake, faBullseye, faArrowRight];
+    return icons[index % icons.length];
+  };
   
   return (
     <div className="module-detail">
@@ -96,6 +103,15 @@ const ModuleDetails = ({
               <p className="text-gray-700">
                 {selectedModule.description}
               </p>
+              
+              {selectedModule.fix && (
+                <div className="mt-4 p-4 bg-white rounded-md border-l-4 border-elx-primary">
+                  <p className="text-gray-700 font-medium">
+                    <span className="font-bold text-elx-primary">How we help: </span>
+                    {selectedModule.fix}
+                  </p>
+                </div>
+              )}
             </div>
             
             <div 
@@ -145,6 +161,42 @@ const ModuleDetails = ({
             </div>
           </div>
           
+          {/* Benefits section */}
+          {selectedModule.benefits && selectedModule.benefits.length > 0 && (
+            <div className="mb-6 p-5 border border-gray-200 rounded-lg bg-white">
+              <h4 className="text-lg font-medium text-elx-primary mb-3">
+                Key Business Benefits
+              </h4>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                {selectedModule.benefits.map((benefit, index) => (
+                  <div key={index} className="flex items-start">
+                    <div className="p-2 rounded-full bg-blue-50 text-blue-600 mr-3 flex-shrink-0">
+                      <FontAwesomeIcon icon={getBenefitIcon(index)} />
+                    </div>
+                    <p className="text-gray-700">{benefit}</p>
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
+          
+          {/* Target audience section */}
+          {selectedModule.whoIsItFor && (
+            <div className="mb-6 p-4 border border-gray-200 rounded-lg bg-blue-50">
+              <div className="flex items-start">
+                <div className="p-2 rounded-full bg-white text-blue-600 mr-3 flex-shrink-0">
+                  <FontAwesomeIcon icon={faUsers} />
+                </div>
+                <div>
+                  <h4 className="text-lg font-medium text-elx-primary mb-1">
+                    Who This Is For
+                  </h4>
+                  <p className="text-gray-700">{selectedModule.whoIsItFor}</p>
+                </div>
+              </div>
+            </div>
+          )}
+          
           {/* Variant cards with improved alignment */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
             {variantDefs.map((variant, index) => (
@@ -179,17 +231,6 @@ const ModuleDetails = ({
           </div>
           
           <div className="border-t border-gray-200 pt-6">
-            <h4 className="text-lg font-medium text-elx-primary mb-3">Key Business Outcomes</h4>
-            <ul className="list-disc pl-5 text-gray-700 space-y-2">
-              <li>Improved operational efficiency and reduced costs</li>
-              <li>Enhanced customer experience and satisfaction</li>
-              <li>Increased workforce productivity and collaboration</li>
-              <li>Accelerated innovation and time-to-market</li>
-              <li>Strengthened competitive positioning in the marketplace</li>
-            </ul>
-          </div>
-          
-          <div className="border-t border-gray-200 pt-6 mt-6">
             <h4 className="text-lg font-medium text-elx-primary mb-3">Implementation Approach</h4>
             <p className="text-gray-700 mb-4">
               Our expert consultants follow a structured, proven methodology tailored to your unique business needs:
@@ -208,7 +249,9 @@ const ModuleDetails = ({
           <div className="flex flex-col md:flex-row md:justify-between md:items-center">
             <div className="mb-3 md:mb-0">
               <h4 className="text-lg font-medium text-elx-primary">Ready to get started?</h4>
-              <p className="text-sm text-gray-600">Add this module to your transformation journey</p>
+              <p className="text-sm text-gray-600">
+                {selectedModule.callToAction || "Add this module to your transformation journey"}
+              </p>
             </div>
             <div className="flex space-x-3">
               <button 

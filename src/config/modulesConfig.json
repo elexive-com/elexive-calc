@@ -24,12 +24,22 @@
       "category": "Strategic Assessment",
       "heading": "Map your current state and identify transformation opportunities",
       "description": "Start your transformation journey with a comprehensive assessment of your current business state. Foundation Mapping creates a clear baseline and identifies strategic opportunities for growth, efficiency, and innovation.",
+      "fix": "We provide a structured discovery framework to assess your current business state, identify gaps, and map transformation priorities. This creates a solid foundation for all subsequent transformation initiatives.",
+      "benefits": [
+        "Clear Transformation Priorities",
+        "Strategic Gap Analysis",
+        "Business Impact Roadmap",
+        "Organizational Alignment"
+      ],
+      "callToAction": "Begin with clarity before your transformation journey",
+      "whoIsItFor": "Leaders seeking to understand their starting point before embarking on strategic transformation initiatives.",
       "icon": "faMap",
       "singleSizeOnly": true,
       "variants": [
         {
           "type": "Insight Primer",
-          "evcValue": 5
+          "evcValue": 5,
+          "description": "Rapid assessment with executive interviews and current state mapping"
         }
       ]
     },
@@ -46,22 +56,19 @@
         "Outpace the Competition",
         "Agile Leadership Mindset"
       ],
-      "deliveryOptions": [
-        "Advisory Sprint: Organizational agility audit & leadership adaptation framework",
-        "Strategy Deep Dive: Enterprise-wide transformation roadmap & execution coaching",
-        "Integrated Execution: Long-term change leadership development with set metrics and unified dashboards"
-      ],
       "callToAction": "Let's talk Leadership Today",
       "whoIsItFor": "Change-makers who are ready to turn big ideas into real actions without confusion or burnout.",
       "icon": "faCheck",
       "variants": [
         {
           "type": "Insight Primer",
-          "evcValue": 10
+          "evcValue": 10,
+          "description": "Organizational agility audit & leadership adaptation framework"
         },
         {
           "type": "Integrated Execution",
-          "evcValue": 40
+          "evcValue": 40,
+          "description": "Long-term change leadership development with set metrics and unified dashboards"
         }
       ]
     },
@@ -78,22 +85,19 @@
         "Scale Leadership Impact",
         "Accountability and Trust"
       ],
-      "deliveryOptions": [
-        "Advisory Sprint: Culture impact assessment & leadership alignment strategies",
-        "Strategy Deep Dive: Leadership culture transformation & accountability system design",
-        "Integrated Execution: Long-term cultural shift coaching"
-      ],
       "callToAction": "Let's talk Leadership Today",
       "whoIsItFor": "Leaders looking to ignite motivation, inspire teams, and get everyone moving together.",
       "icon": "faPuzzlePiece",
       "variants": [
         {
           "type": "Insight Primer",
-          "evcValue": 10
+          "evcValue": 10,
+          "description": "Culture impact assessment & leadership alignment strategies"
         },
         {
           "type": "Integrated Execution",
-          "evcValue": 40
+          "evcValue": 40,
+          "description": "Long-term cultural shift coaching"
         }
       ]
     },
@@ -110,22 +114,19 @@
         "Responsible AI Governance",
         "Future-proof Your Leadership"
       ],
-      "deliveryOptions": [
-        "Advisory Sprint: AI-powered leadership strategy",
-        "Strategy Deep Dive: AI governance & executive AI literacy",
-        "Integrated Execution: AI-powered leadership coaching"
-      ],
       "callToAction": "Let's talk Leadership Today",
       "whoIsItFor": "Forward-thinking leaders excited to use AI to elevate their decisions and sharpen their edge.",
       "icon": "faRobot",
       "variants": [
         {
           "type": "Insight Primer",
-          "evcValue": 10
+          "evcValue": 10,
+          "description": "AI-powered leadership strategy"
         },
         {
           "type": "Integrated Execution",
-          "evcValue": 40
+          "evcValue": 40,
+          "description": "AI-powered leadership coaching"
         }
       ]
     },
@@ -142,22 +143,19 @@
         "Personalized Talent Development",
         "Culture of Belonging"
       ],
-      "deliveryOptions": [
-        "Advisory Sprint: Quick-win talent audit, employee growth mapping, and personalized development roadmap.",
-        "Strategy Deep Dive: Comprehensive talent and career development strategy, employee engagement programs, and internal growth initiatives.",
-        "Integrated Execution: Ongoing implementation of personalized learning programs, career progression coaching, and talent retention strategies."
-      ],
       "callToAction": "Let's talk Leadership Today",
       "whoIsItFor": "People-focused leaders determined to build a workplace employees want to advocate for.",
       "icon": "faUsers",
       "variants": [
         {
           "type": "Insight Primer",
-          "evcValue": 10
+          "evcValue": 10,
+          "description": "Quick-win talent audit, employee growth mapping, and personalized development roadmap."
         },
         {
           "type": "Integrated Execution",
-          "evcValue": 40
+          "evcValue": 40,
+          "description": "Ongoing implementation of personalized learning programs, career progression coaching, and talent retention strategies."
         }
       ]
     },
@@ -174,22 +172,19 @@
         "Innovation Meets Execution",
         "Future-proof Your Business"
       ],
-      "deliveryOptions": [
-        "Advisory Sprint: Strategic foresight training & decision mapping",
-        "Strategy Deep Dive: Comprehensive innovation strategy & leadership vision planning",
-        "Integrated Execution: Ongoing strategy coaching & transformation leadership"
-      ],
       "callToAction": "Shape the future with fearless decision-making.",
       "whoIsItFor": "Visionaries who want to clearly define what's next and inspire others to follow.",
       "icon": "faChartLine",
       "variants": [
         {
           "type": "Insight Primer",
-          "evcValue": 10
+          "evcValue": 10,
+          "description": "Strategic foresight training & decision mapping"
         },
         {
           "type": "Integrated Execution",
-          "evcValue": 40
+          "evcValue": 40,
+          "description": "Ongoing strategy coaching & transformation leadership"
         }
       ]
     },
@@ -206,22 +201,19 @@
         "Focused, Agile Leadership",
         "Lead Transformational Change"
       ],
-      "deliveryOptions": [
-        "Advisory Sprint: Executive agility assessment & fast-adaptation frameworks",
-        "Strategy Deep Dive: High-performance leadership under uncertainty",
-        "Integrated Execution: Long-term adaptability coaching & market response strategy execution"
-      ],
       "callToAction": "Stay sharp, adapt fast, and thrive in uncertainty.",
       "whoIsItFor": "Leaders navigating unpredictable environments who need quick pivots and steady nerves.",
       "icon": "faArrowRight",
       "variants": [
         {
           "type": "Insight Primer",
-          "evcValue": 10
+          "evcValue": 10,
+          "description": "Executive agility assessment & fast-adaptation frameworks"
         },
         {
           "type": "Integrated Execution",
-          "evcValue": 40
+          "evcValue": 40,
+          "description": "Long-term adaptability coaching & market response strategy execution"
         }
       ]
     },
@@ -238,22 +230,19 @@
         "AI-Optimized Pricing",
         "Grow Customer Value"
       ],
-      "deliveryOptions": [
-        "Advisory Sprint: Quick pricing & revenue audit",
-        "Strategy Deep Dive: Comprehensive pricing transformation & customer value strategy",
-        "Integrated Execution: Ongoing revenue optimization & business model expansion"
-      ],
       "callToAction": "Charge right, grow fast, and maximize revenue.",
       "whoIsItFor": "Leaders who sense they could charge more, sell smarter, or create new income streams.",
       "icon": "faMoneyBillWave",
       "variants": [
         {
           "type": "Insight Primer",
-          "evcValue": 10
+          "evcValue": 10,
+          "description": "Quick pricing & revenue audit"
         },
         {
           "type": "Integrated Execution",
-          "evcValue": 40
+          "evcValue": 40,
+          "description": "Ongoing revenue optimization & business model expansion"
         }
       ]
     },
@@ -270,22 +259,19 @@
         "Customer-led Innovation",
         "Build Competitive Edge"
       ],
-      "deliveryOptions": [
-        "Advisory Sprint: Customer strategy audit & journey mapping",
-        "Strategy Deep Dive: Full-scale customer insight integration & business model transformation",
-        "Integrated Execution: End-to-end implementation of a customer-led strategic framework"
-      ],
       "callToAction": "Make customers your strategy's secret weapon.",
       "whoIsItFor": "Leaders who deeply care about understanding their customers and want every strategy to reflect that.",
       "icon": "faUsers",
       "variants": [
         {
           "type": "Insight Primer",
-          "evcValue": 10
+          "evcValue": 10,
+          "description": "Customer strategy audit & journey mapping"
         },
         {
           "type": "Integrated Execution",
-          "evcValue": 40
+          "evcValue": 40,
+          "description": "End-to-end implementation of a customer-led strategic framework"
         }
       ]
     },
@@ -302,22 +288,19 @@
         "Future-proof Your Business",
         "Uncertainty to Opportunity"
       ],
-      "deliveryOptions": [
-        "Advisory Sprint: Trend analysis & risk mapping",
-        "Strategy Deep Dive: Scenario planning & foresight-driven strategy",
-        "Integrated Execution: Market trend tracking & adaptation consulting"
-      ],
       "callToAction": "Spot market shifts early and stay ahead.",
       "whoIsItFor": "Leaders who want to see around corners, predict trends, and lead proactively.",
       "icon": "faChartLine",
       "variants": [
         {
           "type": "Insight Primer",
-          "evcValue": 10
+          "evcValue": 10,
+          "description": "Trend analysis & risk mapping"
         },
         {
           "type": "Integrated Execution",
-          "evcValue": 40
+          "evcValue": 40,
+          "description": "Market trend tracking & adaptation consulting"
         }
       ]
     },
@@ -334,22 +317,19 @@
         "Optimize Cost Efficiency",
         "Future-Proof Business Growth"
       ],
-      "deliveryOptions": [
-        "Advisory Sprint: Business model assessment & quick-hit optimization roadmap",
-        "Strategy Deep Dive: Comprehensive model transformation & revenue innovation strategy",
-        "Integrated Execution: Long-term business model reinvention & operational scaling"
-      ],
       "callToAction": "Reinvent your business before the market forces you to.",
       "whoIsItFor": "Innovators ready to reinvent their business and outsmart industry disruptions.",
       "icon": "faPuzzlePiece",
       "variants": [
         {
           "type": "Insight Primer",
-          "evcValue": 10
+          "evcValue": 10,
+          "description": "Business model assessment & quick-hit optimization roadmap"
         },
         {
           "type": "Integrated Execution",
-          "evcValue": 40
+          "evcValue": 40,
+          "description": "Long-term business model reinvention & operational scaling"
         }
       ]
     },
@@ -366,22 +346,19 @@
         "Deepen Customer Loyalty",
         "Sustainable Brand Growth"
       ],
-      "deliveryOptions": [
-        "Advisory Sprint: Brand strategy audit & positioning refinement",
-        "Strategy Deep Dive: Comprehensive brand architecture & differentiation model",
-        "Integrated Execution: Brand-led business transformation & customer engagement strategy"
-      ],
       "callToAction": "Turn your brand into your biggest growth engine.",
       "whoIsItFor": "Leaders passionate about building a brand that's authentic, memorable, and resonates deeply.",
       "icon": "faBullseye",
       "variants": [
         {
           "type": "Insight Primer",
-          "evcValue": 10
+          "evcValue": 10,
+          "description": "Brand strategy audit & positioning refinement"
         },
         {
           "type": "Integrated Execution",
-          "evcValue": 40
+          "evcValue": 40,
+          "description": "Brand-led business transformation & customer engagement strategy"
         }
       ]
     },
@@ -398,22 +375,19 @@
         "Establish category leadership and brand authority",
         "Sustain Competitive Differentiation"
       ],
-      "deliveryOptions": [
-        "Advisory Sprint: Brand equity assessment & competitive differentiation strategy",
-        "Strategy Deep Dive: Full-scale brand power framework & pricing strategy",
-        "Integrated Execution: Long-term brand equity growth & leadership positioning"
-      ],
       "callToAction": "",
       "whoIsItFor": "Leaders aiming to build iconic brands known for quality, leadership, and premium pricing.",
       "icon": "faBullseye",
       "variants": [
         {
           "type": "Insight Primer",
-          "evcValue": 10
+          "evcValue": 10,
+          "description": "Brand equity assessment & competitive differentiation strategy"
         },
         {
           "type": "Integrated Execution",
-          "evcValue": 40
+          "evcValue": 40,
+          "description": "Long-term brand equity growth & leadership positioning"
         }
       ]
     },
@@ -430,22 +404,19 @@
         "Increase efficiency & cut costs",
         "Use AI responsibly"
       ],
-      "deliveryOptions": [
-        "Advisory Sprint: AI business impact audit & quick AI-driven optimizations",
-        "Strategy Deep Dive: AI-powered business intelligence framework",
-        "Integrated Execution: AI adoption strategy, AI governance & AI-enabled operations"
-      ],
       "callToAction": "Put AI to work and make smarter moves today.",
       "whoIsItFor": "Leaders ready to see immediate impact by putting AI into daily workflows.",
       "icon": "faRobot",
       "variants": [
         {
           "type": "Insight Primer",
-          "evcValue": 10
+          "evcValue": 10,
+          "description": "AI business impact audit & quick AI-driven optimizations"
         },
         {
           "type": "Integrated Execution",
-          "evcValue": 40
+          "evcValue": 40,
+          "description": "AI adoption strategy, AI governance & AI-enabled operations"
         }
       ]
     },
@@ -462,22 +433,19 @@
         "Avoid costly breaches & downtime",
         "Make compliance seamless"
       ],
-      "deliveryOptions": [
-        "Advisory Sprint: Cyber risk assessment & security framework setup",
-        "Strategy Deep Dive: Enterprise-wide cybersecurity implementation",
-        "Integrated Execution: Ongoing cybersecurity coaching & real-time threat monitoring"
-      ],
       "callToAction": "Lock down security before a cyber threat hits.",
       "whoIsItFor": "Leaders determined to protect their teams and customers without constant worry about cybersecurity.",
       "icon": "faShieldAlt",
       "variants": [
         {
           "type": "Insight Primer",
-          "evcValue": 10
+          "evcValue": 10,
+          "description": "Cyber risk assessment & security framework setup"
         },
         {
           "type": "Integrated Execution",
-          "evcValue": 40
+          "evcValue": 40,
+          "description": "Ongoing cybersecurity coaching & real-time threat monitoring"
         }
       ]
     },
@@ -494,22 +462,19 @@
         "Ensure seamless global connectivity",
         "Prevent revenue loss"
       ],
-      "deliveryOptions": [
-        "Advisory Sprint: Digital risk audit & quick-fix continuity upgrades",
-        "Strategy Deep Dive: Enterprise-wide resilience framework & disaster recovery planning",
-        "Integrated Execution: Real-time threat monitoring, failover testing, and crisis management"
-      ],
       "callToAction": "Keep your business online, no matter what.",
       "whoIsItFor": "Leaders committed to keeping business running smoothly, even during disruptions.",
       "icon": "faShieldAlt",
       "variants": [
         {
           "type": "Insight Primer",
-          "evcValue": 10
+          "evcValue": 10,
+          "description": "Digital risk audit & quick-fix continuity upgrades"
         },
         {
           "type": "Integrated Execution",
-          "evcValue": 40
+          "evcValue": 40,
+          "description": "Real-time threat monitoring, failover testing, and crisis management"
         }
       ]
     },
@@ -526,22 +491,19 @@
         "Strengthen security & compliance",
         "Enable real-time processing"
       ],
-      "deliveryOptions": [
-        "Advisory Sprint: Cloud architecture audit & quick optimization roadmap",
-        "Strategy Deep Dive: Cloud transformation plan & multi-cloud security framework",
-        "Integrated Execution: Cloud migration, infrastructure optimization & governance"
-      ],
       "callToAction": "Scale with secure, flexible cloud systems.",
       "whoIsItFor": "Leaders looking to flexibly scale their technology to support growth anywhere in the world.",
       "icon": "faNetworkWired",
       "variants": [
         {
           "type": "Insight Primer",
-          "evcValue": 10
+          "evcValue": 10,
+          "description": "Cloud architecture audit & quick optimization roadmap"
         },
         {
           "type": "Integrated Execution",
-          "evcValue": 40
+          "evcValue": 40,
+          "description": "Cloud migration, infrastructure optimization & governance"
         }
       ]
     },
@@ -558,22 +520,19 @@
         "Enhance operational efficiency",
         "Improve data security & compliance"
       ],
-      "deliveryOptions": [
-        "Advisory Sprint: Data strategy assessment & analytics implementation roadmap",
-        "Strategy Deep Dive: Enterprise-wide data architecture, governance, and monetization strategy",
-        "Integrated Execution: Full data-driven transformation & AI-powered analytics adoption"
-      ],
       "callToAction": "Turn data into decisions that drive results.",
       "whoIsItFor": "Leaders seeking trustworthy data insights to make confident, informed decisions.",
       "icon": "faDatabase",
       "variants": [
         {
           "type": "Insight Primer",
-          "evcValue": 10
+          "evcValue": 10,
+          "description": "Data strategy assessment & analytics implementation roadmap"
         },
         {
           "type": "Integrated Execution",
-          "evcValue": 40
+          "evcValue": 40,
+          "description": "Full data-driven transformation & AI-powered analytics adoption"
         }
       ]
     },
@@ -590,22 +549,19 @@
         "Drive competitive differentiation",
         "Scale technology innovation effectively"
       ],
-      "deliveryOptions": [
-        "Advisory Sprint: Innovation readiness audit & quick-impact tech strategy alignment",
-        "Strategy Deep Dive: Structured innovation framework & business-aligned tech adoption roadmap",
-        "Integrated Execution: Ongoing innovation management & technology governance"
-      ],
       "callToAction": "Turn emerging tech into real business impact.",
       "whoIsItFor": "Creative leaders eager to move from inspiring ideas to real-world innovation.",
       "icon": "faGears",
       "variants": [
         {
           "type": "Insight Primer",
-          "evcValue": 10
+          "evcValue": 10,
+          "description": "Innovation readiness audit & quick-impact tech strategy alignment"
         },
         {
           "type": "Integrated Execution",
-          "evcValue": 40
+          "evcValue": 40,
+          "description": "Ongoing innovation management & technology governance"
         }
       ]
     }

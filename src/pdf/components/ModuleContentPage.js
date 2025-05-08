@@ -126,9 +126,23 @@ const ModuleContentPage = ({ moduleName }) => {
             </View>
           </View>
           
+          {/* Module heading section */}
+          <View style={{
+            marginBottom: 20,
+          }}>
+            <Text style={{
+              fontSize: 18,
+              fontWeight: 'bold',
+              color: '#333',
+              marginBottom: 10,
+            }}>
+              {module.heading || module.name}
+            </Text>
+          </View>
+          
           {/* Module description section */}
           <View style={{
-            marginBottom: 30,
+            marginBottom: 20,
             backgroundColor: '#f8f9fa',
             padding: 20,
             borderRadius: 8,
@@ -151,10 +165,109 @@ const ModuleContentPage = ({ moduleName }) => {
             </Text>
           </View>
           
+          {/* How we help section (fix) */}
+          {module.fix && (
+            <View style={{
+              marginBottom: 20,
+              backgroundColor: 'white',
+              padding: 20,
+              borderRadius: 8,
+              borderLeft: `4 solid ${pillarColor}`,
+              borderColor: '#e0e0e0',
+              borderWidth: 1,
+            }}>
+              <Text style={{
+                fontSize: 16,
+                fontWeight: 'bold',
+                color: '#333',
+                marginBottom: 10,
+              }}>
+                How We Help
+              </Text>
+              <Text style={{
+                fontSize: 12,
+                lineHeight: 1.6,
+                color: '#444',
+              }}>
+                {module.fix}
+              </Text>
+            </View>
+          )}
+          
+          {/* Benefits section */}
+          {module.benefits && module.benefits.length > 0 && (
+            <View style={{
+              marginBottom: 20,
+              backgroundColor: '#f8f9fa',
+              padding: 20,
+              borderRadius: 8,
+            }}>
+              <Text style={{
+                fontSize: 16,
+                fontWeight: 'bold',
+                color: '#333',
+                marginBottom: 10,
+              }}>
+                Key Business Benefits
+              </Text>
+              
+              {module.benefits.map((benefit, index) => (
+                <View key={index} style={{
+                  flexDirection: 'row',
+                  alignItems: 'flex-start',
+                  marginBottom: 8,
+                }}>
+                  <Text style={{
+                    fontSize: 12,
+                    color: pillarColor,
+                    marginRight: 5,
+                    lineHeight: 1.6,
+                  }}>
+                    •
+                  </Text>
+                  <Text style={{
+                    fontSize: 12,
+                    color: '#444',
+                    lineHeight: 1.6,
+                    flex: 1,
+                  }}>
+                    {benefit}
+                  </Text>
+                </View>
+              ))}
+            </View>
+          )}
+          
+          {/* Target audience section */}
+          {module.whoIsItFor && (
+            <View style={{
+              marginBottom: 20,
+              backgroundColor: '#edf5ff',
+              padding: 20,
+              borderRadius: 8,
+            }}>
+              <Text style={{
+                fontSize: 16,
+                fontWeight: 'bold',
+                color: '#333',
+                marginBottom: 10,
+              }}>
+                Who This Is For
+              </Text>
+              <Text style={{
+                fontSize: 12,
+                lineHeight: 1.6,
+                color: '#444',
+              }}>
+                {module.whoIsItFor}
+              </Text>
+            </View>
+          )}
+          
           {/* Module details in a three-column layout */}
           <View style={{
             flexDirection: 'row',
-            marginBottom: 30,
+            marginBottom: 20,
             gap: 15,
           }}>
             {/* Column 1: Key Features */}
@@ -308,12 +421,64 @@ const ModuleContentPage = ({ moduleName }) => {
             </View>
           </View>
           
+          {/* Module variants section */}
+          <View style={{
+            marginBottom: 20,
+          }}>
+            <Text style={{
+              fontSize: 16,
+              fontWeight: 'bold',
+              color: '#333',
+              marginBottom: 10,
+            }}>
+              Available Options
+            </Text>
+            
+            <View style={{
+              flexDirection: 'row',
+              gap: 15,
+            }}>
+              {module.variants.map((variant, index) => (
+                <View key={index} style={{
+                  flex: 1,
+                  backgroundColor: variant.type === 'Insight Primer' ? '#e6f2ff' : '#e6fff2',
+                  padding: 15,
+                  borderRadius: 8,
+                  borderTop: variant.type === 'Insight Primer' ? '4 solid #3498db' : '4 solid #2ecc71',
+                }}>
+                  <Text style={{
+                    color: variant.type === 'Insight Primer' ? '#3498db' : '#2ecc71',
+                    fontSize: 14,
+                    fontWeight: 'bold',
+                    marginBottom: 8,
+                  }}>
+                    {variant.type}
+                  </Text>
+                  <Text style={{
+                    fontSize: 11,
+                    color: '#444',
+                    marginBottom: 10,
+                    lineHeight: 1.4,
+                  }}>
+                    {variant.description}
+                  </Text>
+                  <Text style={{
+                    fontSize: 10,
+                    color: '#666',
+                  }}>
+                    Value Units: {variant.evcValue}
+                  </Text>
+                </View>
+              ))}
+            </View>
+          </View>
+          
           {/* Value proposition */}
           <View style={{
             backgroundColor: 'rgba(0, 0, 0, 0.03)',
             padding: 20,
             borderRadius: 8,
-            marginBottom: 30,
+            marginBottom: 20,
           }}>
             <Text style={{
               fontSize: 16,
@@ -329,7 +494,7 @@ const ModuleContentPage = ({ moduleName }) => {
               color: '#444',
               fontStyle: 'italic',
             }}>
-              "{module.valueProposition || "This module delivers measurable value by implementing industry best practices and proven methodologies that drive significant improvements in organizational capabilities."}"
+              "{module.callToAction || module.valueProposition || "This module delivers measurable value by implementing industry best practices and proven methodologies that drive significant improvements in organizational capabilities."}"
             </Text>
           </View>
           
