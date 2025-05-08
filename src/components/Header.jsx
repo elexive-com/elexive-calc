@@ -87,7 +87,7 @@ const Header = () => {
             }`}
           >
             <FontAwesomeIcon icon={faRoad} className="mr-2" />
-            Customer Journey
+            Journey Planner
           </button>
           <button
             onClick={() => handleNavClick('modules')}
@@ -138,7 +138,7 @@ const Header = () => {
               }`}
             >
               <FontAwesomeIcon icon={faRoad} className="mr-3" />
-              Customer Journey
+              Journey Planner
             </button>
             <button
               onClick={() => handleNavClick('modules')}

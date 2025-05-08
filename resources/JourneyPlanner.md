@@ -1,14 +1,14 @@
-# Customer Journey Component
+# Journey Planner Component
 
 ## Overview
 
-The Customer Journey component provides an immersive, visual representation of the client transformation journey, allowing executives to understand the sequential nature of business transformation and discover modules that support each phase. This standalone component transforms the traditional consulting approach by organizing services into a clear, chronological narrative that guides customers through their transformation path.
+The Journey Planner component provides an immersive, visual representation of the client transformation journey, allowing executives to understand the sequential nature of business transformation and discover modules that support each phase. This standalone component transforms the traditional consulting approach by organizing services into a clear, chronological narrative that guides customers through their transformation path.
 
-> **Note:** This component adheres to the [Elexive Calculator Design Guidelines](./DesignGuidelines.md) for visual design, interaction patterns, and customer journey integration.
+> **Note:** This component adheres to the [Elexive Calculator Design Guidelines](./DesignGuidelines.md) for visual design, interaction patterns, and journey integration.
 
 ## Strategic Purpose
 
-The Customer Journey component addresses several key customer needs identified in our research:
+The Journey Planner component addresses several key customer needs identified in our research:
 
 1. **Sequential Understanding**: Helps executives visualize transformation as a chronological process
 2. **Stage-Specific Focus**: Allows customers to focus on their current implementation stage
@@ -87,7 +87,7 @@ The filter system was designed to support focused exploration:
 
 ### Journey Navigation
 
-The Customer Journey interface enables users to:
+The Journey Planner interface enables users to:
 
 1. **Explore Sequential Phases**
    - Navigate through the four key transformation phases: Assess, Plan, Execute, Optimize
@@ -139,7 +139,7 @@ Users can interact with modules through:
 
 ### Architecture
 
-The Customer Journey is built as a self-contained React component that:
+The Journey Planner is built as a self-contained React component that:
 
 - Consumes module and journey data from centralized configuration sources
 - Maintains internal state for selections and view preferences
@@ -169,7 +169,7 @@ The component relies on structured data for:
 
 ### Accessibility Considerations
 
-The Customer Journey is built with accessibility in mind:
+The Journey Planner is built with accessibility in mind:
 
 - Semantic HTML structure for screen reader compatibility
 - Keyboard navigation support for all interactive elements
@@ -180,7 +180,7 @@ The Customer Journey is built with accessibility in mind:
 ## User Experience Flow
 
 1. **Initial Engagement**
-   - User arrives at the Customer Journey view
+   - User arrives at the Journey Planner view
    - Visual journey stages draw attention to the sequential nature of transformation
    - Default journey stage (typically Assess) is pre-selected
 
@@ -206,7 +206,7 @@ The Customer Journey is built with accessibility in mind:
 
 ## Integration Points
 
-The Customer Journey integrates with:
+The Journey Planner integrates with:
 
 - **ModuleDetails**: For displaying detailed module information
 - **PDF Generation**: For creating shareable module documents
@@ -243,7 +243,7 @@ The Customer Journey integrates with:
 
 ## Implementation Guidelines
 
-When implementing or extending the Customer Journey:
+When implementing or extending the Journey Planner:
 
 1. Maintain the sequential narrative of the transformation journey
 2. Preserve the distinct color-coding for each journey stage
@@ -255,7 +255,7 @@ When implementing or extending the Customer Journey:
 
 ## Metrics & Success Indicators
 
-The effectiveness of the Customer Journey should be measured by:
+The effectiveness of the Journey Planner should be measured by:
 
 1. Journey stage engagement (which stages are most explored)
 2. Module discovery patterns (modules viewed by journey stage)
@@ -264,4 +264,4 @@ The effectiveness of the Customer Journey should be measured by:
 5. PDF exports as indicators of sharing intent
 6. Progression through journey stages over time
 
-By continuously optimizing against these metrics, the Customer Journey can become an increasingly effective tool for guiding users through their transformation process and connecting them with the most relevant consulting modules for their current stage.
+By continuously optimizing against these metrics, the Journey Planner can become an increasingly effective tool for guiding users through their transformation process and connecting them with the most relevant consulting modules for their current stage.

@@ -11,12 +11,12 @@ import ModuleDetails from './ModuleDetails';
 import { generateModulePdf } from '../pdf';
 
 /**
- * CustomerJourney component
+ * JourneyPlanner component
  * 
  * A dedicated component that visualizes the customer transformation journey
- * and shows modules relevant to each journey stage.
+ * and helps users plan their transformation path through journey stages.
  */
-const CustomerJourney = () => {
+const JourneyPlanner = () => {
   // State for module data and views
   const [modules, setModules] = useState([]);
   const [filteredModules, setFilteredModules] = useState([]);
@@ -269,71 +269,174 @@ const CustomerJourney = () => {
     );
   };
   
-  // Journey step component
+  // Journey step component with enhanced visual design
   const JourneyStep = ({ step, index }) => {
     const isActive = index === activeJourneyStep;
-    const colors = ['blue', 'amber', 'green', 'purple'];
-    const color = colors[index % colors.length];
     
-    const colorClasses = {
-      blue: {
-        bg: isActive ? 'bg-blue-500' : 'bg-blue-100',
-        text: isActive ? 'text-white' : 'text-blue-800',
-        border: 'border-blue-200',
-        hover: 'hover:bg-blue-200'
+    // Define brand-aligned colors instead of generic ones
+    const stageColors = [
+      { 
+        name: 'assess',
+        baseColor: '#2B6CB0', // A rich blue for Assess stage
+        lightColor: 'rgba(43, 108, 176, 0.08)', // Very light blue background
+        mediumColor: 'rgba(43, 108, 176, 0.15)', // Medium blue for hover
+        borderColor: 'rgba(43, 108, 176, 0.3)', // Border color
+        textColor: '#2B6CB0', // Text color for inactive
+        iconBg: 'rgba(43, 108, 176, 0.15)', // Icon background
+        pathColor: 'rgba(43, 108, 176, 0.8)' // Path color when active
       },
-      amber: {
-        bg: isActive ? 'bg-amber-500' : 'bg-amber-100',
-        text: isActive ? 'text-white' : 'text-amber-800',
-        border: 'border-amber-200',
-        hover: 'hover:bg-amber-200'
+      { 
+        name: 'plan',
+        baseColor: '#DD6B20', // Rich orange for Plan stage
+        lightColor: 'rgba(221, 107, 32, 0.08)', // Very light orange background
+        mediumColor: 'rgba(221, 107, 32, 0.15)', // Medium orange for hover
+        borderColor: 'rgba(221, 107, 32, 0.3)', // Border color
+        textColor: '#DD6B20', // Text color for inactive
+        iconBg: 'rgba(221, 107, 32, 0.15)', // Icon background
+        pathColor: 'rgba(221, 107, 32, 0.8)' // Path color when active
       },
-      green: {
-        bg: isActive ? 'bg-green-500' : 'bg-green-100',
-        text: isActive ? 'text-white' : 'text-green-800',
-        border: 'border-green-200',
-        hover: 'hover:bg-green-200'
+      { 
+        name: 'execute',
+        baseColor: '#2F855A', // Rich green for Execute stage
+        lightColor: 'rgba(47, 133, 90, 0.08)', // Very light green background
+        mediumColor: 'rgba(47, 133, 90, 0.15)', // Medium green for hover
+        borderColor: 'rgba(47, 133, 90, 0.3)', // Border color
+        textColor: '#2F855A', // Text color for inactive
+        iconBg: 'rgba(47, 133, 90, 0.15)', // Icon background
+        pathColor: 'rgba(47, 133, 90, 0.8)' // Path color when active
       },
-      purple: {
-        bg: isActive ? 'bg-purple-500' : 'bg-purple-100',
-        text: isActive ? 'text-white' : 'text-purple-800',
-        border: 'border-purple-200',
-        hover: 'hover:bg-purple-200'
+      { 
+        name: 'optimize',
+        baseColor: '#6B46C1', // Rich purple for Optimize stage
+        lightColor: 'rgba(107, 70, 193, 0.08)', // Very light purple background
+        mediumColor: 'rgba(107, 70, 193, 0.15)', // Medium purple for hover
+        borderColor: 'rgba(107, 70, 193, 0.3)', // Border color
+        textColor: '#6B46C1', // Text color for inactive
+        iconBg: 'rgba(107, 70, 193, 0.15)', // Icon background
+        pathColor: 'rgba(107, 70, 193, 0.8)' // Path color when active
       }
+    ];
+    
+    const stageColor = stageColors[index];
+    
+    // Create dynamic styles
+    const cardStyle = {
+      backgroundColor: isActive ? stageColor.baseColor : 'white',
+      borderColor: isActive ? stageColor.baseColor : stageColor.borderColor,
+      boxShadow: isActive 
+        ? `0 10px 15px -3px ${stageColor.lightColor}, 0 4px 6px -2px ${stageColor.borderColor}` 
+        : '0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06)'
     };
     
+    // Style for the number indicator
+    const numberStyle = {
+      backgroundColor: isActive ? 'white' : stageColor.iconBg,
+      color: isActive ? stageColor.baseColor : 'white',
+      boxShadow: isActive ? `0 0 0 2px ${stageColor.baseColor}` : 'none'
+    };
+    
+    // Style for the icon
+    const iconStyle = {
+      color: isActive ? 'white' : stageColor.textColor,
+      opacity: isActive ? 1 : 0.7
+    };
+
     return (
       <div 
-        className={`relative rounded-xl p-5 cursor-pointer border transition-all duration-300 ${
-          isActive 
-            ? `${colorClasses[color].bg} ${colorClasses[color].text} shadow-md` 
-            : `bg-white ${colorClasses[color].border} ${colorClasses[color].hover} hover:shadow-md`
-        }`}
+        className={`relative rounded-xl p-5 cursor-pointer border transition-all duration-300`}
+        style={cardStyle}
         onClick={() => setActiveJourneyStep(index)}
       >
-        <div className="flex items-center justify-between mb-2">
-          <div className={`w-8 h-8 rounded-full ${
-            isActive ? 'bg-white text-elx-primary' : `${colorClasses[color].bg} text-white`
-          } flex items-center justify-center font-bold`}>
+        <div className="flex items-center justify-between mb-3">
+          {/* Enhanced number indicator */}
+          <div 
+            className="w-9 h-9 rounded-full flex items-center justify-center font-bold text-base transition-all duration-300"
+            style={numberStyle}
+          >
             {index + 1}
           </div>
-          <FontAwesomeIcon icon={step.icon} className={isActive ? 'text-white opacity-80' : ''} />
+          
+          {/* Enhanced icon styling */}
+          <FontAwesomeIcon 
+            icon={step.icon} 
+            className="text-xl transition-all duration-300"
+            style={iconStyle}
+          />
         </div>
         
-        <h3 className={`text-lg font-bold ${isActive ? 'text-white' : 'text-elx-primary'}`}>
+        {/* Enhanced typography with better hierarchy */}
+        <h3 
+          className={`text-lg font-bold mb-1 transition-all duration-300`}
+          style={{ color: isActive ? 'white' : stageColor.textColor }}
+        >
           {step.title}
         </h3>
         
-        <p className={`text-sm mt-1 ${isActive ? 'text-white opacity-90' : 'text-gray-600'}`}>
+        <p 
+          className={`text-sm mt-1 transition-all duration-300 line-clamp-3`}
+          style={{ color: isActive ? 'rgba(255, 255, 255, 0.9)' : 'rgba(75, 85, 99, 0.9)' }}
+        >
           {step.description}
         </p>
         
-        {/* Connection line to next step */}
+        {/* Connection line to next step - enhanced */}
         {index < journeySteps.length - 1 && (
-          <div className="hidden md:block absolute -right-8 top-1/2 transform -translate-y-1/2 z-10">
-            <FontAwesomeIcon icon={faArrowRight} className="text-gray-300 fa-lg" />
-          </div>
+          <>
+            {/* Enhanced path indicator - solid color when active */}
+            <div 
+              className="hidden md:block absolute -right-3 top-1/2 h-0.5 w-6 z-10 transition-all duration-300"
+              style={{ 
+                backgroundColor: activeJourneyStep >= index ? stageColor.pathColor : '#E5E7EB',
+                transform: 'translateY(-50%)'
+              }}
+            ></div>
+            
+            {/* Path arrow */}
+            <div 
+              className="hidden md:flex absolute -right-8 top-1/2 w-4 h-4 items-center justify-center z-10 transition-all duration-300 transform -translate-y-1/2"
+              style={{ 
+                color: activeJourneyStep >= index ? stageColor.pathColor : '#E5E7EB'
+              }}
+            >
+              <FontAwesomeIcon icon={faArrowRight} className="text-current" />
+            </div>
+          </>
         )}
+        
+        {/* Active indicator dot */}
+        {isActive && (
+          <div className="absolute -bottom-1 left-1/2 transform -translate-x-1/2 w-2 h-2 rounded-full bg-white"></div>
+        )}
+      </div>
+    );
+  };
+
+  // Update journey steps container with enhanced styling
+  const JourneyStepsContainer = () => {
+    return (
+      <div className="grid grid-cols-1 md:grid-cols-4 gap-4 md:gap-8 mb-8 relative">
+        {/* Improved path line connecting journey steps (visible on desktop) */}
+        <div 
+          className="hidden md:block absolute top-1/2 left-0 right-0 h-1 bg-gray-200 z-0 rounded-full"
+          style={{
+            background: 'linear-gradient(to right, #E5E7EB, #E5E7EB)',
+            transform: 'translateY(-50%)'
+          }}
+        ></div>
+        
+        {/* Progress path - shows completion */}
+        <div 
+          className="hidden md:block absolute top-1/2 left-0 h-1 z-0 rounded-full transition-all duration-500 ease-in-out"
+          style={{
+            width: `${Math.min(100, (activeJourneyStep / (journeySteps.length - 1)) * 100)}%`,
+            background: 'linear-gradient(to right, #2B6CB0, #DD6B20, #2F855A, #6B46C1)',
+            transform: 'translateY(-50%)'
+          }}
+        ></div>
+        
+        {journeySteps.map((step, index) => (
+          <JourneyStep key={step.id} step={step} index={index} />
+        ))}
       </div>
     );
   };
@@ -408,16 +511,16 @@ const CustomerJourney = () => {
           onBack={() => setIsDetailView(false)}
         />
       ) : (
-        <div className="customer-journey">
+        <div className="journey-planner">
           {/* Header and search/filter toggle */}
           <div className="mb-4 flex flex-col md:flex-row md:justify-between md:items-center">
             <div className="flex-1">
               <h2 className="text-2xl font-bold text-elx-primary mb-3 md:mb-0">
-                Customer Journey
+                Journey Planner
               </h2>
               <p className="text-gray-600 mb-4 max-w-3xl">
-                Navigate through the customer transformation journey from assessment to optimization. 
-                Discover modules that support each phase of your transformation.
+                Plan your transformation journey from assessment to optimization. 
+                Discover and organize modules that support each phase of your business transformation.
               </p>
             </div>
             
@@ -453,14 +556,7 @@ const CustomerJourney = () => {
           
           {/* Journey Steps */}
           <div className="mb-8">
-            <div className="grid grid-cols-1 md:grid-cols-4 gap-4 md:gap-8 mb-8 relative">
-              {/* Line connecting journey steps (visible on desktop) */}
-              <div className="hidden md:block absolute top-1/2 left-0 right-0 h-0.5 bg-gray-200 z-0"></div>
-              
-              {journeySteps.map((step, index) => (
-                <JourneyStep key={step.id} step={step} index={index} />
-              ))}
-            </div>
+            <JourneyStepsContainer />
             
             {filteredModules.length > 0 ? (
               <>
@@ -499,4 +595,4 @@ const CustomerJourney = () => {
   );
 };
 
-export default CustomerJourney;
+export default JourneyPlanner;
