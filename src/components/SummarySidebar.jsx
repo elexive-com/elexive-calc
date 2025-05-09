@@ -129,6 +129,22 @@ const SummarySidebar = ({ calculator }) => {
     
     return null;
   };
+  
+  // Calculate total weekly parameter EVCs
+  const weeklyParameterEvcs = serviceParameters
+    .filter(param => parameters[param.id] && param.evcCost)
+    .reduce((sum, param) => {
+      const evcCost = calculateEvcCost(param);
+      return sum + (evcCost || 0);
+    }, 0);
+    
+  // Calculate total parameter EVCs over the entire project duration
+  const totalParameterEvcs = weeklyParameterEvcs > 0 
+    ? weeklyParameterEvcs * completionTimeWeeks 
+    : 0;
+    
+  // Total project EVCs including modules, overhead, and parameters
+  const totalProjectEvcs = totalEvcsWithOverhead + totalParameterEvcs;
 
   // Use the completion time weeks directly from the calculator for consistency
   const estimatedCompletionWeeks = completionTimeWeeks;
@@ -207,109 +223,110 @@ const SummarySidebar = ({ calculator }) => {
             )}
           </Section>
           
-          {/* Setup - Combined Production Capacity and Resource Allocation */}
-          <Section title="Setup" icon={faLayerGroup}>
-            <div className="flex flex-col space-y-3">
-              {/* Production Capacity with stronger colors, icon, and EVC value */}
-              <div 
-                className="rounded-lg p-2.5 flex items-center justify-between"
-                style={{ backgroundColor: '#1F76BD' }} // Deeper blue for contrast
-              >
-                <div className="flex items-center">
-                  <FontAwesomeIcon 
-                    icon={
-                      productionCapacity === "pathfinder" ? faCompass :
-                      productionCapacity === "roadster" ? faCar : 
-                      productionCapacity === "jetpack" ? faJetFighterUp : 
-                      faRocket
-                    } 
-                    className="text-white mr-2" 
-                  />
-                  <p className="font-medium text-base text-white">
-                    {calculatorConfig.productionCapacity[productionCapacity]?.label || "Not selected"}
-                  </p>
-                </div>
-                <span className="bg-rose-50 text-xs font-semibold px-2 py-1 rounded-md text-elx-evc border border-rose-200">
-                  {calculatorConfig.productionCapacity[productionCapacity]?.weeklyEVCs || 0} EVC/week
-                </span>
-              </div>
-              
-              {/* Resource Allocation with stronger colors, icon, and absolute overhead EVCs */}
-              <div 
-                className="rounded-lg p-2.5 flex items-center justify-between"
-                style={{ backgroundColor: '#1A7F5A' }} // Deeper green for contrast
-              >
-                <div className="flex items-center">
-                  <FontAwesomeIcon 
-                    icon={
-                      resourceAllocation === "focused" ? faLightbulb :
-                      resourceAllocation === "balanced" ? faBullhorn : 
-                      faGlobe
-                    } 
-                    className="text-white mr-2" 
-                  />
-                  <p className="font-medium text-base text-white">
-                    {calculatorConfig.resourceAllocation[resourceAllocation]?.description || "Not selected"}
-                  </p>
-                </div>
-                <span className="bg-rose-50 text-xs font-semibold px-2 py-1 rounded-md text-elx-evc border border-rose-200">
-                  {absoluteOverheadEvcs > 0 ? `+${absoluteOverheadEvcs} EVC` : 'No overhead'}
-                </span>
-              </div>
-            </div>
-          </Section>
-          
-          {/* Custom Parameters - Moved here to be right after Setup */}
-          {serviceParameters.filter(param => parameters[param.id]).length > 0 && (
-            <Section title="Custom Parameters" icon={faInfoCircle}>
-              <div className="space-y-2 text-sm">
-                {serviceParameters
-                  .filter(param => parameters[param.id])
-                  .map(param => (
-                    <div key={param.id} className="flex justify-between items-center py-1.5 px-2.5 rounded-md bg-gray-100">
-                      <span className="text-elx-primary text-xs font-medium">
-                        <span className="w-2 h-2 rounded-full bg-elx-accent mr-2 inline-block"></span>
-                        {param.label}
-                      </span>
-                      {param.evcCost && (
-                        <span className="bg-rose-50 text-xs font-semibold px-2 py-1 rounded-md text-elx-evc border border-rose-200">
-                          {param.evcCost.type === 'absolute' 
-                            ? `${param.evcCost.value} EVC/week` 
-                            : `${calculateEvcCost(param)} EVC/week`}
-                        </span>
-                      )}
-                    </div>
-                  ))}
-              </div>
-            </Section>
-          )}
-          
-          {/* Estimated Completion Time */}
-          <Section title="Estimated Completion" icon={faCalendarAlt}>
-            <div className="flex justify-between items-center mt-1 bg-elx-accent-light bg-opacity-30 p-2.5 rounded">
-              <div className="text-center flex-1">
-                <p className="font-bold text-lg text-elx-primary">{totalEvcsWithOverhead}</p>
-                <p className="text-[10px] text-elx-primary mt-0.5 font-medium">Total EVCs needed</p>
-              </div>
-              <div className="flex items-center px-1">
-                <FontAwesomeIcon icon={faArrowRight} className="text-elx-accent" />
-              </div>
-              <div className="text-center flex-1">
-                <p className="font-bold text-lg text-elx-primary">{estimatedCompletionWeeks}</p>
-                <p className="text-[10px] text-elx-primary mt-0.5 font-medium">
-                  {estimatedCompletionWeeks === 1 ? 'Week' : 'Weeks'} to complete
-                </p>
-              </div>
-            </div>
-          </Section>
-          
-          {/* Pricing Summary */}
+          {/* Pricing Summary - Now including Setup, Custom Parameters, and Estimated Completion */}
           <div className="mt-5">
             <div className="bg-elx-primary p-0.5 rounded-xl">
               <div className="bg-white p-4 rounded-lg">
-                <h4 className="elx-section-heading text-center text-base mb-3">Pricing Summary</h4>
+                <h4 className="elx-section-heading text-center text-base mb-3">Solution & Pricing</h4>
                 
-                <div className="bg-elx-accent-light bg-opacity-50 p-3.5 rounded-lg mb-3.5">
+                {/* Setup - Combined Production Capacity and Resource Allocation */}
+                <Section title="Setup" icon={faLayerGroup}>
+                  <div className="flex flex-col space-y-3">
+                    {/* Production Capacity with stronger colors, icon, and EVC value */}
+                    <div 
+                      className="rounded-lg p-2.5 flex items-center justify-between"
+                      style={{ backgroundColor: '#1F76BD' }} // Deeper blue for contrast
+                    >
+                      <div className="flex items-center">
+                        <FontAwesomeIcon 
+                          icon={
+                            productionCapacity === "pathfinder" ? faCompass :
+                            productionCapacity === "roadster" ? faCar : 
+                            productionCapacity === "jetpack" ? faJetFighterUp : 
+                            faRocket
+                          } 
+                          className="text-white mr-2" 
+                        />
+                        <p className="font-medium text-base text-white">
+                          {calculatorConfig.productionCapacity[productionCapacity]?.label || "Not selected"}
+                        </p>
+                      </div>
+                      <span className="bg-rose-50 text-xs font-semibold px-2 py-1 rounded-md text-elx-evc border border-rose-200">
+                        {calculatorConfig.productionCapacity[productionCapacity]?.weeklyEVCs || 0} EVC/week
+                      </span>
+                    </div>
+                    
+                    {/* Resource Allocation with stronger colors, icon, and absolute overhead EVCs */}
+                    <div 
+                      className="rounded-lg p-2.5 flex items-center justify-between"
+                      style={{ backgroundColor: '#1A7F5A' }} // Deeper green for contrast
+                    >
+                      <div className="flex items-center">
+                        <FontAwesomeIcon 
+                          icon={
+                            resourceAllocation === "focused" ? faLightbulb :
+                            resourceAllocation === "balanced" ? faBullhorn : 
+                            faGlobe
+                          } 
+                          className="text-white mr-2" 
+                        />
+                        <p className="font-medium text-base text-white">
+                          {calculatorConfig.resourceAllocation[resourceAllocation]?.description || "Not selected"}
+                        </p>
+                      </div>
+                      <span className="bg-rose-50 text-xs font-semibold px-2 py-1 rounded-md text-elx-evc border border-rose-200">
+                        {absoluteOverheadEvcs > 0 ? `+${absoluteOverheadEvcs} EVC` : 'No overhead'}
+                      </span>
+                    </div>
+                  </div>
+                </Section>
+                
+                {/* Custom Parameters - Conditionally shown */}
+                {serviceParameters.filter(param => parameters[param.id]).length > 0 && (
+                  <Section title="Custom Parameters" icon={faInfoCircle}>
+                    <div className="space-y-2 text-sm">
+                      {serviceParameters
+                        .filter(param => parameters[param.id])
+                        .map(param => (
+                          <div key={param.id} className="flex justify-between items-center py-1.5 px-2.5 rounded-md bg-gray-100">
+                            <span className="text-elx-primary text-xs font-medium">
+                              <span className="w-2 h-2 rounded-full bg-elx-accent mr-2 inline-block"></span>
+                              {param.label}
+                            </span>
+                            {param.evcCost && (
+                              <span className="bg-rose-50 text-xs font-semibold px-2 py-1 rounded-md text-elx-evc border border-rose-200">
+                                {param.evcCost.type === 'absolute' 
+                                  ? `${param.evcCost.value} EVC/week` 
+                                  : `${calculateEvcCost(param)} EVC/week`}
+                              </span>
+                            )}
+                          </div>
+                        ))}
+                    </div>
+                  </Section>
+                )}
+                
+                {/* Estimated Completion Time */}
+                <Section title="Estimated Completion" icon={faCalendarAlt}>
+                  <div className="flex justify-between items-center mt-1 bg-elx-accent-light bg-opacity-30 p-2.5 rounded">
+                    <div className="text-center flex-1">
+                      <p className="font-bold text-lg text-elx-primary">{estimatedCompletionWeeks}</p>
+                      <p className="text-[10px] text-elx-primary mt-0.5 font-medium">
+                        {estimatedCompletionWeeks === 1 ? 'Week' : 'Weeks'} to complete
+                      </p>
+                    </div>
+                    <div className="flex items-center px-1">
+                      <FontAwesomeIcon icon={faArrowRight} className="text-elx-accent" />
+                    </div>
+                    <div className="text-center flex-1">
+                      <p className="font-bold text-lg text-elx-primary">{totalProjectEvcs}</p>
+                      <p className="text-[10px] text-elx-primary mt-0.5 font-medium">Total EVCs needed</p>
+                    </div>
+                  </div>
+                </Section>
+                
+                {/* Pricing details */}
+                <div className="bg-elx-accent-light bg-opacity-50 p-3.5 rounded-lg my-3.5">
                   <div className="flex justify-between items-center mb-1">
                     <span className="text-sm text-elx-primary font-medium">Weekly Price:</span>
                     <span className="font-bold text-xl text-elx-primary">€{totalPrice.toLocaleString()}</span>
