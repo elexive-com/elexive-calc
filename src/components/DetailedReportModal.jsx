@@ -1196,10 +1196,6 @@ const DetailedReportModal = ({ isOpen, onClose, calculator }) => {
                       <td className="py-3 text-gray-600">Monthly Investment</td>
                       <td className="py-3 text-right font-semibold text-elx-primary">€{formatNumber(totalPrice * 4)}</td>
                     </tr>
-                    <tr className="border-b border-gray-100">
-                      <td className="py-3 text-gray-600">Quarterly Investment</td>
-                      <td className="py-3 text-right font-semibold text-elx-primary">€{formatNumber(totalPrice * 13)}</td>
-                    </tr>
                     <tr>
                       <td className="py-3 text-gray-600">Total Projected Cost</td>
                       <td className="py-3 text-right font-bold text-elx-primary text-lg">€{formatNumber(totalProjectedCost)}</td>
