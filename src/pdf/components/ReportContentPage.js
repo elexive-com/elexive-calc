@@ -38,10 +38,6 @@ const ReportContentPage = ({
   serviceParameters,
   calculator
 }) => {
-  // Use calculator functions for business logic when available 
-  const totalModules = calculator ? calculator.calculateTotalModules(modulesByPillar) : 
-    Object.values(modulesByPillar || {}).flat().length;
-    
   // Calculate total EVC sum of all selected modules
   const totalEvcSum = Object.values(modulesByPillar || {}).flat().reduce((sum, module) => sum + module.evcValue, 0);
   
@@ -456,30 +452,6 @@ const ReportContentPage = ({
           </View>
           
 
-
-          {/* Solution Scope */}
-          <Text style={styles.sectionTitle}>Solution Scope</Text>
-          <View style={styles.section}>
-            <Text style={styles.paragraph}>
-              This solution encompasses {totalModules} strategic modules across {pillarNames.length} key business pillars. 
-              Each module has been selected to address specific aspects of your transformation journey, 
-              with resources optimally allocated to maximize business impact and accelerate time-to-value.
-            </Text>
-
-            {/* Pillar Summary Visualization */}
-            {Object.entries(modulesByPillar || {}).map(([pillar, modules], index) => (
-              <View key={index} style={{...styles.row, marginTop: 15}}>
-                <View style={styles.pillarSummary}>
-                  <Text style={styles.pillarTitle}>{pillar}</Text>
-                  <Text style={styles.moduleCount}>{modules.length} modules</Text>
-                  <Text style={styles.moduleEvcs}>
-                    {modules.reduce((sum, module) => sum + module.evcValue, 0)} EVCs
-                  </Text>
-                </View>
-              </View>
-            ))}
-          </View>
-
           {/* Service Delivery Timeline */}
           <Text style={{...styles.sectionTitle, marginTop: 5, marginBottom: 3}}>Service Delivery Timeline</Text>
           <View style={styles.section}>
@@ -580,7 +552,119 @@ const ReportContentPage = ({
           <Text style={styles.pageNumber}>Page 1</Text>
         </View>
       </Page>
-      
+
+      {/* Resource Allocation Page */}
+      <Page size="A4" style={styles.page}>
+        <View style={styles.headerBanner}>
+          <Text style={styles.headerTitle}>Strategic Resource Allocation</Text>
+        </View>
+        
+        <View style={styles.contentPage}>
+          {/* Resource Allocation Section */}
+          <Text style={styles.sectionTitle}>Strategic Resource Allocation</Text>
+          <View style={styles.section}>
+            <Text style={styles.paragraph}>
+              Your solution includes a carefully balanced allocation of resources across key business pillars.
+              This allocation is designed to optimize business impact while maintaining strategic alignment
+              with your transformation objectives.
+            </Text>
+            
+            {/* Resource Allocation Visualization - Modern Single Bar Approach */}
+            <View style={styles.resourceAllocationContainer}>
+              <View style={styles.resourceHeader}>
+                <Text style={styles.resourceHeaderText}>Resource allocation by strategic pillar</Text>
+                <Text style={styles.resourceHeaderValue}>{totalEvcValue} Total EVCs</Text>
+              </View>
+              
+              {/* Single bar showing proportional allocation of EVCs across all pillars */}
+              <View style={styles.singleBarContainer}>
+                {Object.entries(modulesByPillar || {}).map(([pillar, modules], index) => {
+                  const pillarTotal = modules.reduce((sum, module) => sum + module.evcValue, 0);
+                  const pillarPercentage = (pillarTotal / totalEvcValue * 100).toFixed(2);
+                  
+                  return (
+                    <View 
+                      key={pillar}
+                      style={{
+                        height: '100%',
+                        width: `${pillarPercentage}%`,
+                        backgroundColor: getPillarColor(pillar),
+                        flexDirection: 'row',
+                        alignItems: 'center',
+                        justifyContent: 'center'
+                      }}
+                    >
+                      {parseFloat(pillarPercentage) > 10 && (
+                        <Text style={styles.barPercentageText}>{Math.round(parseFloat(pillarPercentage))}%</Text>
+                      )}
+                    </View>
+                  );
+                })}
+                
+                {/* Add resource allocation overhead if it exists */}
+                {absoluteOverheadEvcs > 0 && (
+                  <View 
+                    style={{
+                      height: '100%',
+                      width: `${(absoluteOverheadEvcs / totalEvcValue * 100).toFixed(2)}%`,
+                      backgroundColor: '#6B7280', // gray-500
+                      flexDirection: 'row',
+                      alignItems: 'center',
+                      justifyContent: 'center'
+                    }}
+                  >
+                    {(absoluteOverheadEvcs / totalEvcValue * 100) > 5 && (
+                      <Text style={styles.barPercentageText}>
+                        {Math.round(absoluteOverheadEvcs / totalEvcValue * 100)}%
+                      </Text>
+                    )}
+                  </View>
+                )}
+              </View>
+              
+              {/* Legend - Color blocks with labels */}
+              <View style={styles.barLegendContainer}>
+                {Object.entries(modulesByPillar || {}).map(([pillar, modules]) => {
+                  const pillarTotal = modules.reduce((sum, module) => sum + module.evcValue, 0);
+                  const pillarPercentage = (pillarTotal / totalEvcValue * 100).toFixed(0);
+                  
+                  return (
+                    <View key={pillar} style={styles.legendItem}>
+                      <View style={[styles.legendColorBox, { backgroundColor: getPillarColor(pillar) }]} />
+                      <View>
+                        <Text style={styles.legendLabel}>{pillar}</Text>
+                        <Text style={styles.legendValue}>{pillarTotal} EVCs ({pillarPercentage}%)</Text>
+                      </View>
+                    </View>
+                  );
+                })}
+                
+                {/* Add legend item for coordination overhead */}
+                {absoluteOverheadEvcs > 0 && (
+                  <View style={styles.legendItem}>
+                    <View style={[styles.legendColorBox, { backgroundColor: '#6B7280' }]} />
+                    <View>
+                      <Text style={styles.legendLabel}>Coordination Overhead</Text>
+                      <Text style={styles.legendValue}>
+                        {absoluteOverheadEvcs} EVCs ({Math.round(absoluteOverheadEvcs / totalEvcValue * 100)}%)
+                      </Text>
+                    </View>
+                  </View>
+                )}
+              </View>
+            </View>
+          </View>
+        </View>
+        
+        <View style={styles.footer}>
+          <Text style={styles.coverFooterText}>
+            CONFIDENTIAL: This report was generated by the Elexive Calculator for your organization.
+          </Text>
+          <Text style={styles.pageNumber}>Page {modulePages.length + 3}</Text>
+        </View>
+      </Page>
+
+
       {/* Strategic Approach Page */}
       <Page size="A4" style={styles.page}>
         <View style={styles.headerBanner}>
@@ -786,15 +870,15 @@ const ReportContentPage = ({
                     <View style={{
                       flexDirection: 'row',
                       justifyContent: 'space-between',
-                      alignItems: 'flex-start',
+                      alignItems: 'center',
                       marginBottom: module.description ? 6 : 0
                     }}>
                       <View style={{ 
                         flexDirection: 'row', 
                         alignItems: 'center',
-                        flex: 1,
+                        flexShrink: 1,
                         marginRight: 10,
-                        flexWrap: 'nowrap'
+                        maxWidth: '80%'
                       }}>
                         <Image 
                           src={getModuleTypeIcon(module.selectedVariant || 'insightPrimer')} 
@@ -804,6 +888,8 @@ const ReportContentPage = ({
                           fontSize: 12,
                           fontWeight: 'bold',
                           color: '#333333',
+                          flexShrink: 1,
+                          flexWrap: 'nowrap'
                         }}>{module.name}</Text>
                       </View>
                       <View style={{
@@ -812,7 +898,7 @@ const ReportContentPage = ({
                         paddingHorizontal: 8,
                         borderRadius: 12,
                         flexShrink: 0,
-                        marginTop: 1,
+                        alignSelf: 'flex-start'
                       }}>
                         <Text style={{
                           fontSize: 11,
@@ -855,117 +941,6 @@ const ReportContentPage = ({
           </View>
         </Page>
       ))}
-
-      {/* Resource Allocation Page */}
-      <Page size="A4" style={styles.page}>
-        <View style={styles.headerBanner}>
-          <Text style={styles.headerTitle}>Strategic Resource Allocation</Text>
-        </View>
-        
-        <View style={styles.contentPage}>
-          {/* Resource Allocation Section */}
-          <Text style={styles.sectionTitle}>Strategic Resource Allocation</Text>
-          <View style={styles.section}>
-            <Text style={styles.paragraph}>
-              Your solution includes a carefully balanced allocation of resources across key business pillars.
-              This allocation is designed to optimize business impact while maintaining strategic alignment
-              with your transformation objectives.
-            </Text>
-            
-            {/* Resource Allocation Visualization - Modern Single Bar Approach */}
-            <View style={styles.resourceAllocationContainer}>
-              <View style={styles.resourceHeader}>
-                <Text style={styles.resourceHeaderText}>Resource allocation by strategic pillar</Text>
-                <Text style={styles.resourceHeaderValue}>{totalEvcValue} Total EVCs</Text>
-              </View>
-              
-              {/* Single bar showing proportional allocation of EVCs across all pillars */}
-              <View style={styles.singleBarContainer}>
-                {Object.entries(modulesByPillar || {}).map(([pillar, modules], index) => {
-                  const pillarTotal = modules.reduce((sum, module) => sum + module.evcValue, 0);
-                  const pillarPercentage = (pillarTotal / totalEvcValue * 100).toFixed(2);
-                  
-                  return (
-                    <View 
-                      key={pillar}
-                      style={{
-                        height: '100%',
-                        width: `${pillarPercentage}%`,
-                        backgroundColor: getPillarColor(pillar),
-                        flexDirection: 'row',
-                        alignItems: 'center',
-                        justifyContent: 'center'
-                      }}
-                    >
-                      {parseFloat(pillarPercentage) > 10 && (
-                        <Text style={styles.barPercentageText}>{Math.round(parseFloat(pillarPercentage))}%</Text>
-                      )}
-                    </View>
-                  );
-                })}
-                
-                {/* Add resource allocation overhead if it exists */}
-                {absoluteOverheadEvcs > 0 && (
-                  <View 
-                    style={{
-                      height: '100%',
-                      width: `${(absoluteOverheadEvcs / totalEvcValue * 100).toFixed(2)}%`,
-                      backgroundColor: '#6B7280', // gray-500
-                      flexDirection: 'row',
-                      alignItems: 'center',
-                      justifyContent: 'center'
-                    }}
-                  >
-                    {(absoluteOverheadEvcs / totalEvcValue * 100) > 5 && (
-                      <Text style={styles.barPercentageText}>
-                        {Math.round(absoluteOverheadEvcs / totalEvcValue * 100)}%
-                      </Text>
-                    )}
-                  </View>
-                )}
-              </View>
-              
-              {/* Legend - Color blocks with labels */}
-              <View style={styles.barLegendContainer}>
-                {Object.entries(modulesByPillar || {}).map(([pillar, modules]) => {
-                  const pillarTotal = modules.reduce((sum, module) => sum + module.evcValue, 0);
-                  const pillarPercentage = (pillarTotal / totalEvcValue * 100).toFixed(0);
-                  
-                  return (
-                    <View key={pillar} style={styles.legendItem}>
-                      <View style={[styles.legendColorBox, { backgroundColor: getPillarColor(pillar) }]} />
-                      <View>
-                        <Text style={styles.legendLabel}>{pillar}</Text>
-                        <Text style={styles.legendValue}>{pillarTotal} EVCs ({pillarPercentage}%)</Text>
-                      </View>
-                    </View>
-                  );
-                })}
-                
-                {/* Add legend item for coordination overhead */}
-                {absoluteOverheadEvcs > 0 && (
-                  <View style={styles.legendItem}>
-                    <View style={[styles.legendColorBox, { backgroundColor: '#6B7280' }]} />
-                    <View>
-                      <Text style={styles.legendLabel}>Coordination Overhead</Text>
-                      <Text style={styles.legendValue}>
-                        {absoluteOverheadEvcs} EVCs ({Math.round(absoluteOverheadEvcs / totalEvcValue * 100)}%)
-                      </Text>
-                    </View>
-                  </View>
-                )}
-              </View>
-            </View>
-          </View>
-        </View>
-        
-        <View style={styles.footer}>
-          <Text style={styles.coverFooterText}>
-            CONFIDENTIAL: This report was generated by the Elexive Calculator for your organization.
-          </Text>
-          <Text style={styles.pageNumber}>Page {modulePages.length + 3}</Text>
-        </View>
-      </Page>
 
       {/* Value Realization Page */}
       <Page size="A4" style={styles.page}>
