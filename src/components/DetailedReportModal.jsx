@@ -984,23 +984,22 @@ const DetailedReportModal = ({ isOpen, onClose, calculator }) => {
             </div>
           </div>
 
-          {/* Additional Services and Add Ons */}
-          <div className="space-y-6 mb-12 mt-12">
-            <h3 className="text-2xl font-bold text-elx-primary mb-6 pb-2 border-b-2 border-elx-accent flex items-center">
-              Additional Services and Add Ons
-            </h3>
-            
-            {/* Business context for additional services */}
-            <div className="bg-white rounded-xl p-6 border border-gray-200 shadow-sm mb-8">
-              <p className="text-gray-700 leading-relaxed">
-                Your solution includes the following additional services and add-ons, carefully selected to enhance your transformation experience
-                and maximize the impact of your strategic initiative. Each service adds specific capabilities to your transformation toolkit,
-                ensuring comprehensive support aligned with your business needs.
-              </p>
-            </div>
-            
-            {/* Check if any parameters are enabled */}
-            {serviceParameters.filter(param => parameters[param.id]).length > 0 ? (
+          {/* Additional Services and Add Ons - Only shown if at least one add-on is selected */}
+          {serviceParameters.filter(param => parameters[param.id]).length > 0 && (
+            <div className="space-y-6 mb-12 mt-12">
+              <h3 className="text-2xl font-bold text-elx-primary mb-6 pb-2 border-b-2 border-elx-accent flex items-center">
+                Additional Services and Add Ons
+              </h3>
+              
+              {/* Business context for additional services */}
+              <div className="bg-white rounded-xl p-6 border border-gray-200 shadow-sm mb-8">
+                <p className="text-gray-700 leading-relaxed">
+                  Your solution includes the following additional services and add-ons, carefully selected to enhance your transformation experience
+                  and maximize the impact of your strategic initiative. Each service adds specific capabilities to your transformation toolkit,
+                  ensuring comprehensive support aligned with your business needs.
+                </p>
+              </div>
+              
               <div className="space-y-4">
                 {serviceParameters
                   .filter(param => parameters[param.id])
@@ -1071,57 +1070,47 @@ const DetailedReportModal = ({ isOpen, onClose, calculator }) => {
                     );
                   })}
               </div>
-            ) : (
-              <div className="bg-gray-50 rounded-xl p-6 border border-gray-200 text-center">
-                <div className="text-gray-400 mb-3">
-                  <FontAwesomeIcon icon={faInfoCircle} size="2x" />
-                </div>
-                <h4 className="text-lg font-medium text-gray-500 mb-2">No Additional Services Selected</h4>
-                <p className="text-sm text-gray-600 max-w-md mx-auto">
-                  Your solution is configured with the core transformation modules only. Add-on services can be included to enhance specific aspects of your engagement.
-                </p>
-              </div>
-            )}
-            
-            {/* Payment option information */}
-            <div className="bg-white rounded-xl p-6 border border-gray-200 shadow-md">
-              <h4 className="text-lg font-bold text-elx-primary flex items-center mb-4">
-                <FontAwesomeIcon icon={faCreditCard} className="text-elx-accent mr-2" />
-                Selected Payment Option
-              </h4>
               
-              <div className="flex items-start">
-                <div className="w-12 h-12 rounded-full flex items-center justify-center mr-4 shadow-md" 
-                  style={{ backgroundColor: 'var(--elexive-primary)' }}>
-                  <FontAwesomeIcon 
-                    icon={paymentOption === 'prepaid' ? faLock : faCreditCard} 
-                    className="text-white" 
-                    size="lg"
-                  />
-                </div>
-                <div className="flex-1">
-                  <h5 className="font-bold text-elx-primary text-lg mb-1">
-                    {evcBase.paymentOptions[paymentOption].name}
-                  </h5>
-                  <p className="text-gray-600 text-sm mb-2">
-                    {paymentOption === 'prepaid' ? 
-                      'Reserved capacity with allocated resources and predictable costs. Includes reduced pricing through our capacity reservation program.' : 
-                      'Standard monthly billing with maximum financial flexibility. Pay only for the services you use with no long-term commitment required.'}
-                  </p>
-                  
-                  {paymentOption === 'prepaid' && (
-                    <div className="bg-green-50 text-green-700 text-sm px-3 py-2 rounded inline-block">
-                      <FontAwesomeIcon icon={faCheckCircle} className="mr-1" />
-                      {((1 - evcBase.paymentOptions[paymentOption].priceModifier) * 100).toFixed(0)}% cost reduction
-                    </div>
-                  )}
+              {/* Payment option information */}
+              <div className="bg-white rounded-xl p-6 border border-gray-200 shadow-md">
+                <h4 className="text-lg font-bold text-elx-primary flex items-center mb-4">
+                  <FontAwesomeIcon icon={faCreditCard} className="text-elx-accent mr-2" />
+                  Selected Payment Option
+                </h4>
+                
+                <div className="flex items-start">
+                  <div className="w-12 h-12 rounded-full flex items-center justify-center mr-4 shadow-md" 
+                    style={{ backgroundColor: 'var(--elexive-primary)' }}>
+                    <FontAwesomeIcon 
+                      icon={paymentOption === 'prepaid' ? faLock : faCreditCard} 
+                      className="text-white" 
+                      size="lg"
+                    />
+                  </div>
+                  <div className="flex-1">
+                    <h5 className="font-bold text-elx-primary text-lg mb-1">
+                      {evcBase.paymentOptions[paymentOption].name}
+                    </h5>
+                    <p className="text-gray-600 text-sm mb-2">
+                      {paymentOption === 'prepaid' ? 
+                        'Reserved capacity with allocated resources and predictable costs. Includes reduced pricing through our capacity reservation program.' : 
+                        'Standard monthly billing with maximum financial flexibility. Pay only for the services you use with no long-term commitment required.'}
+                    </p>
+                    
+                    {paymentOption === 'prepaid' && (
+                      <div className="bg-green-50 text-green-700 text-sm px-3 py-2 rounded inline-block">
+                        <FontAwesomeIcon icon={faCheckCircle} className="mr-1" />
+                        {((1 - evcBase.paymentOptions[paymentOption].priceModifier) * 100).toFixed(0)}% cost reduction
+                      </div>
+                    )}
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
+          )}
           
           {/* Financial Summary Section */}
-          <div className="space-y-6 mb-12">
+          <div className="space-y-6 mb-12 mt-12">
             <h3 className="text-2xl font-bold text-elx-primary mb-6 pb-2 border-b-2 border-elx-accent flex items-center">
               Financial Investment Framework
             </h3>
