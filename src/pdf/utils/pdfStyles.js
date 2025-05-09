@@ -34,11 +34,11 @@ const colors = {
   cardBg: '#FFFFFF',
   cardBorder: '#E5E7EB',
   pillars: {
-    transformation: '#8B5CF6', // purple-600
-    strategy: '#3B82F6', // blue-600
-    technology: '#10B981', // green-600
-    discovery: '#F59E0B', // amber-600
-    catalyst: '#1E40AF', // blue-800
+    transformation: '#D99000', // Amber/gold - Darkened from #FFBE59 for better contrast
+    strategy: '#C85A30', // Orange/rust - Darkened from #EB8258 for better contrast
+    technology: '#1F776D', // Teal
+    discovery: '#2E2266', // Deep purple (primary)
+    catalyst: '#0A4DA1', // Dark blue (distinct from purple)
     default: '#4B5563', // gray-600
   }
 };
@@ -185,7 +185,9 @@ const styles = StyleSheet.create({
   // Shared styles
   row: {
     flexDirection: 'row',
-    marginBottom: 10,
+    marginBottom: 8,
+    justifyContent: 'space-between',
+    alignItems: 'center',
   },
   rowWithMargin: {
     flexDirection: 'row',
@@ -342,10 +344,15 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
   },
   pillarTitle: {
-    fontSize: 14,
+    fontSize: 16,
     fontWeight: 'bold',
     color: colors.primary,
-    marginBottom: 5,
+    marginBottom: 10,
+    marginTop: 6,
+    borderBottomWidth: 1,
+    borderBottomColor: '#EEEEEE',
+    borderBottomStyle: 'solid',
+    paddingBottom: 4,
   },
   moduleItem: {
     marginLeft: 10,
@@ -357,6 +364,8 @@ const styles = StyleSheet.create({
   moduleName: {
     fontSize: 12,
     fontWeight: 'bold',
+    color: '#333333',
+    flex: 1,
   },
   moduleType: {
     fontSize: 10,
@@ -364,9 +373,14 @@ const styles = StyleSheet.create({
     marginTop: 2,
   },
   moduleEvcs: {
-    fontSize: 10,
-    color: colors.investmentText,
-    marginTop: 2,
+    fontSize: 11,
+    fontWeight: 'medium',
+    color: colors.primary,
+    backgroundColor: '#F0F0F8',
+    padding: 4,
+    paddingHorizontal: 8,
+    borderRadius: 12,
+    textAlign: 'center',
   },
   resourceBar: {
     height: 15,
@@ -431,34 +445,41 @@ const styles = StyleSheet.create({
   
   // Module Detail Cards
   moduleDetailCard: {
-    padding: 10,
-    borderRadius: 5,
-    backgroundColor: '#F8F8FC',
-    marginBottom: 12,
-    borderLeftWidth: 3,
+    padding: 12,
+    borderRadius: 6,
+    backgroundColor: '#F9F9FC',
+    marginBottom: 14,
+    borderLeftWidth: 4,
     borderLeftColor: colors.primary,
+    boxShadow: '0 1px 3px rgba(0, 0, 0, 0.1)',
   },
   moduleDescription: {
     fontSize: 10,
     color: '#505050',
-    marginTop: 5,
-    marginBottom: 5,
+    marginTop: 6,
+    marginBottom: 6,
     lineHeight: 1.4,
   },
   moduleSubtitle: {
     fontSize: 10,
     fontWeight: 'bold',
-    marginTop: 5,
-    marginBottom: 3,
+    marginTop: 8,
+    marginBottom: 4,
+    color: '#333333',
   },
   moduleOutcomes: {
-    marginTop: 5,
+    marginTop: 6,
+    paddingTop: 6,
+    borderTopWidth: 1,
+    borderTopColor: '#EEEEEE',
+    borderTopStyle: 'solid',
   },
   outcomeItem: {
     fontSize: 9,
     color: '#505050',
-    marginBottom: 2,
-    paddingLeft: 5,
+    marginBottom: 4,
+    paddingLeft: 10,
+    lineHeight: 1.4,
   },
   
   // Resource Allocation

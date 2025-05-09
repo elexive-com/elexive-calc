@@ -73,22 +73,22 @@ const ReportContentPage = ({
     if (pillarConfig) {
       // If the pillar is found in the config, return a color class based on the pillar's id
       switch(pillarConfig.id?.toLowerCase()) {
-        case 'transformation': return '#8B5CF6'; // purple-600
-        case 'strategy': return '#3B82F6'; // blue-600
-        case 'technology': return '#10B981'; // green-600
-        case 'discovery': return '#F59E0B'; // amber-600
-        case 'catalyst': return '#1E40AF'; // blue-800
+        case 'transformation': return '#D99000'; // Amber/gold
+        case 'strategy': return '#C85A30'; // Orange/rust
+        case 'technology': return '#1F776D'; // Teal
+        case 'discovery': return '#2E2266'; // Deep purple (primary)
+        case 'catalyst': return '#0A4DA1'; // Dark blue
         default: return '#4B5563'; // gray-600
       }
     }
     
     // Fallback to legacy color mapping if not found in config
     switch(pillar.toLowerCase()) {
-      case 'transformation': return '#8B5CF6'; // purple-600
-      case 'strategy': return '#3B82F6'; // blue-600
-      case 'technology': return '#10B981'; // green-600
-      case 'discovery': return '#F59E0B'; // amber-600
-      case 'catalyst': return '#1E40AF'; // blue-800
+      case 'transformation': return '#D99000'; // Amber/gold
+      case 'strategy': return '#C85A30'; // Orange/rust
+      case 'technology': return '#1F776D'; // Teal
+      case 'discovery': return '#2E2266'; // Deep purple (primary)
+      case 'catalyst': return '#0A4DA1'; // Dark blue
       default: return '#4B5563'; // gray-600
     }
   };
@@ -374,30 +374,88 @@ const ReportContentPage = ({
             )}
           </View>
 
-          {/* Investment Overview */}
-          <Text style={styles.sectionTitle}>Investment Overview</Text>
+          {/* Investment Structure */}
+          <Text style={styles.sectionTitle}>Investment Structure</Text>
           <View style={styles.section}>
-            <View style={styles.row}>
-              <View style={{...styles.columnWithFlex, marginRight: 10}}>
-                <Text style={styles.summaryLabel}>Weekly Investment:</Text>
-                <Text style={styles.summaryValue}>€{formatNumberWithDecimals(totalPrice)}</Text>
+            <Text style={styles.paragraph}>
+              Your investment is structured using our Elastic Value Credit (EVC) framework, which provides 
+              flexibility and ensures resource optimization throughout the engagement. The total investment 
+              is calculated based on the selected modules, resource allocation, and implementation timeline.
+            </Text>
+            
+            {/* Investment cards in a two-column layout */}
+            <View style={styles.cardRow}>
+              {/* Investment Summary Card */}
+              <View style={styles.card}>
+                <Text style={styles.cardLabel}>Investment Summary</Text>
+                <Text style={styles.cardDescription}>
+                  Your total investment is structured to provide predictable costs aligned with the scope and scale 
+                  of your transformation initiative.
+                  {paymentOption === 'prepaid' ? 
+                    ` With the prepaid model, you benefit from reduced overall costs through our reservation discount of ${((1 - paymentDetails?.priceModifier) * 100).toFixed(0)}%.` : 
+                    ' The standard billing model provides maximum financial flexibility with no upfront commitment.'}
+                </Text>
+                
+                {/* Investment breakdown table */}
+                <View style={styles.tableContainer}>
+                  <View style={styles.tableRow}>
+                    <Text style={styles.tableLabel}>Weekly Investment</Text>
+                    <Text style={styles.tableValue}>€{formatNumberWithDecimals(totalPrice)}</Text>
+                  </View>
+                  <View style={styles.tableRow}>
+                    <Text style={styles.tableLabel}>Monthly Investment</Text>
+                    <Text style={styles.tableValue}>€{formatNumberWithDecimals(totalPrice * 4)}</Text>
+                  </View>
+                  <View style={styles.tableRow}>
+                    <Text style={styles.tableLabel}>Quarterly Investment</Text>
+                    <Text style={styles.tableValue}>€{formatNumberWithDecimals(totalPrice * 13)}</Text>
+                  </View>
+                  <View style={styles.tableRow}>
+                    <Text style={styles.tableLabel}>Total Projected Cost</Text>
+                    <Text style={[styles.tableValueHighlight, {fontSize: 14}]}>€{formatNumberWithDecimals(totalPrice * completionTimeWeeks)}</Text>
+                  </View>
+                </View>
               </View>
-              <View style={{...styles.columnWithFlex, marginLeft: 10}}>
-                <Text style={styles.summaryLabel}>Implementation Timeline:</Text>
-                <Text style={styles.summaryValue}>{completionTimeWeeks} weeks</Text>
-              </View>
-            </View>
-            <View style={styles.row}>
-              <View style={{...styles.columnWithFlex, marginRight: 10}}>
-                <Text style={styles.summaryLabel}>Total Elastic Value Credits:</Text>
-                <Text style={styles.summaryValue}>{totalEvcValue} EVCs</Text>
-              </View>
-              <View style={{...styles.columnWithFlex, marginLeft: 10}}>
-                <Text style={styles.summaryLabel}>Selected Modules:</Text>
-                <Text style={styles.summaryValue}>{totalModules}</Text>
+              
+              {/* Value-Based Pricing Model Card */}
+              <View style={styles.card}>
+                <Text style={styles.cardLabel}>Value-Based Pricing Model</Text>
+                <Text style={styles.cardDescription}>
+                  Our pricing is based on Elastic Value Credits (EVCs), a standardized unit of consulting value that ensures 
+                  you pay only for the actual transformation resources you receive. Your selected {calculatorConfig?.productionCapacity?.[resourceAllocation]?.label || 'Professional'} tier 
+                  provides {weeklyEVCs} EVCs weekly, calibrated to your organization's transformation needs.
+                </Text>
+                
+                {/* Pricing model details table */}
+                <View style={styles.tableContainer}>
+                  <View style={styles.tableRow}>
+                    <Text style={styles.tableLabel}>Weekly Production Capacity</Text>
+                    <Text style={styles.tableValue}>{weeklyEVCs} EVCs</Text>
+                  </View>
+                  <View style={styles.tableRow}>
+                    <Text style={styles.tableLabel}>Base Price per EVC</Text>
+                    <Text style={styles.tableValue}>€{formatNumberWithDecimals(evcPricePerUnit, 2)}</Text>
+                  </View>
+                  <View style={styles.tableRow}>
+                    <Text style={styles.tableLabel}>Implementation Period</Text>
+                    <Text style={styles.tableValue}>{completionTimeWeeks} weeks</Text>
+                  </View>
+                  <View style={styles.tableRow}>
+                    <Text style={styles.tableLabel}>Payment Model</Text>
+                    <Text style={styles.tableValue}>{paymentDetails?.name || 'Standard'}</Text>
+                  </View>
+                  {paymentOption === 'prepaid' && paymentDetails?.priceModifier < 1 && (
+                    <View style={styles.tableRow}>
+                      <Text style={styles.tableLabel}>Prepaid Reservation Discount</Text>
+                      <Text style={styles.tableValue}>{((1 - paymentDetails.priceModifier) * 100).toFixed(0)}%</Text>
+                    </View>
+                  )}
+                </View>
               </View>
             </View>
           </View>
+          
+
 
           {/* Solution Scope */}
           <Text style={styles.sectionTitle}>Solution Scope</Text>
@@ -699,7 +757,7 @@ const ReportContentPage = ({
       {/* Selected Modules Pages - Now dynamically split across multiple pages if needed */}
       {modulePages.map((pageContent, pageIndex) => (
         <Page key={`modules-page-${pageIndex}`} size="A4" style={styles.page}>
-          <View style={styles.headerBanner}>
+          <View style={[styles.headerBanner, { backgroundColor: colors.primary }]}>
             <Text style={styles.headerTitle}>
               Selected Modules {modulePages.length > 1 ? `(${pageIndex + 1}/${modulePages.length})` : ''}
             </Text>
@@ -707,7 +765,7 @@ const ReportContentPage = ({
           
           <View style={styles.contentPage}>
             {pageIndex === 0 && (
-              <Text style={styles.paragraph}>
+              <Text style={[styles.paragraph, { marginBottom: 12, fontStyle: 'italic' }]}>
                 The following modules have been selected to address your specific business needs. 
                 Each module represents a focused workstream with defined outcomes and dedicated resources.
               </Text>
@@ -715,43 +773,72 @@ const ReportContentPage = ({
             
             {/* Modules by Pillar */}
             {pageContent.map(([pillar, modules], pillarIndex) => (
-              <View key={pillarIndex} style={{...styles.section, marginTop: 15}}>
-                <Text style={styles.pillarTitle}>{pillar}</Text>
+              <View key={pillarIndex} style={{...styles.section, marginTop: pageIndex === 0 && pillarIndex === 0 ? 5 : 18}}>
+                <Text style={[styles.pillarTitle, { color: getPillarColor(pillar) }]}>{pillar}</Text>
                 
                 {modules.map((module, moduleIndex) => (
                   <View key={moduleIndex} style={{
                     ...styles.moduleDetailCard,
-                    borderLeftColor: getPillarColor(pillar) // Apply pillar-specific color
+                    borderLeftColor: getPillarColor(pillar),
+                    borderLeftWidth: 5,
+                    backgroundColor: `${getPillarColor(pillar)}05` // Very subtle pillar-colored background
                   }}>
-                    <View style={styles.row}>
-                      <Text style={styles.moduleName}>{module.name}</Text>
-                      <Text style={styles.moduleEvcs}>{module.evcValue} EVCs</Text>
-                    </View>
-                    
-                    <View style={styles.row}>
-                      <Text style={styles.moduleType}>
-                        <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-                          <Image 
-                            src={getModuleTypeIcon(module.selectedVariant || 'insightPrimer')} 
-                            style={{ width: 16, height: 16, marginRight: 6 }}
-                          />
-                          <Text>
-                            {module.selectedVariant === 'insightPrimer' ? 'Insight Primer' : 'Integrated Execution'}
-                          </Text>
-                        </View>
-                      </Text>
+                    <View style={{
+                      flexDirection: 'row',
+                      justifyContent: 'space-between',
+                      alignItems: 'flex-start',
+                      marginBottom: module.description ? 6 : 0
+                    }}>
+                      <View style={{ 
+                        flexDirection: 'row', 
+                        alignItems: 'center',
+                        flex: 1,
+                        marginRight: 10,
+                        flexWrap: 'nowrap'
+                      }}>
+                        <Image 
+                          src={getModuleTypeIcon(module.selectedVariant || 'insightPrimer')} 
+                          style={{ width: 16, height: 16, marginRight: 8, flexShrink: 0 }}
+                        />
+                        <Text style={{
+                          fontSize: 12,
+                          fontWeight: 'bold',
+                          color: '#333333',
+                        }}>{module.name}</Text>
+                      </View>
+                      <View style={{
+                        backgroundColor: `${getPillarColor(pillar)}15`,
+                        paddingVertical: 3,
+                        paddingHorizontal: 8,
+                        borderRadius: 12,
+                        flexShrink: 0,
+                        marginTop: 1,
+                      }}>
+                        <Text style={{
+                          fontSize: 11,
+                          fontWeight: 'medium',
+                          color: getPillarColor(pillar),
+                        }}>{module.evcValue} EVCs</Text>
+                      </View>
                     </View>
                     
                     {module.description && (
-                      <Text style={styles.moduleDescription}>{module.description}</Text>
+                      <Text style={[styles.moduleDescription, { color: '#444444' }]}>{module.description}</Text>
                     )}
                     
                     {module.outcomes && (
-                      <View style={styles.moduleOutcomes}>
-                        <Text style={styles.moduleSubtitle}>Key Outcomes:</Text>
-                        {module.outcomes.map((outcome, i) => (
-                          <Text key={i} style={styles.outcomeItem}>• {outcome}</Text>
+                      <View style={[styles.moduleOutcomes, { borderTopColor: `${getPillarColor(pillar)}30` }]}>
+                        <Text style={[styles.moduleSubtitle, { color: getPillarColor(pillar) }]}>Key Outcomes:</Text>
+                        {module.outcomes.slice(0, 4).map((outcome, i) => (
+                          <Text key={i} style={styles.outcomeItem}>
+                            <Text style={{ color: getPillarColor(pillar) }}>•</Text> {outcome}
+                          </Text>
                         ))}
+                        {module.outcomes.length > 4 && (
+                          <Text style={[styles.outcomeItem, { fontStyle: 'italic', color: '#666666' }]}>
+                            <Text style={{ color: getPillarColor(pillar) }}>+</Text> {module.outcomes.length - 4} more outcomes
+                          </Text>
+                        )}
                       </View>
                     )}
                   </View>
@@ -772,7 +859,7 @@ const ReportContentPage = ({
       {/* Resource Allocation Page */}
       <Page size="A4" style={styles.page}>
         <View style={styles.headerBanner}>
-          <Text style={styles.headerTitle}>Resource Allocation & Investment</Text>
+          <Text style={styles.headerTitle}>Strategic Resource Allocation</Text>
         </View>
         
         <View style={styles.contentPage}>
@@ -869,89 +956,6 @@ const ReportContentPage = ({
                 )}
               </View>
             </View>
-          </View>
-
-          {/* Investment Structure */}
-          <Text style={styles.sectionTitle}>Investment Structure</Text>
-          <View style={styles.section}>
-            <Text style={styles.paragraph}>
-              Your investment is structured using our Elastic Value Credit (EVC) framework, which provides 
-              flexibility and ensures resource optimization throughout the engagement. The total investment 
-              is calculated based on the selected modules, resource allocation, and implementation timeline.
-            </Text>
-            
-            {/* Investment cards in a two-column layout */}
-            <View style={styles.cardRow}>
-              {/* Investment Summary Card */}
-              <View style={styles.card}>
-                <Text style={styles.cardLabel}>Investment Summary</Text>
-                <Text style={styles.cardDescription}>
-                  Your total investment is structured to provide predictable costs aligned with the scope and scale 
-                  of your transformation initiative.
-                  {paymentOption === 'prepaid' ? 
-                    ` With the prepaid model, you benefit from reduced overall costs through our reservation discount of ${((1 - paymentDetails?.priceModifier) * 100).toFixed(0)}%.` : 
-                    ' The standard billing model provides maximum financial flexibility with no upfront commitment.'}
-                </Text>
-                
-                {/* Investment breakdown table */}
-                <View style={styles.tableContainer}>
-                  <View style={styles.tableRow}>
-                    <Text style={styles.tableLabel}>Weekly Investment</Text>
-                    <Text style={styles.tableValue}>€{formatNumberWithDecimals(totalPrice)}</Text>
-                  </View>
-                  <View style={styles.tableRow}>
-                    <Text style={styles.tableLabel}>Monthly Investment</Text>
-                    <Text style={styles.tableValue}>€{formatNumberWithDecimals(totalPrice * 4)}</Text>
-                  </View>
-                  <View style={styles.tableRow}>
-                    <Text style={styles.tableLabel}>Quarterly Investment</Text>
-                    <Text style={styles.tableValue}>€{formatNumberWithDecimals(totalPrice * 13)}</Text>
-                  </View>
-                  <View style={styles.tableRow}>
-                    <Text style={styles.tableLabel}>Total Projected Cost</Text>
-                    <Text style={[styles.tableValueHighlight, {fontSize: 14}]}>€{formatNumberWithDecimals(totalPrice * completionTimeWeeks)}</Text>
-                  </View>
-                </View>
-              </View>
-              
-              {/* Value-Based Pricing Model Card */}
-              <View style={styles.card}>
-                <Text style={styles.cardLabel}>Value-Based Pricing Model</Text>
-                <Text style={styles.cardDescription}>
-                  Our pricing is based on Elastic Value Credits (EVCs), a standardized unit of consulting value that ensures 
-                  you pay only for the actual transformation resources you receive. Your selected {calculatorConfig?.productionCapacity?.[resourceAllocation]?.label || 'Professional'} tier 
-                  provides {weeklyEVCs} EVCs weekly, calibrated to your organization's transformation needs.
-                </Text>
-                
-                {/* Pricing components table */}
-                <View style={styles.tableContainer}>
-                  <View style={styles.tableRow}>
-                    <Text style={styles.tableLabel}>Weekly Production Capacity</Text>
-                    <Text style={styles.tableValue}>{weeklyEVCs} EVCs</Text>
-                  </View>
-                  <View style={styles.tableRow}>
-                    <Text style={styles.tableLabel}>Base Price per EVC</Text>
-                    <Text style={styles.tableValue}>€{formatNumberWithDecimals(evcPricePerUnit, 2)}</Text>
-                  </View>
-                  <View style={styles.tableRow}>
-                    <Text style={styles.tableLabel}>Implementation Period</Text>
-                    <Text style={styles.tableValue}>{completionTimeWeeks} weeks</Text>
-                  </View>
-                  <View style={styles.tableRow}>
-                    <Text style={styles.tableLabel}>Payment Model</Text>
-                    <Text style={styles.tableValue}>{paymentDetails?.name || 'Standard'}</Text>
-                  </View>
-                  {paymentOption === 'prepaid' && paymentDetails?.priceModifier < 1 && (
-                    <View style={styles.tableRow}>
-                      <Text style={styles.tableLabel}>Prepaid Reservation Discount</Text>
-                      <Text style={styles.tableValue}>{((1 - paymentDetails.priceModifier) * 100).toFixed(0)}%</Text>
-                    </View>
-                  )}
-                </View>
-              </View>
-            </View>
-            
-            {/* The comprehensive price calculation table is now moved to its own appendix */}
           </View>
         </View>
         
