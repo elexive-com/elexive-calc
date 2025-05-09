@@ -21,6 +21,28 @@ export const createTemporaryDiv = (width = 794, height = null) => {
 };
 
 /**
+ * Formats a number with thousand separators and optional decimal places
+ * @param {number} num - The number to format
+ * @param {number} decimalPlaces - Number of decimal places to display (default: 0)
+ * @return {string} - The formatted number as a string
+ */
+export const formatNumberWithDecimals = (num, decimalPlaces = 0) => {
+  if (num === undefined || num === null) return '0';
+  
+  // Format with the specified number of decimal places
+  const fixedNum = Number(num).toFixed(decimalPlaces);
+  
+  // Split into integer and decimal parts
+  const parts = fixedNum.split('.');
+  
+  // Add thousand separators to the integer part
+  parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+  
+  // Join back with decimal part if it exists
+  return parts.length > 1 ? parts.join('.') : parts[0];
+};
+
+/**
  * Sets HTML content for a temporary div
  * @param {HTMLElement} div - The div to populate with content
  * @param {string} htmlContent - The HTML content to set

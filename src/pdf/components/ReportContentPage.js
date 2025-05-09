@@ -3,7 +3,16 @@ import React from 'react';
 import { Page, Text, View } from '@react-pdf/renderer';
 import styles from '../utils/pdfStyles';
 import { getColorFromCssVar } from '../utils/colors';
+import { formatNumberWithDecimals } from '../utils/pdfHelpers';
 import ModuleContentPage from './ModuleContentPage';
+
+// Define colors object for consistent use throughout the component
+const colors = {
+  primary: getColorFromCssVar('--elexive-primary', '#2E2266'),
+  secondary: getColorFromCssVar('--elexive-secondary', '#FFBE59'),
+  accent: getColorFromCssVar('--elexive-accent', '#D99000'),
+  blue: '#3B82F6'
+};
 
 /**
  * The completely reimagined content pages of the PDF report
@@ -28,9 +37,6 @@ const ReportContentPage = ({
   serviceParameters,
   calculator
 }) => {
-  // Get colors from utility function instead of hardcoding
-  const elexivePrimary = getColorFromCssVar('--elexive-primary', '#2E2266');
-  
   // Use calculator functions for business logic when available 
   const totalModules = calculator ? calculator.calculateTotalModules(modulesByPillar) : 
     Object.values(modulesByPillar || {}).flat().length;
@@ -112,9 +118,6 @@ const ReportContentPage = ({
     }
   };
   
-  // Calculate total projected cost for the entire implementation
-  const totalProjectedCost = totalPrice * completionTimeWeeks;
-
   // Create a comprehensive EVC calculation table
   const renderPriceCalculationTable = () => {
     // Use calculator functions for business logic if available
@@ -227,7 +230,13 @@ const ReportContentPage = ({
                 </View>
                 
                 {modules.map((module, moduleIndex) => (
-                  <View key={`module-${moduleIndex}`} style={styles.calculationSubRow}>
+                  <View key={`module-${moduleIndex}`} style={{
+                    ...styles.calculationSubRow,
+                    borderLeftColor: getPillarColor(pillar),
+                    borderLeftWidth: 2,
+                    paddingLeft: 8,
+                    marginLeft: 5
+                  }}>
                     <Text style={styles.calculationSubLabel}>• {module.name}</Text>
                     <Text style={styles.calculationValue}>
                       {getModuleTypeIcon(module.selectedVariant || 'insightPrimer')}
@@ -281,7 +290,7 @@ const ReportContentPage = ({
           
           <View style={styles.calculationRow}>
             <Text style={styles.calculationLabel}>Base EVC Price:</Text>
-            <Text style={styles.calculationValue}>€{formatNumber(evcPricePerUnit)} per EVC</Text>
+            <Text style={styles.calculationValue}>€{formatNumberWithDecimals(evcPricePerUnit, 2)} per EVC</Text>
           </View>
           
           <View style={styles.calculationRow}>
@@ -297,7 +306,7 @@ const ReportContentPage = ({
           <View style={styles.calculationDivider} />
           <View style={styles.calculationRow}>
             <Text style={styles.calculationLabel}>Weekly Investment:</Text>
-            <Text style={styles.calculationTotal}>€{formatNumber(totalPrice)}</Text>
+            <Text style={styles.calculationTotal}>€{formatNumberWithDecimals(totalPrice)}</Text>
           </View>
           
           <View style={styles.calculationRow}>
@@ -308,7 +317,7 @@ const ReportContentPage = ({
           <View style={styles.calculationDivider} />
           <View style={styles.calculationRowTotal}>
             <Text style={styles.calculationLabelTotal}>Total Investment:</Text>
-            <Text style={styles.calculationGrandTotal}>€{formatNumber(totalPrice * completionTimeWeeks)}</Text>
+            <Text style={styles.calculationGrandTotal}>€{formatNumberWithDecimals(totalPrice * completionTimeWeeks)}</Text>
           </View>
         </View>
         
@@ -328,9 +337,6 @@ const ReportContentPage = ({
   // Calculate the absolute EVC overhead for resource allocation
   const overheadPercentage = calculatorConfig.resourceAllocation[resourceAllocation]?.switchingOverhead || 0;
   const absoluteOverheadEvcs = Math.ceil((totalEvcSum * overheadPercentage) / 100);
-  
-  // Total EVCs needed including overhead
-  const totalEvcsWithOverhead = totalEvcSum + absoluteOverheadEvcs;
 
   // Split modules by pillar into reasonable chunks for pagination
   // This is UI-specific layout logic and makes sense to keep in the component
@@ -393,7 +399,7 @@ const ReportContentPage = ({
             <View style={styles.row}>
               <View style={{...styles.columnWithFlex, marginRight: 10}}>
                 <Text style={styles.summaryLabel}>Weekly Investment:</Text>
-                <Text style={styles.summaryValue}>€{formatNumber(totalPrice)}</Text>
+                <Text style={styles.summaryValue}>€{formatNumberWithDecimals(totalPrice)}</Text>
               </View>
               <View style={{...styles.columnWithFlex, marginLeft: 10}}>
                 <Text style={styles.summaryLabel}>Implementation Timeline:</Text>
@@ -436,7 +442,7 @@ const ReportContentPage = ({
           </View>
 
           {/* Service Delivery Timeline */}
-          <Text style={styles.sectionTitle}>Service Delivery Timeline</Text>
+          <Text style={{...styles.sectionTitle, marginTop: 5, marginBottom: 3}}>Service Delivery Timeline</Text>
           <View style={styles.section}>
             <Text style={styles.paragraph}>
               Your service delivery timeline is based on our Elastic Value Credit (EVC) framework, which measures transformation 
@@ -454,14 +460,24 @@ const ReportContentPage = ({
               </View>
               
               <View style={styles.deliveryTimelineBar}>
-                {Array.from({ length: Math.min(completionTimeWeeks, 12) }).map((_, index) => (
-                  <View key={index} style={styles.deliveryTimelineBlockCard}>
-                    <Text style={styles.deliveryTimelineBlockCardText}>
-                      {weeklyEVCs}
-                    </Text>
-                  </View>
-                ))}
-                {completionTimeWeeks > 12 && (
+                <View style={{ flexDirection: 'row', width: '100%', height: '100%' }}>
+                  {Array.from({ length: Math.min(completionTimeWeeks, 20) }).map((_, index) => (
+                    <View 
+                      key={index} 
+                      style={{
+                        ...styles.deliveryTimelineBlockCard,
+                        width: `${100 / Math.min(completionTimeWeeks, 20)}%`,
+                      }}
+                    >
+                      {(completionTimeWeeks <= 12 || index % 2 === 0 || index === completionTimeWeeks - 1) && (
+                        <Text style={styles.deliveryTimelineBlockCardText}>
+                          {weeklyEVCs}
+                        </Text>
+                      )}
+                    </View>
+                  ))}
+                </View>
+                {completionTimeWeeks > 20 && (
                   <View style={styles.deliveryTimelineEllipsisCard}>
                     <Text style={styles.deliveryTimelineEllipsisText}>...</Text>
                   </View>
@@ -471,8 +487,8 @@ const ReportContentPage = ({
               {/* Week markers */}
               <View style={styles.deliveryTimelineMarkers}>
                 <Text style={styles.deliveryTimelineMarker}>Week 1</Text>
-                {completionTimeWeeks <= 6 ? (
-                  // If 6 or fewer weeks, show all week markers
+                {completionTimeWeeks <= 10 ? (
+                  // If 10 or fewer weeks, show all week markers
                   Array.from({ length: completionTimeWeeks - 2 }).map((_, index) => (
                     <Text key={index} style={styles.deliveryTimelineMarker}>Week {index + 2}</Text>
                   ))
@@ -490,25 +506,26 @@ const ReportContentPage = ({
               {/* Formula visualization */}
               <View style={styles.deliveryFormulaContainer}>
                 <View style={styles.deliveryFormulaItem}>
-                  <Text style={styles.deliveryFormulaValue}>{totalEvcValue}</Text>
+                  <Text style={[styles.deliveryFormulaValue, {color: colors.primary}]}>{totalEvcValue}</Text>
                   <Text style={styles.deliveryFormulaLabel}>Total EVCs</Text>
                 </View>
                 <Text style={styles.deliveryFormulaDivider}>÷</Text>
                 <View style={styles.deliveryFormulaItem}>
-                  <Text style={styles.deliveryFormulaValue}>{weeklyEVCs}</Text>
+                  <Text style={[styles.deliveryFormulaValue, {color: colors.blue}]}>{weeklyEVCs}</Text>
                   <Text style={styles.deliveryFormulaLabel}>EVCs/week</Text>
                 </View>
                 <Text style={styles.deliveryFormulaDivider}>=</Text>
                 <View style={styles.deliveryFormulaItem}>
-                  <Text style={styles.deliveryFormulaValue}>{completionTimeWeeks}</Text>
+                  <Text style={[styles.deliveryFormulaValue, {color: '#374151'}]}>{completionTimeWeeks}</Text>
                   <Text style={styles.deliveryFormulaLabel}>weeks</Text>
                 </View>
               </View>
             </View>
             
             {/* Service approach context */}
-            <View style={styles.serviceApproachNote}>
-              <Text style={styles.serviceApproachText}>
+            <View style={styles.serviceApproachNoteCard}>
+              <Text style={{...styles.serviceApproachIcon, marginTop: 2}}>ℹ</Text>
+              <Text style={styles.serviceApproachTextCard}>
                 Our service model delivers consistent value through a weekly EVC capacity of {weeklyEVCs}. 
                 With your selected {resourceAllocation} resource allocation strategy, we'll deliver the complete {totalEvcValue} EVC scope over {completionTimeWeeks} weeks, 
                 enabling continuous transformation without disrupting your operations.
@@ -715,7 +732,10 @@ const ReportContentPage = ({
                 <Text style={styles.pillarTitle}>{pillar}</Text>
                 
                 {modules.map((module, moduleIndex) => (
-                  <View key={moduleIndex} style={styles.moduleDetailCard}>
+                  <View key={moduleIndex} style={{
+                    ...styles.moduleDetailCard,
+                    borderLeftColor: getPillarColor(pillar) // Apply pillar-specific color
+                  }}>
                     <View style={styles.row}>
                       <Text style={styles.moduleName}>{module.name}</Text>
                       <Text style={styles.moduleEvcs}>{module.evcValue} EVCs</Text>
@@ -882,19 +902,19 @@ const ReportContentPage = ({
                 <View style={styles.tableContainer}>
                   <View style={styles.tableRow}>
                     <Text style={styles.tableLabel}>Weekly Investment</Text>
-                    <Text style={styles.tableValue}>€{formatNumber(totalPrice)}</Text>
+                    <Text style={styles.tableValue}>€{formatNumberWithDecimals(totalPrice)}</Text>
                   </View>
                   <View style={styles.tableRow}>
                     <Text style={styles.tableLabel}>Monthly Investment</Text>
-                    <Text style={styles.tableValue}>€{formatNumber(totalPrice * 4)}</Text>
+                    <Text style={styles.tableValue}>€{formatNumberWithDecimals(totalPrice * 4)}</Text>
                   </View>
                   <View style={styles.tableRow}>
                     <Text style={styles.tableLabel}>Quarterly Investment</Text>
-                    <Text style={styles.tableValue}>€{formatNumber(totalPrice * 13)}</Text>
+                    <Text style={styles.tableValue}>€{formatNumberWithDecimals(totalPrice * 13)}</Text>
                   </View>
                   <View style={styles.tableRow}>
                     <Text style={styles.tableLabel}>Total Projected Cost</Text>
-                    <Text style={[styles.tableValueHighlight, {fontSize: 14}]}>€{formatNumber(totalPrice * completionTimeWeeks)}</Text>
+                    <Text style={[styles.tableValueHighlight, {fontSize: 14}]}>€{formatNumberWithDecimals(totalPrice * completionTimeWeeks)}</Text>
                   </View>
                 </View>
               </View>
@@ -916,7 +936,7 @@ const ReportContentPage = ({
                   </View>
                   <View style={styles.tableRow}>
                     <Text style={styles.tableLabel}>Base Price per EVC</Text>
-                    <Text style={styles.tableValue}>€{evcPricePerUnit}</Text>
+                    <Text style={styles.tableValue}>€{formatNumberWithDecimals(evcPricePerUnit, 2)}</Text>
                   </View>
                   <View style={styles.tableRow}>
                     <Text style={styles.tableLabel}>Implementation Period</Text>
@@ -936,8 +956,7 @@ const ReportContentPage = ({
               </View>
             </View>
             
-            {/* Add the comprehensive price calculation table */}
-            {renderPriceCalculationTable()}
+            {/* The comprehensive price calculation table is now moved to its own appendix */}
           </View>
         </View>
         
@@ -945,7 +964,7 @@ const ReportContentPage = ({
           <Text style={styles.coverFooterText}>
             CONFIDENTIAL: This report was generated by the Elexive Calculator for your organization.
           </Text>
-          <Text style={styles.pageNumber}>Page {modulePages.length + 2}</Text>
+          <Text style={styles.pageNumber}>Page {modulePages.length + 3}</Text>
         </View>
       </Page>
 
@@ -1054,7 +1073,7 @@ const ReportContentPage = ({
           <Text style={styles.coverFooterText}>
             CONFIDENTIAL: This report was generated by the Elexive Calculator for your organization.
           </Text>
-          <Text style={styles.pageNumber}>Page {modulePages.length + 3}</Text>
+          <Text style={styles.pageNumber}>Page {modulePages.length + 4}</Text>
         </View>
       </Page>
 
@@ -1119,7 +1138,32 @@ const ReportContentPage = ({
           <Text style={styles.coverFooterText}>
             CONFIDENTIAL: This report was generated by the Elexive Calculator for your organization.
           </Text>
-          <Text style={styles.pageNumber}>Page {modulePages.length + 4}</Text>
+          <Text style={styles.pageNumber}>Page {modulePages.length + 5}</Text>
+        </View>
+      </Page>
+
+      {/* EVC Calculation Details Appendix */}
+      <Page size="A4" style={styles.page}>
+        <View style={styles.headerBanner}>
+          <Text style={styles.headerTitle}>Appendix: EVC Calculation Details</Text>
+        </View>
+        
+        <View style={styles.contentPage}>
+          <Text style={styles.paragraph}>
+            This appendix provides a comprehensive breakdown of the Elastic Value Credit (EVC) calculation
+            that forms the basis of your solution pricing. The EVC framework ensures transparency and 
+            flexibility in resource allocation throughout your transformation journey.
+          </Text>
+          
+          {/* Render the comprehensive price calculation table */}
+          {renderPriceCalculationTable()}
+        </View>
+        
+        <View style={styles.footer}>
+          <Text style={styles.coverFooterText}>
+            CONFIDENTIAL: This report was generated by the Elexive Calculator for your organization.
+          </Text>
+          <Text style={styles.pageNumber}>Page {modulePages.length + 5}</Text>
         </View>
       </Page>
 
@@ -1146,26 +1190,39 @@ const ReportContentPage = ({
           <Text style={styles.coverFooterText}>
             CONFIDENTIAL: This report was generated by the Elexive Calculator for your organization.
           </Text>
-          <Text style={styles.pageNumber}>Page {modulePages.length + 5}</Text>
+          <Text style={styles.pageNumber}>Page {modulePages.length + 6}</Text>
         </View>
       </Page>
 
       {/* Individual Module Pages */}
       {Object.entries(modulesByPillar || {}).sort(([pillarA], [pillarB]) => pillarA.localeCompare(pillarB)).map(([pillar, modules]) => (
-        modules.map((module, moduleIndex) => (
-          <ModuleContentPage
-            key={`module-detail-${pillar}-${moduleIndex}`}
-            module={module}
-            pillar={pillar}
-            pageNumber={modulePages.length + 6 + Object.entries(modulesByPillar || {})
-              .sort(([pillarA], [pillarB]) => pillarA.localeCompare(pillarB))
-              .slice(0, Object.keys(modulesByPillar || {}).sort().indexOf(pillar))
-              .reduce((count, [_, pillarModules]) => count + pillarModules.length, 0) + moduleIndex}
-            totalPages={modulePages.length + 5 + Object.values(modulesByPillar || {}).flat().length}
-            getVariantDisplayName={getVariantDisplayName}
-            getModuleTypeIcon={getModuleTypeIcon}
-          />
-        ))
+        modules.map((module, moduleIndex) => {
+          // Enhance the module with data from modulesConfig
+          const configModule = require('../../config/modulesConfig.json').modules.find(m => m.name === module.name);
+          const enhancedModule = configModule ? {
+            ...configModule,
+            ...module,
+            // Preserve arrays from module if they exist, otherwise use from configModule
+            outcomes: module.outcomes || configModule.outcomes,
+            keyActivities: module.keyActivities || configModule.keyActivities,
+            deliverables: module.deliverables || configModule.deliverables
+          } : module;
+
+          return (
+            <ModuleContentPage
+              key={`module-detail-${pillar}-${moduleIndex}`}
+              module={enhancedModule}
+              pillar={pillar}
+              pageNumber={modulePages.length + 7 + Object.entries(modulesByPillar || {})
+                .sort(([pillarA], [pillarB]) => pillarA.localeCompare(pillarB))
+                .slice(0, Object.keys(modulesByPillar || {}).sort().indexOf(pillar))
+                .reduce((count, [_, pillarModules]) => count + pillarModules.length, 0) + moduleIndex}
+              totalPages={modulePages.length + 6 + Object.values(modulesByPillar || {}).flat().length}
+              getVariantDisplayName={getVariantDisplayName}
+              getModuleTypeIcon={getModuleTypeIcon}
+            />
+          );
+        })
       ))}
     </>
   );
