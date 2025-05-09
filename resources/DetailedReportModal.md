@@ -28,24 +28,37 @@ The report organization implements a deliberate information hierarchy:
    - Implements concise presentation of key metrics and decisions
    - Creates immediate relevance through business-focused language
    - Establishes the foundation for detailed sections that follow
+   - Includes strategic approach summary with expandable/collapsible sections
+   - Visualizes strategic resource allocation across pillars
+   - Provides service delivery timeline visualization
 
-2. **Selected Modules Section** - The solution composition:
+2. **Strategic Solution Components** - The solution composition:
    - Organizes modules by strategic pillars to maintain conceptual continuity
    - Uses consistent card design with appropriate pillar visual treatments
    - Provides clear distinction between different engagement models
    - Creates appropriate visual hierarchy for scanning large solutions
+   - Implements expandable/collapsible module details
+   - Shows business context, implementation approach, and expected outcomes
+   - Displays transformation journey stages when available
 
-3. **Resource Allocation Section** - The delivery strategy:
-   - Visualizes the selected capacity and allocation strategy
-   - Implements consistent iconography from the configuration interface
-   - Creates clear connections between choices and their implications
-   - Uses appropriate data visualization for productivity metrics
+3. **Additional Services and Add Ons** - The complementary services:
+   - Displays enabled add-ons with expandable/collapsible details
+   - Provides business impact information for each add-on
+   - Includes payment option details and financial benefits
+   - Uses consistent iconography and visual styling
 
-4. **Timeline and Cost Section** - The investment summary:
+4. **Financial Investment Framework** - The investment summary:
    - Presents financial information with appropriate prominence
    - Implements clear visualization of timeline projections
    - Creates transparent connection between selections and costs
    - Uses appropriate typography and formatting for financial figures
+   - Breaks down investment on weekly, monthly, quarterly, and total basis
+   - Explains the EVC-based pricing model in business terms
+
+5. **Next Steps** - The implementation plan:
+   - Outlines critical success factors based on selected modules and approach
+   - Provides recommended next steps for moving forward
+   - Creates clear conversion pathways with actionable suggestions
 
 ### Export Functionality
 
@@ -71,21 +84,28 @@ The export capabilities balance several competing needs:
    - Shows detailed EVC calculation breakdown with modifiers
    - Presents all enabled custom parameters affecting the calculation
    - Includes pricing formula explanations and volume discount information
+   - Provides strategic approach summary with expandable sections for each pillar
+   - Visualizes resource allocation across strategic pillars with percentage breakdowns
+   - Displays service delivery timeline with week-by-week visualization
 
 2. **Shareable Artifact Creation**
    - Implements export to PDF functionality for stakeholder sharing
    - Creates professionally formatted reports suitable for executive review
    - Maintains consistent branding and information architecture in exported documents
+   - Shows export status with loading indicator during PDF generation
 
 3. **Conversion Pathway Integration**
    - Includes contextually appropriate call-to-action options
    - Provides clear pathways based on decision readiness
    - Implements email preparation with pre-filled content for seamless follow-up
+   - Offers recommended next steps section with clear implementation guidance
 
 4. **Visual Data Presentation**
    - Organizes information in clearly defined sections with consistent styling
    - Implements responsive grid layouts for module display
    - Uses the established color system to enhance information comprehension
+   - Provides expandable/collapsible sections for detailed information
+   - Shows resource allocation visualization with proportional representation
 
 ## Technical Implementation
 
@@ -109,7 +129,20 @@ The component integrates deeply with the calculator system by:
 
 - `isOpen`: Boolean controlling modal visibility
 - `onClose`: Function to call when the modal should be closed
-- `calculator`: Object containing the complete calculator state and all derived values
+- `calculator`: Object containing the complete calculator state and all derived values, including:
+  - `totalPrice`: The total weekly price
+  - `evcPricePerUnit`: The price per EVC unit
+  - `paymentOption`: The selected payment option (prepaid/standard)
+  - `intent`: The business intent
+  - `selectedModules`: Array of selected module names
+  - `modules`: Complete module data
+  - `evcBase`: Base EVC configuration
+  - `parameters`: Enabled parameters
+  - `serviceParameters`: Service parameter definitions
+  - `resourceAllocation`: The selected resource allocation strategy
+  - `selectedVariants`: Object mapping module names to their selected variants
+  - `productionCapacity`: The selected production capacity
+  - `completionTimeWeeks`: Estimated completion time in weeks
 
 ### Component Structure
 
@@ -117,6 +150,7 @@ The component integrates deeply with the calculator system by:
    - Fixed position overlay covering the entire viewport
    - Semi-transparent black background for focus
    - Flexible content container with maximum size constraints
+   - Responsive design with appropriate sizing and scrolling behavior
 
 2. **Header Section**
    - Sticky positioning to remain visible during scrolling
@@ -127,23 +161,59 @@ The component integrates deeply with the calculator system by:
      - Hover effect that increases background opacity (hover:bg-opacity-30)
      - High contrast against the gradient header background
 
-3. **Content Sections**
-   - Main pricing summary with key financial metrics
-   - Module selection grid with variant details
-   - EVC calculation explanation with formula breakdown
-   - Custom parameters list with enabled status
-   - Detailed price calculation breakdown
-   - Call-to-action footer
+3. **Executive Summary Section**
+   - Business context description
+   - Key metrics cards (Investment, Delivery Capacity, Implementation Timeline)
+   - Strategic approach summary with expandable sections:
+     - Strategic pillars (expandable/collapsible)
+     - Delivery framework (expandable/collapsible)
+   - Strategic resource allocation visualization
+   - Service delivery timeline visualization
 
-### Helper Functions
+4. **Strategic Solution Components Section**
+   - Business context introduction
+   - Modules organized by pillar
+   - Expandable/collapsible module cards with:
+     - Business context
+     - Implementation approach
+     - Expected business outcomes
+     - Transformation journey stages
+   - Modules sum with total EVC calculation
 
-1. **`getVariantDisplayName(variantType)`**
-   - Converts internal variant identifiers to human-readable names
-   - Returns "Insight Primer" or "Integrated Execution" based on variant type
+5. **Additional Services Section**
+   - Business context introduction
+   - Expandable/collapsible add-on cards
+   - Payment option information
 
-2. **`getVariantIcon(variantType)`**
-   - Returns the appropriate FontAwesome icon for each variant
-   - Uses lightbulb icon for "insightPrimer" and tools icon for "integratedExecution"
+6. **Financial Investment Framework Section**
+   - Business context introduction
+   - Investment summary card
+   - Value-based pricing model explanation
+
+7. **Next Steps Section**
+   - Business context introduction
+   - Critical success factors
+   - Recommended next steps with numbered list
+
+8. **Footer with Actions**
+   - Export to PDF button with loading state
+   - Schedule executive briefing button with email link
+
+### State Management
+
+1. **UI State Management**
+   - `isExporting`: Boolean state to track PDF export progress
+   - `expandedModules`: Object to track which modules are expanded
+   - `expandedAddOns`: Object to track which add-ons are expanded
+   - `expandedStrategicItems`: Object to track expanded states for strategic approach sections:
+     - `pillars`: Object tracking expanded state for each strategic pillar
+     - `delivery`: Object tracking expanded state for delivery framework items
+
+2. **Helper Functions**
+   - `toggleModule`: Function to toggle module expansion state
+   - `toggleAddOn`: Function to toggle add-on expansion state
+   - `togglePillar`: Function to toggle strategic pillar expansion state
+   - `toggleDeliveryItem`: Function to toggle delivery framework item expansion state
 
 ### Data Processing
 
@@ -151,16 +221,53 @@ The component integrates deeply with the calculator system by:
    - Filters and maps the modules array to include only selected items
    - Extracts variant-specific EVC values based on user selections
    - Generates EVC range information for reference
+   - Groups modules by pillar for organized presentation
+   - Calculates total EVC sum across all selected modules
 
-2. **Calculation Extraction**
+2. **Resource Allocation Calculation**
+   - Calculates overhead percentage based on selected resource allocation strategy
+   - Determines absolute overhead EVCs based on total EVC sum and overhead percentage
+   - Computes total EVCs including overhead for timeline calculations
+   - Generates pillar-specific EVC allocations with percentage breakdowns
+
+3. **Timeline Calculation**
+   - Uses the weekly production capacity to determine delivery rate
+   - Divides total EVC scope by weekly capacity to determine completion time
+   - Visualizes timeline with appropriate week markers based on duration
+   - Creates simplified formula visualization for timeline explanation
+
+4. **Financial Calculation**
    - Pulls payment option details from configuration
-   - Calculates totals and subtotals for display
-   - Formats monetary values with appropriate localization
+   - Calculates weekly, monthly, quarterly, and total projected costs
+   - Formats all monetary values with appropriate localization
+   - Computes volume discount and pricing modifier effects when applicable
 
-3. **Parameter Filtering**
-   - Processes enabled parameters for display
+5. **Parameter Processing**
+   - Filters parameters to show only enabled options
+   - Calculates EVC cost for parameters based on type (absolute or relative)
    - Retrieves detailed information from service parameters collection
    - Formats modifier values for presentation
+
+### Helper Functions
+
+1. **UI Interaction Functions**
+   - `toggleModule`: Controls expansion state of module detail sections
+   - `toggleAddOn`: Controls expansion state of add-on sections
+   - `togglePillar`: Controls expansion state of strategic pillar sections
+   - `toggleDeliveryItem`: Controls expansion state of delivery framework items
+
+2. **Data Formatting Functions**
+   - `getVariantDisplayName`: Converts variant identifiers to human-readable names
+   - `getVariantIcon`: Returns appropriate icon for each variant type
+   - `getPillarIcon`: Determines appropriate icon for each strategic pillar
+   - `getPillarColorClass`: Assigns color classes based on pillar type
+   - `formatNumber`: Formats numbers with thousand separators
+
+3. **Export Functions**
+   - `exportToPdf`: Manages the PDF export process
+   - Sets loading state during export
+   - Prepares complete data package for PDF renderer
+   - Handles errors with appropriate user feedback
 
 ## User Experience Considerations
 
@@ -230,7 +337,7 @@ The modal generates contextually appropriate business narratives based on the us
 </p>
 ```
 
-This approach creates engaging, personalized content that reads as if it were custom-written for the specific business scenario, enhancing the perceived value of the generated report.
+This approach creates engaging, personalized content that reads as if it were custom-written for the specific business scenario, enhancing the perceived value of the generated report. Additional contextual narratives are generated throughout the report based on the selected resource allocation strategy, production capacity, and payment option.
 
 ### 2. Progressive Resource Allocation Visualization
 
@@ -239,8 +346,10 @@ The implementation uses a sophisticated approach to visualizing resource allocat
 - Progress bars with pillar-specific coloring show relative allocation percentages
 - Nested module cards provide additional detail while maintaining visual hierarchy
 - Automatic percentage calculations ensure accuracy regardless of configuration
+- Resource allocation overhead is visually represented with appropriate proportions
+- Expandable/collapsible sections reveal additional context when needed
 
-This multi-level visualization helps executives understand both the high-level distribution strategy and the detailed allocation at the module level.
+This multi-level visualization helps executives understand both the high-level distribution strategy and the detailed allocation at the module level, while clearly showing the coordination overhead associated with the selected resource allocation strategy.
 
 ### 3. Sophisticated PDF Generation
 
@@ -261,8 +370,11 @@ The modal intelligently adapts its content based on the user's configuration:
 - Adjusts implementation timeline phases based on project duration
 - Displays appropriate success factors based on selected resource allocation
 - Shows payment option-specific content based on the selected payment model
+- Adapts module and add-on descriptions based on selected variants
+- Renders week markers differently based on total timeline length
+- Shows visual indicators for expanded/collapsed states of detailed sections
 
-This conditional rendering ensures the report remains relevant and focused regardless of the specific configuration choices.
+This conditional rendering ensures the report remains relevant and focused regardless of the specific configuration choices, providing an optimized view for each unique combination of selections.
 
 ### 5. Business Value Narrative
 
@@ -272,8 +384,26 @@ Rather than simply presenting technical details, the implementation frames all i
 - Implementation approaches are explained in terms of organizational impact
 - Timelines are connected to value realization points
 - Financial information is presented with business context
+- Collapsible details provide additional context for deeper exploration
+- Success factors are aligned with specific business objectives
+- Strategic pillars are clearly connected to business transformation goals
 
-This business-centric approach makes the report more valuable to executive decision-makers who may not be interested in technical implementation details.
+This business-centric approach makes the report more valuable to executive decision-makers who may not be interested in technical implementation details, ensuring that every section connects directly to strategic business outcomes.
+
+### 6. Enhanced User Interface Patterns
+
+The implementation uses several advanced UI patterns to improve usability and information density:
+
+- Expandable/collapsible sections to manage information hierarchy
+- Progressive disclosure of detailed information
+- Contextual grouping of related information
+- Visual indicators for expanded/collapsed states
+- Consistent iconography for improved navigation and recognition
+- Card-based design for distinct content separation
+- Color-coding for pillar and category identification
+- Interactive elements with clear visual feedback
+
+These UI patterns combine to create a report that is both comprehensive and navigable, presenting complex information in an accessible way while maintaining a cohesive visual language throughout the experience.
 
 ## Visual Design Implementation
 
@@ -281,10 +411,10 @@ The DetailedReportModal implements a sophisticated visual design system:
 
 1. **Color System Implementation**
    - Uses pillar-based color coding throughout:
-     - Transformation: Purple theme for icons, borders, and accents
-     - Strategy: Blue theme for icons, borders, and accents
-     - Technology: Green theme for icons, borders, and accents
-     - Discovery: Amber theme for icons, borders, and accents
+     - Transformation: Amber/Purple theme for icons, borders, and accents
+     - Strategy: Orange/Blue theme for icons, borders, and accents
+     - Technology: Teal/Green theme for icons, borders, and accents
+     - Discovery: Indigo/Amber theme for icons, borders, and accents
    - Implements consistent application of brand colors:
      - Primary brand color (--elexive-primary) for headers and key UI elements
      - Accent color for icons and emphasis
@@ -292,7 +422,8 @@ The DetailedReportModal implements a sophisticated visual design system:
    - Uses color strategically to highlight different information types:
      - Financial figures use blue theme for consistency
      - Timeline elements use green/amber for status indication
-     - Implementation phases use color progression to show sequence
+     - Resource allocation visualization uses distinct colors for each pillar
+     - Coordination overhead represented in neutral gray
 
 2. **Typography Hierarchy**
    - Implements a consistent typographic scale:
@@ -322,16 +453,26 @@ The DetailedReportModal implements a sophisticated visual design system:
      - External card margins: mb-12 for major sections
      - Internal spacing: space-y-6 for consistent vertical rhythm
      - Padding: p-6 for consistent internal spacing
+   - Implements collapsible content patterns:
+     - Overflow management with max-height transitions
+     - Smooth animation for expanding/collapsing sections
+     - Clear visual indicators for interaction states
 
 4. **Visual Feedback System**
    - Implements clear interactive states:
-     - Hover effects on all interactive elements
-     - Loading states with spinner animation for processing
+     - Hover effects on all interactive elements (hover:bg-gray-50)
+     - Loading states with spinner animation for PDF export processing
      - Disabled states for unavailable actions
    - Uses iconography consistently:
      - Section headers paired with relevant FontAwesome icons
+     - Chevron indicators (up/down) for expandable sections
      - Interactive elements with appropriate action icons
      - Status indicators with meaningful visual symbols
+   - Provides clear visual affordances:
+     - Cursor changes on interactive elements
+     - Background color shifts on hover states
+     - Icon rotation for expanded/collapsed states
+     - Shadow effects for elements with depth
 
 ## Potential Improvements
 

@@ -60,60 +60,6 @@ const ReportContentPage = ({
   const formatDecimal = (num) => {
     return Number(num).toFixed(1).replace(/\.0$/, '');
   };
-  
-  // Get pillar icon - simplified for PDF use
-  const getPillarIcon = (pillar) => {
-    // Find the pillar in the configuration
-    const pillarConfig = calculatorConfig.pillars?.find(
-      p => p.label?.toLowerCase() === pillar.toLowerCase()
-    );
-    
-    if (pillarConfig && pillarConfig.icon) {
-      return pillarConfig.icon;
-    }
-    
-    // Fallback to default icons if not found in config
-    switch(pillar.toLowerCase()) {
-      case 'transformation': return '👥';
-      case 'strategy': return '📈';
-      case 'technology': return '🛡️';
-      case 'discovery': return '🌐';
-      default: return '🧩';
-    }
-  };
-  
-  // Get pillar color
-  const getPillarColor = (pillar) => {
-    // Try to find the pillar in the configuration
-    const pillarConfig = calculatorConfig.pillars?.find(
-      p => p.label?.toLowerCase() === pillar.toLowerCase()
-    );
-    
-    if (pillarConfig) {
-      // If the pillar is found in the config, return a color class based on the pillar's id
-      switch(pillarConfig.id?.toLowerCase()) {
-        case 'transformation': return '#8B5CF6'; // purple-600
-        case 'strategy': return '#3B82F6'; // blue-600
-        case 'technology': return '#10B981'; // green-600
-        case 'discovery': return '#F59E0B'; // amber-600
-        case 'catalyst': return '#1E40AF'; // blue-800
-        default: return '#4B5563'; // gray-600
-      }
-    }
-    
-    // Fallback to legacy color mapping if not found in config
-    switch(pillar.toLowerCase()) {
-      case 'transformation': return '#8B5CF6'; // purple-600
-      case 'strategy': return '#3B82F6'; // blue-600
-      case 'technology': return '#10B981'; // green-600
-      case 'discovery': return '#F59E0B'; // amber-600
-      case 'catalyst': return '#1E40AF'; // blue-800
-      default: return '#4B5563'; // gray-600
-    }
-  };
-  
-  // Calculate total projected cost for the entire implementation
-  const totalProjectedCost = totalPrice * completionTimeWeeks;
 
   // Create a comprehensive EVC calculation table
   const renderPriceCalculationTable = () => {
@@ -435,84 +381,41 @@ const ReportContentPage = ({
             ))}
           </View>
 
-          {/* Service Delivery Timeline */}
-          <Text style={styles.sectionTitle}>Service Delivery Timeline</Text>
+          {/* Implementation Approach */}
+          <Text style={styles.sectionTitle}>Implementation Approach</Text>
           <View style={styles.section}>
             <Text style={styles.paragraph}>
-              Your service delivery timeline is based on our Elastic Value Credit (EVC) framework, which measures transformation 
-              resource requirements. This visualization shows how your service capacity and scope requirements create a predictable
-              delivery timeline.
+              Our implementation approach balances strategic depth with operational efficiency. 
+              The {completionTimeWeeks}-week roadmap is structured to deliver incremental value 
+              throughout the engagement while maintaining alignment with your business objectives.
             </Text>
 
-            {/* EVC delivery blocks visualization */}              <View style={styles.deliveryTimelineCard}>
-              <View style={styles.deliveryTimelineHeaderCard}>
-                <Text style={styles.deliveryTimelineTitle}>Continuous Service Delivery</Text>
-                <Text style={styles.deliveryTimelineWeeksValue}>
-                  {completionTimeWeeks}
-                  <Text style={styles.deliveryTimelineWeeksLabel}> weeks</Text>
-                </Text>
-              </View>
-              
-              <View style={styles.deliveryTimelineBar}>
-                {Array.from({ length: Math.min(completionTimeWeeks, 12) }).map((_, index) => (
-                  <View key={index} style={styles.deliveryTimelineBlockCard}>
-                    <Text style={styles.deliveryTimelineBlockCardText}>
-                      {weeklyEVCs}
-                    </Text>
-                  </View>
-                ))}
+            {/* Timeline Visualization */}
+            <View style={styles.timelineContainer}>
+              <View style={styles.timelineHeader}>
+                <Text style={styles.timelineLabel}>Weeks 1-4</Text>
+                <Text style={styles.timelineLabel}>Weeks 5-8</Text>
+                <Text style={styles.timelineLabel}>Weeks 9-{Math.min(12, completionTimeWeeks)}</Text>
                 {completionTimeWeeks > 12 && (
-                  <View style={styles.deliveryTimelineEllipsisCard}>
-                    <Text style={styles.deliveryTimelineEllipsisText}>...</Text>
+                  <Text style={styles.timelineLabel}>Weeks 13-{completionTimeWeeks}</Text>
+                )}
+              </View>
+              <View style={styles.timelineBar}>
+                <View style={{...styles.timelineSegment, backgroundColor: '#4F46E5', flex: 1}}>
+                  <Text style={styles.timelineText}>Assessment</Text>
+                </View>
+                <View style={{...styles.timelineSegment, backgroundColor: '#F59E0B', flex: 1}}>
+                  <Text style={styles.timelineText}>Design</Text>
+                </View>
+                <View style={{...styles.timelineSegment, backgroundColor: '#10B981', flex: 1}}>
+                  <Text style={styles.timelineText}>Implementation</Text>
+                </View>
+                {completionTimeWeeks > 12 && (
+                  <View style={{...styles.timelineSegment, backgroundColor: '#6366F1', flex: 1}}>
+                    <Text style={styles.timelineText}>Optimization</Text>
                   </View>
                 )}
               </View>
-              
-              {/* Week markers */}
-              <View style={styles.deliveryTimelineMarkers}>
-                <Text style={styles.deliveryTimelineMarker}>Week 1</Text>
-                {completionTimeWeeks <= 6 ? (
-                  // If 6 or fewer weeks, show all week markers
-                  Array.from({ length: completionTimeWeeks - 2 }).map((_, index) => (
-                    <Text key={index} style={styles.deliveryTimelineMarker}>Week {index + 2}</Text>
-                  ))
-                ) : (
-                  // Otherwise, show some markers strategically
-                  <>
-                    <Text style={styles.deliveryTimelineMarker}>Week {Math.round(completionTimeWeeks * 0.25)}</Text>
-                    <Text style={styles.deliveryTimelineMarker}>Week {Math.round(completionTimeWeeks * 0.5)}</Text>
-                    <Text style={styles.deliveryTimelineMarker}>Week {Math.round(completionTimeWeeks * 0.75)}</Text>
-                  </>
-                )}
-                <Text style={styles.deliveryTimelineMarker}>Week {completionTimeWeeks}</Text>
-              </View>
-              
-              {/* Formula visualization */}
-              <View style={styles.deliveryFormulaContainer}>
-                <View style={styles.deliveryFormulaItem}>
-                  <Text style={styles.deliveryFormulaValue}>{totalEvcValue}</Text>
-                  <Text style={styles.deliveryFormulaLabel}>Total EVCs</Text>
-                </View>
-                <Text style={styles.deliveryFormulaDivider}>÷</Text>
-                <View style={styles.deliveryFormulaItem}>
-                  <Text style={styles.deliveryFormulaValue}>{weeklyEVCs}</Text>
-                  <Text style={styles.deliveryFormulaLabel}>EVCs/week</Text>
-                </View>
-                <Text style={styles.deliveryFormulaDivider}>=</Text>
-                <View style={styles.deliveryFormulaItem}>
-                  <Text style={styles.deliveryFormulaValue}>{completionTimeWeeks}</Text>
-                  <Text style={styles.deliveryFormulaLabel}>weeks</Text>
-                </View>
-              </View>
-            </View>
-            
-            {/* Service approach context */}
-            <View style={styles.serviceApproachNote}>
-              <Text style={styles.serviceApproachText}>
-                Our service model delivers consistent value through a weekly EVC capacity of {weeklyEVCs}. 
-                With your selected {resourceAllocation} resource allocation strategy, we'll deliver the complete {totalEvcValue} EVC scope over {completionTimeWeeks} weeks, 
-                enabling continuous transformation without disrupting your operations.
-              </Text>
             </View>
           </View>
         </View>
@@ -522,173 +425,6 @@ const ReportContentPage = ({
             CONFIDENTIAL: This report was generated by the Elexive Calculator for your organization.
           </Text>
           <Text style={styles.pageNumber}>Page 1</Text>
-        </View>
-      </Page>
-      
-      {/* Strategic Approach Page */}
-      <Page size="A4" style={styles.page}>
-        <View style={styles.headerBanner}>
-          <Text style={styles.headerTitle}>Strategic Approach</Text>
-        </View>
-        
-        <View style={styles.contentPage}>
-          <View style={styles.twoColumnLayout}>
-            {/* Strategic Pillars */}
-            <View style={styles.strategicApproachColumn}>
-              <Text style={styles.columnHeading}>Strategic Pillars</Text>
-              
-              {Object.entries(modulesByPillar || {}).map(([pillar, modules]) => (
-                <View key={`pillar-${pillar}`} style={styles.pillarCard}>
-                  <View style={styles.pillarHeader}>
-                    <View style={[styles.pillarIcon, { backgroundColor: `${getPillarColor(pillar)}20` }]}>
-                      <Text style={[styles.pillarIconText, { color: getPillarColor(pillar) }]}>{getPillarIcon(pillar)}</Text>
-                    </View>
-                    <View style={styles.pillarInfo}>
-                      <Text style={styles.pillarName}>{pillar}</Text>
-                      <Text style={styles.pillarModuleCount}>{modules.length} modules selected</Text>
-                    </View>
-                  </View>
-                  
-                  <View style={styles.pillarContent}>
-                    <Text style={styles.pillarDescription}>
-                      {pillar === 'Transformation' ? 
-                        'Focus on people, processes, and organizational change management to enable successful business transformation.' :
-                      pillar === 'Strategy' ? 
-                        'Establish clear direction, market positioning, and competitive differentiation to drive business outcomes.' :
-                      pillar === 'Technology' ? 
-                        'Implement and optimize technological capabilities to support business innovation and efficiency.' :
-                      'Explore new opportunities and build foundational knowledge to inform strategic decisions.'}
-                    </Text>
-                    
-                    <Text style={styles.pillarModulesLabel}>Key Modules</Text>
-                    <View style={styles.pillarModulesBadges}>
-                      {modules.slice(0, 3).map((module, idx) => (
-                        <View key={`module-badge-${idx}`} style={styles.moduleBadge}>
-                          <Text style={styles.moduleBadgeText}>{module.name}</Text>
-                        </View>
-                      ))}
-                      {modules.length > 3 && (
-                        <View style={styles.moduleBadge}>
-                          <Text style={styles.moduleBadgeText}>+{modules.length - 3} more</Text>
-                        </View>
-                      )}
-                    </View>
-                  </View>
-                </View>
-              ))}
-            </View>
-            
-            {/* Delivery Framework */}
-            <View style={styles.strategicApproachColumn}>
-              <Text style={styles.columnHeading}>Delivery Framework</Text>
-              
-              <View style={styles.pillarCard}>
-                <View style={styles.pillarHeader}>
-                  <View style={[styles.pillarIcon, { backgroundColor: '#F3E8FF' }]}>
-                    <Text style={[styles.pillarIconText, { color: '#9333EA' }]}>🚀</Text>
-                  </View>
-                  <View style={styles.pillarInfo}>
-                    <Text style={styles.pillarName}>Transformation Velocity</Text>
-                    <Text style={styles.pillarModuleCount}>
-                      {calculatorConfig.productionCapacity ? 
-                       calculatorConfig.productionCapacity[resourceAllocation]?.label || 'Professional' : 'Professional'} 
-                       ({weeklyEVCs} EVCs/week)
-                    </Text>
-                  </View>
-                </View>
-                
-                <View style={styles.pillarContent}>
-                  <Text style={styles.pillarDescription}>
-                    {resourceAllocation === 'pathfinder' ? 
-                      'Focused exploration and initial implementation for targeted challenges. This approach provides a controlled pace suitable for organizations starting their transformation journey or addressing specific pain points.' :
-                    resourceAllocation === 'roadster' ? 
-                      'Balanced approach delivering consistent progress without disrupting operations. This mid-tier velocity is ideal for organizations that need meaningful change while maintaining operational stability.' :
-                    resourceAllocation === 'jetpack' ? 
-                      'Accelerated transformation with significant business impact and rapid results. This high-velocity approach enables organizations to quickly respond to market pressures and drive competitive advantage.' :
-                      'Enterprise-grade transformation with maximum velocity for critical initiatives. This approach dedicates significant resources to drive comprehensive change across the organization for maximum strategic impact.'}
-                  </Text>
-                  
-                  <View style={styles.velocityBar}>
-                    <View style={styles.velocityBarBackground} />
-                    <View 
-                      style={[
-                        styles.velocityBarFill, 
-                        { 
-                          width: resourceAllocation === 'pathfinder' ? '25%' : 
-                                 resourceAllocation === 'roadster' ? '50%' : 
-                                 resourceAllocation === 'jetpack' ? '75%' : '100%' 
-                        }
-                      ]} 
-                    />
-                    <Text style={styles.velocityBarLabel}>{weeklyEVCs} EVCs/week</Text>
-                  </View>
-                </View>
-              </View>
-              
-              <View style={styles.pillarCard}>
-                <View style={styles.pillarHeader}>
-                  <View style={[styles.pillarIcon, { backgroundColor: '#DBEAFE' }]}>
-                    <Text style={[styles.pillarIconText, { color: '#2563EB' }]}>📊</Text>
-                  </View>
-                  <View style={styles.pillarInfo}>
-                    <Text style={styles.pillarName}>Resource Allocation</Text>
-                    <Text style={styles.pillarModuleCount}>
-                      {calculatorConfig.resourceAllocation ? 
-                       calculatorConfig.resourceAllocation[resourceAllocation]?.description || 'Balanced approach' : 
-                       'Balanced approach'}
-                    </Text>
-                  </View>
-                </View>
-                
-                <View style={styles.pillarContent}>
-                  <Text style={styles.pillarDescription}>
-                    {resourceAllocation === 'focused' ? 
-                      'Laser-focused approach with minimal context switching for maximum efficiency on a single strategic priority. This approach minimizes coordination overhead and delivers the fastest possible results for your highest-priority initiative.' :
-                    resourceAllocation === 'balanced' ? 
-                      'Strategic balance between key priorities and operational initiatives with moderate coordination overhead. This approach enables parallel work on multiple interconnected initiatives with efficient resource sharing and knowledge transfer.' :
-                      'Distributed approach addressing multiple concurrent initiatives across your organization. This approach enables broad transformation across multiple business units or functions with specialized expertise for each area.'}
-                  </Text>
-                  
-                  <View style={styles.resourceOptions}>
-                    <View style={[
-                      styles.resourceOption, 
-                      resourceAllocation === 'focused' ? styles.resourceOptionActive : {}
-                    ]}>
-                      <Text style={[
-                        styles.resourceOptionText,
-                        resourceAllocation === 'focused' ? styles.resourceOptionTextActive : {}
-                      ]}>Focused</Text>
-                    </View>
-                    <View style={[
-                      styles.resourceOption, 
-                      resourceAllocation === 'balanced' ? styles.resourceOptionActive : {}
-                    ]}>
-                      <Text style={[
-                        styles.resourceOptionText,
-                        resourceAllocation === 'balanced' ? styles.resourceOptionTextActive : {}
-                      ]}>Balanced</Text>
-                    </View>
-                    <View style={[
-                      styles.resourceOption, 
-                      resourceAllocation === 'distributed' ? styles.resourceOptionActive : {}
-                    ]}>
-                      <Text style={[
-                        styles.resourceOptionText,
-                        resourceAllocation === 'distributed' ? styles.resourceOptionTextActive : {}
-                      ]}>Distributed</Text>
-                    </View>
-                  </View>
-                </View>
-              </View>
-            </View>
-          </View>
-        </View>
-        
-        <View style={styles.footer}>
-          <Text style={styles.coverFooterText}>
-            CONFIDENTIAL: This report was generated by the Elexive Calculator for your organization.
-          </Text>
-          <Text style={styles.pageNumber}>Page 2</Text>
         </View>
       </Page>
 
@@ -749,7 +485,7 @@ const ReportContentPage = ({
             <Text style={styles.coverFooterText}>
               CONFIDENTIAL: This report was generated by the Elexive Calculator for your organization.
             </Text>
-            <Text style={styles.pageNumber}>Page {pageIndex + 3}</Text>
+            <Text style={styles.pageNumber}>Page {pageIndex + 2}</Text>
           </View>
         </Page>
       ))}
@@ -770,90 +506,33 @@ const ReportContentPage = ({
               with your transformation objectives.
             </Text>
             
-            {/* Resource Allocation Visualization - Modern Single Bar Approach */}
-            <View style={styles.resourceAllocationContainer}>
-              <View style={styles.resourceHeader}>
-                <Text style={styles.resourceHeaderText}>Resource allocation by strategic pillar</Text>
-                <Text style={styles.resourceHeaderValue}>{totalEvcValue} Total EVCs</Text>
-              </View>
-              
-              {/* Single bar showing proportional allocation of EVCs across all pillars */}
-              <View style={styles.singleBarContainer}>
-                {Object.entries(modulesByPillar || {}).map(([pillar, modules], index) => {
-                  const pillarTotal = modules.reduce((sum, module) => sum + module.evcValue, 0);
-                  const pillarPercentage = (pillarTotal / totalEvcValue * 100).toFixed(2);
+            {/* Resource Allocation Visualization */}
+            {resourceAllocation && (
+              <View style={styles.resourceAllocationContainer}>
+                {Object.entries(resourceAllocation).map(([pillar, percentage], index) => {
+                  // Ensure percentage is a valid number
+                  const validPercentage = typeof percentage === 'number' ? percentage : 0;
                   
                   return (
-                    <View 
-                      key={pillar}
-                      style={{
-                        height: '100%',
-                        width: `${pillarPercentage}%`,
-                        backgroundColor: getPillarColor(pillar),
-                        flexDirection: 'row',
-                        alignItems: 'center',
-                        justifyContent: 'center'
-                      }}
-                    >
-                      {parseFloat(pillarPercentage) > 10 && (
-                        <Text style={styles.barPercentageText}>{Math.round(parseFloat(pillarPercentage))}%</Text>
-                      )}
-                    </View>
-                  );
-                })}
-                
-                {/* Add resource allocation overhead if it exists */}
-                {absoluteOverheadEvcs > 0 && (
-                  <View 
-                    style={{
-                      height: '100%',
-                      width: `${(absoluteOverheadEvcs / totalEvcValue * 100).toFixed(2)}%`,
-                      backgroundColor: '#6B7280', // gray-500
-                      flexDirection: 'row',
-                      alignItems: 'center',
-                      justifyContent: 'center'
-                    }}
-                  >
-                    {(absoluteOverheadEvcs / totalEvcValue * 100) > 5 && (
-                      <Text style={styles.barPercentageText}>
-                        {Math.round(absoluteOverheadEvcs / totalEvcValue * 100)}%
-                      </Text>
-                    )}
-                  </View>
-                )}
-              </View>
-              
-              {/* Legend - Color blocks with labels */}
-              <View style={styles.barLegendContainer}>
-                {Object.entries(modulesByPillar || {}).map(([pillar, modules]) => {
-                  const pillarTotal = modules.reduce((sum, module) => sum + module.evcValue, 0);
-                  const pillarPercentage = (pillarTotal / totalEvcValue * 100).toFixed(0);
-                  
-                  return (
-                    <View key={pillar} style={styles.legendItem}>
-                      <View style={[styles.legendColorBox, { backgroundColor: getPillarColor(pillar) }]} />
-                      <View>
-                        <Text style={styles.legendLabel}>{pillar}</Text>
-                        <Text style={styles.legendValue}>{pillarTotal} EVCs ({pillarPercentage}%)</Text>
+                    <View key={index} style={styles.resourceRow}>
+                      <Text style={styles.resourceLabel}>{pillar}:</Text>
+                      <View style={styles.resourceBarContainer}>
+                        <View 
+                          style={{
+                            ...styles.resourceProgressBar, 
+                            width: validPercentage + '%',
+                            backgroundColor: index === 0 ? elexivePrimary : 
+                                             index === 1 ? '#4F46E5' : 
+                                             index === 2 ? '#10B981' : '#F59E0B'
+                          }}
+                        />
+                        <Text style={styles.resourcePercentage}>{validPercentage}%</Text>
                       </View>
                     </View>
                   );
                 })}
-                
-                {/* Add legend item for coordination overhead */}
-                {absoluteOverheadEvcs > 0 && (
-                  <View style={styles.legendItem}>
-                    <View style={[styles.legendColorBox, { backgroundColor: '#6B7280' }]} />
-                    <View>
-                      <Text style={styles.legendLabel}>Coordination Overhead</Text>
-                      <Text style={styles.legendValue}>
-                        {absoluteOverheadEvcs} EVCs ({Math.round(absoluteOverheadEvcs / totalEvcValue * 100)}%)
-                      </Text>
-                    </View>
-                  </View>
-                )}
               </View>
-            </View>
+            )}
           </View>
 
           {/* Investment Structure */}
@@ -865,74 +544,27 @@ const ReportContentPage = ({
               is calculated based on the selected modules, resource allocation, and implementation timeline.
             </Text>
             
-            {/* Investment cards in a two-column layout */}
-            <View style={styles.cardRow}>
-              {/* Investment Summary Card */}
-              <View style={styles.card}>
-                <Text style={styles.cardLabel}>Investment Summary</Text>
-                <Text style={styles.cardDescription}>
-                  Your total investment is structured to provide predictable costs aligned with the scope and scale 
-                  of your transformation initiative.
-                  {paymentOption === 'prepaid' ? 
-                    ` With the prepaid model, you benefit from reduced overall costs through our reservation discount of ${((1 - paymentDetails?.priceModifier) * 100).toFixed(0)}%.` : 
-                    ' The standard billing model provides maximum financial flexibility with no upfront commitment.'}
-                </Text>
-                
-                {/* Investment breakdown table */}
-                <View style={styles.tableContainer}>
-                  <View style={styles.tableRow}>
-                    <Text style={styles.tableLabel}>Weekly Investment</Text>
-                    <Text style={styles.tableValue}>€{formatNumber(totalPrice)}</Text>
-                  </View>
-                  <View style={styles.tableRow}>
-                    <Text style={styles.tableLabel}>Monthly Investment</Text>
-                    <Text style={styles.tableValue}>€{formatNumber(totalPrice * 4)}</Text>
-                  </View>
-                  <View style={styles.tableRow}>
-                    <Text style={styles.tableLabel}>Quarterly Investment</Text>
-                    <Text style={styles.tableValue}>€{formatNumber(totalPrice * 13)}</Text>
-                  </View>
-                  <View style={styles.tableRow}>
-                    <Text style={styles.tableLabel}>Total Projected Cost</Text>
-                    <Text style={[styles.tableValueHighlight, {fontSize: 14}]}>€{formatNumber(totalPrice * completionTimeWeeks)}</Text>
-                  </View>
-                </View>
+            <View style={styles.investmentBreakdown}>
+              <View style={styles.investmentRow}>
+                <Text style={styles.investmentItemLabel}>Total Elastic Value Credits:</Text>
+                <Text style={styles.investmentItemValue}>{totalEvcValue} EVCs</Text>
               </View>
               
-              {/* Value-Based Pricing Model Card */}
-              <View style={styles.card}>
-                <Text style={styles.cardLabel}>Value-Based Pricing Model</Text>
-                <Text style={styles.cardDescription}>
-                  Our pricing is based on Elastic Value Credits (EVCs), a standardized unit of consulting value that ensures 
-                  you pay only for the actual transformation resources you receive. Your selected {calculatorConfig?.productionCapacity?.[resourceAllocation]?.label || 'Professional'} tier 
-                  provides {weeklyEVCs} EVCs weekly, calibrated to your organization's transformation needs.
+              <View style={styles.investmentRow}>
+                <Text style={styles.investmentItemLabel}>Weekly Investment:</Text>
+                <Text style={styles.investmentItemValue}>€{formatNumber(totalPrice)}</Text>
+              </View>
+              
+              <View style={styles.investmentRow}>
+                <Text style={styles.investmentItemLabel}>Implementation Timeline:</Text>
+                <Text style={styles.investmentItemValue}>{completionTimeWeeks} weeks</Text>
+              </View>
+              
+              <View style={styles.investmentRow}>
+                <Text style={styles.investmentItemLabel}>Total Investment:</Text>
+                <Text style={styles.investmentValueTotal}>
+                  €{formatNumber(totalPrice * completionTimeWeeks)}
                 </Text>
-                
-                {/* Pricing components table */}
-                <View style={styles.tableContainer}>
-                  <View style={styles.tableRow}>
-                    <Text style={styles.tableLabel}>Weekly Production Capacity</Text>
-                    <Text style={styles.tableValue}>{weeklyEVCs} EVCs</Text>
-                  </View>
-                  <View style={styles.tableRow}>
-                    <Text style={styles.tableLabel}>Base Price per EVC</Text>
-                    <Text style={styles.tableValue}>€{evcPricePerUnit}</Text>
-                  </View>
-                  <View style={styles.tableRow}>
-                    <Text style={styles.tableLabel}>Implementation Period</Text>
-                    <Text style={styles.tableValue}>{completionTimeWeeks} weeks</Text>
-                  </View>
-                  <View style={styles.tableRow}>
-                    <Text style={styles.tableLabel}>Payment Model</Text>
-                    <Text style={styles.tableValue}>{paymentDetails?.name || 'Standard'}</Text>
-                  </View>
-                  {paymentOption === 'prepaid' && paymentDetails?.priceModifier < 1 && (
-                    <View style={styles.tableRow}>
-                      <Text style={styles.tableLabel}>Prepaid Reservation Discount</Text>
-                      <Text style={styles.tableValue}>{((1 - paymentDetails.priceModifier) * 100).toFixed(0)}%</Text>
-                    </View>
-                  )}
-                </View>
               </View>
             </View>
             

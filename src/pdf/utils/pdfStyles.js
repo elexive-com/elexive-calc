@@ -6,9 +6,7 @@ import { StyleSheet } from '@react-pdf/renderer';
 // Font.register({
 //   family: 'Roboto',
 //   src: '/fonts/Roboto-Regular.ttf',
-// });
-
-// Define colors
+// });  // Define colors
 const colors = {
   primary: '#2E2266', // elexivePrimary
   secondary: '#FFBE59', // elexiveSecondary
@@ -27,6 +25,22 @@ const colors = {
   intentBg: '#F6F6F9',
   intentText: '#646464',
   intentTextDark: '#282828',
+  // New colors for Service Delivery Timeline
+  deliveryTimelineBg: '#F9FAFB',
+  deliveryTimelineBlock: '#DBEAFE',
+  deliveryTimelineText: '#2563EB',
+  deliveryTimelineBorder: '#E5E7EB',
+  // Strategic Approach section colors
+  cardBg: '#FFFFFF',
+  cardBorder: '#E5E7EB',
+  pillars: {
+    transformation: '#8B5CF6', // purple-600
+    strategy: '#3B82F6', // blue-600
+    technology: '#10B981', // green-600
+    discovery: '#F59E0B', // amber-600
+    catalyst: '#1E40AF', // blue-800
+    default: '#4B5563', // gray-600
+  }
 };
 
 // Define PDF styles
@@ -449,40 +463,178 @@ const styles = StyleSheet.create({
   
   // Resource Allocation
   resourceAllocationContainer: {
-    marginTop: 10,
+    marginTop: 15,
     marginBottom: 10,
+    borderRadius: 5,
+    padding: 10,
+    backgroundColor: '#F5F7FA',
+    border: '1px solid #E2E8F0',
   },
-  resourceRow: {
+  resourceHeader: {
     flexDirection: 'row',
+    justifyContent: 'space-between',
     alignItems: 'center',
     marginBottom: 8,
   },
-  resourceLabel: {
+  resourceHeaderText: {
     fontSize: 11,
-    fontWeight: 'bold',
-    width: 100,
+    color: '#4B5563',
+    fontWeight: 'medium',
   },
-  resourceBarContainer: {
-    flex: 1,
-    height: 20,
-    backgroundColor: '#F0F0F0',
-    borderRadius: 10,
+  resourceHeaderValue: {
+    fontSize: 11,
+    color: '#1F2937',
+    fontWeight: 'bold',
+  },
+  singleBarContainer: {
+    height: 36,
+    flexDirection: 'row',
+    width: '100%',
+    marginBottom: 12,
+    borderRadius: 6,
     overflow: 'hidden',
+  },
+  barPercentageText: {
+    color: 'white',
+    fontSize: 9,
+    fontWeight: 'medium',
+  },
+  barLegendContainer: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    gap: 12,
+    marginTop: 6,
+  },
+  legendItem: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginRight: 10,
+    marginBottom: 4,
+  },
+  legendColorBox: {
+    width: 12,
+    height: 12,
+    borderRadius: 3,
+    marginRight: 6,
+  },
+  legendLabel: {
+    fontSize: 10,
+    fontWeight: 'medium',
+    color: '#374151',
+  },
+  legendValue: {
+    fontSize: 8,
+    color: '#6B7280',
+  },
+  
+  // Service Delivery Timeline
+  deliveryTimelineContainer: {
+    marginTop: 15,
+    marginBottom: 15,
+    borderRadius: 5,
+    padding: 10,
+    backgroundColor: '#F5F7FA',
+    border: '1px solid #E2E8F0',
+  },
+  deliveryTimelineHeader: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    marginBottom: 8,
+  },
+  deliveryTimelineLabel: {
+    fontSize: 11,
+    color: '#4B5563',
+  },
+  deliveryTimelineValue: {
+    fontSize: 11,
+    color: '#1F2937',
+    fontWeight: 'bold',
+  },
+  deliveryTimelineBlocks: {
+    flexDirection: 'row',
+    height: 30,
+    borderRadius: 5,
+    overflow: 'hidden',
+    backgroundColor: '#E5E7EB',
     position: 'relative',
   },
-  resourceProgressBar: {
+  deliveryTimelineBlock: {
     height: '100%',
-    position: 'absolute',
-    left: 0,
-    top: 0,
+    borderRightWidth: 1,
+    borderRightColor: '#D1D5DB',
   },
-  resourcePercentage: {
-    position: 'absolute',
-    right: 10,
-    top: 3,
-    fontSize: 9,
-    color: 'white',
+  deliveryTimelineBlockInner: {
+    backgroundColor: '#3B82F6',
+    opacity: 0.2,
+    flex: 1,
+    height: '100%',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  deliveryTimelineBlockText: {
+    fontSize: 8,
     fontWeight: 'bold',
+    color: '#2563EB',
+  },
+  deliveryTimelineEllipsis: {
+    position: 'absolute',
+    right: 5,
+    top: 8,
+    fontSize: 10,
+    color: '#6B7280',
+  },
+  deliveryTimelineWeeks: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    marginTop: 5,
+    marginBottom: 10,
+  },
+  deliveryTimelineWeekMarker: {
+    fontSize: 8,
+    color: '#6B7280',
+  },
+  deliveryTimelineFormula: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#F3F4F6',
+    borderRadius: 5,
+    padding: 10,
+    marginTop: 5,
+  },
+  deliveryTimelineFormulaItem: {
+    textAlign: 'center',
+    paddingHorizontal: 5,
+  },
+  deliveryTimelineFormulaValue: {
+    fontSize: 14,
+    fontWeight: 'bold',
+    color: colors.primary,
+  },
+  deliveryTimelineFormulaLabel: {
+    fontSize: 8,
+    color: '#6B7280',
+    marginTop: 2,
+  },
+  deliveryTimelineFormulaDivider: {
+    fontSize: 16,
+    fontWeight: 'bold',
+    color: '#9CA3AF',
+    marginHorizontal: 5,
+  },
+  serviceApproachNote: {
+    marginTop: 10,
+    padding: 10,
+    backgroundColor: '#EFF6FF',
+    borderRadius: 5,
+    borderLeftWidth: 3,
+    borderLeftColor: '#3B82F6',
+  },
+  serviceApproachText: {
+    fontSize: 9,
+    color: '#1E40AF',
+    lineHeight: 1.4,
   },
   
   // Investment Breakdown
@@ -735,11 +887,340 @@ const styles = StyleSheet.create({
     borderLeftWidth: 3,
     borderLeftColor: '#DDDDDD',
   },
+  
+  // Service Delivery Timeline styles
+  deliveryTimelineCard: {
+    backgroundColor: colors.background,
+    border: `1pt solid ${colors.deliveryTimelineBorder}`,
+    borderRadius: 4,
+    padding: 10,
+    marginTop: 8,
+    marginBottom: 12,
+  },
+  deliveryTimelineHeaderCard: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    marginBottom: 8,
+  },
+  deliveryTimelineTitle: {
+    fontSize: 10,
+    fontWeight: 'medium',
+    color: colors.text,
+  },
+  deliveryTimelineWeeksValue: {
+    fontSize: 12,
+    fontWeight: 'bold',
+    color: colors.primary,
+  },
+  deliveryTimelineWeeksLabel: {
+    fontSize: 8,
+    color: colors.lightText,
+  },
+  deliveryTimelineBar: {
+    height: 30,
+    backgroundColor: colors.deliveryTimelineBg,
+    borderRadius: 4,
+    border: `1pt solid ${colors.deliveryTimelineBorder}`,
+    flexDirection: 'row',
+    overflow: 'hidden',
+    marginBottom: 2,
+  },
+  deliveryTimelineBlockCard: {
+    height: '100%',
+    backgroundColor: colors.deliveryTimelineBlock,
+    borderRight: `1pt solid ${colors.deliveryTimelineBorder}`,
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  deliveryTimelineBlockCardText: {
+    fontSize: 7,
+    fontWeight: 'medium',
+    color: colors.deliveryTimelineText,
+  },
+  deliveryTimelineEllipsisCard: {
+    position: 'absolute',
+    right: 5,
+    top: '35%',
+  },
+  deliveryTimelineEllipsisText: {
+    fontSize: 9,
+    fontWeight: 'medium',
+    color: colors.lightText,
+  },
+  deliveryTimelineMarkers: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    paddingHorizontal: 4,
+    marginBottom: 12,
+  },
+  deliveryTimelineMarker: {
+    fontSize: 7,
+    color: colors.lightText,
+  },
+  deliveryFormulaContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: colors.deliveryTimelineBg,
+    padding: 8,
+    borderRadius: 4,
+    border: `1pt solid ${colors.deliveryTimelineBorder}`,
+  },
+  deliveryFormulaItem: {
+    textAlign: 'center',
+    padding: 5,
+  },
+  deliveryFormulaValue: {
+    fontSize: 10,
+    fontWeight: 'bold',
+    color: colors.primary,
+  },
+  deliveryFormulaLabel: {
+    fontSize: 7,
+    color: colors.lightText,
+    marginTop: 2,
+  },
+  deliveryFormulaDivider: {
+    fontSize: 14,
+    color: colors.lightText,
+    paddingHorizontal: 5,
+  },
+  serviceApproachNoteCard: {
+    backgroundColor: colors.deliveryTimelineBg,
+    padding: 8,
+    borderRadius: 4,
+    border: `1pt solid ${colors.deliveryTimelineBorder}`,
+    marginTop: 8,
+  },
+  serviceApproachTextCard: {
+    fontSize: 8,
+    color: colors.lightText,
+    lineHeight: 1.4,
+  },
+  
+  // Strategic Approach Page Styles
+  twoColumnLayout: {
+    flexDirection: 'row',
+    gap: 15,
+    marginBottom: 15,
+  },
+  strategicApproachColumn: {
+    flex: 1,
+  },
+  columnHeading: {
+    fontSize: 10,
+    fontWeight: 'bold',
+    color: colors.lightText,
+    textTransform: 'uppercase',
+    letterSpacing: 0.5,
+    marginBottom: 8,
+  },
+  pillarCard: {
+    backgroundColor: colors.cardBg,
+    borderRadius: 4,
+    border: `1pt solid ${colors.cardBorder}`,
+    marginBottom: 10,
+    overflow: 'hidden',
+  },
+  pillarHeader: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    padding: 8,
+    borderBottom: `1pt solid ${colors.cardBorder}`,
+  },
+  pillarIcon: {
+    width: 24,
+    height: 24,
+    borderRadius: 12,
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginRight: 8,
+  },
+  pillarIconText: {
+    fontSize: 12,
+  },
+  pillarInfo: {
+    flex: 1,
+  },
+  pillarName: {
+    fontSize: 10,
+    fontWeight: 'bold',
+    color: colors.primary,
+  },
+  pillarModuleCount: {
+    fontSize: 8,
+    color: colors.lightText,
+  },
+  pillarContent: {
+    padding: 8,
+    backgroundColor: '#FAFAFA',
+  },
+  pillarDescription: {
+    fontSize: 8,
+    color: colors.text,
+    marginBottom: 8,
+    lineHeight: 1.4,
+  },
+  pillarModulesLabel: {
+    fontSize: 7,
+    fontWeight: 'bold',
+    color: colors.lightText,
+    textTransform: 'uppercase',
+    marginBottom: 4,
+  },
+  pillarModulesBadges: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    gap: 4,
+  },
+  moduleBadge: {
+    backgroundColor: '#F3F4F6',
+    borderRadius: 10,
+    paddingVertical: 3,
+    paddingHorizontal: 6,
+    borderWidth: 1,
+    borderColor: '#E5E7EB',
+  },
+  moduleBadgeText: {
+    fontSize: 6,
+    color: colors.text,
+  },
+  velocityBar: {
+    height: 16,
+    position: 'relative',
+    marginVertical: 10,
+  },
+  velocityBarBackground: {
+    position: 'absolute',
+    left: 0,
+    right: 0,
+    top: 0,
+    bottom: 0,
+    backgroundColor: '#F3F4F6',
+    borderRadius: 8,
+  },
+  velocityBarFill: {
+    position: 'absolute',
+    left: 0,
+    top: 0,
+    bottom: 0,
+    backgroundColor: '#3B82F6',
+    borderRadius: 8,
+    opacity: 0.7,
+  },
+  velocityBarLabel: {
+    position: 'absolute',
+    right: 8,
+    top: 3,
+    fontSize: 6,
+    fontWeight: 'bold',
+    color: colors.text,
+  },
+  resourceOptions: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+    marginTop: 10,
+    gap: 8,
+  },
+  resourceOption: {
+    paddingVertical: 4,
+    paddingHorizontal: 8,
+    backgroundColor: '#F3F4F6',
+    borderRadius: 4,
+    borderWidth: 1,
+    borderColor: '#E5E7EB',
+  },
+  resourceOptionActive: {
+    backgroundColor: '#EFF6FF',
+    borderColor: '#BFDBFE',
+  },
+  resourceOptionText: {
+    fontSize: 7,
+    color: colors.lightText,
+  },
+  resourceOptionTextActive: {
+    color: '#3B82F6',
+    fontWeight: 'bold',
+  },
+  cardRow: {
+    flexDirection: 'row',
+    gap: 10,
+    marginTop: 15,
+  },
+  card: {
+    flex: 1,
+    backgroundColor: colors.cardBg,
+    borderRadius: 4,
+    padding: 10,
+    borderWidth: 1,
+    borderColor: colors.cardBorder,
+  },
+  cardLabel: {
+    fontSize: 8,
+    fontWeight: 'bold',
+    color: colors.lightText,
+    textTransform: 'uppercase',
+    marginBottom: 4,
+  },
+  cardValue: {
+    fontSize: 16,
+    fontWeight: 'bold',
+    color: colors.primary,
+    marginBottom: 2,
+  },
+  cardDescription: {
+    fontSize: 8,
+    color: colors.lightText,
+    marginBottom: 6,
+  },
+  // Table styles for cards
+  tableContainer: {
+    marginTop: 5,
+  },
+  tableRow: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    paddingVertical: 4,
+    borderBottomWidth: 1,
+    borderBottomColor: '#E5E7EB',
+  },
+  tableLabel: {
+    fontSize: 9,
+    color: '#4B5563',
+  },
+  tableValue: {
+    fontSize: 9,
+    fontWeight: 'semibold',
+    color: '#2E2266',
+  },
+  tableValueHighlight: {
+    fontSize: 11,
+    fontWeight: 'bold',
+    color: '#2E2266',
+  },
+  badge: {
+    paddingVertical: 3,
+    paddingHorizontal: 6,
+    borderRadius: 4,
+    marginBottom: 6,
+    alignSelf: 'flex-start',
+  },
+  badgeText: {
+    fontSize: 7,
+    fontWeight: 'medium',
+  },
+  cardNote: {
+    fontSize: 7,
+    color: colors.lightText,
+    lineHeight: 1.3,
+  },
   calculationNoteText: {
     fontSize: 8,
     color: '#505050',
     fontStyle: 'italic',
-  },
+  }
 });
 
 export default styles;
