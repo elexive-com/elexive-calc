@@ -121,7 +121,7 @@ const DetailedReportModal = ({ isOpen, onClose, calculator }) => {
   const overheadPercentage = calculatorConfig.resourceAllocation[resourceAllocation]?.switchingOverhead || 0;
   const absoluteOverheadEvcs = Math.ceil((totalEvcSum * overheadPercentage) / 100);
   
-  // Total EVCs needed including overhead
+  // Total EVCs needed including overhead (modules + overhead)
   const totalEvcsWithOverhead = totalEvcSum + absoluteOverheadEvcs;
 
   // Get weekly production capacity
@@ -148,6 +148,22 @@ const DetailedReportModal = ({ isOpen, onClose, calculator }) => {
   
   // Use the completion time weeks from the calculator hook for consistency
   const estimatedCompletionWeeks = completionTimeWeeks;
+    
+  // Calculate total weekly parameter EVCs
+  const weeklyParameterEvcs = serviceParameters
+    .filter(param => parameters[param.id] && param.evcCost)
+    .reduce((sum, param) => {
+      const evcCost = calculateEvcCost(param);
+      return sum + (evcCost || 0);
+    }, 0);
+    
+  // Calculate total parameter EVCs over the entire project duration
+  const totalParameterEvcs = weeklyParameterEvcs > 0 
+    ? weeklyParameterEvcs * estimatedCompletionWeeks 
+    : 0;
+    
+  // Total project EVCs including modules, overhead, and parameters
+  const totalProjectEvcs = totalEvcsWithOverhead + totalParameterEvcs;
     
   // Total EVC value across all modules (for display in report)
   const totalEvcValue = totalEvcsWithOverhead;
@@ -329,9 +345,9 @@ const DetailedReportModal = ({ isOpen, onClose, calculator }) => {
               </div>
               
               <div className="bg-white rounded-xl p-5 border-l-4 border-amber-500 shadow-md">
-                <div className="text-amber-700 mb-1 text-sm font-semibold uppercase tracking-wider">Delivery Capacity</div>
+                <div className="text-amber-700 mb-1 text-sm font-semibold uppercase tracking-wider">Transformation Velocity</div>
                 <div className="text-3xl font-bold text-elx-primary mb-2">{weeklyEVCs} EVCs</div>
-                <div className="text-gray-600 text-sm">Weekly production capacity</div>
+                <div className="text-gray-600 text-sm">Weekly capacity</div>
                 <div className="bg-amber-50 text-amber-700 text-sm px-3 py-1 rounded-lg inline-block mt-3 font-medium">
                   {calculatorConfig.productionCapacity[productionCapacity].label} tier
                 </div>
@@ -345,10 +361,10 @@ const DetailedReportModal = ({ isOpen, onClose, calculator }) => {
                 <div className="text-3xl font-bold text-elx-primary mb-2">{estimatedCompletionWeeks} weeks</div>
                 <div className="text-gray-600 text-sm">Estimated completion time</div>
                 <div className="bg-green-50 text-green-700 text-sm px-3 py-1 rounded-lg inline-block mt-3 font-medium">
-                  {totalEvcsWithOverhead} total EVC scope
+                  {totalProjectEvcs} total EVC scope
                 </div>
                 <p className="text-gray-500 text-xs mt-3">
-                  Strategic implementation timeline based on selected modules, capacity, and resource allocation strategy.
+                  Strategic implementation timeline based on selected modules, capacity, and resource allocation strategy. Including base EVCs and add-ons total sum.
                 </p>
               </div>
             </div>
@@ -573,19 +589,20 @@ const DetailedReportModal = ({ isOpen, onClose, calculator }) => {
                   The distribution of EVCs across strategic pillars shows how transformation resources will be allocated to achieve your business objectives.
                   This allocation ensures appropriate balance between immediate operational improvements and long-term strategic capabilities.
                   {absoluteOverheadEvcs > 0 && ` An additional ${absoluteOverheadEvcs} EVCs (${overheadPercentage}%) are allocated to coordination overhead from the ${resourceAllocation} resource allocation strategy.`}
+                  {totalParameterEvcs > 0 && ` Your selected add-ons require ${totalParameterEvcs} EVCs over the ${estimatedCompletionWeeks}-week implementation period.`}
                 </p>
 
                 {/* Single bar showing proportional allocation of EVCs across all pillars */}
                 <div className="mb-6">
                   <div className="flex justify-between mb-2">
                     <div className="text-sm text-gray-600">Resource allocation by strategic pillar</div>
-                    <div className="text-sm text-gray-600">{totalEvcValue} Total EVCs</div>
+                    <div className="text-sm text-gray-600">{totalProjectEvcs} Total EVCs</div>
                   </div>
                   
                   <div className="w-full h-10 rounded-lg overflow-hidden flex mb-3">
                     {Object.entries(modulesByPillar).map(([pillar, modules], index) => {
                       const pillarTotal = modules.reduce((sum, module) => sum + module.evcValue, 0);
-                      const pillarPercentage = (pillarTotal / totalEvcValue * 100).toFixed(2);
+                      const pillarPercentage = (pillarTotal / totalProjectEvcs * 100).toFixed(2);
                       
                       return (
                         <div 
@@ -608,11 +625,24 @@ const DetailedReportModal = ({ isOpen, onClose, calculator }) => {
                     {absoluteOverheadEvcs > 0 && (
                       <div 
                         className="h-full flex items-center justify-center bg-gray-500"
-                        style={{ width: `${(absoluteOverheadEvcs / totalEvcValue * 100).toFixed(2)}%` }}
+                        style={{ width: `${(absoluteOverheadEvcs / totalProjectEvcs * 100).toFixed(2)}%` }}
                       >
-                        {(absoluteOverheadEvcs / totalEvcValue * 100) > 5 && (
+                        {(absoluteOverheadEvcs / totalProjectEvcs * 100) > 5 && (
                           <span className="text-white text-xs font-medium px-2">
-                            {Math.round(absoluteOverheadEvcs / totalEvcValue * 100)}%
+                            {Math.round(absoluteOverheadEvcs / totalProjectEvcs * 100)}%
+                          </span>
+                        )}
+                      </div>
+                    )}
+                    {/* Add add-on EVCs if they exist */}
+                    {totalParameterEvcs > 0 && (
+                      <div 
+                        className="h-full flex items-center justify-center bg-black"
+                        style={{ width: `${(totalParameterEvcs / totalProjectEvcs * 100).toFixed(2)}%` }}
+                      >
+                        {(totalParameterEvcs / totalProjectEvcs * 100) > 5 && (
+                          <span className="text-white text-xs font-medium px-2">
+                            {Math.round(totalParameterEvcs / totalProjectEvcs * 100)}%
                           </span>
                         )}
                       </div>
@@ -622,7 +652,7 @@ const DetailedReportModal = ({ isOpen, onClose, calculator }) => {
                   <div className="flex flex-wrap gap-4">
                     {Object.entries(modulesByPillar).map(([pillar, modules]) => {
                       const pillarTotal = modules.reduce((sum, module) => sum + module.evcValue, 0);
-                      const pillarPercentage = (pillarTotal / totalEvcValue * 100).toFixed(0);
+                      const pillarPercentage = (pillarTotal / totalProjectEvcs * 100).toFixed(0);
                       
                       return (
                         <div key={pillar} className="flex items-center">
@@ -646,7 +676,19 @@ const DetailedReportModal = ({ isOpen, onClose, calculator }) => {
                         <div>
                           <span className="text-sm font-medium">Coordination Overhead</span>
                           <span className="text-xs text-gray-500 ml-2">
-                            {absoluteOverheadEvcs} EVCs ({Math.round(absoluteOverheadEvcs / totalEvcValue * 100)}%)
+                            {absoluteOverheadEvcs} EVCs ({Math.round(absoluteOverheadEvcs / totalProjectEvcs * 100)}%)
+                          </span>
+                        </div>
+                      </div>
+                    )}
+                    {/* Add legend item for add-on services */}
+                    {totalParameterEvcs > 0 && (
+                      <div className="flex items-center">
+                        <div className="w-4 h-4 rounded-sm mr-2 bg-black"></div>
+                        <div>
+                          <span className="text-sm font-medium">Add-on Services</span>
+                          <span className="text-xs text-gray-500 ml-2">
+                            {totalParameterEvcs} EVCs ({Math.round(totalParameterEvcs / totalProjectEvcs * 100)}%)
                           </span>
                         </div>
                       </div>
@@ -726,12 +768,12 @@ const DetailedReportModal = ({ isOpen, onClose, calculator }) => {
                   <div className="flex items-center justify-center text-sm bg-gray-50 rounded-lg py-3 border border-gray-100">
                     <div className="text-center px-3">
                       <span className="font-semibold text-elx-primary">{totalEvcsWithOverhead}</span>
-                      <span className="text-xs text-gray-500 block">Total EVCs</span>
+                      <span className="text-xs text-gray-500 block">Module EVCs with overhead</span>
                     </div>
                     <div className="px-2 text-xl text-gray-400">÷</div>
                     <div className="text-center px-3">
                       <span className="font-semibold text-blue-600">{weeklyEVCs}</span>
-                      <span className="text-xs text-gray-500 block">EVCs/week</span>
+                      <span className="text-xs text-gray-500 block">EVCs weekly velocity</span>
                     </div>
                     <div className="px-2 text-xl text-gray-400">=</div>
                     <div className="text-center px-3">
