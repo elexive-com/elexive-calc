@@ -289,22 +289,33 @@ export default function useCalculator() {
     // It represents the "raw" weekly capacity to produce EVCs
     const outputValue = adjustedProductionCapacity;
     
+    // Calculate resource allocation overhead for EVCs
+    let resourceOverheadEvcs = 0;
+    let effectiveModuleEvcs = baseModuleEvcs;
+    
+    // Apply resource allocation overhead to the module EVCs if not using focused allocation
+    if (resourceAllocation !== 'focused' && baseModuleEvcs > 0) {
+      const overheadPercentage = allocation.switchingOverhead / 100;
+      // Calculate the overhead EVCs needed due to context switching
+      resourceOverheadEvcs = Math.ceil(baseModuleEvcs * overheadPercentage);
+      // Increase the effective EVCs needed by the overhead
+      effectiveModuleEvcs = baseModuleEvcs + resourceOverheadEvcs;
+      
+      debugLog(`
+        Resource allocation overhead calculation:
+        - Base Module EVCs: ${baseModuleEvcs}
+        - Resource allocation: ${resourceAllocation}
+        - Overhead percentage: ${allocation.switchingOverhead}%
+        - Resource overhead EVCs: ${resourceOverheadEvcs}
+        - Effective EVCs with overhead: ${effectiveModuleEvcs}
+      `);
+    }
+    
     // Calculate estimated completion time in weeks
     if (outputValue === 0) {
       // Prevent division by zero
       setCompletionTimeWeeks(0);
     } else {
-      // For non-focused allocations, we need MORE EVCs to accomplish the same work
-      // due to context switching overhead
-      let effectiveModuleEvcs = baseModuleEvcs;
-      
-      // Apply resource allocation overhead to the module EVCs if not using focused allocation
-      if (resourceAllocation !== 'focused') {
-        const overheadPercentage = allocation.switchingOverhead / 100;
-        // Increase the effective EVCs needed by the overhead percentage
-        effectiveModuleEvcs = baseModuleEvcs * (1 + overheadPercentage);
-      }
-      
       // Calculate weeks by dividing effective EVCs needed by weekly output capacity
       const rawWeeks = effectiveModuleEvcs / outputValue;
       
@@ -328,9 +339,9 @@ export default function useCalculator() {
       setCompletionTimeWeeks(Math.max(minimumWeeks, Math.ceil(preciseWeeks)));
     }
     
-    // Include the add-on costs in the total production capacity for pricing calculations only
-    // This ensures the customer pays for the add-on services
-    const totalPricingCapacity = adjustedProductionCapacity + totalAddOnEvcCosts;
+    // Include both the resource allocation overhead and add-on costs in the total production capacity
+    // This ensures the customer pays for both the overhead and add-on services
+    const totalPricingCapacity = adjustedProductionCapacity + totalAddOnEvcCosts + resourceOverheadEvcs;
     
     // Store the values for display
     setWeeklyProductionCapacity(totalPricingCapacity);
@@ -437,7 +448,12 @@ export default function useCalculator() {
   const calculateOverheadEvcs = (totalEvcSum, resourceAllocationKey) => {
     const allocation = calculatorConfig.resourceAllocation[resourceAllocationKey];
     const overheadPercentage = allocation?.switchingOverhead || 10;
-    return Math.ceil((totalEvcSum * overheadPercentage) / 100);
+    
+    // Only apply overhead if we're not using focused allocation and there are EVCs to calculate from
+    if (resourceAllocationKey !== 'focused' && totalEvcSum > 0) {
+      return Math.ceil((totalEvcSum * overheadPercentage) / 100);
+    }
+    return 0; // No overhead for focused allocation
   };
 
   // New function to calculate parameter impacts on EVCs
@@ -452,7 +468,8 @@ export default function useCalculator() {
           name: param.label,
           description: param.productionImpact || param.description,
           modifier: param.modifier,
-          evcCost: evcCost
+          evcCost: evcCost,
+          isWeekly: true // Mark all parameter costs as weekly requirements
         };
       });
   };

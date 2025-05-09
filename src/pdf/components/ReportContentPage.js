@@ -121,7 +121,8 @@ const ReportContentPage = ({
             name: param.label,
             description: param.productionImpact || param.description,
             modifier: param.modifier,
-            evcCost: evcCost
+            evcCost: evcCost,
+            isWeekly: true // Mark all parameter costs as weekly requirements
           };
         });
     
@@ -139,6 +140,11 @@ const ReportContentPage = ({
       
       return null;
     }
+    
+    // Calculate the total parameter cost over the entire engagement period
+    const totalParameterEvcCost = parameterCosts
+      .filter(param => param.isWeekly && param.evcCost)
+      .reduce((sum, param) => sum + (param.evcCost * completionTimeWeeks), 0);
 
     return (
       <View style={styles.calculationTable}>
@@ -248,17 +254,33 @@ const ReportContentPage = ({
           {parameterCosts.length > 0 && parameterCosts.map((param, index) => (
             <View key={`param-${index}`} style={styles.calculationRow}>
               <Text style={styles.calculationLabel}>{param.name}:</Text>
-              <Text style={styles.calculationValue}>{param.modifier}x multiplier</Text>
+              <Text style={styles.calculationValue}>
+                {param.modifier ? `${param.modifier}x multiplier ` : ''}
+                {param.isWeekly ? '(weekly requirement)' : ''}
+              </Text>
               <Text style={styles.calculationTotal}>
-                {param.evcCost ? `+${param.evcCost} EVCs` : 'Applied'}
+                {param.evcCost ? `+${param.evcCost} EVCs/week` : 'Applied'}
               </Text>
             </View>
           ))}
           
+          {/* If we have any weekly parameters, show their total impact */}
+          {parameterCosts.length > 0 && parameterCosts.some(p => p.isWeekly && p.evcCost) && (
+            <View style={styles.calculationRow}>
+              <Text style={styles.calculationLabel}>Weekly Add-ons Total:</Text>
+              <Text style={styles.calculationValue}>
+                {parameterCosts.filter(p => p.isWeekly && p.evcCost).reduce((sum, p) => sum + p.evcCost, 0)} EVCs/week × {completionTimeWeeks} weeks
+              </Text>
+              <Text style={styles.calculationTotal}>
+                +{totalParameterEvcCost} EVCs
+              </Text>
+            </View>
+          )}
+          
           <View style={styles.calculationDivider} />
           <View style={styles.calculationRowHighlight}>
             <Text style={styles.calculationLabel}>Total EVC Consumption:</Text>
-            <Text style={styles.calculationTotal}>{totalEvcsWithOverhead} EVCs</Text>
+            <Text style={styles.calculationTotal}>{totalEvcsWithOverhead + totalParameterEvcCost} EVCs</Text>
           </View>
         </View>
         
