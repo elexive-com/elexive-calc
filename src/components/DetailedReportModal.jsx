@@ -1173,6 +1173,75 @@ const DetailedReportModal = ({ isOpen, onClose, calculator }) => {
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div className="bg-white rounded-xl p-6 border border-gray-200 shadow-md">
                 <h4 className="text-lg font-bold text-elx-primary flex items-center mb-4">
+                  <FontAwesomeIcon icon={faCalculator} className="text-elx-accent mr-2" />
+                  Value-Based Pricing Model
+                </h4>
+                
+                {/* EVC model explanation */}
+                <p className="text-sm text-gray-600 mb-5">
+                  Our pricing is based on Elastic Value Credits (EVCs), a standardized unit of consulting value that ensures you pay only for 
+                  the actual transformation resources you receive. Your selected {calculatorConfig.productionCapacity[productionCapacity].label} tier 
+                  provides {weeklyEVCs} EVCs weekly, calibrated to your organization's transformation needs.
+                </p>
+                
+                {/* Pricing components table */}
+                <table className="w-full text-sm">
+                  <tbody>
+                  <tr className="border-b border-gray-100">
+                    <td className="py-3 text-gray-600">Weekly Production Capacity</td>
+                    <td className="py-3 text-right font-semibold text-elx-primary">{weeklyEVCs} EVCs</td>
+                  </tr>
+                  <tr className="border-b border-gray-100">
+                    <td className="py-3 text-gray-600">Weekly Add-on Services</td>
+                    <td className="py-3 text-right font-semibold text-elx-primary">{weeklyParameterEvcs} EVCs</td>
+                  </tr>
+                  <tr className="border-b border-gray-100">
+                    <td className="py-3 text-gray-600">Base Price per EVC</td>
+                    <td className="py-3 text-right font-semibold text-elx-primary">€{evcBase.basePrice.toFixed(2)}</td>
+                  </tr>
+                  <tr className="border-b border-gray-100">
+                    <td className="py-3 text-gray-600">Effective Price per EVC</td>
+                    <td className="py-3 text-right font-semibold text-elx-primary">€{evcPricePerUnit.toFixed(2)}</td>
+                  </tr>
+                  <tr className="border-b border-gray-100">
+                    <td className="py-3 text-gray-600">Payment Model</td>
+                    <td className="py-3 text-right font-semibold text-elx-primary">{paymentDetails.name}</td>
+                  </tr>
+                  {paymentOption === 'prepaid' && (
+                    <tr>
+                    <td className="py-3 text-gray-600">Prepaid Reservation Discount</td>
+                    <td className="py-3 text-right font-semibold text-green-600">
+                      {((1 - paymentDetails.priceModifier) * 100).toFixed(0)}%
+                    </td>
+                    </tr>
+                  )}
+                  {calculator.volumeDiscountPercentage > 0 && (
+                    <tr>
+                    <td className="py-3 text-gray-600">Volume Efficiency Discount</td>
+                    <td className="py-3 text-right font-semibold text-purple-600">
+                      {calculator.volumeDiscountPercentage.toFixed(1)}%
+                    </td>
+                    </tr>
+                  )}
+                  </tbody>
+                </table>
+                        
+                        {/* Pricing note */}
+                <div className="mt-4 bg-gray-50 p-3 rounded-lg text-xs text-gray-500 border border-gray-100">
+                  <p>
+                    <span className="font-medium">Note:</span> All figures represent non-binding estimates based on your current selections. 
+                    Final investment will be detailed in your formal proposal and service agreement.
+                  </p>
+                </div>
+                
+                {/* VAT notice */}
+                <div className="text-xs text-gray-500 text-center mt-2 italic">
+                  All prices are excluding VAT
+                </div>
+              </div>
+
+              <div className="bg-white rounded-xl p-6 border border-gray-200 shadow-md">
+                <h4 className="text-lg font-bold text-elx-primary flex items-center mb-4">
                   <FontAwesomeIcon icon={faBriefcase} className="text-elx-accent mr-2" />
                   Investment Summary
                 </h4>
@@ -1197,7 +1266,7 @@ const DetailedReportModal = ({ isOpen, onClose, calculator }) => {
                       <td className="py-3 text-right font-semibold text-elx-primary">€{formatNumber(totalPrice * 4)}</td>
                     </tr>
                     <tr>
-                      <td className="py-3 text-gray-600">Total Projected Cost</td>
+                      <td className="py-3 text-gray-600">Total Projected Cost with Selected Modules</td>
                       <td className="py-3 text-right font-bold text-elx-primary text-lg">€{formatNumber(totalProjectedCost)}</td>
                     </tr>
                   </tbody>
@@ -1209,70 +1278,6 @@ const DetailedReportModal = ({ isOpen, onClose, calculator }) => {
                 </div>
               </div>
               
-              <div className="bg-white rounded-xl p-6 border border-gray-200 shadow-md">
-                <h4 className="text-lg font-bold text-elx-primary flex items-center mb-4">
-                  <FontAwesomeIcon icon={faCalculator} className="text-elx-accent mr-2" />
-                  Value-Based Pricing Model
-                </h4>
-                
-                {/* EVC model explanation */}
-                <p className="text-sm text-gray-600 mb-5">
-                  Our pricing is based on Elastic Value Credits (EVCs), a standardized unit of consulting value that ensures you pay only for 
-                  the actual transformation resources you receive. Your selected {calculatorConfig.productionCapacity[productionCapacity].label} tier 
-                  provides {weeklyEVCs} EVCs weekly, calibrated to your organization's transformation needs.
-                </p>
-                
-                {/* Pricing components table */}
-                <table className="w-full text-sm">
-                  <tbody>
-                    <tr className="border-b border-gray-100">
-                      <td className="py-3 text-gray-600">Weekly Production Capacity</td>
-                      <td className="py-3 text-right font-semibold text-elx-primary">{weeklyEVCs} EVCs</td>
-                    </tr>
-                    <tr className="border-b border-gray-100">
-                      <td className="py-3 text-gray-600">Base Price per EVC</td>
-                      <td className="py-3 text-right font-semibold text-elx-primary">€{evcBase.basePrice.toFixed(2)}</td>
-                    </tr>
-                    <tr className="border-b border-gray-100">
-                      <td className="py-3 text-gray-600">Effective Price per EVC</td>
-                      <td className="py-3 text-right font-semibold text-elx-primary">€{evcPricePerUnit.toFixed(2)}</td>
-                    </tr>
-                    <tr className="border-b border-gray-100">
-                      <td className="py-3 text-gray-600">Payment Model</td>
-                      <td className="py-3 text-right font-semibold text-elx-primary">{paymentDetails.name}</td>
-                    </tr>
-                    {paymentOption === 'prepaid' && (
-                      <tr>
-                        <td className="py-3 text-gray-600">Prepaid Reservation Discount</td>
-                        <td className="py-3 text-right font-semibold text-green-600">
-                          {((1 - paymentDetails.priceModifier) * 100).toFixed(0)}%
-                        </td>
-                      </tr>
-                    )}
-                    {calculator.volumeDiscountPercentage > 0 && (
-                      <tr>
-                        <td className="py-3 text-gray-600">Volume Efficiency Discount</td>
-                        <td className="py-3 text-right font-semibold text-purple-600">
-                          {calculator.volumeDiscountPercentage.toFixed(1)}%
-                        </td>
-                      </tr>
-                    )}
-                  </tbody>
-                </table>
-                
-                {/* Pricing note */}
-                <div className="mt-4 bg-gray-50 p-3 rounded-lg text-xs text-gray-500 border border-gray-100">
-                  <p>
-                    <span className="font-medium">Note:</span> All figures represent non-binding estimates based on your current selections. 
-                    Final investment will be detailed in your formal proposal and service agreement.
-                  </p>
-                </div>
-                
-                {/* VAT notice */}
-                <div className="text-xs text-gray-500 text-center mt-2 italic">
-                  All prices are excluding VAT
-                </div>
-              </div>
             </div>
             
           </div>
