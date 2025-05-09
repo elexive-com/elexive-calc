@@ -362,7 +362,14 @@ const ModuleContentPage = ({
     
     // Default implementation of getModuleTypeIcon if not provided
     if (!getModuleTypeIcon) {
-      getModuleTypeIcon = () => null;
+      // Rename the imported function to avoid naming conflicts
+      const getModuleTypeIconUtil = (type) => {
+        // Using window.location.origin ensures we have an absolute URL that works in the PDF
+        return `${window.location.origin}/layer-group-solid-512.png`;
+      };
+      
+      // Assign the utility function to getModuleTypeIcon
+      getModuleTypeIcon = getModuleTypeIconUtil;
     }
   }
   

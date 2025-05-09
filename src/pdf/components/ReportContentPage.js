@@ -1,10 +1,11 @@
 // filepath: /Users/rolle/git/elexive-calc/src/pdf/components/ReportContentPage.js
 import React from 'react';
-import { Page, Text, View } from '@react-pdf/renderer';
+import { Page, Text, View, Image } from '@react-pdf/renderer';
 import styles from '../utils/pdfStyles';
 import { getColorFromCssVar } from '../utils/colors';
 import { formatNumberWithDecimals } from '../utils/pdfHelpers';
 import ModuleContentPage from './ModuleContentPage';
+import { getModuleTypeIcon, getPillarIcon } from '../utils/pdfIconUtils';
 
 // Define colors object for consistent use throughout the component
 const colors = {
@@ -57,35 +58,9 @@ const ReportContentPage = ({
     return variantType === 'insightPrimer' ? 'Insight Primer' : 'Integrated Execution';
   };
   
-  // Helper to get icon for module type - UI-specific formatting
-  const getModuleTypeIcon = (type) => {
-    return type === 'insightPrimer' ? '💡' : '⚙️';
-  };
-  
   // Helper function to format decimal numbers - UI-specific formatting
   const formatDecimal = (num) => {
     return Number(num).toFixed(1).replace(/\.0$/, '');
-  };
-  
-  // Get pillar icon - simplified for PDF use
-  const getPillarIcon = (pillar) => {
-    // Find the pillar in the configuration
-    const pillarConfig = calculatorConfig.pillars?.find(
-      p => p.label?.toLowerCase() === pillar.toLowerCase()
-    );
-    
-    if (pillarConfig && pillarConfig.icon) {
-      return pillarConfig.icon;
-    }
-    
-    // Fallback to default icons if not found in config
-    switch(pillar.toLowerCase()) {
-      case 'transformation': return '👥';
-      case 'strategy': return '📈';
-      case 'technology': return '🛡️';
-      case 'discovery': return '🌐';
-      default: return '🧩';
-    }
   };
   
   // Get pillar color
@@ -238,9 +213,15 @@ const ReportContentPage = ({
                     marginLeft: 5
                   }}>
                     <Text style={styles.calculationSubLabel}>• {module.name}</Text>
-                    <Text style={styles.calculationValue}>
-                      {getModuleTypeIcon(module.selectedVariant || 'insightPrimer')}
-                    </Text>
+                    <View style={styles.calculationValue}>
+                      <Image 
+                        src={getModuleTypeIcon(module.selectedVariant || 'insightPrimer')}
+                        style={{
+                          width: 14,
+                          height: 14
+                        }}
+                      />
+                    </View>
                     <Text style={styles.calculationSubValue}>{module.evcValue} EVCs</Text>
                   </View>
                 ))}
@@ -558,7 +539,13 @@ const ReportContentPage = ({
                 <View key={`pillar-${pillar}`} style={styles.pillarCard}>
                   <View style={styles.pillarHeader}>
                     <View style={[styles.pillarIcon, { backgroundColor: `${getPillarColor(pillar)}20` }]}>
-                      <Text style={[styles.pillarIconText, { color: getPillarColor(pillar) }]}>{getPillarIcon(pillar)}</Text>
+                      <Image 
+                        src={getPillarIcon(pillar)}
+                        style={{
+                          width: 20,
+                          height: 20
+                        }}
+                      />
                     </View>
                     <View style={styles.pillarInfo}>
                       <Text style={styles.pillarName}>{pillar}</Text>
@@ -743,7 +730,15 @@ const ReportContentPage = ({
                     
                     <View style={styles.row}>
                       <Text style={styles.moduleType}>
-                        {getModuleTypeIcon(module.selectedVariant || 'insightPrimer')} {module.selectedVariant === 'insightPrimer' ? 'Insight Primer' : 'Integrated Execution'}
+                        <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+                          <Image 
+                            src={getModuleTypeIcon(module.selectedVariant || 'insightPrimer')} 
+                            style={{ width: 16, height: 16, marginRight: 6 }}
+                          />
+                          <Text>
+                            {module.selectedVariant === 'insightPrimer' ? 'Insight Primer' : 'Integrated Execution'}
+                          </Text>
+                        </View>
                       </Text>
                     </View>
                     
