@@ -323,6 +323,9 @@ const DetailedReportModal = ({ isOpen, onClose, calculator }) => {
                     `Includes ${((1 - paymentDetails.priceModifier) * 100).toFixed(0)}% prepayment discount with reserved capacity benefits.` : 
                     'Standard monthly billing with maximum financial flexibility.'}
                 </p>
+                <p className="text-gray-500 text-xs mt-1 italic text-center">
+                  All prices are excluding VAT
+                </p>
               </div>
               
               <div className="bg-white rounded-xl p-5 border-l-4 border-amber-500 shadow-md">
@@ -1161,6 +1164,11 @@ const DetailedReportModal = ({ isOpen, onClose, calculator }) => {
                     </tr>
                   </tbody>
                 </table>
+                
+                {/* VAT notice */}
+                <div className="text-xs text-gray-500 text-center mt-2 italic">
+                  All prices are excluding VAT
+                </div>
               </div>
               
               <div className="bg-white rounded-xl p-6 border border-gray-200 shadow-md">
@@ -1220,6 +1228,11 @@ const DetailedReportModal = ({ isOpen, onClose, calculator }) => {
                     <span className="font-medium">Note:</span> All figures represent non-binding estimates based on your current selections. 
                     Final investment will be detailed in your formal proposal and service agreement.
                   </p>
+                </div>
+                
+                {/* VAT notice */}
+                <div className="text-xs text-gray-500 text-center mt-2 italic">
+                  All prices are excluding VAT
                 </div>
               </div>
             </div>

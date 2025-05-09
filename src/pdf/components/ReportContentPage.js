@@ -318,6 +318,13 @@ const ReportContentPage = ({
             <Text style={styles.calculationLabelTotal}>Total Investment:</Text>
             <Text style={styles.calculationGrandTotal}>€{formatNumberWithDecimals(totalPrice * completionTimeWeeks)}</Text>
           </View>
+          
+          {/* VAT notice */}
+          <View style={{ marginTop: 10 }}>
+            <Text style={{ fontSize: 9, color: '#6B7280', textAlign: 'center', fontStyle: 'italic' }}>
+              All prices are excluding VAT
+            </Text>
+          </View>
         </View>
         
         <View style={styles.calculationNote}>
@@ -433,6 +440,13 @@ const ReportContentPage = ({
                     <Text style={[styles.tableValueHighlight, {fontSize: 14}]}>€{formatNumberWithDecimals(totalPrice * completionTimeWeeks)}</Text>
                   </View>
                 </View>
+                
+                {/* VAT notice */}
+                <View style={{ marginTop: 5 }}>
+                  <Text style={{ fontSize: 8, color: '#6B7280', textAlign: 'center', fontStyle: 'italic' }}>
+                    All prices are excluding VAT
+                  </Text>
+                </View>
               </View>
               
               {/* Value-Based Pricing Model Card */}
@@ -468,6 +482,13 @@ const ReportContentPage = ({
                       <Text style={styles.tableValue}>{((1 - paymentDetails.priceModifier) * 100).toFixed(0)}%</Text>
                     </View>
                   )}
+                </View>
+                
+                {/* VAT notice */}
+                <View style={{ marginTop: 5 }}>
+                  <Text style={{ fontSize: 8, color: '#6B7280', textAlign: 'center', fontStyle: 'italic' }}>
+                    All prices are excluding VAT
+                  </Text>
                 </View>
               </View>
             </View>

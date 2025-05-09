@@ -340,6 +340,11 @@ const SummarySidebar = ({ calculator }) => {
                     <span className="font-medium">€{evcPricePerUnit.toFixed(2)}</span>
                   </div>
                   
+                  {/* VAT notice */}
+                  <div className="text-[10px] text-gray-500 text-center mt-1.5 italic">
+                    All prices are excluding VAT
+                  </div>
+                  
                   {/* Payment option discount/billing info */}
                   <div className="mt-2 pt-2 border-t border-white border-opacity-50">
                     <div className={`text-[11px] font-medium px-2 py-1 rounded text-center ${
