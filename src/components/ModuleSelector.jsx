@@ -11,6 +11,8 @@ import modulesConfig from '../config/modulesConfig.json';
 import calculatorConfig from '../config/calculatorConfig.json';
 import { getIcon } from '../utils/iconUtils';
 import useCalculator from '../hooks/useCalculator';
+import ModuleDetails from './ModuleDetails';
+import { generateModulePdf } from '../pdf';
 
 const ModuleSelector = ({ 
   modules, 
@@ -19,7 +21,8 @@ const ModuleSelector = ({
   activePillar, 
   setActivePillar,
   selectedVariants = {},
-  setSelectedVariants
+  setSelectedVariants,
+  viewModuleDetails: externalViewModuleDetails
 }) => {
   // Get access to the shared savedModules state
   const { savedModules, toggleSaveModule } = useCalculator();
@@ -36,6 +39,65 @@ const ModuleSelector = ({
   
   // State for module options explainer visibility
   const [isOptionsExplainerVisible, setIsOptionsExplainerVisible] = useState(false);
+  
+  // State for module detail view
+  const [selectedModule, setSelectedModule] = useState(null);
+  const [isDetailView, setIsDetailView] = useState(false);
+  const [isExporting, setIsExporting] = useState(false);
+  
+  // Export to PDF function
+  const exportToPdf = async () => {
+    if (!selectedModule) return;
+    
+    setIsExporting(true);
+    
+    try {
+      // Use our centralized PDF generation module with just the module name
+      const result = await generateModulePdf(selectedModule.name);
+      
+      // Check the success status of the PDF generation
+      if (!result.success) {
+        throw new Error(result.error || 'PDF generation failed');
+      }
+    } catch (error) {
+      console.error('PDF export failed:', error);
+      alert('Failed to export PDF. Please try again.');
+    } finally {
+      setIsExporting(false);
+    }
+  };
+  
+  // Journey steps for ModuleDetails
+  const journeySteps = modulesConfig.journeyStages.map(stage => {
+    // Map string icon names to icon objects
+    let iconObject;
+    switch(stage.icon) {
+      case 'faCompass': iconObject = faCompass; break;
+      case 'faLightbulb': iconObject = faLightbulb; break; 
+      case 'faRocket': iconObject = faRocket; break;
+      default: iconObject = faCompass; // Default icon
+    }
+
+    return {
+      id: stage.id,
+      title: stage.title,
+      description: stage.description,
+      icon: iconObject,
+      categories: stage.categories
+    };
+  });
+
+  // View module details function
+  const viewModuleDetails = (module) => {
+    if (externalViewModuleDetails) {
+      // Use the external function if provided (for full-screen view)
+      externalViewModuleDetails(module);
+    } else {
+      // Fallback to local state for in-component view
+      setSelectedModule(module);
+      setIsDetailView(true);
+    }
+  };
   
   // Handler for the Continue button that expands the next step
   const handleContinue = () => {
@@ -155,14 +217,26 @@ const ModuleSelector = ({
   };
   
   return (
-    <div className="elx-card mb-6 p-4 sm:p-6">
-      <p className="text-gray-700 mb-6">
-        Each service module is designed to address specific business needs and can be selected at different 
-        levels of engagement. Combine modules across our pillars for a comprehensive solution.
-      </p>
-      
-      {/* Module Options Explainer - Hidden by default */}
-      <div className="mb-4 mt-6">
+    <div className={`elx-card mb-6 p-4 sm:p-6 ${isDetailView ? 'min-h-screen' : ''}`}>
+      {isDetailView && selectedModule && !externalViewModuleDetails ? (
+        <div className="w-full h-full">
+          <ModuleDetails 
+            selectedModule={selectedModule}
+            journeySteps={journeySteps}
+            exportToPdf={exportToPdf}
+            isExporting={isExporting}
+            onBack={() => setIsDetailView(false)}
+          />
+        </div>
+      ) : (
+        <>
+          <p className="text-gray-700 mb-6">
+            Each service module is designed to address specific business needs and can be selected at different 
+            levels of engagement. Combine modules across our pillars for a comprehensive solution.
+          </p>
+          
+          {/* Module Options Explainer - Hidden by default */}
+          <div className="mb-4 mt-6">
         <button 
           onClick={toggleOptionsExplainer}
           className="flex items-center justify-between w-full text-left text-base font-bold text-elx-primary mb-2"
@@ -287,7 +361,15 @@ const ModuleSelector = ({
                       {/* Module header */}
                       <div className="px-4 py-3 bg-gray-50 flex items-center justify-between border-b">
                         <div className="flex items-center">
-                          <h3 className="font-semibold text-sm sm:text-base text-gray-800">{module.name}</h3>
+                          <h3 
+                            className="font-semibold text-sm sm:text-base text-gray-800 hover:text-elx-primary cursor-pointer"
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              viewModuleDetails(module);
+                            }}
+                          >
+                            {module.name}
+                          </h3>
                         </div>
                         <button
                           onClick={(e) => {
@@ -423,6 +505,8 @@ const ModuleSelector = ({
           <FontAwesomeIcon icon={faArrowRight} className="ml-2" />
         </button>
       </div>
+        </>
+      )}
     </div>
   );
 };

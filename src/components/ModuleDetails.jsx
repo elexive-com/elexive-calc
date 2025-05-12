@@ -42,13 +42,13 @@ const ModuleDetails = ({
   }));
 
   return (
-    <div className="module-detail">
+    <div className="module-detail w-full min-h-full">
       <button 
         onClick={onBack}
         className="mb-4 text-elx-primary hover:text-elx-primary-dark flex items-center"
       >
         <FontAwesomeIcon icon={faArrowLeft} className="mr-2" />
-        Back to Explorer
+        Back to Module Selection
       </button>
       
       <div className="flex flex-col md:flex-row md:justify-between md:items-start mb-4">

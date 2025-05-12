@@ -10,8 +10,12 @@ import SummarySidebar from './components/SummarySidebar';
 import ModuleExplorer from './components/ModuleExplorer';
 import JourneyPlanner from './components/JourneyPlanner';
 import EvcExplainer from './components/EvcExplainer';
+import ModuleDetails from './components/ModuleDetails';
+import { faLightbulb, faCompass, faRocket } from '@fortawesome/free-solid-svg-icons';
 import { useTabContext } from './contexts/TabContext';
 import { debugLog } from './config/environment';
+import { generateModulePdf } from './pdf';
+import modulesConfig from './config/modulesConfig.json';
 
 const CalculatorApp = () => {
   const calculator = useCalculator();
@@ -25,6 +29,11 @@ const CalculatorApp = () => {
     4: false,
     5: false
   });
+  
+  // State for module detail view
+  const [selectedModule, setSelectedModule] = useState(null);
+  const [isDetailView, setIsDetailView] = useState(false);
+  const [isExporting, setIsExporting] = useState(false);
   
   // Create refs outside of useMemo to comply with React Hooks rules
   const step1Ref = useRef(null);
@@ -172,7 +181,75 @@ const CalculatorApp = () => {
       setActiveStep(stepNumber + 1);
     }
   };
+
+  // View module details function
+  const viewModuleDetails = (module) => {
+    setSelectedModule(module);
+    setIsDetailView(true);
+    // Save current scroll position for when we return
+    window.sessionStorage.setItem('scrollPosition', window.pageYOffset);
+    // Scroll to top for full-screen view
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
   
+  // Export to PDF function
+  const exportToPdf = async () => {
+    if (!selectedModule) return;
+    
+    setIsExporting(true);
+    
+    try {
+      // Use our centralized PDF generation module with just the module name
+      const result = await generateModulePdf(selectedModule.name);
+      
+      // Check the success status of the PDF generation
+      if (!result.success) {
+        throw new Error(result.error || 'PDF generation failed');
+      }
+    } catch (error) {
+      console.error('PDF export failed:', error);
+      alert('Failed to export PDF. Please try again.');
+    } finally {
+      setIsExporting(false);
+    }
+  };
+  
+  // Close module details view
+  const closeModuleDetails = () => {
+    setIsDetailView(false);
+    setSelectedModule(null);
+    // Restore scroll position
+    const savedPosition = window.sessionStorage.getItem('scrollPosition');
+    if (savedPosition) {
+      setTimeout(() => {
+        window.scrollTo({ top: parseInt(savedPosition), behavior: 'smooth' });
+      }, 100);
+    }
+  };
+
+  // Build journey steps for ModuleDetails
+  const journeySteps = useMemo(() => {
+    const iconMap = {
+      'faCompass': faCompass, 
+      'faLightbulb': faLightbulb,
+      'faRocket': faRocket
+    };
+    
+    // Use modulesConfig.journeyStages instead of calculator.journeyStages
+    return modulesConfig.journeyStages.map(stage => {
+      // Map string icon names to icon objects
+      let iconObject = iconMap[stage.icon] || faCompass;
+
+      return {
+        id: stage.id,
+        title: stage.title,
+        description: stage.description,
+        icon: iconObject,
+        categories: stage.categories
+      };
+    });
+  }, []);
+
   // Function to check if a step is complete
   const isStepComplete = (stepNumber) => {
     // When a preset is selected, all steps should be considered complete
@@ -293,91 +370,106 @@ const CalculatorApp = () => {
   
   return (
     <div className="w-full mx-0 px-0 py-0 elx-main-content">
-      {activeTab === 'introduction' ? (
-        <CalculatorIntroduction onGetStarted={handleGetStarted} />
+      {/* If in detailed module view, only show the ModuleDetails component */}
+      {isDetailView && selectedModule ? (
+        <ModuleDetails
+          selectedModule={selectedModule}
+          onBack={closeModuleDetails}
+          exportToPdf={exportToPdf}
+          isExporting={isExporting}
+          journeySteps={journeySteps}
+        />
       ) : (
+        /* Otherwise, show the regular calculator interface */
         <>
-          {activeTab === 'calculator' ? (
-            <div className="grid grid-cols-1 lg:grid-cols-3 gap-2 sm:gap-6">
-              {/* Left Column - Sequential Steps with Collapsible Sections */}
-              <div className="lg:col-span-2">
-                {/* Step 1: Business Intent */}
-                {renderStep(
-                  1,
-                  "What's Your Business Priority?",
-                  <OnboardingQuiz 
-                    intent={calculator.intent}
-                    handleIntentSelect={calculator.handleIntentSelect}
-                    resetCalculator={handleResetCalculator}
-                    openEvcExplainer={openEvcExplainer}
-                  />
-                )}
-                
-                {/* Step 2: Delivery Speed */}
-                {renderStep(
-                  2,
-                  "Choose Your Delivery Speed",
-                  <ProductionCapacitySelector 
-                    productionCapacity={calculator.productionCapacity}
-                    setProductionCapacity={calculator.setProductionCapacity}
-                    recommendedCapacity={calculator.recommendedCapacity}
-                  />
-                )}
-                
-                {/* Step 3: Resource Strategy */}
-                {renderStep(
-                  3,
-                  "Optimize Your Resource Strategy",
-                  <ResourceAllocationSelector 
-                    resourceAllocation={calculator.resourceAllocation}
-                    setResourceAllocation={calculator.setResourceAllocation}
-                    productionCapacity={calculator.productionCapacity}
-                  />
-                )}
-                
-                {/* Step 4: Module Selection */}
-                {renderStep(
-                  4,
-                  "Select Modules From Our Catalog",
-                  <ModuleSelector 
-                    modules={calculator.modules}
-                    selectedModules={calculator.selectedModules}
-                    toggleModule={calculator.toggleModule}
-                    activePillar={calculator.activePillar}
-                    setActivePillar={calculator.setActivePillar}
-                    selectedVariants={calculator.selectedVariants}
-                    setSelectedVariants={calculator.setSelectedVariants}
-                  />
-                )}
-                
-                {/* Step 5: Payment & Parameters */}
-                {renderStep(
-                  5,
-                  "Choose Additional Services and Add-ons",
-                  <ServiceParameters 
-                    serviceParameters={calculator.serviceParameters}
-                    paymentOption={calculator.paymentOption}
-                    togglePaymentOption={calculator.togglePaymentOption}
-                    parameters={calculator.parameters}
-                    updateParameter={calculator.updateParameter}
-                    productionCapacity={calculator.productionCapacity}
-                  />
-                )}
-              </div>
-              
-              {/* Right Column - Summary Sidebar */}
-              <div className="lg:block">
-                <SummarySidebar 
-                  calculator={calculator}
-                  currentStep={activeStep}
-                />
-              </div>
-            </div>
-          ) : activeTab === 'modules' ? (
-            <ModuleExplorer />
-          ) : activeTab === 'journey' ? (
-            <JourneyPlanner />
-          ) : null}
+          {activeTab === 'introduction' ? (
+            <CalculatorIntroduction onGetStarted={handleGetStarted} />
+          ) : (
+            <>
+              {activeTab === 'calculator' ? (
+                <div className="grid grid-cols-1 lg:grid-cols-3 gap-2 sm:gap-6">
+                  {/* Left Column - Sequential Steps with Collapsible Sections */}
+                  <div className="lg:col-span-2">
+                    {/* Step 1: Business Intent */}
+                    {renderStep(
+                      1,
+                      "What's Your Business Priority?",
+                      <OnboardingQuiz 
+                        intent={calculator.intent}
+                        handleIntentSelect={calculator.handleIntentSelect}
+                        resetCalculator={handleResetCalculator}
+                        openEvcExplainer={openEvcExplainer}
+                      />
+                    )}
+                    
+                    {/* Step 2: Delivery Speed */}
+                    {renderStep(
+                      2,
+                      "Choose Your Delivery Speed",
+                      <ProductionCapacitySelector 
+                        productionCapacity={calculator.productionCapacity}
+                        setProductionCapacity={calculator.setProductionCapacity}
+                        recommendedCapacity={calculator.recommendedCapacity}
+                      />
+                    )}
+                    
+                    {/* Step 3: Resource Strategy */}
+                    {renderStep(
+                      3,
+                      "Optimize Your Resource Strategy",
+                      <ResourceAllocationSelector 
+                        resourceAllocation={calculator.resourceAllocation}
+                        setResourceAllocation={calculator.setResourceAllocation}
+                        productionCapacity={calculator.productionCapacity}
+                      />
+                    )}
+                    
+                    {/* Step 4: Module Selection */}
+                    {renderStep(
+                      4,
+                      "Select Modules From Our Catalog",
+                      <ModuleSelector 
+                        modules={calculator.modules}
+                        selectedModules={calculator.selectedModules}
+                        toggleModule={calculator.toggleModule}
+                        activePillar={calculator.activePillar}
+                        setActivePillar={calculator.setActivePillar}
+                        selectedVariants={calculator.selectedVariants}
+                        setSelectedVariants={calculator.setSelectedVariants}
+                        viewModuleDetails={viewModuleDetails}
+                      />
+                    )}
+                    
+                    {/* Step 5: Payment & Parameters */}
+                    {renderStep(
+                      5,
+                      "Choose Additional Services and Add-ons",
+                      <ServiceParameters 
+                        serviceParameters={calculator.serviceParameters}
+                        paymentOption={calculator.paymentOption}
+                        togglePaymentOption={calculator.togglePaymentOption}
+                        parameters={calculator.parameters}
+                        updateParameter={calculator.updateParameter}
+                        productionCapacity={calculator.productionCapacity}
+                      />
+                    )}
+                  </div>
+                  
+                  {/* Right Column - Summary Sidebar */}
+                  <div className="lg:block">
+                    <SummarySidebar 
+                      calculator={calculator}
+                      currentStep={activeStep}
+                    />
+                  </div>
+                </div>
+              ) : activeTab === 'modules' ? (
+                <ModuleExplorer />
+              ) : activeTab === 'journey' ? (
+                <JourneyPlanner />
+              ) : null}
+            </>
+          )}
         </>
       )}
       
