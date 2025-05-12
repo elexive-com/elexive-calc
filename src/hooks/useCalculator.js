@@ -571,6 +571,5 @@ export default function useCalculator() {
     calculateOverheadEvcs,
     calculateParameterEvcCosts,
     getPaymentDetails,
-    toggleSaveModule
   };
 }
