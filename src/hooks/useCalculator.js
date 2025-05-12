@@ -16,6 +16,17 @@ export default function useCalculator() {
   const [recommendedCapacity, setRecommendedCapacity] = useState(null);
   const [paymentOption, setPaymentOption] = useState(calculatorConfig.defaults.paymentOption);
   const [isEvcExplainerVisible, setIsEvcExplainerVisible] = useState(false);
+  // Add state for saved modules that will be shared across components
+  // Initialize from localStorage if available
+  const [savedModules, setSavedModules] = useState(() => {
+    const savedModulesFromStorage = localStorage.getItem('savedModules');
+    return savedModulesFromStorage ? JSON.parse(savedModulesFromStorage) : [];
+  });
+  
+  // Sync savedModules with localStorage whenever it changes
+  useEffect(() => {
+    localStorage.setItem('savedModules', JSON.stringify(savedModules));
+  }, [savedModules]);
   
   // Get defaults from config
   const { defaults, evcBase, serviceParameters } = calculatorConfig;
@@ -498,6 +509,17 @@ export default function useCalculator() {
     };
   };
 
+  // Function to toggle module in savedModules state
+  const toggleSaveModule = (moduleName) => {
+    setSavedModules(prevSavedModules => {
+      if (prevSavedModules.includes(moduleName)) {
+        return prevSavedModules.filter(name => name !== moduleName);
+      } else {
+        return [...prevSavedModules, moduleName];
+      }
+    });
+  };
+
   return {
     // State
     intent,
@@ -521,6 +543,7 @@ export default function useCalculator() {
     completionTimeWeeks,
     totalModuleEvcs,
     recommendedCapacity,
+    savedModules,
     
     // Config
     defaults,
@@ -535,6 +558,7 @@ export default function useCalculator() {
     resetCalculator,
     handleIntentSelect,
     togglePaymentOption,
+    toggleSaveModule,
     updateParameter,
     toggleModule,
     setActivePillar,
@@ -546,6 +570,7 @@ export default function useCalculator() {
     calculateModuleEvcsByPillar,
     calculateOverheadEvcs,
     calculateParameterEvcCosts,
-    getPaymentDetails
+    getPaymentDetails,
+    toggleSaveModule
   };
 }

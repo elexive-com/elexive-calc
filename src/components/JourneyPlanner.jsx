@@ -10,6 +10,8 @@ import modulesConfig from '../config/modulesConfig.json';
 import { getModuleIcon } from '../utils/iconUtils';
 import ModuleDetails from './ModuleDetails';
 import { generateModulePdf } from '../pdf';
+// Import useCalculator hook to access shared state
+import useCalculator from '../hooks/useCalculator';
 
 /**
  * JourneyPlanner component
@@ -18,6 +20,9 @@ import { generateModulePdf } from '../pdf';
  * and helps users plan their transformation path through journey stages.
  */
 const JourneyPlanner = () => {
+  // Get savedModules state and toggleSaveModule function from useCalculator hook
+  const { savedModules, toggleSaveModule } = useCalculator();
+  
   // State for module data and views
   const [modules, setModules] = useState([]);
   const [filteredModules, setFilteredModules] = useState([]);
@@ -25,7 +30,6 @@ const JourneyPlanner = () => {
   const [selectedPillar, setSelectedPillar] = useState('all');
   const [selectedCategory, setSelectedCategory] = useState('all');
   const [selectedVariant, setSelectedVariant] = useState('all');
-  const [savedModules, setSavedModules] = useState([]);
   const [showSavedOnly, setShowSavedOnly] = useState(false);
   
   // State for interactive experience
@@ -258,15 +262,6 @@ const JourneyPlanner = () => {
     return modulesBeforeSecondaryFilter.filter(module => 
       module.secondaryJourneyStages && module.secondaryJourneyStages.includes(stageId)
     ).length;
-  };
-
-  // Toggle save/unsave module
-  const toggleSaveModule = (moduleName) => {
-    if (savedModules.includes(moduleName)) {
-      setSavedModules(savedModules.filter(name => name !== moduleName));
-    } else {
-      setSavedModules([...savedModules, moduleName]);
-    }
   };
 
   // View module details
@@ -881,8 +876,6 @@ const JourneyPlanner = () => {
         <ModuleDetails 
           selectedModule={selectedModule}
           journeySteps={journeySteps}
-          savedModules={savedModules}
-          toggleSaveModule={toggleSaveModule}
           exportToPdf={exportToPdf}
           isExporting={isExporting}
           onBack={() => setIsDetailView(false)}

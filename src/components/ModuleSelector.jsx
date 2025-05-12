@@ -4,11 +4,13 @@ import {
   faLayerGroup, faLightbulb, 
   faServer, faCheck, faAngleDown, faAngleUp,
   faCompass, faRocket, faChevronRight, faChevronDown,
-  faInfoCircle, faArrowRight
+  faInfoCircle, faArrowRight, faBookmark
 } from '@fortawesome/free-solid-svg-icons';
+import { faBookmark as faBookmarkRegular } from '@fortawesome/free-regular-svg-icons';
 import modulesConfig from '../config/modulesConfig.json';
 import calculatorConfig from '../config/calculatorConfig.json';
 import { getIcon } from '../utils/iconUtils';
+import useCalculator from '../hooks/useCalculator';
 
 const ModuleSelector = ({ 
   modules, 
@@ -19,6 +21,9 @@ const ModuleSelector = ({
   selectedVariants = {},
   setSelectedVariants
 }) => {
+  // Get access to the shared savedModules state
+  const { savedModules, toggleSaveModule } = useCalculator();
+  
   // State for expanded pillars in the accordion
   const [expandedPillars, setExpandedPillars] = useState(() => {
     // Initialize with all pillars from config set to false (collapsed)
@@ -284,6 +289,20 @@ const ModuleSelector = ({
                         <div className="flex items-center">
                           <h3 className="font-semibold text-sm sm:text-base text-gray-800">{module.name}</h3>
                         </div>
+                        <button
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            toggleSaveModule(module.name);
+                          }}
+                          className={`${
+                            savedModules.includes(module.name) 
+                              ? 'text-amber-500 hover:text-amber-600' 
+                              : 'text-gray-400 hover:text-gray-500'
+                          }`}
+                          aria-label={savedModules.includes(module.name) ? "Unsave module" : "Save module"}
+                        >
+                          <FontAwesomeIcon icon={savedModules.includes(module.name) ? faBookmark : faBookmarkRegular} />
+                        </button>
                       </div>
                       
                       <div className="p-4 flex-grow">

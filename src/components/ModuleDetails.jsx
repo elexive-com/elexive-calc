@@ -6,6 +6,7 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 import { faBookmark as faBookmarkRegular } from '@fortawesome/free-regular-svg-icons';
 import modulesConfig from '../config/modulesConfig.json';
+import useCalculator from '../hooks/useCalculator';
 
 /**
  * ModuleDetails component
@@ -16,12 +17,13 @@ import modulesConfig from '../config/modulesConfig.json';
 const ModuleDetails = ({ 
   selectedModule, 
   journeySteps, 
-  savedModules, 
-  toggleSaveModule, 
   exportToPdf, 
   isExporting, 
   onBack 
 }) => {
+  // Get savedModules state and toggleSaveModule function directly from useCalculator hook
+  const { savedModules, toggleSaveModule } = useCalculator();
+  
   if (!selectedModule) return null;
   
   // Define pillar color mapping

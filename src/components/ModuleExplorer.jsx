@@ -11,6 +11,8 @@ import { getModuleIcon } from '../utils/iconUtils';
 import ModuleDetails from './ModuleDetails';
 // Import our PDF generation module
 import { generateModulePdf } from '../pdf';
+// Import useCalculator hook to access shared state
+import useCalculator from '../hooks/useCalculator';
 
 /**
  * ModuleExplorer component - Simplified to Browse All Modules view
@@ -19,13 +21,15 @@ import { generateModulePdf } from '../pdf';
  * comprehensive filtering capabilities.
  */
 const ModuleExplorer = () => {
+  // Get savedModules state and toggleSaveModule function from useCalculator hook
+  const { savedModules, toggleSaveModule } = useCalculator();
+  
   // State for module data and views
   const [modules, setModules] = useState([]);
   const [filteredModules, setFilteredModules] = useState([]);
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedPillars, setSelectedPillars] = useState(new Set(['all']));
   const [selectedCategories, setSelectedCategories] = useState(new Set(['all']));
-  const [savedModules, setSavedModules] = useState([]);
   const [showSavedOnly, setShowSavedOnly] = useState(false);
   
   // State for interactive experience
@@ -122,15 +126,6 @@ const ModuleExplorer = () => {
     savedModules, 
     showSavedOnly
   ]);
-
-  // Toggle save/unsave module
-  const toggleSaveModule = (moduleName) => {
-    if (savedModules.includes(moduleName)) {
-      setSavedModules(savedModules.filter(name => name !== moduleName));
-    } else {
-      setSavedModules([...savedModules, moduleName]);
-    }
-  };
 
   // View module details
   const viewModuleDetails = (module) => {
@@ -420,8 +415,6 @@ const ModuleExplorer = () => {
         <ModuleDetails 
           selectedModule={selectedModule}
           journeySteps={journeySteps}
-          savedModules={savedModules}
-          toggleSaveModule={toggleSaveModule}
           exportToPdf={exportToPdf}
           isExporting={isExporting}
           onBack={() => setIsDetailView(false)}
