@@ -181,7 +181,7 @@ const CalculatorIntroduction = ({ onGetStarted }) => {
                 </>
               }
             />              <CollapsibleCard 
-              title="Low-Risk Approach"
+              title="Controlled Risk Approach"
               icon={faHandshake}
               content={
                 <>
