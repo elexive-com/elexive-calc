@@ -224,7 +224,7 @@ const CalculatorIntroduction = ({ onGetStarted }) => {
               <img 
                 src={`${process.env.PUBLIC_URL}/bonsai-square-1.png`} 
                 alt="Bonsai tree representing growth and balance" 
-                className="w-full rounded-lg shadow-md" 
+                className="w-full shadow-md rounded-tl-2xl rounded-tr-none rounded-br-2xl rounded-bl-none" 
               />
             </div>
           </div>
@@ -240,7 +240,7 @@ const CalculatorIntroduction = ({ onGetStarted }) => {
               <img 
                 src={`${process.env.PUBLIC_URL}/bonsai-square-1.png`} 
                 alt="Bonsai tree representing growth and balance" 
-                className="w-full rounded-lg shadow-md" 
+                className="w-full shadow-md rounded-tl-2xl rounded-tr-none rounded-br-2xl rounded-bl-none" 
               />
             </div>
           </div>
@@ -459,7 +459,7 @@ const CalculatorIntroduction = ({ onGetStarted }) => {
               <img 
                 src={`${process.env.PUBLIC_URL}/bonsai-square-1.png`} 
                 alt="Bonsai tree representing growth and balance" 
-                className="w-full rounded-lg shadow-md" 
+                className="w-full shadow-md rounded-tl-2xl rounded-tr-none rounded-br-2xl rounded-bl-none" 
               />
               <div className="mt-4 p-4 bg-gray-50 rounded-lg border border-gray-200">
                 <div className="flex items-center mb-2">
