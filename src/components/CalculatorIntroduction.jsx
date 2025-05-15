@@ -8,7 +8,7 @@ import {
   faPlus, faMinus,
   faChartPie,
   faClock, faMoneyBillWave, faHandshake, faBolt,
-  faShieldAlt, faChevronDown
+  faShieldAlt, faChevronDown, faChartLine
 } from '@fortawesome/free-solid-svg-icons';
 // Remove direct import and use process.env.PUBLIC_URL for images in public folder
 
@@ -186,9 +186,7 @@ const CalculatorIntroduction = ({ onGetStarted }) => {
                   </div>
                 </>
               }
-            />
-            
-            <CollapsibleCard 
+            />              <CollapsibleCard 
               title="Low-Risk Approach"
               icon={faHandshake}
               content={
@@ -213,6 +211,40 @@ const CalculatorIntroduction = ({ onGetStarted }) => {
                         <span>Knowledge transfer to your team throughout the process</span>
                       </li>
                     </ul>
+                  </div>
+                </>
+              }
+            />
+            
+            <CollapsibleCard 
+              title="Value Delivery Model"
+              icon={faChartLine}
+              content={
+                <>
+                  <p className="text-sm text-gray-600 mb-3">
+                    Our system uses Elastic Value Credits (EVCs)—transparent work units that clearly show what resources are applied to your business needs.
+                  </p>
+                  
+                  <div className="pt-3 border-t border-gray-200">
+                    <h5 className="font-medium text-elx-primary text-sm mb-2">How our value model works:</h5>
+                    <div className="bg-gray-50 rounded-lg p-3 mb-3">
+                      <div className="flex flex-col md:flex-row items-center justify-around gap-4">
+                        <div className="text-center">
+                          <div className="text-sm font-semibold text-elx-primary mb-1">Your Business Challenge</div>
+                          <div className="text-xs text-gray-600">Precisely Defined</div>
+                        </div>
+                        <div className="hidden md:block">
+                          <FontAwesomeIcon icon={faArrowRight} className="text-elx-primary" />
+                        </div>
+                        <div className="text-center">
+                          <div className="text-sm font-semibold text-elx-primary mb-1">Measurable Results</div>
+                          <div className="text-xs text-gray-600">Quantifiable Outcomes</div>
+                        </div>
+                      </div>
+                    </div>
+                    <p className="text-sm text-gray-600">
+                      We address immediate business challenges while simultaneously building your internal capabilities for long-term organizational strength.
+                    </p>
                   </div>
                 </>
               }
@@ -505,72 +537,91 @@ const CalculatorIntroduction = ({ onGetStarted }) => {
         </div>
       </div>
 
-      {/* SIMPLIFIED PROCESS: 3 quick steps */}
-      <div className="bg-[#f8f9fc] rounded-xl p-6 border border-gray-200 shadow-sm mb-8">
+      {/* SIMPLIFIED PROCESS: 3 quick steps - Modified to match collapsible style */}
+      <div className="mb-8">
         <h3 className="elx-heading-2 flex items-center">
-          <FontAwesomeIcon icon={faCheckCircle} className="text-elx-accent mr-2" />
           Design Your Solution in 3 Steps
         </h3>
         
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
-          <div className="flex gap-3 items-start">
-            <div className="w-10 h-10 rounded-full bg-elx-primary text-white flex items-center justify-center font-bold text-lg flex-shrink-0">
-              1
-            </div>
+        <div className="flex flex-col md:flex-row">
+          <div className="order-2 md:order-1 w-full md:w-1/4 mb-6 md:mb-0 md:pr-6">
             <div>
-              <h4 className="font-semibold text-elx-primary mb-1">Define Your Challenge</h4>
-              <p className="text-gray-600 text-sm">
-                Select from common business challenges or create your own custom scenario.
-              </p>
+              <img 
+                src={`${process.env.PUBLIC_URL}/bonsai-square-1.png`} 
+                alt="Bonsai tree representing growth and balance" 
+                className="w-full shadow-md rounded-tl-2xl rounded-tr-none rounded-br-2xl rounded-bl-none" 
+              />
             </div>
           </div>
           
-          <div className="flex gap-3 items-start">
-            <div className="w-10 h-10 rounded-full bg-elx-primary text-white flex items-center justify-center font-bold text-lg flex-shrink-0">
-              2
-            </div>
-            <div>
-              <h4 className="font-semibold text-elx-primary mb-1">Choose Your Solutions</h4>
-              <p className="text-gray-600 text-sm">
-                Select the exact capabilities needed across transformation, strategy, and technology.
-              </p>
+          <div className="order-1 md:order-2 w-full md:w-3/4">
+            <div className="space-y-4">
+              <div className="bg-white rounded-lg border border-gray-200 shadow-sm p-4">
+                <div className="flex gap-3 items-start">
+                  <div className="w-10 h-10 rounded-full bg-elx-primary text-white flex items-center justify-center font-bold text-lg flex-shrink-0">
+                    1
+                  </div>
+                  <div>
+                    <h4 className="font-semibold text-elx-primary mb-1">Define Your Challenge</h4>
+                    <p className="text-gray-600 text-sm">
+                      Select from common business challenges or create your own custom scenario.
+                    </p>
+                  </div>
+                </div>
+              </div>
+              
+              <div className="bg-white rounded-lg border border-gray-200 shadow-sm p-4">
+                <div className="flex gap-3 items-start">
+                  <div className="w-10 h-10 rounded-full bg-elx-primary text-white flex items-center justify-center font-bold text-lg flex-shrink-0">
+                    2
+                  </div>
+                  <div>
+                    <h4 className="font-semibold text-elx-primary mb-1">Choose Your Solutions</h4>
+                    <p className="text-gray-600 text-sm">
+                      Select the exact capabilities needed across transformation, strategy, and technology.
+                    </p>
+                  </div>
+                </div>
+              </div>
+              
+              <div className="bg-white rounded-lg border border-gray-200 shadow-sm p-4">
+                <div className="flex gap-3 items-start">
+                  <div className="w-10 h-10 rounded-full bg-elx-primary text-white flex items-center justify-center font-bold text-lg flex-shrink-0">
+                    3
+                  </div>
+                  <div>
+                    <h4 className="font-semibold text-elx-primary mb-1">Set Your Budget & Timeline</h4>
+                    <p className="text-gray-600 text-sm">
+                      Adjust scope and resources to see real-time pricing and delivery estimates.
+                    </p>
+                  </div>
+                </div>
+              </div>
+              
+              <div className="mt-5 flex justify-center">
+                <button
+                  onClick={onGetStarted}
+                  className="elx-btn-primary"
+                >
+                  Start Building Now
+                  <FontAwesomeIcon icon={faArrowRight} className="ml-3" />
+                </button>
+              </div>
+              
+              <div className="text-center mt-2">
+                <button
+                  onClick={() => {
+                    toggleSection('process');
+                    document.getElementById('detailed-process').scrollIntoView({ behavior: 'smooth' });
+                  }}
+                  className="text-elx-primary font-medium text-sm flex items-center justify-center mx-auto"
+                >
+                  View detailed process information
+                  <FontAwesomeIcon icon={faChevronDown} className="ml-2" />
+                </button>
+              </div>
             </div>
           </div>
-          
-          <div className="flex gap-3 items-start">
-            <div className="w-10 h-10 rounded-full bg-elx-primary text-white flex items-center justify-center font-bold text-lg flex-shrink-0">
-              3
-            </div>
-            <div>
-              <h4 className="font-semibold text-elx-primary mb-1">Set Your Budget & Timeline</h4>
-              <p className="text-gray-600 text-sm">
-                Adjust scope and resources to see real-time pricing and delivery estimates.
-              </p>
-            </div>
-          </div>
-        </div>
-
-        <div className="mt-5 flex justify-center">
-          <button
-            onClick={onGetStarted}
-            className="elx-btn-primary"
-          >
-            Start Building Now
-            <FontAwesomeIcon icon={faArrowRight} className="ml-3" />
-          </button>
-        </div>
-        
-        <div className="text-center mt-4">
-          <button
-            onClick={() => {
-              toggleSection('process');
-              document.getElementById('detailed-process').scrollIntoView({ behavior: 'smooth' });
-            }}
-            className="text-elx-primary font-medium text-sm flex items-center justify-center mx-auto"
-          >
-            View detailed process information
-            <FontAwesomeIcon icon={faChevronDown} className="ml-2" />
-          </button>
         </div>
       </div>
 
@@ -662,59 +713,7 @@ const CalculatorIntroduction = ({ onGetStarted }) => {
       </div>
 
       {/* 6. EXPANDABLE SECTIONS - Detailed information for CEOs who want to dig deeper */}
-      <div className="space-y-0 mb-8">
-        {/* Value Model Section - Expandable - Styled like the reference image */}
-        <div className="border-t border-gray-200 overflow-hidden">
-          <div 
-            className="py-4 px-2 flex items-center justify-between w-full cursor-pointer"
-            onClick={() => toggleSection('evcModel')}
-          >
-            <h3 className="font-semibold text-lg text-indigo-900">Clear ROI & Value Delivery Model</h3>
-            <div>
-              <FontAwesomeIcon 
-                icon={expandedSections.evcModel ? faMinus : faPlus} 
-                className="text-indigo-900" 
-              />
-            </div>
-          </div>
-          
-          {expandedSections.evcModel && (
-            <div className="p-5 bg-white border-t border-gray-100">
-              <p className="text-gray-700 mb-5">
-                Our system uses Elastic Value Credits (EVCs)—transparent work units that clearly show what resources are applied to your business needs and how they directly tie to measurable outcomes.
-              </p>
-              
-              <div className="bg-[#f8f9fc] rounded-lg p-5 mb-5 shadow-sm border border-gray-100">
-                <div className="flex flex-col md:flex-row items-center justify-around gap-6">
-                  <div className="text-center">
-                    <div className="text-lg font-semibold text-elx-primary mb-2">Your Business Challenge</div>
-                    <div className="text-sm text-gray-600 mb-3">Precisely Defined Problem</div>
-                    <div className="bg-white rounded-lg px-4 py-3 font-semibold text-elx-accent shadow-sm border border-elx-accent border-opacity-20">
-                      Right-Sized Resources
-                    </div>
-                  </div>
-                  
-                  <div className="hidden md:block">
-                    <FontAwesomeIcon icon={faArrowRight} className="text-elx-primary text-xl" />
-                  </div>
-                  
-                  <div className="text-center">
-                    <div className="text-lg font-semibold text-elx-primary mb-2">Measurable Results</div>
-                    <div className="text-sm text-gray-600 mb-3">Quantifiable Outcomes</div>
-                    <div className="bg-white rounded-lg px-4 py-3 font-semibold text-elx-secondary shadow-sm border border-elx-secondary border-opacity-20">
-                      Business Impact
-                    </div>
-                  </div>
-                </div>
-              </div>
-              
-              <p className="text-gray-700">
-                We address immediate business challenges while simultaneously building your internal capabilities. You get both the immediate solution you need and the long-term organizational strength to prevent similar issues in the future.
-              </p>
-            </div>
-          )}
-        </div>
-        
+      <div className="space-y-0 mb-8 bg-[#f8f9fc] rounded-xl p-6 border border-gray-200 shadow-sm">
         {/* Detailed Process Section - Expandable */}
         <div className="border-t border-gray-200 overflow-hidden" id="detailed-process">
           <div 
