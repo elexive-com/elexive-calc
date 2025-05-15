@@ -8,7 +8,7 @@ import {
   faPlus, faMinus,
   faChartPie,
   faClock, faMoneyBillWave, faHandshake, faBolt,
-  faShieldAlt, faChevronDown, faChartLine
+  faShieldAlt, faChartLine
 } from '@fortawesome/free-solid-svg-icons';
 // Remove direct import and use process.env.PUBLIC_URL for images in public folder
 
@@ -123,7 +123,7 @@ const CalculatorIntroduction = ({ onGetStarted }) => {
           <div className="order-1 md:order-1 w-full md:w-3/4 pr-0 md:pr-8">
             <div className="space-y-0">
               <CollapsibleCard 
-                title="3-5x ROI"
+                title="3-5x Return on Investment"
                 icon={faMoneyBillWave}
                 content={
                 <>
@@ -376,20 +376,24 @@ const CalculatorIntroduction = ({ onGetStarted }) => {
           <div className="order-1 md:order-1 w-full md:w-3/4 pr-0 md:pr-8">
             <div className="space-y-0">
               <CollapsibleCard 
-                title="Instant Access"
-                icon={faClock}
+                title="Instant Visibility & Transparency"
+                icon={faChartPie}
                 content={
                   <>
                     <p className="text-sm text-gray-600 mb-3">
-                      Configure your solution and see pricing immediately—no waiting for sales calls or proposals.
+                      Configure your solution and see detailed pricing immediately—no waiting for sales calls, proposals, or hidden costs.
                     </p>
                     
                     <div className="pt-3 border-t border-gray-200">
-                      <h5 className="font-medium text-elx-primary text-sm mb-2">Benefits of instant access:</h5>
+                      <h5 className="font-medium text-elx-primary text-sm mb-2">Benefits of complete transparency:</h5>
                       <ul className="text-sm text-gray-600 space-y-1">
                         <li className="flex items-start">
                           <FontAwesomeIcon icon={faCheckCircle} className="text-elx-accent mt-0.5 mr-2 flex-shrink-0 text-xs" />
-                          <span>Make decisions on your timeline, not a salesperson's</span>
+                          <span>Item-by-item breakdown of costs and services</span>
+                        </li>
+                        <li className="flex items-start">
+                          <FontAwesomeIcon icon={faCheckCircle} className="text-elx-accent mt-0.5 mr-2 flex-shrink-0 text-xs" />
+                          <span>Clear timeline and delivery expectations</span>
                         </li>
                         <li className="flex items-start">
                           <FontAwesomeIcon icon={faCheckCircle} className="text-elx-accent mt-0.5 mr-2 flex-shrink-0 text-xs" />
@@ -402,24 +406,28 @@ const CalculatorIntroduction = ({ onGetStarted }) => {
               />
               
               <CollapsibleCard 
-                title="Complete Transparency"
-                icon={faChartPie}
+                title="Self-Directed Process"
+                icon={faClock}
                 content={
                   <>
                     <p className="text-sm text-gray-600 mb-3">
-                      See exactly what you're buying, what it costs, and the outcomes you can expect—before committing.
+                      Explore and build at your own pace without sales pressure—you decide when and how to move forward.
                     </p>
                     
                     <div className="pt-3 border-t border-gray-200">
-                      <h5 className="font-medium text-elx-primary text-sm mb-2">What we make transparent:</h5>
+                      <h5 className="font-medium text-elx-primary text-sm mb-2">Our self-directed approach:</h5>
                       <ul className="text-sm text-gray-600 space-y-1">
                         <li className="flex items-start">
                           <FontAwesomeIcon icon={faCheckCircle} className="text-elx-accent mt-0.5 mr-2 flex-shrink-0 text-xs" />
-                          <span>Item-by-item breakdown of costs and services</span>
+                          <span>Make decisions on your timeline, not a salesperson's</span>
                         </li>
                         <li className="flex items-start">
                           <FontAwesomeIcon icon={faCheckCircle} className="text-elx-accent mt-0.5 mr-2 flex-shrink-0 text-xs" />
-                          <span>Clear timeline and delivery expectations</span>
+                          <span>Save and revisit your plan as needed</span>
+                        </li>
+                        <li className="flex items-start">
+                          <FontAwesomeIcon icon={faCheckCircle} className="text-elx-accent mt-0.5 mr-2 flex-shrink-0 text-xs" />
+                          <span>Support available but never pushy</span>
                         </li>
                       </ul>
                     </div>
@@ -428,7 +436,7 @@ const CalculatorIntroduction = ({ onGetStarted }) => {
               />
               
               <CollapsibleCard 
-                title="Tailored Solutions"
+                title="Complete Customization"
                 icon={faPuzzlePiece}
                 content={
                   <>
@@ -447,31 +455,9 @@ const CalculatorIntroduction = ({ onGetStarted }) => {
                           <FontAwesomeIcon icon={faCheckCircle} className="text-elx-accent mt-0.5 mr-2 flex-shrink-0 text-xs" />
                           <span>Adjustable resource levels for each solution area</span>
                         </li>
-                      </ul>
-                    </div>
-                  </>
-                }
-              />
-              
-              <CollapsibleCard 
-                title="No Pressure Decision-Making"
-                icon={faHandshake}
-                content={
-                  <>
-                    <p className="text-sm text-gray-600 mb-3">
-                      Explore at your own pace without sales pressure—you decide when and how to move forward.
-                    </p>
-                    
-                    <div className="pt-3 border-t border-gray-200">
-                      <h5 className="font-medium text-elx-primary text-sm mb-2">Our no-pressure approach:</h5>
-                      <ul className="text-sm text-gray-600 space-y-1">
                         <li className="flex items-start">
                           <FontAwesomeIcon icon={faCheckCircle} className="text-elx-accent mt-0.5 mr-2 flex-shrink-0 text-xs" />
-                          <span>Save and revisit your plan as needed</span>
-                        </li>
-                        <li className="flex items-start">
-                          <FontAwesomeIcon icon={faCheckCircle} className="text-elx-accent mt-0.5 mr-2 flex-shrink-0 text-xs" />
-                          <span>Support available but never pushy</span>
+                          <span>Get exactly what you need without paying for unnecessary services</span>
                         </li>
                       </ul>
                     </div>
@@ -480,12 +466,12 @@ const CalculatorIntroduction = ({ onGetStarted }) => {
               />
               
               <CollapsibleCard 
-                title="Complete Control"
+                title="Executive Control"
                 icon={faShieldAlt}
                 content={
                   <>
                     <p className="text-sm text-gray-600 mb-3">
-                      This self-service tool puts you in control. Configure the exact expertise, resources, and timeline needed for your business priorities with complete cost visibility.
+                      This approach puts you in complete control of the transformation process from planning to execution.
                     </p>
                     
                     <div className="pt-3 border-t border-gray-200">
@@ -501,7 +487,7 @@ const CalculatorIntroduction = ({ onGetStarted }) => {
                         </li>
                         <li className="flex items-start">
                           <FontAwesomeIcon icon={faCheckCircle} className="text-elx-accent mt-0.5 mr-2 flex-shrink-0 text-xs" />
-                          <span>Get exactly what you need without paying for unnecessary services</span>
+                          <span>Make informed decisions with complete information about outcomes</span>
                         </li>
                       </ul>
                     </div>
@@ -778,10 +764,6 @@ const CalculatorIntroduction = ({ onGetStarted }) => {
         </div>
       </div>
 
-      {/* 6. EXPANDABLE SECTIONS - Detailed information for CEOs who want to dig deeper */}
-      <div className="space-y-0 mb-8 bg-[#f8f9fc] rounded-xl p-6 border border-gray-200 shadow-sm">
-        {/* Expandable sections can be added here if needed */}
-      </div>
       
       {/* FINAL CTA: Emphasize control, transparency and ease */}
       <div className="flex flex-col items-center pt-5 mt-2 border-t border-gray-200">
