@@ -393,7 +393,7 @@ const CalculatorApp = () => {
                     {/* Step 1: Business Intent */}
                     {renderStep(
                       1,
-                      "What's Your Business Priority?",
+                      "Define Your Business Challenge",
                       <OnboardingQuiz 
                         intent={calculator.intent}
                         handleIntentSelect={calculator.handleIntentSelect}
