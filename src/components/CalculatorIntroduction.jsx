@@ -125,7 +125,7 @@ const CalculatorIntroduction = ({ onGetStarted }) => {
         <h3 className="elx-heading-2">Business Impact You Can Expect</h3>
         
         <div className="flex flex-col md:flex-row">
-          <div className="w-full md:w-3/4 pr-0 md:pr-8">
+          <div className="order-1 md:order-1 w-full md:w-3/4 pr-0 md:pr-8">
             <div className="space-y-0">
               <CollapsibleCard 
                 title="3-5x ROI"
@@ -219,7 +219,7 @@ const CalculatorIntroduction = ({ onGetStarted }) => {
             </div>
           </div>
           
-          <div className="w-full md:w-1/4 mt-6 md:mt-0 md:pl-6">
+          <div className="order-2 md:order-2 w-full md:w-1/4 mt-6 md:mt-0 md:pl-6">
             <div className="sticky top-6">
               <img 
                 src={`${process.env.PUBLIC_URL}/bonsai-square-1.png`} 
@@ -235,7 +235,7 @@ const CalculatorIntroduction = ({ onGetStarted }) => {
       <div className="mb-8">
         <h3 className="elx-heading-2">Critical Business Challenges We Solve</h3>
         <div className="flex flex-col md:flex-row">
-          <div className="w-full md:w-1/4 mb-6 md:mb-0 md:pr-6">
+          <div className="order-2 md:order-1 w-full md:w-1/4 mb-6 md:mb-0 md:pr-6">
             <div>
               <img 
                 src={`${process.env.PUBLIC_URL}/bonsai-square-1.png`} 
@@ -245,7 +245,7 @@ const CalculatorIntroduction = ({ onGetStarted }) => {
             </div>
           </div>
         
-          <div className="w-full md:w-3/4">
+          <div className="order-1 md:order-2 w-full md:w-3/4">
             <div className="space-y-0">
               <CollapsibleCard 
                 title="Growth & Revenue"
