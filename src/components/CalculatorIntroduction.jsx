@@ -140,29 +140,31 @@ const CalculatorIntroduction = ({ onGetStarted }) => {
               </div>
             </div>
             
-            <div className="p-4 flex-grow flex flex-col">
-              <p className="text-sm text-gray-600">
-                Our clients typically see 3-5x return on their transformation investment within 12-18 months.
-              </p>
-              
+            <div className={`flex-grow flex flex-col ${expandedImpactCards.roi ? 'p-4' : 'p-0 h-0 overflow-hidden'}`}>
               {expandedImpactCards.roi && (
-                <div className="mt-3 pt-3 border-t border-gray-200">
-                  <h5 className="font-medium text-elx-primary text-sm mb-2">How we deliver this ROI:</h5>
-                  <ul className="text-sm text-gray-600 space-y-1">
-                    <li className="flex items-start">
-                      <FontAwesomeIcon icon={faCheckCircle} className="text-elx-accent mt-0.5 mr-2 flex-shrink-0 text-xs" />
-                      <span>Strategic operational improvements that reduce costs</span>
-                    </li>
-                    <li className="flex items-start">
-                      <FontAwesomeIcon icon={faCheckCircle} className="text-elx-accent mt-0.5 mr-2 flex-shrink-0 text-xs" />
-                      <span>Revenue optimization through improved processes</span>
-                    </li>
-                    <li className="flex items-start">
-                      <FontAwesomeIcon icon={faCheckCircle} className="text-elx-accent mt-0.5 mr-2 flex-shrink-0 text-xs" />
-                      <span>Capability building that delivers long-term value</span>
-                    </li>
-                  </ul>
-                </div>
+                <>
+                  <p className="text-sm text-gray-600 mb-3">
+                    Our clients typically see 3-5x return on their transformation investment within 12-18 months.
+                  </p>
+                
+                  <div className="pt-3 border-t border-gray-200">
+                    <h5 className="font-medium text-elx-primary text-sm mb-2">How we deliver this ROI:</h5>
+                    <ul className="text-sm text-gray-600 space-y-1">
+                      <li className="flex items-start">
+                        <FontAwesomeIcon icon={faCheckCircle} className="text-elx-accent mt-0.5 mr-2 flex-shrink-0 text-xs" />
+                        <span>Strategic operational improvements that reduce costs</span>
+                      </li>
+                      <li className="flex items-start">
+                        <FontAwesomeIcon icon={faCheckCircle} className="text-elx-accent mt-0.5 mr-2 flex-shrink-0 text-xs" />
+                        <span>Revenue optimization through improved processes</span>
+                      </li>
+                      <li className="flex items-start">
+                        <FontAwesomeIcon icon={faCheckCircle} className="text-elx-accent mt-0.5 mr-2 flex-shrink-0 text-xs" />
+                        <span>Capability building that delivers long-term value</span>
+                      </li>
+                    </ul>
+                  </div>
+                </>
               )}
             </div>
           </div>
@@ -189,29 +191,31 @@ const CalculatorIntroduction = ({ onGetStarted }) => {
               </div>
             </div>
             
-            <div className="p-4 flex-grow flex flex-col">
-              <p className="text-sm text-gray-600">
-                Start seeing operational improvements and quick wins within the first 4-6 weeks of implementation.
-              </p>
-              
+            <div className={`flex-grow flex flex-col ${expandedImpactCards.speed ? 'p-4' : 'p-0 h-0 overflow-hidden'}`}>
               {expandedImpactCards.speed && (
-                <div className="mt-3 pt-3 border-t border-gray-200">
-                  <h5 className="font-medium text-elx-primary text-sm mb-2">Our rapid delivery approach:</h5>
-                  <ul className="text-sm text-gray-600 space-y-1">
-                    <li className="flex items-start">
-                      <FontAwesomeIcon icon={faCheckCircle} className="text-elx-accent mt-0.5 mr-2 flex-shrink-0 text-xs" />
-                      <span>Agile implementation methodology focused on quick wins</span>
-                    </li>
-                    <li className="flex items-start">
-                      <FontAwesomeIcon icon={faCheckCircle} className="text-elx-accent mt-0.5 mr-2 flex-shrink-0 text-xs" />
-                      <span>Pre-built frameworks that can be rapidly customized</span>
-                    </li>
-                    <li className="flex items-start">
-                      <FontAwesomeIcon icon={faCheckCircle} className="text-elx-accent mt-0.5 mr-2 flex-shrink-0 text-xs" />
-                      <span>Weekly progress tracking and milestone achievements</span>
-                    </li>
-                  </ul>
-                </div>
+                <>
+                  <p className="text-sm text-gray-600 mb-3">
+                    Start seeing operational improvements and quick wins within the first 4-6 weeks of implementation.
+                  </p>
+                
+                  <div className="pt-3 border-t border-gray-200">
+                    <h5 className="font-medium text-elx-primary text-sm mb-2">Our rapid delivery approach:</h5>
+                    <ul className="text-sm text-gray-600 space-y-1">
+                      <li className="flex items-start">
+                        <FontAwesomeIcon icon={faCheckCircle} className="text-elx-accent mt-0.5 mr-2 flex-shrink-0 text-xs" />
+                        <span>Agile implementation methodology focused on quick wins</span>
+                      </li>
+                      <li className="flex items-start">
+                        <FontAwesomeIcon icon={faCheckCircle} className="text-elx-accent mt-0.5 mr-2 flex-shrink-0 text-xs" />
+                        <span>Pre-built frameworks that can be rapidly customized</span>
+                      </li>
+                      <li className="flex items-start">
+                        <FontAwesomeIcon icon={faCheckCircle} className="text-elx-accent mt-0.5 mr-2 flex-shrink-0 text-xs" />
+                        <span>Weekly progress tracking and milestone achievements</span>
+                      </li>
+                    </ul>
+                  </div>
+                </>
               )}
             </div>
           </div>
@@ -238,29 +242,31 @@ const CalculatorIntroduction = ({ onGetStarted }) => {
               </div>
             </div>
             
-            <div className="p-4 flex-grow flex flex-col">
-              <p className="text-sm text-gray-600">
-                Our modular methodology allows for course correction without "all-in" commitments, protecting your investment.
-              </p>
-              
+            <div className={`flex-grow flex flex-col ${expandedImpactCards.risk ? 'p-4' : 'p-0 h-0 overflow-hidden'}`}>
               {expandedImpactCards.risk && (
-                <div className="mt-3 pt-3 border-t border-gray-200">
-                  <h5 className="font-medium text-elx-primary text-sm mb-2">How we minimize risk:</h5>
-                  <ul className="text-sm text-gray-600 space-y-1">
-                    <li className="flex items-start">
-                      <FontAwesomeIcon icon={faCheckCircle} className="text-elx-accent mt-0.5 mr-2 flex-shrink-0 text-xs" />
-                      <span>Phased implementation with clear go/no-go decision points</span>
-                    </li>
-                    <li className="flex items-start">
-                      <FontAwesomeIcon icon={faCheckCircle} className="text-elx-accent mt-0.5 mr-2 flex-shrink-0 text-xs" />
-                      <span>Transparent KPIs and success metrics from day one</span>
-                    </li>
-                    <li className="flex items-start">
-                      <FontAwesomeIcon icon={faCheckCircle} className="text-elx-accent mt-0.5 mr-2 flex-shrink-0 text-xs" />
-                      <span>Knowledge transfer to your team throughout the process</span>
-                    </li>
-                  </ul>
-                </div>
+                <>
+                  <p className="text-sm text-gray-600 mb-3">
+                    Our modular methodology allows for course correction without "all-in" commitments, protecting your investment.
+                  </p>
+                
+                  <div className="pt-3 border-t border-gray-200">
+                    <h5 className="font-medium text-elx-primary text-sm mb-2">How we minimize risk:</h5>
+                    <ul className="text-sm text-gray-600 space-y-1">
+                      <li className="flex items-start">
+                        <FontAwesomeIcon icon={faCheckCircle} className="text-elx-accent mt-0.5 mr-2 flex-shrink-0 text-xs" />
+                        <span>Phased implementation with clear go/no-go decision points</span>
+                      </li>
+                      <li className="flex items-start">
+                        <FontAwesomeIcon icon={faCheckCircle} className="text-elx-accent mt-0.5 mr-2 flex-shrink-0 text-xs" />
+                        <span>Transparent KPIs and success metrics from day one</span>
+                      </li>
+                      <li className="flex items-start">
+                        <FontAwesomeIcon icon={faCheckCircle} className="text-elx-accent mt-0.5 mr-2 flex-shrink-0 text-xs" />
+                        <span>Knowledge transfer to your team throughout the process</span>
+                      </li>
+                    </ul>
+                  </div>
+                </>
               )}
             </div>
           </div>
@@ -294,29 +300,31 @@ const CalculatorIntroduction = ({ onGetStarted }) => {
               </div>
             </div>
             
-            <div className="p-4 flex-grow flex flex-col">
-              <p className="text-sm text-gray-600">
-                Break revenue plateaus, capitalize on market opportunities, and develop sustainable growth engines that keep your business competitive.
-              </p>
-              
+            <div className={`flex-grow flex flex-col ${expandedChallengeCards.growth ? 'p-4' : 'p-0 h-0 overflow-hidden'}`}>
               {expandedChallengeCards.growth && (
-                <div className="mt-3 pt-3 border-t border-gray-200">
-                  <h5 className="font-medium text-elx-primary text-sm mb-2">Growth strategies we deliver:</h5>
-                  <ul className="text-sm text-gray-600 space-y-1">
-                    <li className="flex items-start">
-                      <FontAwesomeIcon icon={faCheckCircle} className="text-elx-accent mt-0.5 mr-2 flex-shrink-0 text-xs" />
-                      <span>Market expansion and new customer acquisition frameworks</span>
-                    </li>
-                    <li className="flex items-start">
-                      <FontAwesomeIcon icon={faCheckCircle} className="text-elx-accent mt-0.5 mr-2 flex-shrink-0 text-xs" />
-                      <span>Revenue stream diversification and optimization</span>
-                    </li>
-                    <li className="flex items-start">
-                      <FontAwesomeIcon icon={faCheckCircle} className="text-elx-accent mt-0.5 mr-2 flex-shrink-0 text-xs" />
-                      <span>Strategic partnership and alliance development</span>
-                    </li>
-                  </ul>
-                </div>
+                <>
+                  <p className="text-sm text-gray-600 mb-3">
+                    Break revenue plateaus, capitalize on market opportunities, and develop sustainable growth engines that keep your business competitive.
+                  </p>
+                
+                  <div className="pt-3 border-t border-gray-200">
+                    <h5 className="font-medium text-elx-primary text-sm mb-2">Growth strategies we deliver:</h5>
+                    <ul className="text-sm text-gray-600 space-y-1">
+                      <li className="flex items-start">
+                        <FontAwesomeIcon icon={faCheckCircle} className="text-elx-accent mt-0.5 mr-2 flex-shrink-0 text-xs" />
+                        <span>Market expansion and new customer acquisition frameworks</span>
+                      </li>
+                      <li className="flex items-start">
+                        <FontAwesomeIcon icon={faCheckCircle} className="text-elx-accent mt-0.5 mr-2 flex-shrink-0 text-xs" />
+                        <span>Revenue stream diversification and optimization</span>
+                      </li>
+                      <li className="flex items-start">
+                        <FontAwesomeIcon icon={faCheckCircle} className="text-elx-accent mt-0.5 mr-2 flex-shrink-0 text-xs" />
+                        <span>Strategic partnership and alliance development</span>
+                      </li>
+                    </ul>
+                  </div>
+                </>
               )}
             </div>
           </div>
@@ -343,29 +351,31 @@ const CalculatorIntroduction = ({ onGetStarted }) => {
               </div>
             </div>
             
-            <div className="p-4 flex-grow flex flex-col">
-              <p className="text-sm text-gray-600">
-                Eliminate operational bottlenecks, streamline decision processes, and build execution capabilities that turn strategy into measurable results.
-              </p>
-              
+            <div className={`flex-grow flex flex-col ${expandedChallengeCards.execution ? 'p-4' : 'p-0 h-0 overflow-hidden'}`}>
               {expandedChallengeCards.execution && (
-                <div className="mt-3 pt-3 border-t border-gray-200">
-                  <h5 className="font-medium text-elx-primary text-sm mb-2">Operational excellence solutions:</h5>
-                  <ul className="text-sm text-gray-600 space-y-1">
-                    <li className="flex items-start">
-                      <FontAwesomeIcon icon={faCheckCircle} className="text-elx-accent mt-0.5 mr-2 flex-shrink-0 text-xs" />
-                      <span>Process optimization and workflow streamlining</span>
-                    </li>
-                    <li className="flex items-start">
-                      <FontAwesomeIcon icon={faCheckCircle} className="text-elx-accent mt-0.5 mr-2 flex-shrink-0 text-xs" />
-                      <span>Decision framework development and implementation</span>
-                    </li>
-                    <li className="flex items-start">
-                      <FontAwesomeIcon icon={faCheckCircle} className="text-elx-accent mt-0.5 mr-2 flex-shrink-0 text-xs" />
-                      <span>Cross-functional coordination and alignment</span>
-                    </li>
-                  </ul>
-                </div>
+                <>
+                  <p className="text-sm text-gray-600 mb-3">
+                    Eliminate operational bottlenecks, streamline decision processes, and build execution capabilities that turn strategy into measurable results.
+                  </p>
+                
+                  <div className="pt-3 border-t border-gray-200">
+                    <h5 className="font-medium text-elx-primary text-sm mb-2">Operational excellence solutions:</h5>
+                    <ul className="text-sm text-gray-600 space-y-1">
+                      <li className="flex items-start">
+                        <FontAwesomeIcon icon={faCheckCircle} className="text-elx-accent mt-0.5 mr-2 flex-shrink-0 text-xs" />
+                        <span>Process optimization and workflow streamlining</span>
+                      </li>
+                      <li className="flex items-start">
+                        <FontAwesomeIcon icon={faCheckCircle} className="text-elx-accent mt-0.5 mr-2 flex-shrink-0 text-xs" />
+                        <span>Decision framework development and implementation</span>
+                      </li>
+                      <li className="flex items-start">
+                        <FontAwesomeIcon icon={faCheckCircle} className="text-elx-accent mt-0.5 mr-2 flex-shrink-0 text-xs" />
+                        <span>Cross-functional coordination and alignment</span>
+                      </li>
+                    </ul>
+                  </div>
+                </>
               )}
             </div>
           </div>
@@ -392,29 +402,31 @@ const CalculatorIntroduction = ({ onGetStarted }) => {
               </div>
             </div>
             
-            <div className="p-4 flex-grow flex flex-col">
-              <p className="text-sm text-gray-600">
-                Future-proof your business with adaptive capabilities, emerging technology integration, and innovation systems that maintain market leadership.
-              </p>
-              
+            <div className={`flex-grow flex flex-col ${expandedChallengeCards.innovation ? 'p-4' : 'p-0 h-0 overflow-hidden'}`}>
               {expandedChallengeCards.innovation && (
-                <div className="mt-3 pt-3 border-t border-gray-200">
-                  <h5 className="font-medium text-elx-primary text-sm mb-2">Innovation frameworks we implement:</h5>
-                  <ul className="text-sm text-gray-600 space-y-1">
-                    <li className="flex items-start">
-                      <FontAwesomeIcon icon={faCheckCircle} className="text-elx-accent mt-0.5 mr-2 flex-shrink-0 text-xs" />
-                      <span>Structured innovation processes and idea management</span>
-                    </li>
-                    <li className="flex items-start">
-                      <FontAwesomeIcon icon={faCheckCircle} className="text-elx-accent mt-0.5 mr-2 flex-shrink-0 text-xs" />
-                      <span>Adaptive business models for market disruption</span>
-                    </li>
-                    <li className="flex items-start">
-                      <FontAwesomeIcon icon={faCheckCircle} className="text-elx-accent mt-0.5 mr-2 flex-shrink-0 text-xs" />
-                      <span>Technology evaluation and integration roadmaps</span>
-                    </li>
-                  </ul>
-                </div>
+                <>
+                  <p className="text-sm text-gray-600 mb-3">
+                    Future-proof your business with adaptive capabilities, emerging technology integration, and innovation systems that maintain market leadership.
+                  </p>
+                
+                  <div className="pt-3 border-t border-gray-200">
+                    <h5 className="font-medium text-elx-primary text-sm mb-2">Innovation frameworks we implement:</h5>
+                    <ul className="text-sm text-gray-600 space-y-1">
+                      <li className="flex items-start">
+                        <FontAwesomeIcon icon={faCheckCircle} className="text-elx-accent mt-0.5 mr-2 flex-shrink-0 text-xs" />
+                        <span>Structured innovation processes and idea management</span>
+                      </li>
+                      <li className="flex items-start">
+                        <FontAwesomeIcon icon={faCheckCircle} className="text-elx-accent mt-0.5 mr-2 flex-shrink-0 text-xs" />
+                        <span>Adaptive business models for market disruption</span>
+                      </li>
+                      <li className="flex items-start">
+                        <FontAwesomeIcon icon={faCheckCircle} className="text-elx-accent mt-0.5 mr-2 flex-shrink-0 text-xs" />
+                        <span>Technology evaluation and integration roadmaps</span>
+                      </li>
+                    </ul>
+                  </div>
+                </>
               )}
             </div>
           </div>
