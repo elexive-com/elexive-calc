@@ -341,66 +341,135 @@ const CalculatorIntroduction = ({ onGetStarted }) => {
         </div>
       </div>
 
-      {/* VALUE PROPOSITION: Differentiation & control */}
-      <div className="mb-8 bg-gray-50 rounded-xl p-6 border border-gray-200 shadow-sm">
+      {/* VALUE PROPOSITION: Differentiation & control - Redesigned with collapsible cards & bonsai image */}
+      <div className="mb-8">
         <h3 className="elx-heading-2">Why Executives Choose This Approach</h3>
         
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-5 mb-4">
-          <div className="flex items-start">
-            <div className="w-10 h-10 rounded-full bg-elx-accent bg-opacity-10 text-elx-accent flex items-center justify-center font-bold text-lg flex-shrink-0 mr-3">
-              <FontAwesomeIcon icon={faClock} />
-            </div>
-            <div>
-              <h4 className="font-semibold text-elx-primary mb-1">Instant Access</h4>
-              <p className="text-gray-600 text-sm">
-                Configure your solution and see pricing immediately—no waiting for sales calls or proposals.
-              </p>
+        <div className="flex flex-col md:flex-row">
+          <div className="order-1 md:order-1 w-full md:w-3/4 pr-0 md:pr-8">
+            <div className="space-y-0">
+              <CollapsibleCard 
+                title="Instant Access"
+                icon={faClock}
+                content={
+                  <>
+                    <p className="text-sm text-gray-600 mb-3">
+                      Configure your solution and see pricing immediately—no waiting for sales calls or proposals.
+                    </p>
+                    
+                    <div className="pt-3 border-t border-gray-200">
+                      <h5 className="font-medium text-elx-primary text-sm mb-2">Benefits of instant access:</h5>
+                      <ul className="text-sm text-gray-600 space-y-1">
+                        <li className="flex items-start">
+                          <FontAwesomeIcon icon={faCheckCircle} className="text-elx-accent mt-0.5 mr-2 flex-shrink-0 text-xs" />
+                          <span>Make decisions on your timeline, not a salesperson's</span>
+                        </li>
+                        <li className="flex items-start">
+                          <FontAwesomeIcon icon={faCheckCircle} className="text-elx-accent mt-0.5 mr-2 flex-shrink-0 text-xs" />
+                          <span>Preview your complete solution before any commitment</span>
+                        </li>
+                      </ul>
+                    </div>
+                  </>
+                }
+              />
+              
+              <CollapsibleCard 
+                title="Complete Transparency"
+                icon={faChartPie}
+                content={
+                  <>
+                    <p className="text-sm text-gray-600 mb-3">
+                      See exactly what you're buying, what it costs, and the outcomes you can expect—before committing.
+                    </p>
+                    
+                    <div className="pt-3 border-t border-gray-200">
+                      <h5 className="font-medium text-elx-primary text-sm mb-2">What we make transparent:</h5>
+                      <ul className="text-sm text-gray-600 space-y-1">
+                        <li className="flex items-start">
+                          <FontAwesomeIcon icon={faCheckCircle} className="text-elx-accent mt-0.5 mr-2 flex-shrink-0 text-xs" />
+                          <span>Item-by-item breakdown of costs and services</span>
+                        </li>
+                        <li className="flex items-start">
+                          <FontAwesomeIcon icon={faCheckCircle} className="text-elx-accent mt-0.5 mr-2 flex-shrink-0 text-xs" />
+                          <span>Clear timeline and delivery expectations</span>
+                        </li>
+                      </ul>
+                    </div>
+                  </>
+                }
+              />
+              
+              <CollapsibleCard 
+                title="Tailored Solutions"
+                icon={faPuzzlePiece}
+                content={
+                  <>
+                    <p className="text-sm text-gray-600 mb-3">
+                      Build exactly what you need instead of conforming to rigid, pre-packaged consulting offerings.
+                    </p>
+                    
+                    <div className="pt-3 border-t border-gray-200">
+                      <h5 className="font-medium text-elx-primary text-sm mb-2">How we enable customization:</h5>
+                      <ul className="text-sm text-gray-600 space-y-1">
+                        <li className="flex items-start">
+                          <FontAwesomeIcon icon={faCheckCircle} className="text-elx-accent mt-0.5 mr-2 flex-shrink-0 text-xs" />
+                          <span>Modular components you can mix and match</span>
+                        </li>
+                        <li className="flex items-start">
+                          <FontAwesomeIcon icon={faCheckCircle} className="text-elx-accent mt-0.5 mr-2 flex-shrink-0 text-xs" />
+                          <span>Adjustable resource levels for each solution area</span>
+                        </li>
+                      </ul>
+                    </div>
+                  </>
+                }
+              />
+              
+              <CollapsibleCard 
+                title="No Pressure Decision-Making"
+                icon={faHandshake}
+                content={
+                  <>
+                    <p className="text-sm text-gray-600 mb-3">
+                      Explore at your own pace without sales pressure—you decide when and how to move forward.
+                    </p>
+                    
+                    <div className="pt-3 border-t border-gray-200">
+                      <h5 className="font-medium text-elx-primary text-sm mb-2">Our no-pressure approach:</h5>
+                      <ul className="text-sm text-gray-600 space-y-1">
+                        <li className="flex items-start">
+                          <FontAwesomeIcon icon={faCheckCircle} className="text-elx-accent mt-0.5 mr-2 flex-shrink-0 text-xs" />
+                          <span>Save and revisit your plan as needed</span>
+                        </li>
+                        <li className="flex items-start">
+                          <FontAwesomeIcon icon={faCheckCircle} className="text-elx-accent mt-0.5 mr-2 flex-shrink-0 text-xs" />
+                          <span>Support available but never pushy</span>
+                        </li>
+                      </ul>
+                    </div>
+                  </>
+                }
+              />
             </div>
           </div>
           
-          <div className="flex items-start">
-            <div className="w-10 h-10 rounded-full bg-elx-accent bg-opacity-10 text-elx-accent flex items-center justify-center font-bold text-lg flex-shrink-0 mr-3">
-              <FontAwesomeIcon icon={faChartPie} />
+          <div className="order-2 md:order-2 w-full md:w-1/4 mt-6 md:mt-0 md:pl-6">
+            <div className="sticky top-6">
+              <img 
+                src={`${process.env.PUBLIC_URL}/bonsai-square-1.png`} 
+                alt="Bonsai tree representing growth and balance" 
+                className="w-full rounded-lg shadow-md" 
+              />
+              <div className="mt-4 p-4 bg-gray-50 rounded-lg border border-gray-200">
+                <div className="flex items-center mb-2">
+                  <FontAwesomeIcon icon={faInfoCircle} className="text-elx-primary mr-2" />
+                  <p className="text-sm font-medium text-elx-primary">
+                    Design your solution in under 5 minutes. Download instantly.
+                  </p>
+                </div>
+              </div>
             </div>
-            <div>
-              <h4 className="font-semibold text-elx-primary mb-1">Complete Transparency</h4>
-              <p className="text-gray-600 text-sm">
-                See exactly what you're buying, what it costs, and the outcomes you can expect—before committing.
-              </p>
-            </div>
-          </div>
-          
-          <div className="flex items-start">
-            <div className="w-10 h-10 rounded-full bg-elx-accent bg-opacity-10 text-elx-accent flex items-center justify-center font-bold text-lg flex-shrink-0 mr-3">
-              <FontAwesomeIcon icon={faPuzzlePiece} />
-            </div>
-            <div>
-              <h4 className="font-semibold text-elx-primary mb-1">Tailored Solutions</h4>
-              <p className="text-gray-600 text-sm">
-                Build exactly what you need instead of conforming to rigid, pre-packaged consulting offerings.
-              </p>
-            </div>
-          </div>
-          
-          <div className="flex items-start">
-            <div className="w-10 h-10 rounded-full bg-elx-accent bg-opacity-10 text-elx-accent flex items-center justify-center font-bold text-lg flex-shrink-0 mr-3">
-              <FontAwesomeIcon icon={faHandshake} />
-            </div>
-            <div>
-              <h4 className="font-semibold text-elx-primary mb-1">No Pressure Decision-Making</h4>
-              <p className="text-gray-600 text-sm">
-                Explore at your own pace without sales pressure—you decide when and how to move forward.
-              </p>
-            </div>
-          </div>
-        </div>
-        
-        <div className="mt-4 pt-4 border-t border-gray-200">
-          <div className="flex items-center mb-2">
-            <FontAwesomeIcon icon={faInfoCircle} className="text-elx-primary mr-2" />
-            <p className="text-sm font-medium text-elx-primary">
-              Design your solution in under 5 minutes. Download instantly.
-            </p>
           </div>
         </div>
       </div>
