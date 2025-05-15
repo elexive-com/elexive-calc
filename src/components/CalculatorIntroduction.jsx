@@ -29,7 +29,13 @@ const CollapsibleCard = ({ title, icon, content }) => {
         className="py-4 px-2 flex items-center justify-between w-full cursor-pointer"
         onClick={toggleCard}
       >
-        <h4 className="font-semibold text-lg text-indigo-900">{title}</h4>
+        <div className="flex-1">
+          {typeof title === 'string' ? (
+            <h4 className="font-semibold text-lg text-indigo-900">{title}</h4>
+          ) : (
+            title
+          )}
+        </div>
         <div>
           <FontAwesomeIcon 
             icon={isExpanded ? faMinus : faPlus} 
@@ -49,18 +55,6 @@ const CollapsibleCard = ({ title, icon, content }) => {
 };
 
 const CalculatorIntroduction = ({ onGetStarted }) => {
-  const [expandedSections, setExpandedSections] = useState({
-    evcModel: false,
-    process: false
-  });
-
-  const toggleSection = (section) => {
-    setExpandedSections(prev => ({
-      ...prev,
-      [section]: !prev[section]
-    }));
-  };
-
   // Updated pillar configuration using standardized CSS classes with elx- prefix
   const pillars = [
     {
@@ -537,7 +531,7 @@ const CalculatorIntroduction = ({ onGetStarted }) => {
         </div>
       </div>
 
-      {/* SIMPLIFIED PROCESS: 3 quick steps - Modified to match collapsible style */}
+      {/* SIMPLIFIED PROCESS: 3 collapsible steps */}
       <div className="mb-8">
         <h3 className="elx-heading-2 flex items-center">
           Design Your Solution in 3 Steps
@@ -556,47 +550,132 @@ const CalculatorIntroduction = ({ onGetStarted }) => {
           
           <div className="order-1 md:order-2 w-full md:w-3/4">
             <div className="space-y-4">
-              <div className="bg-white rounded-lg border border-gray-200 shadow-sm p-4">
-                <div className="flex gap-3 items-start">
-                  <div className="w-10 h-10 rounded-full bg-elx-primary text-white flex items-center justify-center font-bold text-lg flex-shrink-0">
-                    1
+              {/* Step 1 - Collapsible */}
+              <CollapsibleCard 
+                title={
+                  <div className="flex gap-3 items-center">
+                    <div className="w-10 h-10 rounded-full bg-elx-primary text-white flex items-center justify-center font-bold text-lg flex-shrink-0">
+                      1
+                    </div>
+                    <div>
+                      <h4 className="font-semibold text-elx-primary">Define Your Business Objectives</h4>
+                    </div>
                   </div>
-                  <div>
-                    <h4 className="font-semibold text-elx-primary mb-1">Define Your Challenge</h4>
-                    <p className="text-gray-600 text-sm">
-                      Select from common business challenges or create your own custom scenario.
+                }
+                content={
+                  <div className="pl-14">
+                    <p className="text-gray-600 mb-3">
+                      Identify your most critical business problem from our pre-configured scenarios, or customize your own multi-faceted approach. This establishes the foundation for your transformation journey.
+                    </p>
+                    <div className="bg-gray-50 rounded-lg p-4 mb-3 border border-gray-200">
+                      <h5 className="font-medium text-elx-primary mb-2">This step includes:</h5>
+                      <ul className="text-sm text-gray-600 space-y-2">
+                        <li className="flex items-start">
+                          <FontAwesomeIcon icon={faCheckCircle} className="text-elx-accent mt-1 mr-2 flex-shrink-0" />
+                          <span>Selecting from common business transformation scenarios or creating a custom challenge definition</span>
+                        </li>
+                        <li className="flex items-start">
+                          <FontAwesomeIcon icon={faCheckCircle} className="text-elx-accent mt-1 mr-2 flex-shrink-0" />
+                          <span>Tailoring to your specific industry context and business environment</span>
+                        </li>
+                        <li className="flex items-start">
+                          <FontAwesomeIcon icon={faCheckCircle} className="text-elx-accent mt-1 mr-2 flex-shrink-0" />
+                          <span>Establishing clear success metrics so we can measure transformation outcomes</span>
+                        </li>
+                      </ul>
+                    </div>
+                    <p className="text-sm text-gray-500 italic">
+                      Unlike traditional consulting approaches that begin with pre-determined solutions, we start by understanding your unique situation and requirements.
                     </p>
                   </div>
-                </div>
-              </div>
+                }
+              />
               
-              <div className="bg-white rounded-lg border border-gray-200 shadow-sm p-4">
-                <div className="flex gap-3 items-start">
-                  <div className="w-10 h-10 rounded-full bg-elx-primary text-white flex items-center justify-center font-bold text-lg flex-shrink-0">
-                    2
+              {/* Step 2 - Collapsible */}
+              <CollapsibleCard 
+                title={
+                  <div className="flex gap-3 items-center">
+                    <div className="w-10 h-10 rounded-full bg-elx-primary text-white flex items-center justify-center font-bold text-lg flex-shrink-0">
+                      2
+                    </div>
+                    <div>
+                      <h4 className="font-semibold text-elx-primary">Select Solution Components</h4>
+                    </div>
                   </div>
-                  <div>
-                    <h4 className="font-semibold text-elx-primary mb-1">Choose Your Solutions</h4>
-                    <p className="text-gray-600 text-sm">
-                      Select the exact capabilities needed across transformation, strategy, and technology.
+                }
+                content={
+                  <div className="pl-14">
+                    <p className="text-gray-600 mb-3">
+                      Choose the exact services needed to solve your problem across our transformation pillars: Transformation (People & Process), Strategy (Vision & Direction), and Technology (Tools & Systems).
+                    </p>
+                    <div className="bg-gray-50 rounded-lg p-4 mb-3 border border-gray-200">
+                      <h5 className="font-medium text-elx-primary mb-2">This step includes:</h5>
+                      <ul className="text-sm text-gray-600 space-y-2">
+                        <li className="flex items-start">
+                          <FontAwesomeIcon icon={faCheckCircle} className="text-elx-accent mt-1 mr-2 flex-shrink-0" />
+                          <span>Exploring our comprehensive module library with detailed descriptions of each service</span>
+                        </li>
+                        <li className="flex items-start">
+                          <FontAwesomeIcon icon={faCheckCircle} className="text-elx-accent mt-1 mr-2 flex-shrink-0" />
+                          <span>Selecting from multiple delivery options for each module (from quick insights to full implementation)</span>
+                        </li>
+                        <li className="flex items-start">
+                          <FontAwesomeIcon icon={faCheckCircle} className="text-elx-accent mt-1 mr-2 flex-shrink-0" />
+                          <span>Understanding how modules work together to create comprehensive transformation</span>
+                        </li>
+                      </ul>
+                    </div>
+                    <p className="text-sm text-gray-500 italic">
+                      You'll see the exact purpose and business impact of each component, allowing you to create a solution that precisely addresses your specific challenges.
                     </p>
                   </div>
-                </div>
-              </div>
+                }
+              />
               
-              <div className="bg-white rounded-lg border border-gray-200 shadow-sm p-4">
-                <div className="flex gap-3 items-start">
-                  <div className="w-10 h-10 rounded-full bg-elx-primary text-white flex items-center justify-center font-bold text-lg flex-shrink-0">
-                    3
+              {/* Step 3 - Collapsible */}
+              <CollapsibleCard 
+                title={
+                  <div className="flex gap-3 items-center">
+                    <div className="w-10 h-10 rounded-full bg-elx-primary text-white flex items-center justify-center font-bold text-lg flex-shrink-0">
+                      3
+                    </div>
+                    <div>
+                      <h4 className="font-semibold text-elx-primary">Configure Parameters & Delivery</h4>
+                    </div>
                   </div>
-                  <div>
-                    <h4 className="font-semibold text-elx-primary mb-1">Set Your Budget & Timeline</h4>
-                    <p className="text-gray-600 text-sm">
-                      Adjust scope and resources to see real-time pricing and delivery estimates.
+                }
+                content={
+                  <div className="pl-14">
+                    <p className="text-gray-600 mb-3">
+                      Adjust resource levels, timeline, and engagement model to align with your budget, urgency, and internal capabilities. This gives you complete control over how your solution is delivered.
+                    </p>
+                    <div className="bg-gray-50 rounded-lg p-4 mb-3 border border-gray-200">
+                      <h5 className="font-medium text-elx-primary mb-2">This step includes:</h5>
+                      <ul className="text-sm text-gray-600 space-y-2">
+                        <li className="flex items-start">
+                          <FontAwesomeIcon icon={faCheckCircle} className="text-elx-accent mt-1 mr-2 flex-shrink-0" />
+                          <span>Fine-tuning delivery timeframes to match your business urgency (from quick-start to phased approach)</span>
+                        </li>
+                        <li className="flex items-start">
+                          <FontAwesomeIcon icon={faCheckCircle} className="text-elx-accent mt-1 mr-2 flex-shrink-0" />
+                          <span>Allocating resources across your transformation pillars based on your priorities</span>
+                        </li>
+                        <li className="flex items-start">
+                          <FontAwesomeIcon icon={faCheckCircle} className="text-elx-accent mt-1 mr-2 flex-shrink-0" />
+                          <span>Setting collaboration levels between your team and our consultants</span>
+                        </li>
+                        <li className="flex items-start">
+                          <FontAwesomeIcon icon={faCheckCircle} className="text-elx-accent mt-1 mr-2 flex-shrink-0" />
+                          <span>Viewing real-time cost calculations with complete transparency</span>
+                        </li>
+                      </ul>
+                    </div>
+                    <p className="text-sm text-gray-500 italic">
+                      This adaptive approach ensures you're never forced into a rigid consulting framework—instead, the solution adapts to your specific needs and constraints.
                     </p>
                   </div>
-                </div>
-              </div>
+                }
+              />
               
               <div className="mt-5 flex justify-center">
                 <button
@@ -605,19 +684,6 @@ const CalculatorIntroduction = ({ onGetStarted }) => {
                 >
                   Start Building Now
                   <FontAwesomeIcon icon={faArrowRight} className="ml-3" />
-                </button>
-              </div>
-              
-              <div className="text-center mt-2">
-                <button
-                  onClick={() => {
-                    toggleSection('process');
-                    document.getElementById('detailed-process').scrollIntoView({ behavior: 'smooth' });
-                  }}
-                  className="text-elx-primary font-medium text-sm flex items-center justify-center mx-auto"
-                >
-                  View detailed process information
-                  <FontAwesomeIcon icon={faChevronDown} className="ml-2" />
                 </button>
               </div>
             </div>
@@ -714,200 +780,7 @@ const CalculatorIntroduction = ({ onGetStarted }) => {
 
       {/* 6. EXPANDABLE SECTIONS - Detailed information for CEOs who want to dig deeper */}
       <div className="space-y-0 mb-8 bg-[#f8f9fc] rounded-xl p-6 border border-gray-200 shadow-sm">
-        {/* Detailed Process Section - Expandable */}
-        <div className="border-t border-gray-200 overflow-hidden" id="detailed-process">
-          <div 
-            className="py-4 px-2 flex items-center justify-between w-full cursor-pointer"
-            onClick={() => toggleSection('process')}
-          >
-            <h3 className="font-semibold text-lg text-indigo-900">Solution Development Process</h3>
-            <div>
-              <FontAwesomeIcon 
-                icon={expandedSections.process ? faMinus : faPlus} 
-                className="text-indigo-900" 
-              />
-            </div>
-          </div>
-          
-          {expandedSections.process && (
-            <div className="p-5 bg-white border-t border-gray-100">
-              <p className="text-gray-700 mb-4">
-                Our streamlined process ensures you get exactly the business solution you need, with full visibility at every step. Designed for busy executives who need results without endless meetings and proposals.
-              </p>
-              
-              <div className="space-y-6">
-                {/* Step 1 */}
-                <div className="flex gap-4 items-start">
-                  <div className="w-12 h-12 rounded-full bg-elx-primary text-white flex items-center justify-center font-bold text-lg shadow-sm flex-shrink-0">
-                    1
-                  </div>
-                  <div>
-                    <h4 className="text-lg font-semibold text-elx-primary mb-2">Define Your Business Objectives</h4>
-                    <p className="text-gray-600 mb-3">
-                      Identify your most critical business problem from our pre-configured scenarios, or customize your own multi-faceted approach. This establishes the foundation for your transformation journey.
-                    </p>
-                    <div className="bg-gray-50 rounded-lg p-4 mb-3 border border-gray-200">
-                      <h5 className="font-medium text-elx-primary mb-2">This step includes:</h5>
-                      <ul className="text-sm text-gray-600 space-y-2">
-                        <li className="flex items-start">
-                          <FontAwesomeIcon icon={faCheckCircle} className="text-elx-accent mt-1 mr-2 flex-shrink-0" />
-                          <span>Selecting from common business transformation scenarios or creating a custom challenge definition</span>
-                        </li>
-                        <li className="flex items-start">
-                          <FontAwesomeIcon icon={faCheckCircle} className="text-elx-accent mt-1 mr-2 flex-shrink-0" />
-                          <span>Tailoring to your specific industry context and business environment</span>
-                        </li>
-                        <li className="flex items-start">
-                          <FontAwesomeIcon icon={faCheckCircle} className="text-elx-accent mt-1 mr-2 flex-shrink-0" />
-                          <span>Establishing clear success metrics so we can measure transformation outcomes</span>
-                        </li>
-                      </ul>
-                    </div>
-                    <p className="text-sm text-gray-500 italic">
-                      Unlike traditional consulting approaches that begin with pre-determined solutions, we start by understanding your unique situation and requirements.
-                    </p>
-                  </div>
-                </div>
-                
-                {/* Step 2 */}
-                <div className="flex gap-4 items-start">
-                  <div className="w-12 h-12 rounded-full bg-elx-primary text-white flex items-center justify-center font-bold text-lg shadow-sm flex-shrink-0">
-                    2
-                  </div>
-                  <div>
-                    <h4 className="text-lg font-semibold text-elx-primary mb-2">Select Solution Components</h4>
-                    <p className="text-gray-600 mb-3">
-                      Choose the exact services needed to solve your problem across our transformation pillars: Transformation (People & Process), Strategy (Vision & Direction), and Technology (Tools & Systems).
-                    </p>
-                    <div className="bg-gray-50 rounded-lg p-4 mb-3 border border-gray-200">
-                      <h5 className="font-medium text-elx-primary mb-2">This step includes:</h5>
-                      <ul className="text-sm text-gray-600 space-y-2">
-                        <li className="flex items-start">
-                          <FontAwesomeIcon icon={faCheckCircle} className="text-elx-accent mt-1 mr-2 flex-shrink-0" />
-                          <span>Exploring our comprehensive module library with detailed descriptions of each service</span>
-                        </li>
-                        <li className="flex items-start">
-                          <FontAwesomeIcon icon={faCheckCircle} className="text-elx-accent mt-1 mr-2 flex-shrink-0" />
-                          <span>Selecting from multiple delivery options for each module (from quick insights to full implementation)</span>
-                        </li>
-                        <li className="flex items-start">
-                          <FontAwesomeIcon icon={faCheckCircle} className="text-elx-accent mt-1 mr-2 flex-shrink-0" />
-                          <span>Understanding how modules work together to create comprehensive transformation</span>
-                        </li>
-                      </ul>
-                    </div>
-                    <p className="text-sm text-gray-500 italic">
-                      You'll see the exact purpose and business impact of each component, allowing you to create a solution that precisely addresses your specific challenges.
-                    </p>
-                  </div>
-                </div>
-                
-                {/* Step 3 */}
-                <div className="flex gap-4 items-start">
-                  <div className="w-12 h-12 rounded-full bg-elx-primary text-white flex items-center justify-center font-bold text-lg shadow-sm flex-shrink-0">
-                    3
-                  </div>
-                  <div>
-                    <h4 className="text-lg font-semibold text-elx-primary mb-2">Configure Parameters & Delivery</h4>
-                    <p className="text-gray-600 mb-3">
-                      Adjust resource levels, timeline, and engagement model to align with your budget, urgency, and internal capabilities. This gives you complete control over how your solution is delivered.
-                    </p>
-                    <div className="bg-gray-50 rounded-lg p-4 mb-3 border border-gray-200">
-                      <h5 className="font-medium text-elx-primary mb-2">This step includes:</h5>
-                      <ul className="text-sm text-gray-600 space-y-2">
-                        <li className="flex items-start">
-                          <FontAwesomeIcon icon={faCheckCircle} className="text-elx-accent mt-1 mr-2 flex-shrink-0" />
-                          <span>Fine-tuning delivery timeframes to match your business urgency (from quick-start to phased approach)</span>
-                        </li>
-                        <li className="flex items-start">
-                          <FontAwesomeIcon icon={faCheckCircle} className="text-elx-accent mt-1 mr-2 flex-shrink-0" />
-                          <span>Allocating resources across your transformation pillars based on your priorities</span>
-                        </li>
-                        <li className="flex items-start">
-                          <FontAwesomeIcon icon={faCheckCircle} className="text-elx-accent mt-1 mr-2 flex-shrink-0" />
-                          <span>Setting collaboration levels between your team and our consultants</span>
-                        </li>
-                        <li className="flex items-start">
-                          <FontAwesomeIcon icon={faCheckCircle} className="text-elx-accent mt-1 mr-2 flex-shrink-0" />
-                          <span>Viewing real-time cost calculations with complete transparency</span>
-                        </li>
-                      </ul>
-                    </div>
-                    <p className="text-sm text-gray-500 italic">
-                      This adaptive approach ensures you're never forced into a rigid consulting framework—instead, the solution adapts to your specific needs and constraints.
-                    </p>
-                  </div>
-                </div>
-              </div>
-              
-              <div className="bg-elx-accent bg-opacity-10 rounded-lg p-5 mt-6 border border-elx-accent border-opacity-20">
-                <h4 className="font-semibold text-elx-primary mb-3 flex items-center">
-                  <FontAwesomeIcon icon={faCheckCircle} className="text-elx-accent mr-2" />
-                  Your Complete Business Solution Package
-                </h4>
-                <p className="text-gray-700 mb-3">
-                  Upon completion, you'll receive a comprehensive business solution with:
-                </p>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-x-6 gap-y-3">
-                  <div className="flex items-start">
-                    <FontAwesomeIcon icon={faCheckCircle} className="text-elx-secondary mt-1 mr-2 flex-shrink-0" />
-                    <span className="text-gray-600">Executive summary with business case</span>
-                  </div>
-                  <div className="flex items-start">
-                    <FontAwesomeIcon icon={faCheckCircle} className="text-elx-secondary mt-1 mr-2 flex-shrink-0" />
-                    <span className="text-gray-600">Strategic implementation timeline</span>
-                  </div>
-                  <div className="flex items-start">
-                    <FontAwesomeIcon icon={faCheckCircle} className="text-elx-secondary mt-1 mr-2 flex-shrink-0" />
-                    <span className="text-gray-600">Itemized pricing with complete transparency</span>
-                  </div>
-                  <div className="flex items-start">
-                    <FontAwesomeIcon icon={faCheckCircle} className="text-elx-secondary mt-1 mr-2 flex-shrink-0" />
-                    <span className="text-gray-600">Clear ROI projections and metrics</span>
-                  </div>
-                  <div className="flex items-start">
-                    <FontAwesomeIcon icon={faCheckCircle} className="text-elx-secondary mt-1 mr-2 flex-shrink-0" />
-                    <span className="text-gray-600">Optimized resource allocation plan</span>
-                  </div>
-                  <div className="flex items-start">
-                    <FontAwesomeIcon icon={faCheckCircle} className="text-elx-secondary mt-1 mr-2 flex-shrink-0" />
-                    <span className="text-gray-600">Boardroom-ready presentation materials</span>
-                  </div>
-                </div>
-                <div className="mt-4 pt-4 border-t border-elx-secondary border-opacity-20">
-                  <p className="text-gray-700">
-                    Download this comprehensive package to share with your executive team, or proceed directly to implementation. The entire process gives you complete control with full cost visibility, precise timelines, and clear expected outcomes.
-                  </p>
-                </div>
-              </div>
-              
-              <div className="mt-6 bg-gray-50 p-4 rounded-lg border border-gray-200">
-                <h5 className="elx-section-heading flex items-center">
-                  <FontAwesomeIcon icon={faLightbulb} className="text-amber-500 mr-2" />
-                  Executive Benefits
-                </h5>
-                <ul className="text-sm text-gray-600 space-y-2">
-                  <li className="flex items-start">
-                    <FontAwesomeIcon icon={faCheckCircle} className="text-elx-accent mt-1 mr-2 flex-shrink-0" />
-                    <span><strong>Time Efficiency:</strong> Configure complex solutions in minutes instead of sitting through weeks of consulting presentations.</span>
-                  </li>
-                  <li className="flex items-start">
-                    <FontAwesomeIcon icon={faCheckCircle} className="text-elx-accent mt-1 mr-2 flex-shrink-0" />
-                    <span><strong>Cost Visibility:</strong> See exactly what you're paying for with transparent pricing—no surprises or hidden fees.</span>
-                  </li>
-                  <li className="flex items-start">
-                    <FontAwesomeIcon icon={faCheckCircle} className="text-elx-accent mt-1 mr-2 flex-shrink-0" />
-                    <span><strong>Control:</strong> Make decisions on your timeline without pressure—evaluate options thoroughly before committing.</span>
-                  </li>
-                  <li className="flex items-start">
-                    <FontAwesomeIcon icon={faCheckCircle} className="text-elx-accent mt-1 mr-2 flex-shrink-0" />
-                    <span><strong>Precision:</strong> Get exactly what your business needs without paying for unnecessary consulting services.</span>
-                  </li>
-                </ul>
-              </div>
-            </div>
-          )}
-        </div>
+        {/* Expandable sections can be added here if needed */}
       </div>
       
       {/* FINAL CTA: Emphasize control, transparency and ease */}
