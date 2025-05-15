@@ -7,7 +7,8 @@ import {
   faCheckCircle, faNetworkWired,
   faPlus, faMinus,
   faChartPie,
-  faClock, faMoneyBillWave, faHandshake, faBolt
+  faClock, faMoneyBillWave, faHandshake, faBolt,
+  faShieldAlt
 } from '@fortawesome/free-solid-svg-icons';
 // Remove direct import and use process.env.PUBLIC_URL for images in public folder
 
@@ -451,6 +452,36 @@ const CalculatorIntroduction = ({ onGetStarted }) => {
                   </>
                 }
               />
+              
+              <CollapsibleCard 
+                title="Complete Control"
+                icon={faShieldAlt}
+                content={
+                  <>
+                    <p className="text-sm text-gray-600 mb-3">
+                      This self-service tool puts you in control. Configure the exact expertise, resources, and timeline needed for your business priorities with complete cost visibility.
+                    </p>
+                    
+                    <div className="pt-3 border-t border-gray-200">
+                      <h5 className="font-medium text-elx-primary text-sm mb-2">How you maintain control:</h5>
+                      <ul className="text-sm text-gray-600 space-y-1">
+                        <li className="flex items-start">
+                          <FontAwesomeIcon icon={faCheckCircle} className="text-elx-accent mt-0.5 mr-2 flex-shrink-0 text-xs" />
+                          <span>Configure specific resources for your unique business challenges</span>
+                        </li>
+                        <li className="flex items-start">
+                          <FontAwesomeIcon icon={faCheckCircle} className="text-elx-accent mt-0.5 mr-2 flex-shrink-0 text-xs" />
+                          <span>Adjust delivery timelines to match your organizational readiness</span>
+                        </li>
+                        <li className="flex items-start">
+                          <FontAwesomeIcon icon={faCheckCircle} className="text-elx-accent mt-0.5 mr-2 flex-shrink-0 text-xs" />
+                          <span>Get exactly what you need without paying for unnecessary services</span>
+                        </li>
+                      </ul>
+                    </div>
+                  </>
+                }
+              />
             </div>
           </div>
           
@@ -472,17 +503,6 @@ const CalculatorIntroduction = ({ onGetStarted }) => {
             </div>
           </div>
         </div>
-      </div>
-
-      {/* VALUE PROP: Control, transparency, efficiency */}
-      <div className="mb-8">
-        <h3 className="elx-heading-2">Make Informed Decisions, Your Way</h3>
-        <p className="text-gray-700 mb-3 leading-relaxed">
-          This self-service tool puts you in control. Configure the exact expertise, resources, and timeline needed for your business priorities with complete cost visibility.
-        </p>
-        <p className="text-gray-700 leading-relaxed">
-          Whether you're facing revenue challenges, operational inefficiencies, or market disruption, you'll see exactly what's required to address these issues—with no pressure to commit.
-        </p>
       </div>
 
       {/* SIMPLIFIED PROCESS: 3 quick steps */}
