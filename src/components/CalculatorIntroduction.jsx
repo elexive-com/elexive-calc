@@ -87,19 +87,14 @@ const CalculatorIntroduction = ({ onGetStarted }) => {
           <div className="flex flex-col h-full bg-white rounded-lg overflow-hidden border border-gray-200 shadow-sm">
             {/* Colored header with primary background and white icon */}
             <div 
-              className="px-4 py-3 flex items-center w-full"
-              style={{ 
-                backgroundColor: 'var(--elexive-primary)',
-                color: 'white'
-              }}
+              className="px-4 py-3 flex items-center w-full bg-elx-primary text-white"
             >
               <div 
                 className="w-10 h-10 flex items-center justify-center mr-2"
-                style={{ backgroundColor: 'transparent' }}
               >
                 <FontAwesomeIcon icon={faChartPie} size="lg" />
               </div>
-              <h4 className="font-bold text-white">Measurable ROI</h4>
+              <h4 className="font-semibold text-white">Measurable ROI</h4>
             </div>
             
             <div className="p-4 flex-grow flex flex-col">
@@ -112,19 +107,14 @@ const CalculatorIntroduction = ({ onGetStarted }) => {
           <div className="flex flex-col h-full bg-white rounded-lg overflow-hidden border border-gray-200 shadow-sm">
             {/* Colored header with primary background and white icon */}
             <div 
-              className="px-4 py-3 flex items-center w-full"
-              style={{ 
-                backgroundColor: 'var(--elexive-primary)',
-                color: 'white'
-              }}
+              className="px-4 py-3 flex items-center w-full bg-elx-primary text-white"
             >
               <div 
                 className="w-10 h-10 flex items-center justify-center mr-2"
-                style={{ backgroundColor: 'transparent' }}
               >
                 <FontAwesomeIcon icon={faRocket} size="lg" />
               </div>
-              <h4 className="font-bold text-white">Time-to-Value</h4>
+              <h4 className="font-semibold text-white">Time-to-Value</h4>
             </div>
             
             <div className="p-4 flex-grow flex flex-col">
@@ -137,19 +127,14 @@ const CalculatorIntroduction = ({ onGetStarted }) => {
           <div className="flex flex-col h-full bg-white rounded-lg overflow-hidden border border-gray-200 shadow-sm">
             {/* Colored header with primary background and white icon */}
             <div 
-              className="px-4 py-3 flex items-center w-full"
-              style={{ 
-                backgroundColor: 'var(--elexive-primary)',
-                color: 'white'
-              }}
+              className="px-4 py-3 flex items-center w-full bg-elx-primary text-white"
             >
               <div 
                 className="w-10 h-10 flex items-center justify-center mr-2"
-                style={{ backgroundColor: 'transparent' }}
               >
                 <FontAwesomeIcon icon={faShieldAlt} size="lg" />
               </div>
-              <h4 className="font-bold text-white">Risk Mitigation</h4>
+              <h4 className="font-semibold text-white">Risk Mitigation</h4>
             </div>
             
             <div className="p-4 flex-grow flex flex-col">
@@ -175,19 +160,14 @@ const CalculatorIntroduction = ({ onGetStarted }) => {
           <div className="flex flex-col h-full bg-white rounded-lg overflow-hidden border border-gray-200 shadow-sm">
             {/* Colored header with consistent Elexive primary color */}
             <div 
-              className="px-4 py-3 flex items-center w-full"
-              style={{ 
-                backgroundColor: 'var(--elexive-primary)',
-                color: 'white'
-              }}
+              className="px-4 py-3 flex items-center w-full bg-elx-primary text-white"
             >
               <div 
                 className="w-10 h-10 flex items-center justify-center mr-2"
-                style={{ backgroundColor: 'transparent' }}
               >
                 <FontAwesomeIcon icon={faLightbulb} size="lg" />
               </div>
-              <h4 className="font-bold text-white">Growth & Revenue</h4>
+              <h4 className="font-semibold text-white">Growth & Revenue</h4>
             </div>
             
             <div className="p-4 flex-grow flex flex-col">
@@ -200,19 +180,14 @@ const CalculatorIntroduction = ({ onGetStarted }) => {
           <div className="flex flex-col h-full bg-white rounded-lg overflow-hidden border border-gray-200 shadow-sm">
             {/* Colored header with consistent Elexive primary color */}
             <div 
-              className="px-4 py-3 flex items-center w-full"
-              style={{ 
-                backgroundColor: 'var(--elexive-primary)',
-                color: 'white'
-              }}
+              className="px-4 py-3 flex items-center w-full bg-elx-primary text-white"
             >
               <div 
                 className="w-10 h-10 flex items-center justify-center mr-2"
-                style={{ backgroundColor: 'transparent' }}
               >
                 <FontAwesomeIcon icon={faNetworkWired} size="lg" />
               </div>
-              <h4 className="font-bold text-white">Execution & Operations</h4>
+              <h4 className="font-semibold text-white">Execution & Operations</h4>
             </div>
             
             <div className="p-4 flex-grow flex flex-col">
@@ -225,19 +200,14 @@ const CalculatorIntroduction = ({ onGetStarted }) => {
           <div className="flex flex-col h-full bg-white rounded-lg overflow-hidden border border-gray-200 shadow-sm">
             {/* Colored header with consistent Elexive primary color */}
             <div 
-              className="px-4 py-3 flex items-center w-full"
-              style={{ 
-                backgroundColor: 'var(--elexive-primary)',
-                color: 'white'
-              }}
+              className="px-4 py-3 flex items-center w-full bg-elx-primary text-white"
             >
               <div 
                 className="w-10 h-10 flex items-center justify-center mr-2"
-                style={{ backgroundColor: 'transparent' }}
               >
                 <FontAwesomeIcon icon={faPuzzlePiece} size="lg" />
               </div>
-              <h4 className="font-bold text-white">Innovation & Resilience</h4>
+              <h4 className="font-semibold text-white">Innovation & Resilience</h4>
             </div>
             
             <div className="p-4 flex-grow flex flex-col">
@@ -251,7 +221,7 @@ const CalculatorIntroduction = ({ onGetStarted }) => {
 
       {/* 3. VALUE PROPOSITION - CEOs want to know how we'll empower them */}
       <div className="mb-8">
-        <h3 className="text-xl font-bold text-elx-primary mb-3">Take Control of Your Business Transformation</h3>
+        <h3 className="elx-heading-2">Take Control of Your Business Transformation</h3>
         <p className="text-gray-700 mb-3 leading-relaxed">
           This self-service tool puts you in the driver's seat. Configure exactly the expertise, resources, and timeline needed to address your specific business challenges with complete cost transparency.
         </p>
@@ -261,8 +231,8 @@ const CalculatorIntroduction = ({ onGetStarted }) => {
       </div>
 
       {/* 4. QUICK 3-STEP PROCESS - CEOs want to know it's simple & straightforward */}
-      <div className="bg-[#f8f9fc] rounded-xl p-6 border border-gray-200 mb-8">
-        <h3 className="text-xl font-bold text-elx-primary mb-4 flex items-center">
+      <div className="bg-[#f8f9fc] rounded-xl p-6 border border-gray-200 shadow-sm mb-8">
+        <h3 className="elx-heading-2 flex items-center">
           <FontAwesomeIcon icon={faCheckCircle} className="text-elx-accent mr-2" />
           Configure Your Solution in 3 Simple Steps
         </h3>
@@ -273,7 +243,7 @@ const CalculatorIntroduction = ({ onGetStarted }) => {
               1
             </div>
             <div>
-              <h4 className="font-bold text-elx-primary mb-1">Define Challenge</h4>
+              <h4 className="font-semibold text-elx-primary mb-1">Define Challenge</h4>
               <p className="text-gray-600 text-sm">
                 Identify your most critical business problem or opportunity.
               </p>
@@ -285,7 +255,7 @@ const CalculatorIntroduction = ({ onGetStarted }) => {
               2
             </div>
             <div>
-              <h4 className="font-bold text-elx-primary mb-1">Select Components</h4>
+              <h4 className="font-semibold text-elx-primary mb-1">Select Components</h4>
               <p className="text-gray-600 text-sm">
                 Choose the exact services needed across our transformation pillars.
               </p>
@@ -297,7 +267,7 @@ const CalculatorIntroduction = ({ onGetStarted }) => {
               3
             </div>
             <div>
-              <h4 className="font-bold text-elx-primary mb-1">Set Parameters</h4>
+              <h4 className="font-semibold text-elx-primary mb-1">Set Parameters</h4>
               <p className="text-gray-600 text-sm">
                 Adjust resource levels and timeline to match your budget and urgency.
               </p>
@@ -314,42 +284,34 @@ const CalculatorIntroduction = ({ onGetStarted }) => {
             // Get the color code based on pillar type - improved contrast versions
             const getPillarColor = () => {
               switch(pillar.name.toLowerCase()) {
-                case 'transformation': return '#D99000'; // Darkened from #FFBE59 for better contrast
-                case 'strategy': return '#C85A30'; // Darkened from #EB8258 for better contrast
-                case 'technology': return '#1F776D'; // Already had good contrast
+                case 'transformation': return 'var(--pillar-transformation-color)';
+                case 'strategy': return 'var(--pillar-strategy-color)';
+                case 'technology': return 'var(--pillar-technology-color)';
                 case 'discovery': return '#2E2266'; // Purple for discovery
-                case 'catalyst': return '#0A4DA1'; // Dark blue for catalyst
-                default: return '#D99000';
+                case 'catalyst': return 'var(--pillar-catalyst-color)';
+                default: return 'var(--pillar-transformation-color)';
               }
             };
             
             return (
               <div 
                 key={pillar.name} 
-                className="bg-white"
-                style={{
-                  borderRadius: '0.75rem',
-                  overflow: 'hidden',
-                  border: '1px solid #e5e7eb',
-                  transition: 'all 0.3s ease'
-                }}
+                className="bg-white rounded-xl overflow-hidden border border-gray-200 shadow-sm transition-all duration-300"
               >
                 {/* Colored header section with white text */}
                 <div 
-                  className="px-4 py-3 flex items-center"
+                  className="px-4 py-3 flex items-center text-white"
                   style={{ 
-                    backgroundColor: getPillarColor(),
-                    color: 'white'
+                    backgroundColor: getPillarColor()
                   }}
                 >
                   <div 
                     className="w-12 h-12 flex items-center justify-center mr-3"
-                    style={{ backgroundColor: 'transparent' }}
                   >
                     <FontAwesomeIcon icon={pillar.icon} size="2x" />
                   </div>
                   <div>
-                    <h4 className="font-bold text-white">{pillar.name}</h4>
+                    <h4 className="font-semibold text-white">{pillar.name}</h4>
                     <p className="text-xs text-white text-opacity-90">{pillar.focus}</p>
                   </div>
                 </div>
@@ -365,17 +327,17 @@ const CalculatorIntroduction = ({ onGetStarted }) => {
       </div>
 
       {/* NEW SECTION: CEO and Executive Testimonials - Social Proof */}
-      <div className="mb-8 bg-gray-50 rounded-xl p-6 border border-gray-200">
-        <h3 className="text-xl font-bold text-elx-primary mb-4">What Other Executives Are Saying</h3>
+      <div className="mb-8 bg-gray-50 rounded-xl p-6 border border-gray-200 shadow-sm">
+        <h3 className="elx-heading-2">What Other Executives Are Saying</h3>
         
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          <div className="bg-white p-5 rounded-lg shadow-sm border border-gray-100">
+          <div className="bg-white p-5 rounded-lg shadow-sm border border-gray-200">
             <div className="flex items-center mb-3">
-              <div className="w-12 h-12 rounded-full bg-elx-primary flex items-center justify-center text-white font-bold text-lg mr-3">
+              <div className="w-12 h-12 rounded-full bg-elx-primary text-white flex items-center justify-center font-bold text-lg mr-3">
                 SC
               </div>
               <div>
-                <h4 className="font-bold text-elx-primary">Sarah Chen</h4>
+                <h4 className="font-semibold text-elx-primary">Sarah Chen</h4>
                 <p className="text-sm text-gray-600">CEO, TechVision Global</p>
               </div>
             </div>
@@ -384,13 +346,13 @@ const CalculatorIntroduction = ({ onGetStarted }) => {
             </p>
           </div>
           
-          <div className="bg-white p-5 rounded-lg shadow-sm border border-gray-100">
+          <div className="bg-white p-5 rounded-lg shadow-sm border border-gray-200">
             <div className="flex items-center mb-3">
-              <div className="w-12 h-12 rounded-full bg-elx-primary flex items-center justify-center text-white font-bold text-lg mr-3">
+              <div className="w-12 h-12 rounded-full bg-elx-primary text-white flex items-center justify-center font-bold text-lg mr-3">
                 ML
               </div>
               <div>
-                <h4 className="font-bold text-elx-primary">Michael Lawson</h4>
+                <h4 className="font-semibold text-elx-primary">Michael Lawson</h4>
                 <p className="text-sm text-gray-600">COO, Apex Industries</p>
               </div>
             </div>
@@ -413,9 +375,9 @@ const CalculatorIntroduction = ({ onGetStarted }) => {
               <div className="w-10 h-10 rounded-full bg-elx-accent bg-opacity-20 flex items-center justify-center mr-3">
                 <FontAwesomeIcon icon={faPuzzlePiece} className="text-elx-accent" />
               </div>
-              <h3 className="text-lg font-bold text-elx-primary">Our Transparent Value Delivery Model</h3>
+              <h3 className="text-lg font-semibold text-elx-primary">Our Transparent Value Delivery Model</h3>
             </div>
-            <div className="w-8 h-8 rounded-full bg-white flex items-center justify-center shadow-sm">
+            <div className="w-8 h-8 rounded-full bg-white flex items-center justify-center shadow-sm border border-gray-200">
               <FontAwesomeIcon 
                 icon={expandedSections.evcModel ? faMinus : faPlus} 
                 className="text-elx-accent" 
@@ -432,9 +394,9 @@ const CalculatorIntroduction = ({ onGetStarted }) => {
               <div className="bg-[#f8f9fc] rounded-lg p-5 mb-5 shadow-sm border border-gray-100">
                 <div className="flex flex-col md:flex-row items-center justify-around gap-6">
                   <div className="text-center">
-                    <div className="text-lg font-bold text-elx-primary mb-2">Your Business Challenge</div>
+                    <div className="text-lg font-semibold text-elx-primary mb-2">Your Business Challenge</div>
                     <div className="text-sm text-gray-600 mb-3">Precisely Defined Problem</div>
-                    <div className="bg-white rounded-lg px-4 py-3 font-bold text-elx-accent shadow-sm border border-elx-accent border-opacity-20">
+                    <div className="bg-white rounded-lg px-4 py-3 font-semibold text-elx-accent shadow-sm border border-elx-accent border-opacity-20">
                       Right-Sized Resources
                     </div>
                   </div>
@@ -444,9 +406,9 @@ const CalculatorIntroduction = ({ onGetStarted }) => {
                   </div>
                   
                   <div className="text-center">
-                    <div className="text-lg font-bold text-elx-primary mb-2">Measurable Results</div>
+                    <div className="text-lg font-semibold text-elx-primary mb-2">Measurable Results</div>
                     <div className="text-sm text-gray-600 mb-3">Quantifiable Outcomes</div>
-                    <div className="bg-white rounded-lg px-4 py-3 font-bold text-elx-secondary shadow-sm border border-elx-secondary border-opacity-20">
+                    <div className="bg-white rounded-lg px-4 py-3 font-semibold text-elx-secondary shadow-sm border border-elx-secondary border-opacity-20">
                       Business Impact
                     </div>
                   </div>
@@ -470,9 +432,9 @@ const CalculatorIntroduction = ({ onGetStarted }) => {
               <div className="w-10 h-10 rounded-full bg-green-100 flex items-center justify-center mr-3">
                 <FontAwesomeIcon icon={faLightbulb} className="text-green-600" />
               </div>
-              <h3 className="text-lg font-bold text-elx-primary">Detailed Solution Process</h3>
+              <h3 className="text-lg font-semibold text-elx-primary">Detailed Solution Process</h3>
             </div>
-            <div className="w-8 h-8 rounded-full bg-white flex items-center justify-center shadow-sm">
+            <div className="w-8 h-8 rounded-full bg-white flex items-center justify-center shadow-sm border border-gray-200">
               <FontAwesomeIcon 
                 icon={expandedSections.process ? faMinus : faPlus} 
                 className="text-elx-accent" 
@@ -493,11 +455,11 @@ const CalculatorIntroduction = ({ onGetStarted }) => {
                     1
                   </div>
                   <div>
-                    <h4 className="text-lg font-bold text-elx-primary mb-2">Define Your Business Challenge</h4>
+                    <h4 className="text-lg font-semibold text-elx-primary mb-2">Define Your Business Challenge</h4>
                     <p className="text-gray-600 mb-3">
                       Identify your most critical business problem from our pre-configured scenarios, or customize your own multi-faceted approach. This establishes the foundation for your transformation journey.
                     </p>
-                    <div className="bg-gray-50 rounded-lg p-4 mb-3">
+                    <div className="bg-gray-50 rounded-lg p-4 mb-3 border border-gray-200">
                       <h5 className="font-medium text-elx-primary mb-2">This step includes:</h5>
                       <ul className="text-sm text-gray-600 space-y-2">
                         <li className="flex items-start">
@@ -526,11 +488,11 @@ const CalculatorIntroduction = ({ onGetStarted }) => {
                     2
                   </div>
                   <div>
-                    <h4 className="text-lg font-bold text-elx-primary mb-2">Select Solution Components</h4>
+                    <h4 className="text-lg font-semibold text-elx-primary mb-2">Select Solution Components</h4>
                     <p className="text-gray-600 mb-3">
                       Choose the exact services needed to solve your problem across our transformation pillars: Transformation (People & Process), Strategy (Vision & Direction), and Technology (Tools & Systems).
                     </p>
-                    <div className="bg-gray-50 rounded-lg p-4 mb-3">
+                    <div className="bg-gray-50 rounded-lg p-4 mb-3 border border-gray-200">
                       <h5 className="font-medium text-elx-primary mb-2">This step includes:</h5>
                       <ul className="text-sm text-gray-600 space-y-2">
                         <li className="flex items-start">
@@ -559,11 +521,11 @@ const CalculatorIntroduction = ({ onGetStarted }) => {
                     3
                   </div>
                   <div>
-                    <h4 className="text-lg font-bold text-elx-primary mb-2">Configure Parameters & Delivery</h4>
+                    <h4 className="text-lg font-semibold text-elx-primary mb-2">Configure Parameters & Delivery</h4>
                     <p className="text-gray-600 mb-3">
                       Adjust resource levels, timeline, and engagement model to align with your budget, urgency, and internal capabilities. This gives you complete control over how your solution is delivered.
                     </p>
-                    <div className="bg-gray-50 rounded-lg p-4 mb-3">
+                    <div className="bg-gray-50 rounded-lg p-4 mb-3 border border-gray-200">
                       <h5 className="font-medium text-elx-primary mb-2">This step includes:</h5>
                       <ul className="text-sm text-gray-600 space-y-2">
                         <li className="flex items-start">
@@ -592,7 +554,7 @@ const CalculatorIntroduction = ({ onGetStarted }) => {
               </div>
               
               <div className="bg-elx-accent bg-opacity-10 rounded-lg p-5 mt-6 border border-elx-accent border-opacity-20">
-                <h4 className="font-bold text-elx-primary mb-3 flex items-center">
+                <h4 className="font-semibold text-elx-primary mb-3 flex items-center">
                   <FontAwesomeIcon icon={faCheckCircle} className="text-elx-accent mr-2" />
                   Your Customized Solution Outcome
                 </h4>
@@ -633,7 +595,7 @@ const CalculatorIntroduction = ({ onGetStarted }) => {
               </div>
               
               <div className="mt-6 bg-gray-50 p-4 rounded-lg border border-gray-200">
-                <h5 className="font-medium text-elx-primary mb-2 flex items-center">
+                <h5 className="elx-section-heading flex items-center">
                   <FontAwesomeIcon icon={faLightbulb} className="text-amber-500 mr-2" />
                   What Makes Our Approach Different
                 </h5>
@@ -662,7 +624,7 @@ const CalculatorIntroduction = ({ onGetStarted }) => {
       </div>
       
       {/* 7. CTA - Prominent and Action-Oriented with reinforcing text */}
-      <div className="flex flex-col items-center pt-4 border-t border-gray-200">
+      <div className="flex flex-col items-center pt-5 mt-2 border-t border-gray-200">
         <p className="text-gray-600 mb-5 text-center max-w-3xl">
           Ready to transform your business? Take control with our self-service tool and get complete transparency on costs, timelines, and expected outcomes.
         </p>
@@ -680,9 +642,9 @@ const CalculatorIntroduction = ({ onGetStarted }) => {
         {/* NEW SECTION: No-Risk Reassurance */}
         <div className="mt-5 text-center max-w-xl">
           <p className="text-sm text-gray-600 flex flex-wrap justify-center items-center gap-3">
-            <span className="flex items-center"><FontAwesomeIcon icon={faCheckCircle} className="text-green-500 mr-1" /> No credit card required</span>
-            <span className="flex items-center"><FontAwesomeIcon icon={faCheckCircle} className="text-green-500 mr-1" /> Download your custom plan instantly</span>
-            <span className="flex items-center"><FontAwesomeIcon icon={faCheckCircle} className="text-green-500 mr-1" /> Export options for stakeholder sharing</span>
+            <span className="flex items-center"><FontAwesomeIcon icon={faCheckCircle} className="text-elx-secondary mr-1" /> No credit card required</span>
+            <span className="flex items-center"><FontAwesomeIcon icon={faCheckCircle} className="text-elx-secondary mr-1" /> Download your custom plan instantly</span>
+            <span className="flex items-center"><FontAwesomeIcon icon={faCheckCircle} className="text-elx-secondary mr-1" /> Export options for stakeholder sharing</span>
           </p>
         </div>
       </div>
