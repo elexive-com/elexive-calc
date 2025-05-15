@@ -8,7 +8,7 @@ import {
   faPlus, faMinus,
   faChartPie,
   faClock, faMoneyBillWave, faHandshake, faBolt,
-  faShieldAlt
+  faShieldAlt, faChevronDown
 } from '@fortawesome/free-solid-svg-icons';
 // Remove direct import and use process.env.PUBLIC_URL for images in public folder
 
@@ -559,6 +559,19 @@ const CalculatorIntroduction = ({ onGetStarted }) => {
             <FontAwesomeIcon icon={faArrowRight} className="ml-3" />
           </button>
         </div>
+        
+        <div className="text-center mt-4">
+          <button
+            onClick={() => {
+              toggleSection('process');
+              document.getElementById('detailed-process').scrollIntoView({ behavior: 'smooth' });
+            }}
+            className="text-elx-primary font-medium text-sm flex items-center justify-center mx-auto"
+          >
+            View detailed process information
+            <FontAwesomeIcon icon={faChevronDown} className="ml-2" />
+          </button>
+        </div>
       </div>
 
       {/* SOLUTION FRAMEWORK: Three key areas of expertise */}
@@ -703,7 +716,7 @@ const CalculatorIntroduction = ({ onGetStarted }) => {
         </div>
         
         {/* Detailed Process Section - Expandable */}
-        <div className="border-t border-gray-200 overflow-hidden">
+        <div className="border-t border-gray-200 overflow-hidden" id="detailed-process">
           <div 
             className="py-4 px-2 flex items-center justify-between w-full cursor-pointer"
             onClick={() => toggleSection('process')}
