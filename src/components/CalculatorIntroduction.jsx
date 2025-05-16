@@ -526,12 +526,23 @@ const CalculatorIntroduction = ({ onGetStarted }) => {
         
         <div className="w-full flex flex-col md:flex-row">
           <div className="w-4/5 mx-auto md:w-1/3 mb-4 md:mb-0 md:pr-6 order-2 md:order-1">
-            <div className="aspect-[21/9] sm:aspect-video md:aspect-square overflow-hidden mb-3">
-              <img 
-                src={`${process.env.PUBLIC_URL}/bonsai-enterprise.png`} 
-                alt="Bonsai tree representing growth and balance" 
-                className="w-full h-full object-cover shadow-md rounded-tl-2xl rounded-tr-none rounded-br-2xl rounded-bl-none" 
-              />
+            <div className="relative">
+              <div className="aspect-[21/9] sm:aspect-video md:aspect-square overflow-hidden mb-3 relative">
+                <img 
+                  src={`${process.env.PUBLIC_URL}/bonsai-enterprise.png`} 
+                  alt="Bonsai tree representing growth and balance" 
+                  className="w-full h-full object-cover shadow-md rounded-tl-2xl rounded-tr-none rounded-br-2xl rounded-bl-none" 
+                />
+                <div className="absolute bottom-4 left-0 right-0 flex justify-center md:hidden">
+                  <button
+                    onClick={onGetStarted}
+                    className="elx-btn-primary shadow-lg text-sm"
+                  >
+                    Start Building Now
+                    <FontAwesomeIcon icon={faArrowRight} className="ml-2" />
+                  </button>
+                </div>
+              </div>
             </div>
           </div>
           
@@ -664,7 +675,7 @@ const CalculatorIntroduction = ({ onGetStarted }) => {
                 }
               />
               
-              <div className="mt-5 flex justify-center">
+              <div className="mt-5 hidden md:flex justify-center">
                 <button
                   onClick={onGetStarted}
                   className="elx-btn-primary"
