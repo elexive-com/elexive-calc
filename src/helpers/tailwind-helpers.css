@@ -63,17 +63,59 @@
     @apply text-lg font-semibold text-elx-primary mb-4;
   }
   
+  /* Responsive layout classes */
+  .elx-responsive-container {
+    @apply w-full flex flex-col md:flex-row;
+  }
+  
+  .elx-responsive-main {
+    @apply w-full md:w-3/4 order-1 md:order-1 pr-0 md:pr-8;
+  }
+  
+  .elx-responsive-sidebar {
+    @apply w-full md:w-1/4 order-2 md:order-2 mt-3 md:mt-0 md:pl-6;
+  }
+  
+  .elx-responsive-sidebar-left {
+    @apply w-full md:w-1/4 order-2 md:order-1 mb-4 md:mb-0 md:pr-6;
+  }
+  
+  .elx-responsive-main-right {
+    @apply w-full md:w-3/4 order-1 md:order-2;
+  }
+  
   /* Typography - Standardized across components */
   .elx-heading-1 {
-    @apply text-xl xs:text-2xl sm:text-3xl font-bold text-elx-primary mb-3;
+    @apply text-xl sm:text-3xl font-bold text-elx-primary mb-3;
   }
 
   .elx-heading-2 {
-    @apply text-lg xs:text-xl font-bold text-elx-primary mb-4;
+    @apply text-lg sm:text-xl font-bold text-elx-primary mb-4;
   }
 
   .elx-heading-3 {
-    @apply text-base xs:text-lg font-bold text-elx-primary mb-2;
+    @apply text-base sm:text-lg font-bold text-elx-primary mb-2;
+  }
+  
+  /* Responsive layout classes */
+  .elx-responsive-container {
+    @apply w-full flex flex-col md:flex-row;
+  }
+  
+  .elx-responsive-main {
+    @apply w-full md:w-3/4 order-1 md:order-1;
+  }
+  
+  .elx-responsive-sidebar {
+    @apply w-full md:w-1/4 order-2 md:order-2;
+  }
+  
+  .elx-responsive-sidebar-left {
+    @apply w-full md:w-1/4 order-2 md:order-1 mb-4 md:mb-0 md:pr-6;
+  }
+  
+  .elx-responsive-main-right {
+    @apply w-full md:w-3/4 order-1 md:order-2;
   }
   
   /* Pillar title for module box */
@@ -299,21 +341,51 @@
   
   /* Responsive image components */
   .elx-responsive-image {
-    @apply w-4/5 mx-auto xs:w-full max-h-[160px] sm:max-h-none object-cover shadow-md rounded-tl-2xl rounded-tr-none rounded-br-2xl rounded-bl-none;
+    @apply w-4/5 mx-auto sm:w-full max-h-[160px] sm:max-h-none object-cover shadow-md rounded-tl-2xl rounded-tr-none rounded-br-2xl rounded-bl-none;
   }
   
   .elx-image-optional {
-    @apply hidden xs:block;
+    @apply hidden sm:block;
+  }
+  
+  /* Standardized responsive layout classes */
+  .elx-layout-container {
+    @apply w-full flex flex-col md:flex-row;
+  }
+  
+  .elx-layout-main {
+    @apply w-full md:w-3/4 order-1 pr-0 md:pr-8;
+  }
+  
+  .elx-layout-sidebar {
+    @apply w-full md:w-1/4 order-2 mt-4 md:mt-0 md:pl-6;
+  }
+  
+  .elx-layout-sidebar-left {
+    @apply w-full md:w-1/4 order-2 md:order-1 mb-4 md:mb-0 md:pr-6;
+  }
+  
+  .elx-layout-main-right {
+    @apply w-full md:w-3/4 order-1 md:order-2;
+  }
+  
+  /* Standard image container for consistent aspect ratios */
+  .elx-image-container {
+    @apply aspect-square overflow-hidden mb-3 sm:mb-0;
+  }
+  
+  .elx-image {
+    @apply w-full h-full object-cover shadow-md rounded-tl-2xl rounded-tr-none rounded-br-2xl rounded-bl-none;
   }
   
   /* Mobile optimized containers */
   .elx-mobile-compact {
-    @apply mt-4 xs:mt-6;
+    @apply mt-4 sm:mt-6;
   }
   
   /* Mobile-friendly titles and elements */
   .elx-mobile-title {
-    @apply text-base xs:text-lg sm:text-xl;
+    @apply text-base sm:text-xl;
   }
 }
 

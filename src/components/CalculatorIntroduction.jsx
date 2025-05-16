@@ -78,24 +78,24 @@ const CalculatorIntroduction = ({ onGetStarted }) => {
   ];
 
   return (
-    <div className="elx-card p-3 xs:p-4 sm:p-6 mb-6">
+    <div className="elx-card p-3 sm:p-6 mb-6">
       {/* HEADER: Lead with control and speed */}
-      <div className="elx-section-tight flex flex-col md:flex-row items-start md:items-center justify-between mb-4 md:mb-6">
+      <div className="flex flex-col md:flex-row items-start md:items-center justify-between mb-6">
         <div className="flex-1">
-          <h2 className="elx-heading-1 mb-2 sm:mb-3">
+          <h2 className="text-xl md:text-3xl font-bold text-elx-primary mb-3">
             Build Your Transformation Plan, Your Way
           </h2>
-          <p className="text-gray-600 text-base xs:text-lg max-w-3xl">
+          <p className="text-gray-600 text-base md:text-lg max-w-3xl">
             Configure your business solution instantly. Get precise breakdown of the cost. Move forward on your timeline.
           </p>
         </div>
       </div>
 
       {/* TOP ACTION SECTION: Immediate option to proceed */}
-      <div className="elx-section-tight bg-elx-primary bg-opacity-5 rounded-xl p-3 xs:p-4 sm:p-5 border border-elx-primary border-opacity-20">
-        <div className="flex flex-col md:flex-row md:justify-between md:items-center gap-3 md:gap-4">
+      <div className="bg-elx-primary bg-opacity-5 rounded-xl p-4 md:p-5 border border-elx-primary border-opacity-20 mb-6">
+        <div className="flex flex-col md:flex-row md:justify-between md:items-center gap-4">
           <div className="flex-1">
-            <h3 className="text-lg font-semibold text-elx-primary mb-1 sm:mb-2">
+            <h3 className="text-lg font-semibold text-elx-primary mb-2">
               Get Started Now
             </h3>
             <p className="text-sm text-gray-700">
@@ -116,8 +116,8 @@ const CalculatorIntroduction = ({ onGetStarted }) => {
       <div className="elx-section">
         <h3 className="elx-heading-2">Business Impact You Can Expect</h3>
         
-        <div className="flex flex-col md:flex-row">
-          <div className="order-1 md:order-1 w-full md:w-3/4 pr-0 md:pr-8">
+        <div className="w-full flex flex-col md:flex-row">
+          <div className="w-full md:w-3/4 pr-0 md:pr-8 order-1">
             <div className="space-y-2 md:space-y-0 elx-mobile-compact">
               <CollapsibleCard 
                 title="3-5x Return on Investment"
@@ -243,13 +243,13 @@ const CalculatorIntroduction = ({ onGetStarted }) => {
             </div>
           </div>
           
-          <div className="order-2 md:order-2 w-full md:w-1/4 mt-3 md:mt-0 md:pl-6">
+          <div className="w-full md:w-1/4 mt-3 md:mt-0 md:pl-6 order-2">
             <div className="sticky top-6">
-              <div className="aspect-square overflow-hidden">
+              <div className="aspect-square overflow-hidden mb-3 sm:mb-0">
                 <img 
                   src={`${process.env.PUBLIC_URL}/strategy-2.png`} 
                   alt="Bonsai tree representing growth and balance" 
-                  className="elx-responsive-image mb-3 sm:mb-0 object-cover w-full h-full" 
+                  className="w-full h-full object-cover shadow-md rounded-tl-2xl rounded-tr-none rounded-br-2xl rounded-bl-none hidden sm:block" 
                 />
               </div>
             </div>
@@ -260,20 +260,18 @@ const CalculatorIntroduction = ({ onGetStarted }) => {
       {/* 2. BUSINESS CHALLENGES - CEOs primarily care about their specific problems */}
       <div className="elx-section">
         <h3 className="elx-heading-2">Critical Business Challenges We Solve</h3>
-        <div className="flex flex-col md:flex-row">
-          <div className="order-2 md:order-1 w-full md:w-1/4 mb-5 md:mb-0 md:pr-6">
-            <div className="elx-image-optional">
-              <div className="aspect-square overflow-hidden">
-                <img 
-                  src={`${process.env.PUBLIC_URL}/bonsai-square-1.png`} 
-                  alt="Bonsai tree representing growth and balance" 
-                  className="elx-responsive-image mb-3 sm:mb-0 object-cover w-full h-full" 
-                />
-              </div>
+        <div className="w-full flex flex-col md:flex-row">
+          <div className="w-full md:w-1/4 mb-5 md:mb-0 md:pr-6 order-2 md:order-1">
+            <div className="aspect-square overflow-hidden mb-3 sm:mb-0">
+              <img 
+                src={`${process.env.PUBLIC_URL}/bonsai-square-1.png`} 
+                alt="Bonsai tree representing growth and balance" 
+                className="w-full h-full object-cover shadow-md rounded-tl-2xl rounded-tr-none rounded-br-2xl rounded-bl-none hidden sm:block" 
+              />
             </div>
           </div>
         
-          <div className="order-1 md:order-2 w-full md:w-3/4">
+          <div className="w-full md:w-3/4 order-1 md:order-2">
             <div className="space-y-2 md:space-y-0 elx-mobile-compact">
               <CollapsibleCard 
                 title="Growth & Revenue"
@@ -373,8 +371,8 @@ const CalculatorIntroduction = ({ onGetStarted }) => {
       <div className="elx-section">
         <h3 className="elx-heading-2">Why Executives Choose This Approach</h3>
         
-        <div className="flex flex-col md:flex-row">
-          <div className="order-1 md:order-1 w-full md:w-3/4 pr-0 md:pr-8">
+        <div className="w-full flex flex-col md:flex-row">
+          <div className="w-full md:w-3/4 pr-0 md:pr-8 order-1">
             <div className="space-y-2 md:space-y-0 elx-mobile-compact">
               <CollapsibleCard 
                 title="Instant Visibility & Transparency"
@@ -498,16 +496,16 @@ const CalculatorIntroduction = ({ onGetStarted }) => {
             </div>
           </div>
           
-          <div className="order-2 md:order-2 w-full md:w-1/4 mt-4 md:mt-0 md:pl-6">
+          <div className="w-full md:w-1/4 mt-4 md:mt-0 md:pl-6 order-2">
             <div className="sticky top-6">
-              <div className="aspect-square overflow-hidden">
+              <div className="aspect-square overflow-hidden mb-3 sm:mb-0">
                 <img 
                   src={`${process.env.PUBLIC_URL}/nextgen.png`} 
                   alt="Bonsai tree representing growth and balance" 
-                  className="elx-image-optional elx-responsive-image mb-3 sm:mb-0 object-cover w-full h-full" 
+                  className="w-full h-full object-cover shadow-md rounded-tl-2xl rounded-tr-none rounded-br-2xl rounded-bl-none hidden sm:block" 
                 />
               </div>
-              <div className="mt-0 xs:mt-3 md:mt-4 p-3 md:p-4 bg-gray-50 rounded-lg border border-gray-200">
+              <div className="mt-0 sm:mt-3 md:mt-4 p-3 md:p-4 bg-gray-50 rounded-lg border border-gray-200">
                 <div className="flex items-center mb-1 md:mb-2">
                   <FontAwesomeIcon icon={faInfoCircle} className="text-elx-primary mr-2 flex-shrink-0" />
                   <p className="text-sm font-medium text-elx-primary">
@@ -526,20 +524,18 @@ const CalculatorIntroduction = ({ onGetStarted }) => {
           Design Your Solution in 3 Steps
         </h3>
         
-        <div className="flex flex-col md:flex-row">
-          <div className="order-2 md:order-1 w-full md:w-1/4 mb-4 md:mb-0 md:pr-6">
-            <div className="elx-image-optional">
-              <div className="aspect-square overflow-hidden">
-                <img 
-                  src={`${process.env.PUBLIC_URL}/bonsai-enterprise.png`} 
-                  alt="Bonsai tree representing growth and balance" 
-                  className="elx-responsive-image mb-3 sm:mb-0 object-cover w-full h-full" 
-                />
-              </div>
+        <div className="w-full flex flex-col md:flex-row">
+          <div className="w-full md:w-1/4 mb-4 md:mb-0 md:pr-6 order-2 md:order-1">
+            <div className="aspect-square overflow-hidden mb-3 sm:mb-0">
+              <img 
+                src={`${process.env.PUBLIC_URL}/bonsai-enterprise.png`} 
+                alt="Bonsai tree representing growth and balance" 
+                className="w-full h-full object-cover shadow-md rounded-tl-2xl rounded-tr-none rounded-br-2xl rounded-bl-none hidden sm:block" 
+              />
             </div>
           </div>
           
-          <div className="order-1 md:order-2 w-full md:w-3/4">
+          <div className="w-full md:w-3/4 order-1 md:order-2">
             <div className="space-y-4 md:space-y-4 elx-mobile-compact">
               {/* Step 1 - Collapsible */}
               <CollapsibleCard 
@@ -685,7 +681,7 @@ const CalculatorIntroduction = ({ onGetStarted }) => {
       {/* SOLUTION FRAMEWORK: Three key areas of expertise */}
       <div className="elx-section">
         <h3 className="elx-heading-2">Solution Framework: Three Strategic Areas</h3>
-        <div className="grid grid-cols-1 xs:grid-cols-2 md:grid-cols-3 gap-3 sm:gap-4 md:gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6">
           {pillars.map(pillar => {
             // Get the color code based on pillar type - improved contrast versions
             const getPillarColor = () => {
@@ -733,13 +729,13 @@ const CalculatorIntroduction = ({ onGetStarted }) => {
       </div>
 
       {/* SOCIAL PROOF: Executive testimonials */}
-      <div className="elx-section bg-gray-50 rounded-xl p-3 sm:p-4 md:p-6 border border-gray-200 shadow-sm">
+      <div className="elx-section bg-gray-50 rounded-xl p-4 md:p-6 border border-gray-200 shadow-sm">
         <h3 className="elx-heading-2">What Other Executives Are Saying</h3>
         
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-3 sm:gap-4 md:gap-6">
-          <div className="bg-white p-3 sm:p-4 md:p-5 rounded-lg shadow-sm border border-gray-200">
-            <div className="flex items-center mb-2 sm:mb-3">
-              <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-elx-primary text-white flex items-center justify-center font-bold text-lg mr-3">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6">
+          <div className="bg-white p-4 md:p-5 rounded-lg shadow-sm border border-gray-200">
+            <div className="flex items-center mb-3">
+              <div className="w-12 h-12 rounded-full bg-elx-primary text-white flex items-center justify-center font-bold text-lg mr-3">
                 SC
               </div>
               <div>
@@ -752,9 +748,9 @@ const CalculatorIntroduction = ({ onGetStarted }) => {
             </p>
           </div>
           
-          <div className="bg-white p-3 sm:p-4 md:p-5 rounded-lg shadow-sm border border-gray-200">
-            <div className="flex items-center mb-2 sm:mb-3">
-              <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-elx-primary text-white flex items-center justify-center font-bold text-lg mr-3">
+          <div className="bg-white p-4 md:p-5 rounded-lg shadow-sm border border-gray-200">
+            <div className="flex items-center mb-3">
+              <div className="w-12 h-12 rounded-full bg-elx-primary text-white flex items-center justify-center font-bold text-lg mr-3">
                 ML
               </div>
               <div>
@@ -771,7 +767,7 @@ const CalculatorIntroduction = ({ onGetStarted }) => {
 
       
       {/* FINAL CTA: Emphasize control, transparency and ease */}
-      <div className="elx-section flex flex-col items-center pt-5 mt-2 border-t border-gray-200">
+      <div className="flex flex-col items-center pt-5 mt-4 border-t border-gray-200">
         <p className="text-gray-600 mb-5 text-center max-w-3xl">
           Ready to craft your strategic business plan? Get exactly what you need with complete transparency on costs, timelines, and expected outcomes.
         </p>
@@ -788,7 +784,7 @@ const CalculatorIntroduction = ({ onGetStarted }) => {
         
         {/* Executive Decision Support */}
         <div className="mt-5 text-center max-w-xl">
-          <p className="text-sm text-gray-600 flex flex-wrap justify-center items-center gap-2 sm:gap-3">
+          <p className="text-sm text-gray-600 flex flex-wrap justify-center items-center gap-3">
             <span className="flex items-center"><FontAwesomeIcon icon={faCheckCircle} className="text-elx-secondary mr-1" /> Complete cost transparency</span>
             <span className="flex items-center"><FontAwesomeIcon icon={faCheckCircle} className="text-elx-secondary mr-1" /> Detailed ROI projections</span>
             <span className="flex items-center"><FontAwesomeIcon icon={faCheckCircle} className="text-elx-secondary mr-1" /> Implementation timeline included</span>
