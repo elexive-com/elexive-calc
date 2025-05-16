@@ -8,248 +8,66 @@
 
 The EvcExplainer component provides educational content explaining the Elastic Value Credit (EVC) system used throughout the Elexive Solution Builder. It serves as an educational modal that helps users understand the value-based pricing approach, supporting the customer's learning journey and building confidence in the calculator's pricing methodology.
 
-> **Note:** This component adheres to the [Elexive Solution Builder Design Guidelines](./DesignGuidelines.md) for visual design, interaction patterns, and customer journey integration.
+> **Note:** This component is part of the [Elexive Solution Builder](./CalculatorApp.md) and adheres to the [Design Guidelines](./DesignGuidelines.md).
 
-## Strategic Purpose
+## Component-Specific Features
 
-The EvcExplainer addresses several key customer needs identified in our research:
+1. **Layered Educational Framework**
+   - Implements progressive disclosure of EVC concepts from basic to advanced
+   - Presents clear definitions with supporting visual explanations
+   - Uses business-friendly language with appropriate technical depth
+   - Creates conceptual connections between abstract pricing and tangible value
 
-1. **Pricing Transparency**: By explaining the value-based pricing system in accessible terms
-2. **Decision Confidence**: By helping customers understand how their choices affect pricing
-3. **Value Validation**: By connecting technical concepts to business outcomes
-4. **Trust Building**: By demystifying potentially complex pricing calculations
-
-## Core Functionality
-
-1. **Comprehensive EVC Explanation**
-   - Defines EVCs in clear, business-friendly language
-   - Explains the relationship between EVCs and consulting value
-   - Illustrates how modules consume EVCs at different rates
-   - Clarifies that overhead affects module consumption, not EVC production
-
-2. **Dynamic Value Visualization**
-   - Shows the user's current EVC production capacity
-   - Illustrates how different factors affect EVC efficiency
+2. **Value Calculation Visualization**
+   - Illustrates the mathematical relationship between resources and value credits
+   - Shows how different factors affect EVC efficiency and production
    - Provides interactive elements to explore different scenarios
    - Implements appropriate data visualization for numeric concepts
 
-3. **Resource Allocation Education**
-   - Details the different types of input resources that generate EVCs
-   - Explains how different allocation strategies affect overhead
-   - Illustrates the efficiency impact of context-switching
+3. **Resource Optimization Education**
+   - Explains different resource allocation strategies and their efficiency impacts
+   - Illustrates the cost of context-switching through visual comparisons
    - Provides best practices for optimizing resource allocation
+   - Creates practical connections to the user's specific configuration
 
-4. **Contextual Application**
-   - Relates EVC concepts to the user's specific configuration
-   - Shows how their chosen modules utilize EVCs
-   - Connects abstract concepts to concrete business decisions
-   - Provides practical examples relevant to transformation contexts
+4. **Contextual Example Integration**
+   - Shows the user's current EVC production capacity and efficiency
+   - Relates EVC concepts to their selected modules and configuration
+   - Provides real-time calculations based on their specific choices
+   - Creates tangible examples relevant to their transformation context
 
-## Component-Specific Design Decisions
+## Implementation Highlights
 
-### Content Organization
+### Progressive Educational Structure
 
-This component implements the [Educational Content Pattern](./DesignGuidelines.md#3-educational-content-pattern) with the following specific adaptations for explaining value credit concepts:
+The component implements a specialized pedagogical approach:
 
-1. **Layered Explanation** - Specialized pedagogical approach:
-   - Introduces the EVC concept with a simple, relatable definition
-   - Gradually adds complexity through progressive disclosure
-   - Creates clear connections between abstract concept and practical implications
-   - Balances technical accuracy with accessible language
+- Begins with simple, relatable definitions of Elastic Value Credits
+- Gradually introduces more complex concepts through visual aids
+- Uses consistent metaphors to reinforce understanding
+- Maintains appropriate pacing for information consumption
 
-2. **Visual Reinforcement** - EVC-specific learning aids:
-   - Uses illustrative graphics to reinforce key concepts
-   - Implements appropriate iconography to support textual information
-   - Creates visual patterns that reinforce the mathematical relationships
-   - Maintains consistent visual treatment across all explanatory elements
+### Modal-Specific Design Adaptations
 
-### Modal Design
+The component implements the Modal Design Pattern with these specific refinements:
 
-This component follows the modal design guidelines in [Interaction Patterns](./DesignGuidelines.md#4-modals--overlays) with these specific implementations:
+- Uses clean, distraction-free layout to focus attention on explanations
+- Implements appropriate spacing and typography for comfortable reading
+- Creates clear visual hierarchy for scanning complex information
+- Provides intuitive navigation between different explanation sections
 
-1. **Content Focus** - The presentation approach:
-   - Uses clean, distraction-free layout to focus attention on explanations
-   - Implements appropriate spacing and typography for comfortable reading
-   - Creates clear visual hierarchy for scanning complex information
-   - Maintains appropriate white space to prevent cognitive overload
+## Integration Points
 
-2. **Navigation Structure** - The information flow:
-   - Provides logical progression through increasingly detailed explanations
-   - Implements clear section headings for content orientation
-   - Creates appropriate pacing for information consumption
-   - Uses consistent navigational elements for predictable interaction
-
-## Technical Implementation
-
-### Props
-
-- `isOpen`: Boolean controlling modal visibility
-- `onClose`: Function to handle modal closing
-- `calculator`: Object containing calculator state for contextual examples
-
-### Component Structure
-
-1. **Modal Container**
-   - Responsive overlay with appropriate sizing for different devices
-   - Clean, distraction-free backdrop to focus attention on content
-   - Close button and escape key handling for accessibility
-   - Scroll management for longer content sections
-
-2. **Content Sections**
-   - Introduction to EVC concept with clear definition
-   - Visual aids showing EVC calculation and consumption
-   - Resource allocation explanation with overhead visualization
-   - Practical application examples based on current configuration
-   - Frequently asked questions with expandable answers
-
-3. **Interactive Elements**
-   - Expandable/collapsible sections for progressive disclosure
-   - Tabbed interface for different aspects of EVC concept
-   - Visual tooltips for additional context on hover
-   - Close and navigation controls with clear affordances
-
-### Integration Points
-
-- **SummarySidebar**: Launched from information icons in the sidebar
-- **ResourceAllocationSelector**: Shares conceptual framework for explaining overhead
-- **PricingSummary**: Complements the pricing information with deeper explanation
+- **useCalculator Hook**: Provides current calculator state for contextual examples
+- **SummarySidebar**: Contains the trigger for opening this modal
+- **calculatorConfig.json**: Provides configuration values used in examples
+- **Modal System**: Powers the overlay presentation functionality
 
 ## Related Components
 
-- [SummarySidebar](./SummarySidebar.md): Contains the information icon that launches this modal
-- [ResourceAllocationSelector](./ResourceAllocationSelector.md): Related to the overhead concepts explained
-- [ProductionCapacitySelector](./ProductionCapacitySelector.md): Connected to EVC production capacity concept
-- [CalculatorIntroduction](./CalculatorIntroduction.md): Introduces the value model concepts that are detailed in this component
-- [PricingSummary](./PricingSummary.md): Uses EVCs as the basis for pricing calculations
+- [SummarySidebar](./SummarySidebar.md): Contains the access point to this explainer
+- [ProductionCapacitySelector](./ProductionCapacitySelector.md): Provides capacity data reflected in examples
+- [ResourceAllocationSelector](./ResourceAllocationSelector.md): Concepts are reinforced in this component
+- [DetailedReportModal](./DetailedReportModal.md): Uses similar educational approaches
 
-## Core Functionality
-
-1. **Comprehensive EVC Explanation**
-   - Defines EVCs in clear, business-friendly language
-   - Explains the input-output relationship in consulting value
-   - Provides context for how EVCs relate to business transformation
-   - Creates understanding of value measurement in consulting services
-   - Clarifies that overhead affects module consumption, not EVC production
-
-2. **Dynamic Value Visualization**
-   - Shows the user's current EVC production capacity
-   - Displays the calculated monthly output value based on their selections
-   - Creates a visual representation of the value conversion process
-   - Implements appropriate data visualization for numeric concepts
-
-3. **Resource Allocation Education**
-   - Details the different types of input resources that generate EVCs
-   - Explains how each resource contributes to value creation
-   - Provides allocation percentages and production value multipliers
-   - Creates clarity around resource efficiency and optimization
-   - Illustrates how allocation strategies impact overhead and module efficiency
-
-4. **Contextual Application**
-   - Relates EVC concepts to the user's specific calculator configuration
-   - Shows how module selections affect EVC calculations
-   - Provides business context for abstract value concepts
-   - Creates relevance through real-world business examples
-
-## Technical Implementation
-
-### Props
-
-- `isOpen`: Boolean controlling modal visibility
-- `onClose`: Function to call when the modal should be closed
-- `weeklyProductionCapacity`: Number representing the user's weekly EVC production capacity
-- `monthlyOutputValue`: Number representing the calculated monthly output value in EVCs
-
-### Component Structure
-
-1. **Modal Container**
-   - Fixed position overlay with semi-transparent background
-   - Centered content container with maximum width and height constraints
-   - Scrollable content area for accommodating varying screen sizes
-
-2. **Header Section**
-   - Sticky positioning to remain visible during scrolling
-   - Clear title with descriptive icon
-   - Close button for dismissing the modal
-
-3. **Content Sections**
-   - Introduction to the EVC concept
-   - Input-Output resource cards explaining the two sides of the EVC system
-   - Value exchange visualization showing conversion from weekly to monthly EVCs
-   - Resource allocation explanation with efficiency multipliers
-   - Detailed breakdown of EVC input resources with their characteristics
-
-### Data Integration
-
-1. **Dynamic Calculator Values**
-   - Displays the user's current weekly production capacity
-   - Shows the calculated monthly output value
-   - Visual representation of the conversion ratio
-
-2. **Configuration Data Usage**
-   - Pulls EVC producer information from calculatorConfig.json
-   - Displays default allocation percentages and production values
-   - Maps producer types to appropriate icons
-
-## User Experience Considerations
-
-1. **Educational Approach**
-   - Uses clear, concise language for explaining complex concepts
-   - Employs visual metaphors and icons to reinforce learning
-   - Breaks down information into digestible sections
-
-2. **Visual Learning**
-   - Implements a balanced mix of text and visual elements
-   - Uses color coding to distinguish between input and output values
-   - Provides illustrative icons for different resource types
-
-3. **Information Hierarchy**
-   - Organizes content from high-level concepts to detailed explanations
-   - Uses typography and spacing to establish clear reading order
-   - Highlights key numbers and conversion values
-
-## Accessibility Considerations
-
-1. **Modal Accessibility**
-   - Ensures modal is navigable and usable with keyboard alone
-   - Implements ARIA roles and properties for assistive technologies
-   - Provides text alternatives for non-text content
-
-2. **Color Contrast and Usage**
-   - Follows WCAG AA guidelines for color contrast ratios
-   - Avoids color combinations that are problematic for color blindness
-
-3. **Responsive and Resizable**
-   - Ensures content is accessible on various screen sizes and orientations
-   - Allows text resizing without loss of content or functionality
-
-## Performance Considerations
-
-1. **Conditional Rendering**
-   - Only renders when isOpen is true to save resources
-   - Uses appropriate optimization for modal rendering
-
-2. **Static Content Optimization**
-   - Efficiently renders static educational content
-   - Uses configuration data without unnecessary recalculations
-
-## Future Enhancement Opportunities
-
-1. **Interactive Simulations**
-   - Add interactive sliders to demonstrate how changing allocations affects output
-   - Implement visual simulations of resource flow
-
-2. **Personalized Examples**
-   - Integrate the user's specific module choices into explanations
-   - Show how their particular configuration leverages EVCs
-
-3. **Expanded Educational Content**
-   - Add more detailed explanations about EVC calculation formulas
-   - Include case studies or examples of EVC application
-
-4. **Multi-format Learning**
-   - Add optional video explanations for visual learners
-   - Implement step-by-step walkthrough of the EVC concept
-
-5. **Reference Material**
-   - Add downloadable PDF explanation of the EVC system
-   - Include glossary of terms related to EVCs
+**Note:** For comprehensive documentation of the Elexive Solution Builder, including the overall application architecture and user journey, see the [main application documentation](./CalculatorApp.md).

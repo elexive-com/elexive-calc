@@ -8,118 +8,66 @@
 
 The ModuleDetails component displays comprehensive information about a selected consulting module, providing users with in-depth details, benefits, implementation considerations, and contextual placement within the transformation journey. It serves as an educational and decision-support tool that helps users understand the full value proposition of each module before making a selection.
 
-> **Note:** This component adheres to the [Elexive Solution Builder Design Guidelines](./DesignGuidelines.md) for visual design, interaction patterns, and customer journey integration.
+> **Note:** This component is part of the [Elexive Solution Builder](./CalculatorApp.md) and adheres to the [Design Guidelines](./DesignGuidelines.md).
 
-## Strategic Purpose
+## Component-Specific Features
 
-The ModuleDetails component addresses several key customer needs identified in our research:
+1. **Structured Module Information Architecture**
+   - Presents comprehensive module descriptions with consistent organization
+   - Implements a multi-section layout with clear visual hierarchy
+   - Organizes content in order of decision-making importance
+   - Creates scannable content blocks with appropriate visual separation
 
-1. **Information Depth**: By providing comprehensive details beyond the summary view in selection interfaces
-2. **Decision Confidence**: By illustrating module benefits, target audience, and strategic value
-3. **Journey Contextualization**: By showing where modules fit within the overall transformation process
-4. **Content Persistence**: By allowing users to save or export module information for future reference
+2. **Journey Context Visualization**
+   - Shows module placement within the transformation journey timeline
+   - Highlights primary and secondary journey stages with visual differentiation
+   - Creates explicit connections to related modules and dependencies
+   - Implements consistent journey stage representation across all modules
 
-## Core Functionality
-
-1. **Detailed Module Information Display**
-   - Presents comprehensive module descriptions with pillar categorization
-   - Shows module benefits, target audience, and implementation details
-   - Places the module within the context of the transformation journey
-   - Provides consistent presentation across all module types
-
-2. **Module Interaction Options**
-   - Enables users to save modules for later consideration
-   - Provides PDF export capabilities for offline reference
-   - Maintains a coherent navigation path back to the selection interface
-   - Creates appropriate persistence mechanisms for important information
-
-3. **Visual Differentiation**
-   - Implements pillar-specific color coding for consistent categorization
-   - Uses visual cues to indicate module relationships and journey placement
-   - Creates visual hierarchy to emphasize the most important information
-   - Maintains consistent branding and visual language
-
-## Component-Specific Design Decisions
-
-### Information Architecture
-
-The component implements a deliberate information structure:
-
-1. **Module Identity Section**:
-   - Displays module name, category, and pillar affiliation prominently
-   - Uses consistent typography and visual treatment for module identification
+3. **Strategic Pillar Integration**
+   - Uses pillar-specific color coding and visual treatment for categorization
+   - Displays pillar relationship prominently in the module identity section
+   - Implements consistent pillar iconography and visual language
    - Creates immediate recognition of the module's strategic positioning
-   - Implements appropriate visual hierarchy for module identity elements
 
-2. **Content Organization**:
-   - Divides information into distinct, visually separated sections
-   - Presents information in order of decision-making importance
-   - Creates scannable content blocks with clear visual separation
-   - Implements consistent information sectioning across all module variations
-
-### Journey Contextualization
-
-The component provides clear transformation journey context:
-
-1. **Journey Stage Visualization**:
-   - Shows where the module fits within the overall transformation journey
-   - Highlights primary and secondary journey stages visually
-   - Creates appropriate visual emphasis for stage relationships
-   - Implements consistent journey visualization across all modules
-
-2. **Strategic Alignment**:
-   - Clearly associates modules with their strategic pillars through color coding
-   - Uses consistent pillar visualization and iconography
-   - Creates immediate recognition of strategic category
-   - Maintains pillar-specific visual treatments
-
-### Content Export and Persistence
-
-The component enables information persistence through:
-
-1. **PDF Export Implementation**:
-   - Provides one-click PDF generation for offline reference
+4. **Persistence and Export System**
+   - Provides PDF export functionality for offline reference
+   - Enables module saving for later consideration
    - Creates professionally formatted, branded export documents
-   - Includes all critical module information in the export
-   - Implements appropriate loading states during export generation
-
-2. **Module Saving Functionality**:
-   - Enables users to save modules for later consideration
-   - Provides clear visual feedback for saved state
-   - Creates persistent module lists across user sessions
    - Implements appropriate state management for saved modules
 
-## Technical Implementation
+## Implementation Highlights
 
-### Props
+### Information Hierarchy Implementation
 
-- `selectedModule`: Contains all details about the module being displayed
-- `journeySteps`: Provides journey context information for visualization
-- `exportToPdf`: Function to handle PDF export functionality
-- `isExporting`: Boolean flag indicating export in progress
-- `onBack`: Function to navigate back to module selection
+The component implements a specialized content structure:
 
-### Component Structure
+- Places critical decision-driving information at the top of the view
+- Implements progressive disclosure for detailed implementation information
+- Creates clear visual separation between different content sections
+- Uses consistent typographic hierarchy across all module variations
 
-1. **Navigation Header**
-   - Back button to return to module selection interface
-   - Module title and category display
-   - Action buttons for saving and exporting
+### Module Visualization System
 
-2. **Content Sections**
-   - Module overview with description and value proposition
-   - Journey context visualization with stage indicators
-   - Benefits section with pillar-colored numbering
-   - Target audience section with appropriate iconography
+The component implements sophisticated visual treatments:
 
-### Integration Points
+- Uses pillar-specific color coding for immediate categorization recognition
+- Implements consistent iconography representing module types and variants
+- Creates appropriate visual emphasis for different information types
+- Maintains consistent branding and visual language throughout
 
-- **ModuleExplorer**: Receives selected module data and provides navigation functions
-- **useCalculator Hook**: Manages saved module state and toggle functionality
-- **PDF Export System**: Generates formatted PDF documents from module data
+## Integration Points
+
+- **ModuleContext**: Provides the complete module data for display
+- **JourneyStageContext**: Supplies journey context information
+- **useCalculator Hook**: Enables adding the module to the solution
+- **React-PDF Library**: Powers the document generation functionality
 
 ## Related Components
 
-- [ModuleExplorer](./ModuleExplorer.md): Launches the ModuleDetails component when a module is selected
-- [ModuleSelector](./ModuleSelector.md): Alternative selection interface that may link to module details
-- [DetailedReportModal](./DetailedReportModal.md): Shares design patterns for detailed information display
+- [ModuleSelector](./ModuleSelector.md): Provides access to this component through module cards
+- [ModuleExplorer](./ModuleExplorer.md): Alternative path to accessing module details
+- [JourneyPlanner](./JourneyPlanner.md): Shows modules in journey context, linking to details
+- [DetailedReportModal](./DetailedReportModal.md): Includes condensed module information in reports
+
+**Note:** For comprehensive documentation of the Elexive Solution Builder, including the overall application architecture and user journey, see the [main application documentation](./CalculatorApp.md).

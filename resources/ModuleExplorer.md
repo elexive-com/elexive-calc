@@ -8,333 +8,66 @@
 
 The Module Explorer is a streamlined, comprehensive browse interface that allows executives to explore Elexive's complete catalog of consulting modules. This component provides a powerful filtering system with advanced search capabilities to help users find modules that match their specific requirements.
 
-> **Note:** This component adheres to the [Elexive Solution Builder Design Guidelines](./DesignGuidelines.md) for visual design, interaction patterns, and customer journey integration.
+> **Note:** This component is part of the [Elexive Solution Builder](./CalculatorApp.md) and adheres to the [Design Guidelines](./DesignGuidelines.md).
 
-## Strategic Purpose
+## Component-Specific Features
 
-The Module Explorer addresses several key customer pain points identified in our research:
+1. **Multi-Dimensional Module Browsing**
+   - Presents the complete catalog of consulting modules in a visual grid layout
+   - Organizes modules by strategic pillars with consistent visual categorization
+   - Displays module variants (Insight Primer, Implementation Accelerator) with distinctive badges
+   - Implements responsive grid layout that adapts to different screen sizes
 
-1. **Comprehensive Discovery**: By providing a complete view of all available consulting modules
-2. **Efficient Filtering**: Through multi-dimensional search and filter capabilities
-3. **Consistent Presentation**: With standardized module cards for easy comparison
-4. **Self-Guided Exploration**: With tools for saving and organizing modules of interest
+2. **Advanced Filtering and Search System**
+   - Provides filtering by pillar, category, and variant type simultaneously
+   - Implements real-time keyword search across module titles and descriptions
+   - Updates result counts dynamically as filters are applied
+   - Maintains appropriate empty states for zero-result scenarios
 
-## Core Functionality
+3. **Module Card Interaction System**
+   - Implements specialized card design for efficient module browsing
+   - Provides clear visual feedback for selected modules
+   - Includes interactions for adding modules to the solution configuration
+   - Offers additional actions like saving and detailed information access
 
-1. **Module Browsing and Discovery**
-   - Displays all available consulting modules in a grid layout
-   - Organizes modules by strategic pillars and categories
-   - Presents module variants (Insight Primer, Implementation Accelerator)
-   - Enables seamless exploration of the complete service catalog
+4. **Explorer-Specific Navigation**
+   - Implements tabbed navigation between the Explorer and Selected Modules views
+   - Provides breadcrumb navigation to maintain context within the application
+   - Includes quick-filters for common module groupings
+   - Maintains consistent selection state across navigation actions
 
-2. **Advanced Filtering System**
-   - Allows filtering by pillar, category, and variant type
-   - Provides interactive filter controls with immediate results
-   - Updates result counts as filters are applied
-   - Offers filter reset option for starting over
+## Implementation Highlights
 
-3. **Search Functionality**
-   - Enables keyword search across module names and descriptions
-   - Combines with applied filters for refined results
-   - Provides appropriate empty state when no results match
-   - Implements efficient search algorithm for large catalogs
+### Explorer-Specific Card Design
 
-4. **Module Selection and Interaction**
-   - Enables viewing detailed module information
-   - Provides add/remove functionality for module selection
-   - Shows selected state clearly on module cards
-   - Maintains consistency with the broader selection experience
+The component implements a specialized variant of the Card Design Pattern:
 
-## Component-Specific Design Decisions
+- Uses pillar-specific color coding and iconography for quick recognition
+- Implements consistent height cards with appropriate text truncation
+- Displays variant badges with distinctive styling for different module types
+- Provides clear visual feedback for selection state
 
-### Module Card Design
+### Search and Filter System Architecture
 
-This component implements the [Card Design Pattern](./DesignGuidelines.md#1-card-design-pattern) with the following specific adaptations:
+The component uses a sophisticated filtering system:
 
-1. **Explorer-Specific Card Headers** - Specialized categorization approach:
-   - Uses pillar-specific colors to provide visual categorization
-   - Prominently displays the pillar name to maintain context
-   - Includes the pillar icon for additional visual reinforcement
-   - Positions the category badge within the header but visually distinct
-
-2. **Content Layout** - Optimized for discovery:
-   - Places the module name in prominent position with adequate typographic weight
-   - Limits the module heading to 3 lines with ellipsis to maintain card height consistency
-   - Uses subtle typographic distinction between name (heading) and description (body text)
-   - Includes sufficient white space to improve readability while maintaining density
-
-3. **Variant Badges** - Extended module variation indicators:
-   - Use distinctive color coding (blue for Insight Primer, green for Implementation Accelerator)
-   - Include appropriate iconography (lightbulb for insight, rocket for implementation)
-   - Maintain consistent positioning at the bottom of the content area
-   - Have compact but readable design to accommodate multiple variants
-
-4. **Action Area** - Explorer-specific interactions:
-   - Creates visual separation from content through subtle background color change
-   - Balances primary action (view details) with secondary action (save/bookmark)
-   - Uses consistent interactive elements that match the broader application
-   - Provides clear hover/focus states for all interactive elements
-
-### Search and Filter System
-
-The search and filter interface was designed with specific UX considerations:
-
-1. **Expandable Design** - The filter panel:
-   - Remains collapsed by default to minimize initial visual complexity
-   - Expands smoothly with animation when needed
-   - Provides clear visual feedback on applied filters
-   - Offers simple reset options to clear all filters
-
-2. **Multi-Dimensional Filtering** - The filter options:
-   - Allow filtering by pillar, category, and variant type
-   - Provide clear labeling and consistent dropdown interfaces
-   - Support combining multiple filter criteria
-   - Update results immediately as filters change
-
-## Technical Implementation
-
-### Props
-
-- `modules`: Array of all available module objects
-- `selectedModules`: Array of currently selected module IDs
-- `onToggleModule`: Function to handle selection/deselection of modules
-- `onViewDetails`: Function to handle requesting detailed module information
-
-### Component Structure
-
-1. **Filter Section**
-   - Search input field for keyword searching
-   - Dropdown selectors for pillar, category, and variant filtering
-   - Filter tags showing currently applied filters
-   - Clear filters button for easy reset
-
-2. **Results Grid**
-   - Responsive grid layout of module cards
-   - Empty state handling for no matching results
-   - Appropriate loading states during data fetching
-   - Pagination or infinite scroll for large result sets
-
-3. **Module Cards**
-   - Header with pillar information and category
-   - Content area with module name and brief description
-   - Variant badges indicating available engagement models
-   - Action footer with view details and select options
-
-### Integration Points
-
-- **ModuleSelector**: Shares selected module state with the ModuleSelector component
-- **ModuleDetails**: Launches the ModuleDetails component when view details is clicked
-- **SummarySidebar**: Updates reflected in the sidebar when modules are selected
-
-## Related Components
-
-- [ModuleSelector](./ModuleSelector.md): Alternative module selection interface that complements the Explorer
-- [ModuleDetails](./ModuleDetails.md): Detailed view of modules launched from the Explorer
-- [JourneyPlanner](./JourneyPlanner.md): Alternative discovery mechanism organized by transformation journey
-- [SummarySidebar](./SummarySidebar.md): Displays modules selected in the Explorer
-   - Provides helpful empty states when no modules match
-   - Maintains consistent grid layout for results
-   - Offers clear option to reset filters when no results are found
-
-### Progressive Disclosure Strategy
-
-The interface implements progressive disclosure through:
-
-1. **Filtering Panel** - The expandable filtering interface:
-   - Remains collapsed by default to reduce initial visual complexity
-   - Expands smoothly with animation to show available filtering options
-   - Groups related filters together (pillar, category, variant)
-   - Provides immediate visual feedback when filters are applied
-
-2. **Detail View Transition** - The module detail expansion:
-   - Shifts from card view to comprehensive detail view through clear modal transition
-   - Organizes detailed information into logical sections with visual separation
-   - Uses typography and spacing to create scannable information hierarchy
-   - Includes export and sharing options only at the detailed level
-
-3. **Saved Modules Management** - The bookmarking system:
-   - Shows simple save/unsave toggle on cards for minimal complexity
-   - Reveals additional management options only when saved modules exist
-   - Uses familiar bookmark iconography for immediate recognition
-   - Provides count indicator to show how many modules have been saved
-
-## Core Functionality
-
-### Module Browsing and Filtering
-
-The Module Explorer offers comprehensive browsing capabilities:
-
-- View all available consulting modules in a consistent grid layout
-- Apply filters to narrow down module selection by pillar, category, and variant type
-- Search for specific modules by name, description, or characteristics
-- See immediate updates as filters and search parameters change
-- Receive clear feedback on how many modules match current criteria
-- Easily reset filters to start over
-
-### Module Cards
-
-Each consulting module is represented by a consistent card interface that includes:
-
-- Visual identification of the transformation pillar (color-coding + icon)
-- Module name and concise headline
-- Category classification
-- Available module variants (Insight Primer, Implementation Accelerator)
-- Quick actions (view details, save for later)
-
-Cards are designed with a responsive layout that works across desktop and tablet viewports while maintaining information hierarchy.
-
-### Module Detail View
-
-When users select a module for deeper exploration, the detail view provides:
-
-- Comprehensive module description and business context
-- Visualization of where the module fits in the transformation journey
-- Detailed explanation of available module variants with their respective value propositions
-- Key business outcomes and implementation approach
-- Export and save functionality for sharing with stakeholders
-- Clear call-to-action options based on decision readiness
-
-### Interactive Features
-
-The Module Explorer includes several interactive elements to enhance user engagement:
-
-- **Saved Modules**: Users can bookmark modules of interest for quick reference later
-- **Smart Filtering**: Context-aware filters that update based on selected criteria
-- **Export to PDF**: Generate shareable PDFs of module details for stakeholder alignment
-- **Visual State Indicators**: Clear visual feedback for active selections and filters
-- **Responsive Animations**: Subtle motion design that guides attention and improves usability
-
-## Technical Implementation
-
-### Architecture
-
-The Module Explorer is built as a self-contained React component that:
-
-- Consumes module data from a central configuration source
-- Maintains internal state for user selections and view preferences
-- Implements responsive design principles for multi-device compatibility
-- Uses CSS Grid and Flexbox for advanced layout requirements
-- Leverages Tailwind CSS for consistent styling and theming
-
-### State Management
-
-The component manages several key state variables:
-
-- Filtered module collection based on applied criteria
-- Search query and results
-- Filter selections (pillar, category, variant)
-- Saved/bookmarked modules
-- Detail view state and selected module
-- Animation and transition states
-
-### Data Model
-
-The module data structure supports:
-
-- Core module metadata (name, description, heading)
-- Pillar association with visual properties
-- Category classification
-- Journey stage mapping
-- Variant definitions with their value propositions
-- Search-optimized fields for filtering
-
-### Accessibility Considerations
-
-The Module Explorer is built with accessibility in mind:
-
-- Semantic HTML structure for screen reader compatibility
-- Keyboard navigation support for all interactive elements
-- ARIA attributes for complex interactive widgets
-- Sufficient color contrast for all text elements
-- Focus management for modal interfaces and view transitions
-
-## User Experience Flow
-
-1. **Initial Engagement**
-   - User arrives at the Module Explorer and sees all available modules in a grid
-   - Count indicator shows the total number of modules available
-   - Cards provide enough information for initial assessment
-
-2. **Refinement Phase**
-   - User can expand the filter panel to narrow down the module selection
-   - Search functionality allows finding specific modules by name or description
-   - Filters can be combined to create a precisely focused view
-   - Results update immediately with each filter change
-
-3. **Deep Dive**
-   - Clicking on a module card reveals the detailed view
-   - Comprehensive information allows for thorough evaluation
-   - Export to PDF enables sharing with stakeholders
-   - Back navigation returns to the filtered view
-
-4. **Saved Modules**
-   - Bookmark functionality allows creation of a personal module collection
-   - Saved module counter shows how many items have been saved
-   - Toggle button allows quick view of only saved modules
-   - Saved state persists during the session
+- Maintains filter state using React context to persist across navigation
+- Implements debounced search input to optimize performance
+- Combines multiple filter criteria with appropriate boolean logic
+- Provides filter reset functionality with clear visual feedback
 
 ## Integration Points
 
-The Module Explorer integrates with:
+- **ModuleContext**: Provides access to the complete module catalog
+- **SelectionContext**: Manages the current state of selected modules
+- **FilterContext**: Maintains filter state across component instances
+- **ModuleDetails**: Triggered from this component to show detailed information
 
-- **ModuleDetails**: For displaying detailed module information
-- **PDF Generation**: For creating shareable module documents
-- **Application Theme**: For consistent visual design across the application
+## Related Components
 
-## Performance Considerations
+- [ModuleSelector](./ModuleSelector.md): Works alongside this component for module selection
+- [ModuleDetails](./ModuleDetails.md): Displays detailed information about selected modules
+- [SummarySidebar](./SummarySidebar.md): Shows modules selected through this component
+- [JourneyPlanner](./JourneyPlanner.md): Uses modules selected through this component
 
-- Efficient filtering algorithms to handle large module catalogs
-- Optimized rendering of module grids with virtualization for large datasets
-- Careful state management to prevent unnecessary re-renders
-- Considered animation effects to maintain smooth performance
-
-## Future Enhancement Opportunities
-
-1. **Advanced Filtering**:
-   - Industry-specific module tagging
-   - Outcome-based filtering options
-   - Timeline or project phase filtering
-   - Effort or complexity indicators
-
-2. **Enhanced Comparison**:
-   - Side-by-side module comparison
-   - Module relationship visualization
-   - Complementary module suggestions
-   - Module alternatives identification
-
-3. **Content Enrichment**:
-   - Integration of case studies with module cards
-   - Video explanations of key module concepts
-   - Expert commentary and insights for each module
-   - Client testimonials and success stories
-
-4. **Personalization**:
-   - AI-driven module recommendations based on user behavior
-   - Industry-specific default views
-   - Personalized module collections
-   - Preference-based sorting and filtering
-
-## Implementation Guidelines
-
-When implementing or extending the Module Explorer:
-
-1. Maintain visual consistency with the established design system
-2. Ensure all module cards contain consistent levels of information
-3. Keep animations subtle and purposeful
-4. Prioritize performance with large module datasets
-5. Adhere to the pillar color system consistently throughout the interface
-6. Maintain accessibility standards for all interactive elements
-7. Preserve the progressive disclosure approach to information
-
-## Metrics & Success Indicators
-
-The effectiveness of the Module Explorer should be measured by:
-
-1. Engagement depth (time spent exploring modules)
-2. Search and filter usage patterns
-3. Module detail view conversions (cards viewed vs. details opened)
-4. PDF export frequency and patterns
-5. Module bookmarking behaviors
-6. Session duration and return visits
-
-By continuously optimizing against these metrics, the Module Explorer can become increasingly effective at helping users discover the most relevant consulting modules for their specific needs.
+**Note:** For comprehensive documentation of the Elexive Solution Builder, including the overall application architecture and user journey, see the [main application documentation](./CalculatorApp.md).
