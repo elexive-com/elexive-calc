@@ -65,15 +65,15 @@
   
   /* Typography - Standardized across components */
   .elx-heading-1 {
-    @apply text-2xl sm:text-3xl font-bold text-elx-primary mb-3;
+    @apply text-xl xs:text-2xl sm:text-3xl font-bold text-elx-primary mb-3;
   }
 
   .elx-heading-2 {
-    @apply text-xl font-bold text-elx-primary mb-4;
+    @apply text-lg xs:text-xl font-bold text-elx-primary mb-4;
   }
 
   .elx-heading-3 {
-    @apply text-lg font-bold text-elx-primary mb-2;
+    @apply text-base xs:text-lg font-bold text-elx-primary mb-2;
   }
   
   /* Pillar title for module box */
@@ -295,6 +295,25 @@
   
   .elx-clear-button {
     @apply bg-elx-primary text-white;
+  }
+  
+  /* Responsive image components */
+  .elx-responsive-image {
+    @apply w-4/5 mx-auto xs:w-full max-h-[160px] sm:max-h-none object-cover shadow-md rounded-tl-2xl rounded-tr-none rounded-br-2xl rounded-bl-none;
+  }
+  
+  .elx-image-optional {
+    @apply hidden xs:block;
+  }
+  
+  /* Mobile optimized containers */
+  .elx-mobile-compact {
+    @apply mt-4 xs:mt-6;
+  }
+  
+  /* Mobile-friendly titles and elements */
+  .elx-mobile-title {
+    @apply text-base xs:text-lg sm:text-xl;
   }
 }
 
