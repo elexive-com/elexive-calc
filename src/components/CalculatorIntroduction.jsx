@@ -26,7 +26,7 @@ const CollapsibleCard = ({ title, icon, content }) => {
     <div className="border-t border-gray-200 overflow-hidden">
       {/* Clean, minimalist header - clickable */}
       <div 
-        className="py-4 px-2 flex items-center justify-between w-full cursor-pointer"
+        className="py-4 px-2 sm:px-3 flex items-center justify-between w-full cursor-pointer"
         onClick={toggleCard}
       >
         <div className="flex-1">
@@ -46,7 +46,7 @@ const CollapsibleCard = ({ title, icon, content }) => {
       
       {/* Content area with conditional rendering */}
       <div 
-        className={`overflow-hidden transition-all duration-300 ${isExpanded ? 'opacity-100 py-3 sm:py-4' : 'opacity-0 h-0 py-0'}`}
+        className={`overflow-hidden transition-all duration-300 ${isExpanded ? 'opacity-100 py-3 sm:py-4 px-1 sm:px-2' : 'opacity-0 h-0 py-0'}`}
       >
         {isExpanded && content}
       </div>
@@ -80,7 +80,7 @@ const CalculatorIntroduction = ({ onGetStarted }) => {
   return (
     <div className="elx-card p-4 sm:p-6 mb-6">
       {/* HEADER: Lead with control and speed */}
-      <div className="flex flex-col md:flex-row items-start md:items-center justify-between mb-5 md:mb-6">
+      <div className="elx-section-tight flex flex-col md:flex-row items-start md:items-center justify-between mb-5 md:mb-6">
         <div className="flex-1">
           <h2 className="text-2xl sm:text-3xl font-bold text-elx-primary mb-3">
             Build Your Transformation Plan, Your Way
@@ -92,7 +92,7 @@ const CalculatorIntroduction = ({ onGetStarted }) => {
       </div>
 
       {/* TOP ACTION SECTION: Immediate option to proceed */}
-      <div className="bg-elx-primary bg-opacity-5 rounded-xl p-4 sm:p-5 mb-6 md:mb-8 border border-elx-primary border-opacity-20">
+      <div className="elx-section-tight bg-elx-primary bg-opacity-5 rounded-xl p-4 sm:p-5 border border-elx-primary border-opacity-20">
         <div className="flex flex-col md:flex-row md:justify-between md:items-center gap-3 md:gap-4">
           <div className="flex-1">
             <h3 className="text-lg font-semibold text-elx-primary mb-2">
@@ -118,7 +118,7 @@ const CalculatorIntroduction = ({ onGetStarted }) => {
         
         <div className="flex flex-col md:flex-row">
           <div className="order-1 md:order-1 w-full md:w-3/4 pr-0 md:pr-8">
-            <div className="space-y-1 md:space-y-0">
+            <div className="space-y-2 md:space-y-0">
               <CollapsibleCard 
                 title="3-5x Return on Investment"
                 icon={faMoneyBillWave}
@@ -130,7 +130,7 @@ const CalculatorIntroduction = ({ onGetStarted }) => {
                 
                   <div className="pt-3 border-t border-gray-200">
                     <h5 className="font-medium text-elx-primary text-sm mb-2">How we deliver this ROI:</h5>
-                    <ul className="text-sm text-gray-600 space-y-1 pl-1">
+                    <ul className="text-sm text-gray-600 space-y-1 pl-1 sm:pl-2">
                       <li className="flex items-start">
                         <FontAwesomeIcon icon={faCheckCircle} className="text-elx-accent mt-0.5 mr-2 flex-shrink-0 text-xs" />
                         <span>Strategic operational improvements that reduce costs</span>
@@ -160,7 +160,7 @@ const CalculatorIntroduction = ({ onGetStarted }) => {
                 
                   <div className="pt-3 border-t border-gray-200">
                     <h5 className="font-medium text-elx-primary text-sm mb-2">Our rapid delivery approach:</h5>
-                    <ul className="text-sm text-gray-600 space-y-1">
+                    <ul className="text-sm text-gray-600 space-y-1 pl-1 sm:pl-2">
                       <li className="flex items-start">
                         <FontAwesomeIcon icon={faCheckCircle} className="text-elx-accent mt-0.5 mr-2 flex-shrink-0 text-xs" />
                         <span>Agile implementation methodology focused on quick wins</span>
@@ -188,7 +188,7 @@ const CalculatorIntroduction = ({ onGetStarted }) => {
                 
                   <div className="pt-3 border-t border-gray-200">
                     <h5 className="font-medium text-elx-primary text-sm mb-2">How we minimize risk:</h5>
-                    <ul className="text-sm text-gray-600 space-y-1">
+                    <ul className="text-sm text-gray-600 space-y-1 pl-1 sm:pl-2">
                       <li className="flex items-start">
                         <FontAwesomeIcon icon={faCheckCircle} className="text-elx-accent mt-0.5 mr-2 flex-shrink-0 text-xs" />
                         <span>Phased implementation with clear go/no-go decision points</span>
@@ -218,7 +218,7 @@ const CalculatorIntroduction = ({ onGetStarted }) => {
                   
                   <div className="pt-3 border-t border-gray-200">
                     <h5 className="font-medium text-elx-primary text-sm mb-2">How our value model works:</h5>
-                    <div className="bg-gray-50 rounded-lg p-3 mb-3">
+                    <div className="bg-gray-50 rounded-lg p-3 sm:p-4 mb-3">
                       <div className="flex flex-col md:flex-row items-center justify-around gap-3 md:gap-4">
                         <div className="text-center mb-2 md:mb-0">
                           <div className="text-sm font-semibold text-elx-primary mb-1">Your Business Challenge</div>
@@ -248,7 +248,7 @@ const CalculatorIntroduction = ({ onGetStarted }) => {
               <img 
                 src={`${process.env.PUBLIC_URL}/bonsai-square-1.png`} 
                 alt="Bonsai tree representing growth and balance" 
-                className="w-full shadow-md rounded-tl-2xl rounded-tr-none rounded-br-2xl rounded-bl-none" 
+                className="w-full shadow-md rounded-tl-2xl rounded-tr-none rounded-br-2xl rounded-bl-none mb-3 sm:mb-0" 
               />
             </div>
           </div>
@@ -256,7 +256,7 @@ const CalculatorIntroduction = ({ onGetStarted }) => {
       </div>
 
       {/* 2. BUSINESS CHALLENGES - CEOs primarily care about their specific problems */}
-      <div className="mb-8">
+      <div className="elx-section">
         <h3 className="elx-heading-2">Critical Business Challenges We Solve</h3>
         <div className="flex flex-col md:flex-row">
           <div className="order-2 md:order-1 w-full md:w-1/4 mb-6 md:mb-0 md:pr-6">
@@ -264,13 +264,13 @@ const CalculatorIntroduction = ({ onGetStarted }) => {
               <img 
                 src={`${process.env.PUBLIC_URL}/bonsai-square-1.png`} 
                 alt="Bonsai tree representing growth and balance" 
-                className="w-full shadow-md rounded-tl-2xl rounded-tr-none rounded-br-2xl rounded-bl-none" 
+                className="w-full shadow-md rounded-tl-2xl rounded-tr-none rounded-br-2xl rounded-bl-none mb-3 sm:mb-0" 
               />
             </div>
           </div>
         
           <div className="order-1 md:order-2 w-full md:w-3/4">
-            <div className="space-y-1 md:space-y-0">
+            <div className="space-y-2 md:space-y-0">
               <CollapsibleCard 
                 title="Growth & Revenue"
                 icon={faLightbulb}
@@ -282,7 +282,7 @@ const CalculatorIntroduction = ({ onGetStarted }) => {
                   
                     <div className="pt-3 border-t border-gray-200">
                       <h5 className="font-medium text-elx-primary text-sm mb-2">Growth strategies we deliver:</h5>
-                      <ul className="text-sm text-gray-600 space-y-1">
+                      <ul className="text-sm text-gray-600 space-y-1 pl-1 sm:pl-2">
                         <li className="flex items-start">
                           <FontAwesomeIcon icon={faCheckCircle} className="text-elx-accent mt-0.5 mr-2 flex-shrink-0 text-xs" />
                           <span>Market expansion and new customer acquisition frameworks</span>
@@ -312,7 +312,7 @@ const CalculatorIntroduction = ({ onGetStarted }) => {
                   
                     <div className="pt-3 border-t border-gray-200">
                       <h5 className="font-medium text-elx-primary text-sm mb-2">Operational excellence solutions:</h5>
-                      <ul className="text-sm text-gray-600 space-y-1">
+                      <ul className="text-sm text-gray-600 space-y-1 pl-1 sm:pl-2">
                         <li className="flex items-start">
                           <FontAwesomeIcon icon={faCheckCircle} className="text-elx-accent mt-0.5 mr-2 flex-shrink-0 text-xs" />
                           <span>Process optimization and workflow streamlining</span>
@@ -342,7 +342,7 @@ const CalculatorIntroduction = ({ onGetStarted }) => {
                   
                     <div className="pt-3 border-t border-gray-200">
                       <h5 className="font-medium text-elx-primary text-sm mb-2">Innovation frameworks we implement:</h5>
-                      <ul className="text-sm text-gray-600 space-y-1">
+                      <ul className="text-sm text-gray-600 space-y-1 pl-1 sm:pl-2">
                         <li className="flex items-start">
                           <FontAwesomeIcon icon={faCheckCircle} className="text-elx-accent mt-0.5 mr-2 flex-shrink-0 text-xs" />
                           <span>Structured innovation processes and idea management</span>
@@ -366,12 +366,12 @@ const CalculatorIntroduction = ({ onGetStarted }) => {
       </div>
 
       {/* VALUE PROPOSITION: Differentiation & control - Redesigned with collapsible cards & bonsai image */}
-      <div className="mb-8">
+      <div className="elx-section">
         <h3 className="elx-heading-2">Why Executives Choose This Approach</h3>
         
         <div className="flex flex-col md:flex-row">
           <div className="order-1 md:order-1 w-full md:w-3/4 pr-0 md:pr-8">
-            <div className="space-y-1 md:space-y-0">
+            <div className="space-y-2 md:space-y-0">
               <CollapsibleCard 
                 title="Instant Visibility & Transparency"
                 icon={faChartPie}
@@ -383,7 +383,7 @@ const CalculatorIntroduction = ({ onGetStarted }) => {
                     
                     <div className="pt-3 border-t border-gray-200">
                       <h5 className="font-medium text-elx-primary text-sm mb-2">Benefits of complete transparency:</h5>
-                      <ul className="text-sm text-gray-600 space-y-1">
+                      <ul className="text-sm text-gray-600 space-y-1 pl-1 sm:pl-2">
                         <li className="flex items-start">
                           <FontAwesomeIcon icon={faCheckCircle} className="text-elx-accent mt-0.5 mr-2 flex-shrink-0 text-xs" />
                           <span>Item-by-item breakdown of costs and services</span>
@@ -413,7 +413,7 @@ const CalculatorIntroduction = ({ onGetStarted }) => {
                     
                     <div className="pt-3 border-t border-gray-200">
                       <h5 className="font-medium text-elx-primary text-sm mb-2">Our self-directed approach:</h5>
-                      <ul className="text-sm text-gray-600 space-y-1">
+                      <ul className="text-sm text-gray-600 space-y-1 pl-1 sm:pl-2">
                         <li className="flex items-start">
                           <FontAwesomeIcon icon={faCheckCircle} className="text-elx-accent mt-0.5 mr-2 flex-shrink-0 text-xs" />
                           <span>Make decisions on your timeline, not a salesperson's</span>
@@ -443,7 +443,7 @@ const CalculatorIntroduction = ({ onGetStarted }) => {
                     
                     <div className="pt-3 border-t border-gray-200">
                       <h5 className="font-medium text-elx-primary text-sm mb-2">How we enable customization:</h5>
-                      <ul className="text-sm text-gray-600 space-y-1">
+                      <ul className="text-sm text-gray-600 space-y-1 pl-1 sm:pl-2">
                         <li className="flex items-start">
                           <FontAwesomeIcon icon={faCheckCircle} className="text-elx-accent mt-0.5 mr-2 flex-shrink-0 text-xs" />
                           <span>Modular components you can mix and match</span>
@@ -473,7 +473,7 @@ const CalculatorIntroduction = ({ onGetStarted }) => {
                     
                     <div className="pt-3 border-t border-gray-200">
                       <h5 className="font-medium text-elx-primary text-sm mb-2">How you maintain control:</h5>
-                      <ul className="text-sm text-gray-600 space-y-1">
+                      <ul className="text-sm text-gray-600 space-y-1 pl-1 sm:pl-2">
                         <li className="flex items-start">
                           <FontAwesomeIcon icon={faCheckCircle} className="text-elx-accent mt-0.5 mr-2 flex-shrink-0 text-xs" />
                           <span>Configure specific resources for your unique business challenges</span>
@@ -499,11 +499,11 @@ const CalculatorIntroduction = ({ onGetStarted }) => {
               <img 
                 src={`${process.env.PUBLIC_URL}/bonsai-square-1.png`} 
                 alt="Bonsai tree representing growth and balance" 
-                className="w-full shadow-md rounded-tl-2xl rounded-tr-none rounded-br-2xl rounded-bl-none" 
+                className="w-full shadow-md rounded-tl-2xl rounded-tr-none rounded-br-2xl rounded-bl-none mb-3 sm:mb-0" 
               />
               <div className="mt-3 md:mt-4 p-3 md:p-4 bg-gray-50 rounded-lg border border-gray-200">
                 <div className="flex items-center mb-1 md:mb-2">
-                  <FontAwesomeIcon icon={faInfoCircle} className="text-elx-primary mr-2" />
+                  <FontAwesomeIcon icon={faInfoCircle} className="text-elx-primary mr-2 flex-shrink-0" />
                   <p className="text-sm font-medium text-elx-primary">
                     Design your solution in under 5 minutes. Download instantly.
                   </p>
@@ -515,7 +515,7 @@ const CalculatorIntroduction = ({ onGetStarted }) => {
       </div>
 
       {/* SIMPLIFIED PROCESS: 3 collapsible steps */}
-      <div className="mb-8">
+      <div className="elx-section">
         <h3 className="elx-heading-2 flex items-center">
           Design Your Solution in 3 Steps
         </h3>
@@ -526,13 +526,13 @@ const CalculatorIntroduction = ({ onGetStarted }) => {
               <img 
                 src={`${process.env.PUBLIC_URL}/bonsai-square-1.png`} 
                 alt="Bonsai tree representing growth and balance" 
-                className="w-full shadow-md rounded-tl-2xl rounded-tr-none rounded-br-2xl rounded-bl-none" 
+                className="w-full shadow-md rounded-tl-2xl rounded-tr-none rounded-br-2xl rounded-bl-none mb-3 sm:mb-0" 
               />
             </div>
           </div>
           
           <div className="order-1 md:order-2 w-full md:w-3/4">
-            <div className="space-y-3 md:space-y-4">
+            <div className="space-y-4 md:space-y-4">
               {/* Step 1 - Collapsible */}
               <CollapsibleCard 
                 title={
@@ -552,7 +552,7 @@ const CalculatorIntroduction = ({ onGetStarted }) => {
                     </p>
                     <div className="bg-gray-50 rounded-lg p-4 mb-3 border border-gray-200">
                       <h5 className="font-medium text-elx-primary mb-2">This step includes:</h5>
-                      <ul className="text-sm text-gray-600 space-y-2">
+                      <ul className="text-sm text-gray-600 space-y-2 pl-1 sm:pl-2">
                         <li className="flex items-start">
                           <FontAwesomeIcon icon={faCheckCircle} className="text-elx-accent mt-1 mr-2 flex-shrink-0" />
                           <span>Selecting from common business transformation scenarios or creating a custom challenge definition</span>
@@ -593,7 +593,7 @@ const CalculatorIntroduction = ({ onGetStarted }) => {
                     </p>
                     <div className="bg-gray-50 rounded-lg p-4 mb-3 border border-gray-200">
                       <h5 className="font-medium text-elx-primary mb-2">This step includes:</h5>
-                      <ul className="text-sm text-gray-600 space-y-2">
+                      <ul className="text-sm text-gray-600 space-y-2 pl-1 sm:pl-2">
                         <li className="flex items-start">
                           <FontAwesomeIcon icon={faCheckCircle} className="text-elx-accent mt-1 mr-2 flex-shrink-0" />
                           <span>Exploring our comprehensive module library with detailed descriptions of each service</span>
@@ -634,7 +634,7 @@ const CalculatorIntroduction = ({ onGetStarted }) => {
                     </p>
                     <div className="bg-gray-50 rounded-lg p-4 mb-3 border border-gray-200">
                       <h5 className="font-medium text-elx-primary mb-2">This step includes:</h5>
-                      <ul className="text-sm text-gray-600 space-y-2">
+                      <ul className="text-sm text-gray-600 space-y-2 pl-1 sm:pl-2">
                         <li className="flex items-start">
                           <FontAwesomeIcon icon={faCheckCircle} className="text-elx-accent mt-1 mr-2 flex-shrink-0" />
                           <span>Fine-tuning delivery timeframes to match your business urgency (from quick-start to phased approach)</span>
@@ -675,7 +675,7 @@ const CalculatorIntroduction = ({ onGetStarted }) => {
       </div>
 
       {/* SOLUTION FRAMEWORK: Three key areas of expertise */}
-      <div className="mb-8">
+      <div className="elx-section">
         <h3 className="elx-heading-2">Solution Framework: Three Strategic Areas</h3>
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 md:gap-6">
           {pillars.map(pillar => {
@@ -725,11 +725,11 @@ const CalculatorIntroduction = ({ onGetStarted }) => {
       </div>
 
       {/* SOCIAL PROOF: Executive testimonials */}
-      <div className="mb-8 bg-gray-50 rounded-xl p-4 sm:p-6 border border-gray-200 shadow-sm">
+      <div className="elx-section bg-gray-50 rounded-xl p-4 sm:p-6 border border-gray-200 shadow-sm">
         <h3 className="elx-heading-2">What Other Executives Are Saying</h3>
         
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
-          <div className="bg-white p-5 rounded-lg shadow-sm border border-gray-200">
+          <div className="bg-white p-4 sm:p-5 rounded-lg shadow-sm border border-gray-200">
             <div className="flex items-center mb-3">
               <div className="w-12 h-12 rounded-full bg-elx-primary text-white flex items-center justify-center font-bold text-lg mr-3">
                 SC
@@ -744,7 +744,7 @@ const CalculatorIntroduction = ({ onGetStarted }) => {
             </p>
           </div>
           
-          <div className="bg-white p-5 rounded-lg shadow-sm border border-gray-200">
+          <div className="bg-white p-4 sm:p-5 rounded-lg shadow-sm border border-gray-200">
             <div className="flex items-center mb-3">
               <div className="w-12 h-12 rounded-full bg-elx-primary text-white flex items-center justify-center font-bold text-lg mr-3">
                 ML
@@ -763,7 +763,7 @@ const CalculatorIntroduction = ({ onGetStarted }) => {
 
       
       {/* FINAL CTA: Emphasize control, transparency and ease */}
-      <div className="flex flex-col items-center pt-5 mt-2 border-t border-gray-200">
+      <div className="elx-section flex flex-col items-center pt-5 mt-2 border-t border-gray-200">
         <p className="text-gray-600 mb-5 text-center max-w-3xl">
           Ready to craft your strategic business plan? Get exactly what you need with complete transparency on costs, timelines, and expected outcomes.
         </p>
@@ -780,7 +780,7 @@ const CalculatorIntroduction = ({ onGetStarted }) => {
         
         {/* Executive Decision Support */}
         <div className="mt-5 text-center max-w-xl">
-          <p className="text-sm text-gray-600 flex flex-wrap justify-center items-center gap-3">
+          <p className="text-sm text-gray-600 flex flex-wrap justify-center items-center gap-2 sm:gap-3">
             <span className="flex items-center"><FontAwesomeIcon icon={faCheckCircle} className="text-elx-secondary mr-1" /> Complete cost transparency</span>
             <span className="flex items-center"><FontAwesomeIcon icon={faCheckCircle} className="text-elx-secondary mr-1" /> Detailed ROI projections</span>
             <span className="flex items-center"><FontAwesomeIcon icon={faCheckCircle} className="text-elx-secondary mr-1" /> Implementation timeline included</span>
