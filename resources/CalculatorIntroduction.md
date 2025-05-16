@@ -26,104 +26,153 @@ The CalculatorIntroduction addresses critical customer needs identified in our r
    - Uses executive-friendly language that resonates with target audience
    - Creates immediate context for the calculator's role in transformation planning
 
-2. **Business Challenge Framing**
+2. **Business Impact Demonstration**
+   - Highlights key business outcomes with ROI metrics and timeframes
+   - Presents measurable results through collapsible information cards
+   - Establishes value model understanding through educational elements
+
+3. **Business Challenge Framing**
    - Presents common transformation challenges that users can identify with
    - Organizes challenges into logical categories for easier comprehension
    - Creates recognition and relevance for prospective users
 
-3. **Educational Content Delivery**
-   - Explains key concepts through progressive disclosure mechanisms
-   - Balances depth of information with accessibility and readability
-   - Establishes the value model foundations needed for informed configuration
+4. **Step-by-Step Solution Process**
+   - Provides a clear 3-step process for using the solution builder
+   - Uses numbered steps with detailed explanations in collapsible cards
+   - Creates a coherent mental model for how the transformation works
 
-4. **Journey Initiation**
-   - Provides clear next steps to begin the calculator experience
-   - Creates appropriate expectations for the configuration process
-   - Transitions users smoothly to the interactive components
+5. **Executive Social Proof**
+   - Includes testimonials from executives who have used the platform
+   - Reinforces value proposition through peer validation
+   - Builds credibility through specific success stories
 
 ## Component-Specific Design Decisions
 
-### Educational Content Design
+### Visual Structure and Layout
 
-This component implements the [Educational Content Pattern](./DesignGuidelines.md#3-educational-content-pattern) with the following specific adaptations for onboarding:
+The component implements a highly organized section-based structure:
 
-1. **Header Section** - Specialized introductory content:
+1. **Hero Section** - Initial value proposition:
    - Uses bold typography to communicate value proposition immediately
-   - Includes supporting visual elements that reinforce the "calculator" concept
+   - Includes a prominent call-to-action button for immediate engagement
    - Sets the tone for a professional but approachable experience
    - Creates immediate relevance through business-focused language
 
+2. **Section-Based Content Organization** - Logical information flow:
+   - Organizes content into clearly delineated sections with consistent headings
+   - Alternates content and visual elements for balanced visual rhythm
+   - Uses two-column layouts for desktop views to maximize information density
+   - Implements responsive adjustments for mobile viewing
+
+3. **Image Integration** - Strategic visual reinforcement:
+   - Places relevant imagery adjacent to related content sections
+   - Uses consistent styling with rounded corners and shadow treatments
+   - Implements the "bonsai" visual metaphor representing growth and balance
+   - Creates visual interest while maintaining focus on critical information
+
+### Collapsible Card Implementation
+
+This component extensively implements the [Expandable Section Pattern](./DesignGuidelines.md#2-expandable-section-pattern) through CollapsibleCard components:
+
+1. **Business Impact Cards** - ROI and value metrics:
+   - Present concrete value propositions with specific metrics
+   - Use consistent iconography to visually categorize different impacts
+   - Include supporting details beneath main propositions when expanded
+   - Create clear pathway from impact to implementation details
+
 2. **Business Challenge Cards** - Problem framing approach:
-   - Organizes challenges into three distinct categories for easier comprehension
-   - Uses consistent card styling with appropriate visual hierarchy
-   - Includes recognizable iconography that reinforces challenge categories
-   - Balances conciseness with sufficient detail to establish relevance
+   - Organize challenges into distinct categories with recognizable domains
+   - Use consistent card styling with appropriate visual hierarchy
+   - Include solution-oriented content in expanded views
+   - Balance conciseness with sufficient detail to establish relevance
 
-3. **Expandable Sections** - Progressive disclosure implementation:
-   - Implement clear visual affordances indicating expandability
-   - Maintain consistent styling between collapsed and expanded states
-   - Group related concepts together to create coherent information blocks
-   - Use subtle animations to provide feedback during interaction
+3. **Solution Process Steps** - Numbered sequential process:
+   - Implement numbered indicators with consistent visual treatment
+   - Use clear titles that describe each step's purpose
+   - Include detailed implementation details in expanded content
+   - Create a coherent visual narrative through the transformation process
 
-4. **Call-to-Action Area** - Tailored transition point:
-   - Creates visual emphasis through color and positioning
-   - Uses action-oriented language that frames the next step in terms of user benefits
-   - Provides sufficient visual weight to attract attention without overwhelming
-   - Includes appropriate iconography to reinforce the action
+### Strategic Approach for Executives
 
-### Progressive Disclosure Strategy
+The component implements specific strategies to address executive decision-making patterns:
 
-This component implements the [Expandable Section Pattern](./DesignGuidelines.md#2-expandable-section-pattern) with these specific adaptations for introduction content:
+1. **Outcome-First Presentation** - Leading with business impact:
+   - Prominently features ROI metrics and delivery timeframes
+   - Presents concrete outcomes before process details
+   - Uses executive-oriented language focused on business value
+   - Creates immediate relevance for strategic decision-makers
 
-1. **Expandable Information Panels** - The collapsible sections:
-   - Remain collapsed by default to reduce initial visual complexity
-   - Expand smoothly with animation to show detailed content
-   - Group related information together for contextual understanding
-   - Provide immediate visual feedback when toggled
+2. **Social Proof Integration** - Peer validation approach:
+   - Includes testimonials from other executives with similar challenges
+   - Displays organizational affiliations to establish credibility
+   - Uses direct quotes that emphasize speed and transparency
+   - Creates trust through shared executive experiences
 
-2. **Information Layering** - The content structure:
-   - Presents high-level concepts first with options to explore details
-   - Uses visual distinction between primary and supplementary information
-   - Creates clear visual patterns for different information types
-   - Allows users to control their information consumption pace
+3. **Self-Directed Process Emphasis** - Control and autonomy:
+   - Highlights the user's control over the configuration process
+   - Emphasizes transparency in pricing and outcomes
+   - Positions the experience as efficient and respectful of executive time
+   - Creates clear contrast with traditional consulting sales approaches
 
 ## Technical Implementation
 
 ### Component Structure
 
 1. **Hero Section**
-   - Prominent heading with calculator value proposition
-   - Supporting subheading with additional context
-   - Visual elements that reinforce the calculator concept
+   - Prominent heading with value proposition
+   - Supporting subheading with contextual details
+   - Primary call-to-action button with icon integration
 
-2. **Challenge Cards Section**
-   - Three distinct card components representing transformation challenge categories
-   - Consistent card layout with icon, heading, and description
-   - Interactive hover states for visual feedback
+2. **Section-Based Organization**
+   - Multiple distinct sections with consistent heading styles
+   - Two-column layouts for desktop views (typically content and imagery)
+   - Responsive adjustments for mobile viewing experiences
+   - Consistent spacing and margin patterns between sections
 
-3. **Expandable Information Panels**
-   - Collapsible sections with toggle controls
-   - Content areas that expand/collapse smoothly
-   - Consistent styling for collapsed and expanded states
+3. **CollapsibleCard Components**
+   - Reusable collapsible card pattern used throughout
+   - Consistent toggle behavior and styling across all instances
+   - Content appropriately structured within cards
+   - Various card configurations for different content types:
+     - Icon + title cards for business impacts and challenges
+     - Numbered step cards for the solution process
+     - Testimonial cards for social proof
 
-4. **Call-to-Action Area**
-   - Primary button to initiate the calculator experience
-   - Supporting text explaining the next steps
-   - Visual treatment that draws attention appropriately
+4. **Visual Elements**
+   - Strategically placed imagery with consistent styling
+   - Rounded corner treatments with shadow effects for depth
+   - Responsive image handling for different viewport sizes
+   - Background color variations to create visual distinction between sections
+
+5. **Call-to-Action Integration**
+   - Primary action buttons at strategic points throughout the component
+   - Consistent button styling with appropriate icon integration
+   - Multiple engagement opportunities with similar visual treatment
+   - Final call-to-action with reinforcing benefit statements
+
+### Props
+
+- `onGetStarted`: Function handler for the primary call-to-action buttons
 
 ### Integration Points
 
-- **OnboardingQuiz**: The CTA button transitions users to the OnboardingQuiz component
+- **OnboardingQuiz**: The CTA buttons transition users to the OnboardingQuiz component
 - **FeatureIntroduction**: Leverages the FeatureIntroduction component for consistent educational content
 
 ## Related Components
 
 - [OnboardingQuiz](./OnboardingQuiz.md): Follows the CalculatorIntroduction in the user journey
 - [FeatureIntroduction](./FeatureIntroduction.md): Used within the component for consistent educational content
+- [ModuleSelector](./ModuleSelector.md): Referenced in the 3-step process as part of solution configuration
+- [JourneyPlanner](./JourneyPlanner.md): Alternative approach to module selection referenced indirectly
+- [EvcExplainer](./EvcExplainer.md): Value model concepts are introduced that are detailed in this component
 
-5. **Call-to-Action Integration**
-   - Provides a prominent button to proceed to the main calculator interface
-   - Creates a clear entry point that encourages user engagement
+## Call-to-Action Integration
+
+- Provides multiple prominent buttons to proceed to the main calculator interface
+- Creates clear entry points that encourage user engagement at various points in the content flow
+- Uses consistent action-oriented language that emphasizes user benefits
+- Incorporates appropriate iconography to reinforce the progression to the next step
    - Frames the action in terms of solving business challenges
 
 ### Interaction Design

@@ -119,6 +119,7 @@ This component follows the modal design guidelines in [Interaction Patterns](./D
 - [SummarySidebar](./SummarySidebar.md): Contains the information icon that launches this modal
 - [ResourceAllocationSelector](./ResourceAllocationSelector.md): Related to the overhead concepts explained
 - [ProductionCapacitySelector](./ProductionCapacitySelector.md): Connected to EVC production capacity concept
+- [CalculatorIntroduction](./CalculatorIntroduction.md): Introduces the value model concepts that are detailed in this component
 - [PricingSummary](./PricingSummary.md): Uses EVCs as the basis for pricing calculations
 
 ## Core Functionality

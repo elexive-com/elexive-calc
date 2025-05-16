@@ -134,6 +134,7 @@ This component implements the [Card Design Pattern](./DesignGuidelines.md#1-card
 - [ModuleExplorer](./ModuleExplorer.md): Comprehensive module browsing interface with search capabilities
 - [SummarySidebar](./SummarySidebar.md): Shows modules selected in the Journey Planner
 - [OnboardingQuiz](./OnboardingQuiz.md): May direct users to a specific journey stage based on responses
+- [CalculatorIntroduction](./CalculatorIntroduction.md): References the transformation journey process outlined in this component
 
 Users can interact with modules through:
 
