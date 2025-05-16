@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { 
-  faInfoCircle, faArrowRight, faCalculator, 
+  faInfoCircle, faArrowRight, 
   faLightbulb, faPuzzlePiece,
   faLayerGroup,
   faCheckCircle, faNetworkWired,
@@ -31,12 +31,12 @@ const CollapsibleCard = ({ title, icon, content }) => {
       >
         <div className="flex-1">
           {typeof title === 'string' ? (
-            <h4 className="font-semibold text-lg text-indigo-900">{title}</h4>
+            <h4 className="font-semibold text-lg text-indigo-900 pr-2">{title}</h4>
           ) : (
             title
           )}
         </div>
-        <div>
+        <div className="flex-shrink-0">
           <FontAwesomeIcon 
             icon={isExpanded ? faMinus : faPlus} 
             className="text-indigo-900" 
@@ -46,7 +46,7 @@ const CollapsibleCard = ({ title, icon, content }) => {
       
       {/* Content area with conditional rendering */}
       <div 
-        className={`overflow-hidden transition-all duration-300 ${isExpanded ? 'opacity-100 py-4' : 'opacity-0 h-0 py-0'}`}
+        className={`overflow-hidden transition-all duration-300 ${isExpanded ? 'opacity-100 py-3 sm:py-4' : 'opacity-0 h-0 py-0'}`}
       >
         {isExpanded && content}
       </div>
@@ -78,9 +78,9 @@ const CalculatorIntroduction = ({ onGetStarted }) => {
   ];
 
   return (
-    <div className="elx-card p-6 mb-6">
+    <div className="elx-card p-4 sm:p-6 mb-6">
       {/* HEADER: Lead with control and speed */}
-      <div className="flex flex-col md:flex-row items-start md:items-center justify-between mb-6">
+      <div className="flex flex-col md:flex-row items-start md:items-center justify-between mb-5 md:mb-6">
         <div className="flex-1">
           <h2 className="text-2xl sm:text-3xl font-bold text-elx-primary mb-3">
             Build Your Transformation Plan, Your Way
@@ -89,14 +89,11 @@ const CalculatorIntroduction = ({ onGetStarted }) => {
             Configure your business solution instantly. Get precise breakdown of the cost. Move forward on your timeline.
           </p>
         </div>
-        <div className="hidden md:flex items-center justify-center w-20 h-20 bg-elx-primary rounded-xl shadow-md mt-4 md:mt-0 md:ml-6">
-          <FontAwesomeIcon icon={faCalculator} className="text-white text-3xl" />
-        </div>
       </div>
 
       {/* TOP ACTION SECTION: Immediate option to proceed */}
-      <div className="bg-elx-primary bg-opacity-5 rounded-xl p-5 mb-8 border border-elx-primary border-opacity-20">
-        <div className="flex flex-col md:flex-row md:justify-between md:items-center gap-4">
+      <div className="bg-elx-primary bg-opacity-5 rounded-xl p-4 sm:p-5 mb-6 md:mb-8 border border-elx-primary border-opacity-20">
+        <div className="flex flex-col md:flex-row md:justify-between md:items-center gap-3 md:gap-4">
           <div className="flex-1">
             <h3 className="text-lg font-semibold text-elx-primary mb-2">
               Get Started Now
@@ -121,7 +118,7 @@ const CalculatorIntroduction = ({ onGetStarted }) => {
         
         <div className="flex flex-col md:flex-row">
           <div className="order-1 md:order-1 w-full md:w-3/4 pr-0 md:pr-8">
-            <div className="space-y-0">
+            <div className="space-y-1 md:space-y-0">
               <CollapsibleCard 
                 title="3-5x Return on Investment"
                 icon={faMoneyBillWave}
@@ -133,7 +130,7 @@ const CalculatorIntroduction = ({ onGetStarted }) => {
                 
                   <div className="pt-3 border-t border-gray-200">
                     <h5 className="font-medium text-elx-primary text-sm mb-2">How we deliver this ROI:</h5>
-                    <ul className="text-sm text-gray-600 space-y-1">
+                    <ul className="text-sm text-gray-600 space-y-1 pl-1">
                       <li className="flex items-start">
                         <FontAwesomeIcon icon={faCheckCircle} className="text-elx-accent mt-0.5 mr-2 flex-shrink-0 text-xs" />
                         <span>Strategic operational improvements that reduce costs</span>
@@ -222,8 +219,8 @@ const CalculatorIntroduction = ({ onGetStarted }) => {
                   <div className="pt-3 border-t border-gray-200">
                     <h5 className="font-medium text-elx-primary text-sm mb-2">How our value model works:</h5>
                     <div className="bg-gray-50 rounded-lg p-3 mb-3">
-                      <div className="flex flex-col md:flex-row items-center justify-around gap-4">
-                        <div className="text-center">
+                      <div className="flex flex-col md:flex-row items-center justify-around gap-3 md:gap-4">
+                        <div className="text-center mb-2 md:mb-0">
                           <div className="text-sm font-semibold text-elx-primary mb-1">Your Business Challenge</div>
                           <div className="text-xs text-gray-600">Precisely Defined</div>
                         </div>
@@ -246,7 +243,7 @@ const CalculatorIntroduction = ({ onGetStarted }) => {
             </div>
           </div>
           
-          <div className="order-2 md:order-2 w-full md:w-1/4 mt-6 md:mt-0 md:pl-6">
+          <div className="order-2 md:order-2 w-full md:w-1/4 mt-4 md:mt-0 md:pl-6">
             <div className="sticky top-6">
               <img 
                 src={`${process.env.PUBLIC_URL}/bonsai-square-1.png`} 
@@ -273,7 +270,7 @@ const CalculatorIntroduction = ({ onGetStarted }) => {
           </div>
         
           <div className="order-1 md:order-2 w-full md:w-3/4">
-            <div className="space-y-0">
+            <div className="space-y-1 md:space-y-0">
               <CollapsibleCard 
                 title="Growth & Revenue"
                 icon={faLightbulb}
@@ -374,7 +371,7 @@ const CalculatorIntroduction = ({ onGetStarted }) => {
         
         <div className="flex flex-col md:flex-row">
           <div className="order-1 md:order-1 w-full md:w-3/4 pr-0 md:pr-8">
-            <div className="space-y-0">
+            <div className="space-y-1 md:space-y-0">
               <CollapsibleCard 
                 title="Instant Visibility & Transparency"
                 icon={faChartPie}
@@ -504,8 +501,8 @@ const CalculatorIntroduction = ({ onGetStarted }) => {
                 alt="Bonsai tree representing growth and balance" 
                 className="w-full shadow-md rounded-tl-2xl rounded-tr-none rounded-br-2xl rounded-bl-none" 
               />
-              <div className="mt-4 p-4 bg-gray-50 rounded-lg border border-gray-200">
-                <div className="flex items-center mb-2">
+              <div className="mt-3 md:mt-4 p-3 md:p-4 bg-gray-50 rounded-lg border border-gray-200">
+                <div className="flex items-center mb-1 md:mb-2">
                   <FontAwesomeIcon icon={faInfoCircle} className="text-elx-primary mr-2" />
                   <p className="text-sm font-medium text-elx-primary">
                     Design your solution in under 5 minutes. Download instantly.
@@ -524,7 +521,7 @@ const CalculatorIntroduction = ({ onGetStarted }) => {
         </h3>
         
         <div className="flex flex-col md:flex-row">
-          <div className="order-2 md:order-1 w-full md:w-1/4 mb-6 md:mb-0 md:pr-6">
+          <div className="order-2 md:order-1 w-full md:w-1/4 mb-4 md:mb-0 md:pr-6">
             <div>
               <img 
                 src={`${process.env.PUBLIC_URL}/bonsai-square-1.png`} 
@@ -535,7 +532,7 @@ const CalculatorIntroduction = ({ onGetStarted }) => {
           </div>
           
           <div className="order-1 md:order-2 w-full md:w-3/4">
-            <div className="space-y-4">
+            <div className="space-y-3 md:space-y-4">
               {/* Step 1 - Collapsible */}
               <CollapsibleCard 
                 title={
@@ -680,7 +677,7 @@ const CalculatorIntroduction = ({ onGetStarted }) => {
       {/* SOLUTION FRAMEWORK: Three key areas of expertise */}
       <div className="mb-8">
         <h3 className="elx-heading-2">Solution Framework: Three Strategic Areas</h3>
-        <div className="elx-grid-3col">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 md:gap-6">
           {pillars.map(pillar => {
             // Get the color code based on pillar type - improved contrast versions
             const getPillarColor = () => {
@@ -728,10 +725,10 @@ const CalculatorIntroduction = ({ onGetStarted }) => {
       </div>
 
       {/* SOCIAL PROOF: Executive testimonials */}
-      <div className="mb-8 bg-gray-50 rounded-xl p-6 border border-gray-200 shadow-sm">
+      <div className="mb-8 bg-gray-50 rounded-xl p-4 sm:p-6 border border-gray-200 shadow-sm">
         <h3 className="elx-heading-2">What Other Executives Are Saying</h3>
         
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
           <div className="bg-white p-5 rounded-lg shadow-sm border border-gray-200">
             <div className="flex items-center mb-3">
               <div className="w-12 h-12 rounded-full bg-elx-primary text-white flex items-center justify-center font-bold text-lg mr-3">
