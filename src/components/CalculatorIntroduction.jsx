@@ -117,7 +117,7 @@ const CalculatorIntroduction = ({ onGetStarted }) => {
         <h3 className="elx-heading-2">Business Impact You Can Expect</h3>
         
         <div className="w-full flex flex-col md:flex-row">
-          <div className="w-full md:w-3/4 pr-0 md:pr-8 order-1">
+          <div className="w-full md:w-2/3 pr-0 md:pr-8 order-1">
             <div className="space-y-2 md:space-y-0 elx-mobile-compact">
               <CollapsibleCard 
                 title="3-5x Return on Investment"
@@ -243,7 +243,7 @@ const CalculatorIntroduction = ({ onGetStarted }) => {
             </div>
           </div>
           
-          <div className="w-4/5 mx-auto md:w-1/4 mt-3 md:mt-0 md:pl-6 order-2">
+          <div className="w-4/5 mx-auto md:w-1/3 mt-3 md:mt-0 md:pl-6 order-2">
             <div className="sticky md:top-6">
               <div className="aspect-[21/9] sm:aspect-video md:aspect-square overflow-hidden mb-3">
                 <img 
@@ -261,7 +261,7 @@ const CalculatorIntroduction = ({ onGetStarted }) => {
       <div className="elx-section">
         <h3 className="elx-heading-2">Critical Business Challenges We Solve</h3>
         <div className="w-full flex flex-col md:flex-row">
-          <div className="w-4/5 mx-auto md:w-1/4 mb-5 md:mb-0 md:pr-6 order-2 md:order-1">
+          <div className="w-4/5 mx-auto md:w-1/3 mb-5 md:mb-0 md:pr-6 order-2 md:order-1">
             <div className="aspect-[21/9] sm:aspect-video md:aspect-square overflow-hidden mb-3">
               <img 
                 src={`${process.env.PUBLIC_URL}/bonsai-square-1.png`} 
@@ -271,7 +271,7 @@ const CalculatorIntroduction = ({ onGetStarted }) => {
             </div>
           </div>
         
-          <div className="w-full md:w-3/4 order-1 md:order-2">
+          <div className="w-full md:w-2/3 order-1 md:order-2">
             <div className="space-y-2 md:space-y-0 elx-mobile-compact">
               <CollapsibleCard 
                 title="Growth & Revenue"
@@ -372,7 +372,7 @@ const CalculatorIntroduction = ({ onGetStarted }) => {
         <h3 className="elx-heading-2">Why Executives Choose This Approach</h3>
         
         <div className="w-full flex flex-col md:flex-row">
-          <div className="w-full md:w-3/4 pr-0 md:pr-8 order-1">
+          <div className="w-full md:w-2/3 pr-0 md:pr-8 order-1">
             <div className="space-y-2 md:space-y-0 elx-mobile-compact">
               <CollapsibleCard 
                 title="Instant Visibility & Transparency"
@@ -496,7 +496,7 @@ const CalculatorIntroduction = ({ onGetStarted }) => {
             </div>
           </div>
           
-          <div className="w-4/5 mx-auto md:w-1/4 mt-4 md:mt-0 md:pl-6 order-2">
+          <div className="w-4/5 mx-auto md:w-1/3 mt-4 md:mt-0 md:pl-6 order-2">
             <div className="sticky md:top-6">
               <div className="aspect-[21/9] sm:aspect-video md:aspect-square overflow-hidden mb-3">
                 <img 
@@ -525,7 +525,7 @@ const CalculatorIntroduction = ({ onGetStarted }) => {
         </h3>
         
         <div className="w-full flex flex-col md:flex-row">
-          <div className="w-4/5 mx-auto md:w-1/4 mb-4 md:mb-0 md:pr-6 order-2 md:order-1">
+          <div className="w-4/5 mx-auto md:w-1/3 mb-4 md:mb-0 md:pr-6 order-2 md:order-1">
             <div className="aspect-[21/9] sm:aspect-video md:aspect-square overflow-hidden mb-3">
               <img 
                 src={`${process.env.PUBLIC_URL}/bonsai-enterprise.png`} 
@@ -535,7 +535,7 @@ const CalculatorIntroduction = ({ onGetStarted }) => {
             </div>
           </div>
           
-          <div className="w-full md:w-3/4 order-1 md:order-2">
+          <div className="w-full md:w-2/3 order-1 md:order-2">
             <div className="space-y-4 md:space-y-4 elx-mobile-compact">
               {/* Step 1 - Collapsible */}
               <CollapsibleCard 
