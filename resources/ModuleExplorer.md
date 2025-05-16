@@ -1,10 +1,14 @@
 # Module Explorer Component
 
+> **Status**: Implemented  
+> **Last Updated**: May 16, 2025  
+> **AI Keywords**: modules, discovery, filtering, search, browse, consulting services
+
 ## Overview
 
 The Module Explorer is a streamlined, comprehensive browse interface that allows executives to explore Elexive's complete catalog of consulting modules. This component provides a powerful filtering system with advanced search capabilities to help users find modules that match their specific requirements.
 
-> **Note:** This component adheres to the [Elexive Calculator Design Guidelines](./DesignGuidelines.md) for visual design, interaction patterns, and customer journey integration.
+> **Note:** This component adheres to the [Elexive Solution Builder Design Guidelines](./DesignGuidelines.md) for visual design, interaction patterns, and customer journey integration.
 
 ## Strategic Purpose
 
@@ -15,31 +19,57 @@ The Module Explorer addresses several key customer pain points identified in our
 3. **Consistent Presentation**: With standardized module cards for easy comparison
 4. **Self-Guided Exploration**: With tools for saving and organizing modules of interest
 
+## Core Functionality
+
+1. **Module Browsing and Discovery**
+   - Displays all available consulting modules in a grid layout
+   - Organizes modules by strategic pillars and categories
+   - Presents module variants (Insight Primer, Implementation Accelerator)
+   - Enables seamless exploration of the complete service catalog
+
+2. **Advanced Filtering System**
+   - Allows filtering by pillar, category, and variant type
+   - Provides interactive filter controls with immediate results
+   - Updates result counts as filters are applied
+   - Offers filter reset option for starting over
+
+3. **Search Functionality**
+   - Enables keyword search across module names and descriptions
+   - Combines with applied filters for refined results
+   - Provides appropriate empty state when no results match
+   - Implements efficient search algorithm for large catalogs
+
+4. **Module Selection and Interaction**
+   - Enables viewing detailed module information
+   - Provides add/remove functionality for module selection
+   - Shows selected state clearly on module cards
+   - Maintains consistency with the broader selection experience
+
 ## Component-Specific Design Decisions
 
 ### Module Card Design
 
-The module cards represent a key UX decision point, balancing several competing needs:
+This component implements the [Card Design Pattern](./DesignGuidelines.md#1-card-design-pattern) with the following specific adaptations:
 
-1. **Card Headers** - The colored header area of each module card:
+1. **Explorer-Specific Card Headers** - Specialized categorization approach:
    - Uses pillar-specific colors to provide visual categorization
    - Prominently displays the pillar name to maintain context
    - Includes the pillar icon for additional visual reinforcement
    - Positions the category badge within the header but visually distinct
 
-2. **Content Layout** - The card's main content area:
+2. **Content Layout** - Optimized for discovery:
    - Places the module name in prominent position with adequate typographic weight
    - Limits the module heading to 3 lines with ellipsis to maintain card height consistency
    - Uses subtle typographic distinction between name (heading) and description (body text)
    - Includes sufficient white space to improve readability while maintaining density
 
-3. **Variant Badges** - The module variant indicators:
+3. **Variant Badges** - Extended module variation indicators:
    - Use distinctive color coding (blue for Insight Primer, green for Implementation Accelerator)
    - Include appropriate iconography (lightbulb for insight, rocket for implementation)
    - Maintain consistent positioning at the bottom of the content area
    - Have compact but readable design to accommodate multiple variants
 
-4. **Action Area** - The card footer:
+4. **Action Area** - Explorer-specific interactions:
    - Creates visual separation from content through subtle background color change
    - Balances primary action (view details) with secondary action (save/bookmark)
    - Uses consistent interactive elements that match the broader application
@@ -61,14 +91,47 @@ The search and filter interface was designed with specific UX considerations:
    - Support combining multiple filter criteria
    - Update results immediately as filters change
 
-3. **Search Integration** - The search functionality:
-   - Features prominent placement with clear iconography
-   - Searches across module names, descriptions, and headings
-   - Provides immediate feedback on search results
-   - Works in conjunction with the applied filters
+## Technical Implementation
 
-4. **Results Feedback** - The results display:
-   - Shows count of matching modules
+### Props
+
+- `modules`: Array of all available module objects
+- `selectedModules`: Array of currently selected module IDs
+- `onToggleModule`: Function to handle selection/deselection of modules
+- `onViewDetails`: Function to handle requesting detailed module information
+
+### Component Structure
+
+1. **Filter Section**
+   - Search input field for keyword searching
+   - Dropdown selectors for pillar, category, and variant filtering
+   - Filter tags showing currently applied filters
+   - Clear filters button for easy reset
+
+2. **Results Grid**
+   - Responsive grid layout of module cards
+   - Empty state handling for no matching results
+   - Appropriate loading states during data fetching
+   - Pagination or infinite scroll for large result sets
+
+3. **Module Cards**
+   - Header with pillar information and category
+   - Content area with module name and brief description
+   - Variant badges indicating available engagement models
+   - Action footer with view details and select options
+
+### Integration Points
+
+- **ModuleSelector**: Shares selected module state with the ModuleSelector component
+- **ModuleDetails**: Launches the ModuleDetails component when view details is clicked
+- **SummarySidebar**: Updates reflected in the sidebar when modules are selected
+
+## Related Components
+
+- [ModuleSelector](./ModuleSelector.md): Alternative module selection interface that complements the Explorer
+- [ModuleDetails](./ModuleDetails.md): Detailed view of modules launched from the Explorer
+- [JourneyPlanner](./JourneyPlanner.md): Alternative discovery mechanism organized by transformation journey
+- [SummarySidebar](./SummarySidebar.md): Displays modules selected in the Explorer
    - Provides helpful empty states when no modules match
    - Maintains consistent grid layout for results
    - Offers clear option to reset filters when no results are found

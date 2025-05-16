@@ -1,41 +1,71 @@
 # Journey Planner Component
 
+> **Status**: Implemented  
+> **Last Updated**: May 16, 2025  
+> **AI Keywords**: journey, transformation, stages, sequential, navigation, discovery
+
 ## Overview
 
 The Journey Planner component provides an immersive, visual representation of the client transformation journey, allowing executives to understand the sequential nature of business transformation and discover modules that support each phase. This standalone component transforms the traditional consulting approach by organizing services into a clear, chronological narrative that guides customers through their transformation path.
 
-> **Note:** This component adheres to the [Elexive Calculator Design Guidelines](./DesignGuidelines.md) for visual design, interaction patterns, and journey integration.
+> **Note:** This component adheres to the [Elexive Solution Builder Design Guidelines](./DesignGuidelines.md) for visual design, interaction patterns, and journey integration.
 
 ## Strategic Purpose
 
 The Journey Planner component addresses several key customer needs identified in our research:
 
-1. **Sequential Understanding**: Helps executives visualize transformation as a chronological process
-2. **Stage-Specific Focus**: Allows customers to focus on their current implementation stage
-3. **Contextual Discovery**: Presents modules within the relevant phase of transformation
-4. **Transformation Narrative**: Creates a compelling story about how transformation unfolds
+1. **Sequential Understanding**: By helping executives visualize transformation as a chronological process
+2. **Stage-Specific Focus**: By allowing customers to focus on their current implementation stage
+3. **Contextual Discovery**: By presenting modules within the relevant phase of transformation
+4. **Transformation Narrative**: By creating a compelling story about how transformation unfolds
+
+## Core Functionality
+
+1. **Journey Stage Visualization**
+   - Displays transformation as a sequential, four-stage process
+   - Uses distinct visual treatment for each journey stage
+   - Provides clear navigation between different stages
+   - Shows current position in the overall transformation journey
+
+2. **Module Discovery by Stage**
+   - Filters modules based on their applicability to each journey stage
+   - Presents contextually relevant modules for the selected stage
+   - Adapts content display to match the selected journey phase
+   - Maintains consistent module presentation with other selection interfaces
+
+3. **Stage Transition Navigation**
+   - Enables intuitive progression through transformation stages
+   - Provides clear visual feedback for the active journey stage
+   - Allows non-linear exploration of the full transformation journey
+   - Creates visual continuity between different journey phases
+
+4. **Journey Context Education**
+   - Provides stage-specific descriptions of transformation phases
+   - Educates users about transformation progression and milestones
+   - Sets appropriate expectations for each journey stage
+   - Creates business context for module selection decisions
 
 ## Component-Specific Design Decisions
 
 ### Journey Visualization Design
 
-The journey visualization represents a key UX decision point, creating a guided pathway through transformation:
+This component implements a specialized navigation approach that follows the guidelines in [Interaction Patterns](./DesignGuidelines.md#3-navigation):
 
-1. **Journey Steps** - The connected journey phase cards:
+1. **Journey Steps** - Transformation stage navigation:
    - Use distinct color-coding for each stage (blue, amber, green, purple)
    - Include numerical indicators (1,2,3,4) to reinforce sequential nature
    - Feature stage-specific iconography for visual recognition
    - Connect with directional arrows to indicate progression
    - Apply dramatic visual state changes between active and inactive stages
 
-2. **Active State Design** - When a journey step is selected:
+2. **Active State Design** - Selection feedback implementation:
    - Background color changes to the full saturation of the stage color
    - Text changes to white for maximum contrast
    - Icon colors adjust for visibility against the colored background
    - Number indicator inverts colors to maintain visibility
    - Shadow effect increases to create depth and focus
 
-3. **Content Transition** - The module display for the selected stage:
+3. **Content Transition** - Dynamic content display:
    - Updates dynamically to show only relevant modules
    - Includes clear heading showing the active stage
    - Maintains consistent module card design across the application
@@ -43,7 +73,7 @@ The journey visualization represents a key UX decision point, creating a guided 
 
 ### Module Card Design
 
-The module cards maintain consistency with the broader application while providing context:
+This component implements the [Card Design Pattern](./DesignGuidelines.md#1-card-design-pattern) with these journey-specific adaptations:
 
 1. **Card Headers**
    - Uses the same color as the module's parent pillar
@@ -62,62 +92,48 @@ The module cards maintain consistency with the broader application while providi
    - Includes appropriate iconography (lightbulb for insight, rocket for implementation)
    - Maintains consistent positioning at the bottom of the content area
 
-4. **Action Area**
-   - Balances primary action (view details) with secondary action (save/bookmark)
-   - Creates visual separation from content through subtle background color change
-   - Provides clear hover/focus states for all interactive elements
+## Technical Implementation
 
-### Filter Panel Design
+### Props
 
-The filter system was designed to support focused exploration:
+- `modules`: Array of all available module objects
+- `journeyStages`: Array of stage objects with names, descriptions, and colors
+- `selectedStage`: Currently active journey stage
+- `setSelectedStage`: Function to update the active stage
+- `onModuleSelect`: Function to handle module selection
 
-1. **Expandable Interface**
-   - Remains collapsed by default to reduce initial visual complexity
-   - Expands smoothly with animation to show available filtering options
-   - Groups related filters together (pillar, category, variant)
-   - Provides immediate visual feedback when filters are applied
+### Component Structure
 
-2. **Search Integration**
-   - Presents prominent search functionality for direct module finding
-   - Shows clear visual indicators for active search
-   - Provides feedback on the number of matching results
-   - Supports immediate clearing of search terms
+1. **Journey Navigation Bar**
+   - Connected step indicators with numerical labels
+   - Stage titles with appropriate iconography
+   - Active state styling for the current stage
+   - Directional indicators showing progression
 
-## Core Functionality
+2. **Stage Content Area**
+   - Dynamic heading showing current stage name
+   - Module grid filtered to the active stage
+   - Consistent module card components
+   - Empty state handling for stages with no matching modules
 
-### Journey Navigation
+3. **Filter Panel**
+   - Collapsible filter interface with pillar, category, and variant options
+   - Search input with appropriate controls
+   - Count indicators showing matching modules
+   - Clear filters option for easy reset
 
-The Journey Planner interface enables users to:
+### Integration Points
 
-1. **Explore Sequential Phases**
-   - Navigate through the four key transformation phases: Assess, Plan, Execute, Optimize
-   - Understand the purpose and outcomes of each journey stage
-   - See the relationship between stages through visual connections
-   - Focus on their current implementation stage
+- **ModuleSelector**: Shares module selection state and card styling
+- **ModuleExplorer**: Uses consistent module card presentation
+- **SummarySidebar**: Updates reflected when modules are selected through this view
 
-2. **Discover Phase-Specific Modules**
-   - View consulting modules relevant to the selected journey stage
-   - Understand which modules are most appropriate for their current phase
-   - See how modules across different pillars support the same journey stage
-   - Build a stage-appropriate transformation plan
+## Related Components
 
-### Filtering and Search
-
-The component includes powerful filtering capabilities:
-
-1. **Multi-dimensional Filtering**
-   - Filter modules by transformation pillar (Transformation, Strategy, Technology)
-   - Narrow options by module category
-   - Focus on specific module variants (Insight Primer, Implementation Accelerator)
-   - Combine filters for precise module discovery
-
-2. **Contextual Search**
-   - Search within the current journey stage or across all stages
-   - Find modules by name, description, or heading text
-   - Receive immediate feedback on search results
-   - Clear or refine search easily
-
-### Module Interaction
+- [ModuleSelector](./ModuleSelector.md): Alternative module selection interface organized by pillars
+- [ModuleExplorer](./ModuleExplorer.md): Comprehensive module browsing interface with search capabilities
+- [SummarySidebar](./SummarySidebar.md): Shows modules selected in the Journey Planner
+- [OnboardingQuiz](./OnboardingQuiz.md): May direct users to a specific journey stage based on responses
 
 Users can interact with modules through:
 

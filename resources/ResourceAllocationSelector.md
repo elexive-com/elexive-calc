@@ -1,10 +1,14 @@
 # ResourceAllocationSelector Component
 
+> **Status**: Implemented  
+> **Last Updated**: May 16, 2025  
+> **AI Keywords**: resource allocation, efficiency, context-switching, strategy, overhead, optimization
+
 ## Overview
 
 The ResourceAllocationSelector component enables users to determine how their EVC (Elastic Value Credit) resources are allocated across different business transformation initiatives. It offers three distinct allocation strategies (Focused, Balanced, Distributed), each with its own efficiency implications based on context-switching overhead, serving as a key element in the "Strategic Optimization" phase of the customer journey.
 
-> **Note:** This component adheres to the [Elexive Calculator Design Guidelines](./DesignGuidelines.md) for visual design, interaction patterns, and customer journey integration.
+> **Note:** This component adheres to the [Elexive Solution Builder Design Guidelines](./DesignGuidelines.md) for visual design, interaction patterns, and customer journey integration.
 
 > **Important:** The overhead represents additional work required due to context switching. While 100% is always the full EVC amount for the selected modules, when work is done in parallel (using Balanced or Distributed strategies), the configured overhead percentage is added on top of the module EVC totals to account for the extra effort needed to complete the work.
 
@@ -17,35 +21,61 @@ The ResourceAllocationSelector addresses several key customer needs identified i
 3. **Business Priority Alignment**: By matching resource allocation strategy to organizational readiness
 4. **Strategic Control**: By providing transparency into productivity trade-offs in transformation initiatives
 
+## Core Functionality
+
+1. **Allocation Strategy Selection**
+   - Presents multiple predefined allocation strategies (Focused, Balanced, Distributed)
+   - Each strategy represents a different approach to distributing consulting resources
+   - Visually illustrates the efficiency impact of each strategy through bar charts
+   - Provides clear business context for when each strategy is most appropriate
+   
+2. **Configuration-Driven Design**
+   - Uses `calculatorConfig.json` to define allocation strategies and their properties
+   - Dynamically generates options based on configuration data
+   - Supports extensibility for adding or modifying allocation strategies
+   - Maintains consistent presentation regardless of configuration changes
+
+3. **Efficiency Impact Calculation**
+   - Calculates and displays the overhead costs of context switching
+   - Shows the effective efficiency percentage for each allocation approach
+   - Provides visual representation of base work vs. overhead for each strategy
+   - Updates calculations in real-time as selections change
+
+4. **Business Context Presentation**
+   - Provides clear descriptions of what each allocation strategy means
+   - Includes business-relevant factors for selecting each option
+   - Uses consistent terminology aligned with the EVC explanation
+   - Sets appropriate expectations for implementation approaches
+
 ## Component-Specific Design Decisions
 
 ### Strategy Option Design
 
-The allocation strategy cards represent a key UX decision point, balancing several competing needs:
+This component implements the [Card Design Pattern](./DesignGuidelines.md#1-card-design-pattern) and follows the [Visual Selection Feedback Standards](./DesignGuidelines.md#visual-selection-feedback-standards) with the following specific adaptations:
 
-1. **Card Structure** - The strategy presentation layout:
-   - Uses consistent card dimensions for visual harmony
+1. **Allocation-Specific Card Structure** - Specialized for strategy selection:
    - Implements clear visual hierarchy from name to efficiency to description
-   - Provides sufficient information for decision-making without overwhelming
+   - Provides sufficient information for allocation decision-making without overwhelming
    - Creates appropriate visual distinction between different allocation approaches
+   - Adapts card design to emphasize efficiency differences
 
-2. **Efficiency Visualization** - The productivity representation:
+2. **Efficiency Visualization** - Unique data representation:
    - Uses proportional bar charts to illustrate base EVC work and additional overhead time
    - Implements consistent color coding for efficiency levels (green, yellow, orange)
    - Creates immediate visual understanding of how overhead adds to the total work required
    - Provides supporting numeric values for precise comprehension of additional work needed
 
-3. **Visual Selection Feedback** - The interactive indicators:
-   - Implements distinct styling for the selected allocation strategy
+3. **Visual Selection Feedback** - Strategy-specific indicators:
    - Uses subtle hover effects to indicate interactivity
    - Provides appropriate visual treatment for disabled options with explanations
    - Creates clear visual contrast between selected and unselected states
+   - Implements feedback appropriate for contextual options
 
 ### Educational Content Design
 
-The educational elements implement a deliberate learning architecture:
+This component implements the [Educational Content Pattern](./DesignGuidelines.md#3-educational-content-pattern) with the following specific adaptations:
 
-1. **Context Switching Explainer** - The conceptual framework:
+1. **Context Switching Explainer** - Specialized conceptual framework:
    - Provides research-backed explanation of productivity impacts
    - Uses progressive disclosure to avoid overwhelming users
    - Implements expandable section for additional details
@@ -57,18 +87,55 @@ The educational elements implement a deliberate learning architecture:
    - Presents concrete examples of when each strategy is appropriate
    - Creates clear connections between capacity selection and allocation options
 
-## Core Functionality
+## Technical Implementation
 
-1. **Allocation Strategy Selection**
-   - Presents three distinct resource allocation approaches:
-     - **Laser Beam (Focused)**: Concentrates 100% of resources on a single initiative
-     - **Smart Campaign (Balanced)**: Distributes resources across a limited number of concurrent initiatives
-     - **Omni-Channel (Distributed)**: Spreads resources across many parallel initiatives
-   - Each strategy has associated context-switching overhead percentages that add extra work on top of the base EVC requirements
-   - Provides clear visual indicators of how much additional work is required for each strategy
-   - Creates appropriate business context for understanding the impact of parallel implementation
+### Props
 
-2. **Capacity-Aware Strategy Constraints**
+- `resourceStrategy`: String representing the currently selected allocation strategy
+- `setResourceStrategy`: Function to update the selected strategy
+- `productionCapacity`: String representing the currently selected capacity tier
+- `calculator`: Object containing the current calculator state
+- `updateCalculator`: Function to update the calculator with new strategy value
+
+### Component Structure
+
+1. **Header Section**
+   - Component title with appropriate typography
+   - Introductory text explaining the allocation concept
+   - FeatureIntroduction component with detailed guidance
+   - Visual separation from strategy option cards
+
+2. **Strategy Option Grid**
+   - Responsive grid layout of allocation strategy cards
+   - Consistent card components with standardized layout
+   - Selection state styling for the active option
+   - Efficiency visualization bar charts for each strategy
+
+3. **Strategy Card Components**
+   - Clear strategy label (Focused, Balanced, Distributed)
+   - Visual efficiency bar chart showing overhead impact
+   - Supporting description text explaining benefits and trade-offs
+   - Visual selection indicators for the active option
+
+4. **Contextual Recommendations**
+   - Capacity-specific strategy recommendations
+   - Visual indicators for recommended approaches
+   - Clear explanation of capacity-strategy relationships
+   - Appropriate disabled states for incompatible combinations
+
+### Integration Points
+
+- **Calculator Context**: Updates calculator state with selected strategy
+- **Production Capacity**: Responds to capacity selection for appropriate recommendations
+- **Pricing Summary**: Affects cost and timeline projections based on efficiency impact
+- **FeatureIntroduction**: Provides educational content about context-switching
+
+## Related Components
+
+- [ProductionCapacitySelector](./ProductionCapacitySelector.md): Influences available strategies
+- [PricingSummary](./PricingSummary.md): Displays cost impact of allocation strategy
+- [SummarySidebar](./SummarySidebar.md): Shows selected strategy in the configuration summary
+- [EvcExplainer](./EvcExplainer.md): Provides context for understanding productivity impacts
    - Intelligently restricts available strategies based on the selected production capacity:
      - Pathfinder capacity only allows the Focused strategy
      - Jetpack capacity allows Focused and Balanced strategies

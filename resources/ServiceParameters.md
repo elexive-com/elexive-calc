@@ -1,10 +1,14 @@
 # ServiceParameters Component
 
+> **Status**: Implemented  
+> **Last Updated**: May 16, 2025  
+> **AI Keywords**: service parameters, payment options, billing, delivery, configuration, preferences
+
 ## Overview
 
 The ServiceParameters component allows users to configure additional service-related settings that affect pricing, billing, and delivery options for their business transformation initiative. It provides an interface for selecting payment options and toggling various service-specific parameters, serving as a refinement mechanism in the "Strategic Optimization" phase of the customer journey.
 
-> **Note:** This component adheres to the [Elexive Calculator Design Guidelines](./DesignGuidelines.md) for visual design, interaction patterns, and customer journey integration.
+> **Note:** This component adheres to the [Elexive Solution Builder Design Guidelines](./DesignGuidelines.md) for visual design, interaction patterns, and customer journey integration.
 
 ## Strategic Purpose
 
@@ -16,19 +20,45 @@ The ServiceParameters addresses several key customer needs identified in our res
 4. **Control Enhancement**: By providing granular configuration options for the consulting engagement
 5. **Business Relationship Management**: By offering dedicated support and service level options
 
+## Core Functionality
+
+1. **Payment Option Selection**
+   - Presents multiple payment methods (Pay-As-You-Go, Reserved EVCs, Annual Contract)
+   - Each option has different pricing implications and discount structures
+   - Provides clear financial context for each payment approach
+   - Updates pricing calculations based on selected payment method
+   
+2. **Service Parameter Toggles**
+   - Offers configurable options for service delivery aspects
+   - Includes dedicated account management, premium support, and other enhancements
+   - Each toggle has clear descriptions of service implications
+   - Updates pricing and service terms based on selected parameters
+
+3. **Discount Application**
+   - Calculates and displays applicable discounts based on payment selection
+   - Provides transparent indication of cost savings
+   - Creates clear connection between payment choice and financial benefits
+   - Updates in real-time as users change payment options
+
+4. **Configuration Integration**
+   - Combines with other calculator selections to create complete service profile
+   - Maintains consistent state across calculator interactions
+   - Provides appropriate defaults based on other selections
+   - Creates coherent service configuration for pricing and proposal output
+
 ## Component-Specific Design Decisions
 
 ### Payment Option Design
 
-The payment option selectors implement a deliberate decision framework:
+This component implements the [Visual Selection Feedback Standards](./DesignGuidelines.md#visual-selection-feedback-standards) with these specific adaptations for payment selection:
 
-1. **Option Presentation** - The payment selection layout:
+1. **Option Presentation** - Financial option selection approach:
    - Uses clear, distinctive styling for each payment option
    - Implements obvious visual feedback for the selected option
    - Provides immediate indication of financial implications (discounts)
    - Creates appropriate context for understanding payment terms
 
-2. **Financial Transparency** - The cost implication indicators:
+2. **Financial Transparency** - Cost implication visualization:
    - Shows explicit discount percentages for eligible payment options
    - Uses consistent formatting for financial information
    - Provides clear visual connection between selection and pricing impact
@@ -66,9 +96,50 @@ The parameter toggle controls balance several competing needs:
    - Implements consistent labeling and description patterns
    - Provides appropriate spacing for optimal readability
 
-## Core Functionality
+## Technical Implementation
 
-1. **Payment Option Selection**
+### Props
+
+- `serviceParams`: Object containing the current service parameters
+- `setServiceParams`: Function to update service parameters
+- `paymentOption`: String representing the currently selected payment option
+- `setPaymentOption`: Function to update payment option
+- `calculator`: Object containing the current calculator state
+- `updateCalculator`: Function to update calculator with new service parameters
+
+### Component Structure
+
+1. **Payment Options Section**
+   - Radio button group for payment method selection
+   - Visual indicators for discount percentages
+   - Clear labels and descriptions for each payment option
+   - Visual feedback for the selected option
+
+2. **Service Parameter Toggles**
+   - Toggle switches for various service options
+   - Descriptive text explaining each parameter
+   - Logical grouping of related parameters
+   - Appropriate spacing and visual hierarchy
+
+3. **Section Organization**
+   - Clear section headings with appropriate typography
+   - Visual separation between different parameter groups
+   - Consistent styling with other calculator components
+   - Responsive layout for different screen sizes
+
+### Integration Points
+
+- **Calculator Context**: Updates calculator state with service parameters
+- **Pricing Summary**: Affects cost calculations based on payment options and parameters
+- **DetailedReportModal**: Includes service parameters in detailed pricing breakdown
+- **PricingSummary**: Applies appropriate discounts based on payment selection
+
+## Related Components
+
+- [PricingSummary](./PricingSummary.md): Displays cost impact of service parameters
+- [SummarySidebar](./SummarySidebar.md): Shows selected service parameters in configuration summary
+- [DetailedReportModal](./DetailedReportModal.md): Provides detailed breakdown of service configuration
+- [EvcExplainer](./EvcExplainer.md): Provides context for understanding EVC-related parameters
    - Enables users to choose between different payment methods (e.g., standard, prepaid)
    - Each payment option has associated pricing modifiers that affect the total cost
    - Provides clear visual indication of cost implications (discounts) for different payment methods

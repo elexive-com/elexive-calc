@@ -1,10 +1,14 @@
 # EvcExplainer Component
 
+> **Status**: Implemented  
+> **Last Updated**: May 16, 2025  
+> **AI Keywords**: EVC, elastic value credits, pricing, value model, education, modal
+
 ## Overview
 
-The EvcExplainer component provides educational content explaining the Elastic Value Credit (EVC) system used throughout the Elexive Calculator. It serves as an educational modal that helps users understand the value-based pricing approach, supporting the customer's learning journey and building confidence in the calculator's pricing methodology.
+The EvcExplainer component provides educational content explaining the Elastic Value Credit (EVC) system used throughout the Elexive Solution Builder. It serves as an educational modal that helps users understand the value-based pricing approach, supporting the customer's learning journey and building confidence in the calculator's pricing methodology.
 
-> **Note:** This component adheres to the [Elexive Calculator Design Guidelines](./DesignGuidelines.md) for visual design, interaction patterns, and customer journey integration.
+> **Note:** This component adheres to the [Elexive Solution Builder Design Guidelines](./DesignGuidelines.md) for visual design, interaction patterns, and customer journey integration.
 
 ## Strategic Purpose
 
@@ -15,19 +19,45 @@ The EvcExplainer addresses several key customer needs identified in our research
 3. **Value Validation**: By connecting technical concepts to business outcomes
 4. **Trust Building**: By demystifying potentially complex pricing calculations
 
+## Core Functionality
+
+1. **Comprehensive EVC Explanation**
+   - Defines EVCs in clear, business-friendly language
+   - Explains the relationship between EVCs and consulting value
+   - Illustrates how modules consume EVCs at different rates
+   - Clarifies that overhead affects module consumption, not EVC production
+
+2. **Dynamic Value Visualization**
+   - Shows the user's current EVC production capacity
+   - Illustrates how different factors affect EVC efficiency
+   - Provides interactive elements to explore different scenarios
+   - Implements appropriate data visualization for numeric concepts
+
+3. **Resource Allocation Education**
+   - Details the different types of input resources that generate EVCs
+   - Explains how different allocation strategies affect overhead
+   - Illustrates the efficiency impact of context-switching
+   - Provides best practices for optimizing resource allocation
+
+4. **Contextual Application**
+   - Relates EVC concepts to the user's specific configuration
+   - Shows how their chosen modules utilize EVCs
+   - Connects abstract concepts to concrete business decisions
+   - Provides practical examples relevant to transformation contexts
+
 ## Component-Specific Design Decisions
 
 ### Content Organization
 
-The educational content structure implements a deliberate pedagogical approach:
+This component implements the [Educational Content Pattern](./DesignGuidelines.md#3-educational-content-pattern) with the following specific adaptations for explaining value credit concepts:
 
-1. **Layered Explanation** - The conceptual framework:
+1. **Layered Explanation** - Specialized pedagogical approach:
    - Introduces the EVC concept with a simple, relatable definition
    - Gradually adds complexity through progressive disclosure
    - Creates clear connections between abstract concept and practical implications
    - Balances technical accuracy with accessible language
 
-2. **Visual Reinforcement** - The learning aids:
+2. **Visual Reinforcement** - EVC-specific learning aids:
    - Uses illustrative graphics to reinforce key concepts
    - Implements appropriate iconography to support textual information
    - Creates visual patterns that reinforce the mathematical relationships
@@ -35,7 +65,7 @@ The educational content structure implements a deliberate pedagogical approach:
 
 ### Modal Design
 
-The modal interface balances several competing needs:
+This component follows the modal design guidelines in [Interaction Patterns](./DesignGuidelines.md#4-modals--overlays) with these specific implementations:
 
 1. **Content Focus** - The presentation approach:
    - Uses clean, distraction-free layout to focus attention on explanations
@@ -48,6 +78,48 @@ The modal interface balances several competing needs:
    - Implements clear section headings for content orientation
    - Creates appropriate pacing for information consumption
    - Uses consistent navigational elements for predictable interaction
+
+## Technical Implementation
+
+### Props
+
+- `isOpen`: Boolean controlling modal visibility
+- `onClose`: Function to handle modal closing
+- `calculator`: Object containing calculator state for contextual examples
+
+### Component Structure
+
+1. **Modal Container**
+   - Responsive overlay with appropriate sizing for different devices
+   - Clean, distraction-free backdrop to focus attention on content
+   - Close button and escape key handling for accessibility
+   - Scroll management for longer content sections
+
+2. **Content Sections**
+   - Introduction to EVC concept with clear definition
+   - Visual aids showing EVC calculation and consumption
+   - Resource allocation explanation with overhead visualization
+   - Practical application examples based on current configuration
+   - Frequently asked questions with expandable answers
+
+3. **Interactive Elements**
+   - Expandable/collapsible sections for progressive disclosure
+   - Tabbed interface for different aspects of EVC concept
+   - Visual tooltips for additional context on hover
+   - Close and navigation controls with clear affordances
+
+### Integration Points
+
+- **SummarySidebar**: Launched from information icons in the sidebar
+- **ResourceAllocationSelector**: Shares conceptual framework for explaining overhead
+- **PricingSummary**: Complements the pricing information with deeper explanation
+
+## Related Components
+
+- [SummarySidebar](./SummarySidebar.md): Contains the information icon that launches this modal
+- [ResourceAllocationSelector](./ResourceAllocationSelector.md): Related to the overhead concepts explained
+- [ProductionCapacitySelector](./ProductionCapacitySelector.md): Connected to EVC production capacity concept
+- [PricingSummary](./PricingSummary.md): Uses EVCs as the basis for pricing calculations
 
 ## Core Functionality
 

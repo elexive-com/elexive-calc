@@ -1,24 +1,63 @@
 # PricingSummary Component
 
+> **Status**: Implemented  
+> **Last Updated**: May 16, 2025  
+> **AI Keywords**: pricing, financial, summary, calculation, modules, transparency
+
 ## Overview
 
-The PricingSummary component serves as the financial dashboard of the Elexive Calculator application. It presents a comprehensive breakdown of pricing, resource allocation, and service configuration details based on the user's selections throughout the calculator, representing a critical element in the "Value Validation" phase of the customer journey.
+The PricingSummary component serves as the financial dashboard of the Elexive Solution Builder application. It presents a comprehensive breakdown of pricing, resource allocation, and service configuration details based on the user's selections throughout the calculator, representing a critical element in the "Value Validation" phase of the customer journey.
 
-> **Note:** This component adheres to the [Elexive Calculator Design Guidelines](./DesignGuidelines.md) for visual design, interaction patterns, and customer journey integration.
+> **Note:** This component adheres to the [Elexive Solution Builder Design Guidelines](./DesignGuidelines.md) for visual design, interaction patterns, and customer journey integration.
+
+## Strategic Purpose
+
+The PricingSummary addresses several key customer needs identified in our research:
+
+1. **Financial Transparency**: By providing clear visibility into pricing components and calculations
+2. **Value Justification**: By connecting business outcomes to financial investment
+3. **Decision Support**: By presenting comprehensive financial information for stakeholder alignment
+4. **Control Affirmation**: By showing how configuration choices directly impact pricing
+
+## Core Functionality
+
+1. **Pricing Calculation Display**
+   - Shows the weekly price based on selected configuration
+   - Presents per-EVC pricing and total EVC consumption
+   - Calculates and displays different payment period options
+   - Updates pricing in real-time as configuration changes
+
+2. **Module Selection Overview**
+   - Lists all selected modules with their respective EVC values
+   - Groups modules by strategic pillar for easy scanning
+   - Shows engagement model selection for each module
+   - Provides appropriate visual treatment for different module types
+
+3. **Resource Allocation Visualization**
+   - Displays how resources are allocated across modules
+   - Shows overhead calculations based on allocation strategy
+   - Visualizes efficiency metrics in an accessible format
+   - Creates clear connection between allocation and total price
+
+4. **Parameter Summary**
+   - Lists all configured service parameters
+   - Shows payment options with associated discounts
+   - Displays reserved capacity settings if enabled
+   - Summarizes other custom configuration choices
 
 ## Component-Specific Design Decisions
 
 ### Financial Information Presentation
 
-The pricing information implements a deliberate design approach:
+This component implements the Information Display Component guidelines from [Component-Specific Implementation Guidelines](./DesignGuidelines.md#2-information-display-components) with these specialized adaptations for financial data:
 
-1. **Price Figure Display** - The core financial metrics:
+1. **Price Figure Display** - Financial metrics presentation:
    - Uses prominent typography for the primary weekly price
    - Implements supporting metrics (EVCs, price per EVC) with appropriate visual weight
    - Creates clear visual distinction between different pricing components
    - Uses consistent formatting for all financial figures
 
-2. **Calculation Transparency** - The pricing formula explanation:
+2. **Calculation Transparency** - Financial explanation approach:
    - Provides clear breakdown of how prices are calculated
    - Uses appropriate visual organization to show mathematical relationships
    - Implements consistent terminology with educational components
@@ -26,7 +65,7 @@ The pricing information implements a deliberate design approach:
 
 ### Module Selection Visualization
 
-The selected modules display implements a thoughtful organization:
+This component adapts the [Card Design Pattern](./DesignGuidelines.md#1-card-design-pattern) for a selection summary context:
 
 1. **Module Grid** - The selection overview:
    - Organizes modules into a scannable grid layout
@@ -40,14 +79,52 @@ The selected modules display implements a thoughtful organization:
    - Implements appropriate typography for variant descriptions
    - Maintains visual connection to the selection process
 
-## Strategic Purpose
+## Technical Implementation
 
-The PricingSummary addresses several key customer needs identified in our research:
+### Props
 
-1. **Financial Transparency**: By providing clear visibility into pricing components and calculations
-2. **Value Justification**: By connecting business outcomes to financial investment
-3. **Decision Support**: By presenting comprehensive financial information for stakeholder alignment
-4. **Control Affirmation**: By showing how configuration choices directly impact pricing
+- `calculator`: Object containing complete calculator state and configuration
+- `onShowDetailedReport`: Function to launch the detailed report modal
+
+### Component Structure
+
+1. **Pricing Header**
+   - Weekly price display with appropriate typography
+   - Supporting metrics showing EVCs and rate information
+   - Information buttons linking to EvcExplainer
+   - Detailed report button to launch comprehensive view
+
+2. **Module Selection Area**
+   - Grid layout showing selected modules
+   - Organized by strategic pillar with consistent headers
+   - Cards showing module name, variant, and EVC value
+   - Empty state handling when no modules are selected
+
+3. **Resource Allocation Summary**
+   - Visual representation of allocation strategy
+   - Overhead calculation with explanation
+   - Efficiency metrics based on selected strategy
+   - Connection to total pricing calculation
+
+4. **Parameters Section**
+   - Payment option selection with associated discounts
+   - Reserved capacity toggle and configuration
+   - Additional service parameter settings
+   - Other custom configuration options
+
+### Integration Points
+
+- **ModuleSelector**: Receives module selection data to display
+- **ResourceAllocationSelector**: Gets allocation strategy information
+- **EvcExplainer**: Launches educational modal for pricing concepts
+- **DetailedReportModal**: Launches comprehensive report view
+
+## Related Components
+
+- [ModuleSelector](./ModuleSelector.md): Source of module selection data
+- [ResourceAllocationSelector](./ResourceAllocationSelector.md): Provides allocation strategy information
+- [EvcExplainer](./EvcExplainer.md): Educational modal explaining EVC concepts
+- [DetailedReportModal](./DetailedReportModal.md): Comprehensive report launched from this component
 
 ## Design Principles
 

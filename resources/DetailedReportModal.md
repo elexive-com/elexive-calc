@@ -1,12 +1,14 @@
-# DetailedReportModal Component Specification
+# DetailedReportModal Component
+
+> **Status**: Implemented  
+> **Last Updated**: May 16, 2025  
+> **AI Keywords**: reporting, export, PDF, summary, configuration, proposal, presentation
 
 ## Overview
 
 The DetailedReportModal provides a comprehensive, presentation-ready summary of the user's configuration choices and resulting calculations. It synthesizes all selected options, costs, and timelines into a shareable artifact that serves as a critical element in the "Value Validation" phase of the customer journey.
 
-This specification serves as the definitive reference for the DetailedReportModal component, providing complete context for implementation, maintenance, and enhancement.
-
-> **Note:** This component adheres to the [Elexive Calculator Design Guidelines](./DesignGuidelines.md) for visual design, interaction patterns, and customer journey integration.
+> **Note:** This component adheres to the [Elexive Solution Builder Design Guidelines](./DesignGuidelines.md) for visual design, interaction patterns, and customer journey integration.
 
 ## Strategic Purpose
 
@@ -17,45 +19,63 @@ The DetailedReportModal addresses several key customer needs identified in resea
 3. **Decision Justification**: By documenting the reasoning behind configuration choices
 4. **Proposal Preparation**: By creating a foundation for formal consulting engagement
 
+## Core Functionality
+
+1. **Comprehensive Configuration Summary**
+   - Displays all selected modules, resources, and options
+   - Organizes information in a structured, presentation-ready format
+   - Creates a complete snapshot of the user's choices
+   - Provides contextual explanations where needed
+
+2. **Export Capabilities**
+   - Enables PDF export for sharing and printing
+   - Generates professionally formatted documents
+   - Optimizes layout for different viewing contexts
+   - Maintains visual consistency with the calculator experience
+
+3. **Strategic Visualization**
+   - Presents resource allocation across strategic pillars
+   - Shows timeline projections based on selected capacity
+   - Visualizes the module distribution by category
+   - Creates meaningful representations of complex data
+
+4. **Conversion Facilitation**
+   - Provides clear next steps for engaging with consulting services
+   - Includes contact information and scheduling options
+   - Creates a seamless pathway to formal engagement
+   - Maintains momentum in the customer journey
+
 ## Component-Specific Design Decisions
 
 ### Report Structure Design
 
-The report organization implements a deliberate information hierarchy:
+This component implements the Information Display Component guidelines from [Component-Specific Implementation Guidelines](./DesignGuidelines.md#2-information-display-components) with these specialized adaptations for report presentation:
 
-1. **Executive Summary** - The report overview:
+1. **Executive Summary** - High-priority information section:
    - Provides an at-a-glance understanding of the complete configuration
    - Implements concise presentation of key metrics and decisions
    - Creates immediate relevance through business-focused language
-   - Establishes the foundation for detailed sections that follow
-   - Includes strategic approach summary with expandable/collapsible sections
-   - Visualizes strategic resource allocation across pillars
    - Provides service delivery timeline visualization
 
-2. **Strategic Solution Components** - The solution composition:
+2. **Strategic Solution Components** - Module organization approach:
    - Organizes modules by strategic pillars to maintain conceptual continuity
    - Uses consistent card design with appropriate pillar visual treatments
    - Provides clear distinction between different engagement models
-   - Creates appropriate visual hierarchy for scanning large solutions
-   - Implements expandable/collapsible module details
-   - Shows business context, implementation approach, and expected outcomes
    - Displays transformation journey stages when available
 
-3. **Additional Services and Add Ons** - The complementary services:
+3. **Additional Services and Add Ons** - Progressive disclosure implementation:
    - Displays enabled add-ons with expandable/collapsible details
    - Provides business impact information for each add-on
    - Includes payment option details and financial benefits
    - Uses consistent iconography and visual styling
 
-4. **Financial Investment Framework** - The investment summary:
+4. **Financial Investment Framework** - Financial data presentation:
    - Presents financial information with appropriate prominence
    - Implements clear visualization of timeline projections
    - Creates transparent connection between selections and costs
    - Uses appropriate typography and formatting for financial figures
-   - Breaks down investment on weekly, monthly, quarterly, and total basis
-   - Explains the EVC-based pricing model in business terms
 
-5. **Next Steps** - The implementation plan:
+5. **Next Steps** - Conversion-focused section:
    - Outlines critical success factors based on selected modules and approach
    - Provides recommended next steps for moving forward
    - Creates clear conversion pathways with actionable suggestions
@@ -71,6 +91,52 @@ The export capabilities balance several competing needs:
    - Ensures compatibility across common viewing platforms
 
 2. **Content Optimization** - The export-specific adjustments:
+   - Adapts modal content for document context with appropriate layout changes
+   - Removes interactive elements in favor of expanded static content
+   - Includes additional context and explanations where needed for standalone understanding
+   - Maintains consistent information hierarchy between interactive and exported versions
+
+## Technical Implementation
+
+### Props
+
+- `isOpen`: Boolean controlling modal visibility
+- `onClose`: Function to handle modal closing
+- `calculator`: Object containing complete calculator state and configuration
+
+### Component Structure
+
+1. **Modal Container**
+   - Responsive overlay with appropriate sizing for different devices
+   - Backdrop with subtle animation for focus management
+   - Close button and escape key handling for accessibility
+   - Scroll management for long reports
+
+2. **Report Sections**
+   - Executive summary with key metrics and visualization
+   - Module listing organized by strategic pillars
+   - Financial summary with various time period calculations
+   - Export controls with format options
+   - Next steps and conversion call-to-action
+
+3. **PDF Generation System**
+   - PDF renderer component using React-PDF
+   - Document template with consistent styling
+   - Page management for multi-page reports
+   - Download mechanism with appropriate naming convention
+
+### Integration Points
+
+- **SummarySidebar**: Launched from the sidebar's reporting action
+- **PDF Export**: Integrates with the browser's download capabilities
+- **ModuleDetails**: Shares styling and presentation approach with module details
+
+## Related Components
+
+- [SummarySidebar](./SummarySidebar.md): Contains the button that launches this modal
+- [PricingSummary](./PricingSummary.md): Provides financial data displayed in the report
+- [ModuleSelector](./ModuleSelector.md): Source of selected modules shown in the report
+- [ResourceAllocationSelector](./ResourceAllocationSelector.md): Provides allocation strategy information for the report
    - Adapts interactive elements to static presentation formats
    - Uses print-optimized color schemes and contrast
    - Creates appropriate page breaks and section organization

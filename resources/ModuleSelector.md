@@ -1,10 +1,14 @@
 # ModuleSelector Component
 
+> **Status**: Implemented  
+> **Last Updated**: May 16, 2025  
+> **AI Keywords**: modules, selection, configuration, pillars, consulting, transformation
+
 ## Overview
 
 The ModuleSelector component is a sophisticated UI element that enables users to select and configure consulting service modules for their business transformation initiatives. It provides an intuitive interface for users to browse, compare, and select from various service options organized into strategic pillars (Transformation, Strategy, and Technology), serving as a critical bridge between the exploration and optimization phases of the customer journey.
 
-> **Note:** This component adheres to the [Elexive Calculator Design Guidelines](./DesignGuidelines.md) for visual design, interaction patterns, and customer journey integration.
+> **Note:** This component adheres to the [Elexive Solution Builder Design Guidelines](./DesignGuidelines.md) for visual design, interaction patterns, and customer journey integration.
 
 ## Strategic Purpose
 
@@ -15,25 +19,51 @@ The ModuleSelector addresses several key customer needs identified in our resear
 3. **Value Transparency**: By clearly displaying EVC values for each consulting option
 4. **Configuration Control**: By enabling customized selection of a transformation solution
 
+## Core Functionality
+
+1. **Module Organization and Browse**
+   - Groups modules by strategic pillars (Transformation, Strategy, Technology)
+   - Provides tabbed navigation between pillar categories
+   - Displays modules in a consistent, scannable layout
+   - Offers filtering and sorting options for large module collections
+
+2. **Engagement Model Selection**
+   - Presents Insight Primer and Integrated Execution options for each module
+   - Shows EVC values and descriptions for each engagement model
+   - Provides clear visual distinction between model options
+   - Enables toggling between different engagement levels
+
+3. **Module Selection Management**
+   - Allows adding and removing modules from the configuration
+   - Provides clear visual feedback for selected state
+   - Updates the calculator state with selected modules
+   - Maintains selection persistence during navigation
+
+4. **Visual Module Information**
+   - Displays module name, description, and category
+   - Shows pillar association with consistent color coding
+   - Provides appropriate visual hierarchy for key information
+   - Includes visual indicators for module relationships and dependencies
+
 ## Component-Specific Design Decisions
 
 ### Module Card Design
 
-The module cards represent a key UX decision point, balancing several competing needs:
+This component implements the [Card Design Pattern](./DesignGuidelines.md#1-card-design-pattern) with the following specific adaptations:
 
-1. **Card Structure** - The module presentation layout:
-   - Uses consistent card dimensions for visual harmony
+1. **Module-Specific Card Structure** - Specialized for module selection:
    - Implements clear visual hierarchy from name to description to options
-   - Provides sufficient information for decision-making without overwhelming
+   - Provides sufficient information for module decision-making without overwhelming
    - Creates appropriate visual distinction between different modules
+   - Adapts card design to accommodate module metadata
 
-2. **Engagement Model Options** - The dual selection interface:
+2. **Engagement Model Options** - Specialized selection interface:
    - Clearly distinguishes between Insight Primer and Integrated Execution options
    - Visually emphasizes the differences in scope, timeline, and EVC values
    - Implements intuitive toggle behavior for selection
    - Provides appropriate visual feedback for current selection state
 
-3. **Pillar Association** - The strategic context indicators:
+3. **Pillar Association** - Strategic context integration:
    - Uses color coding consistent with ModuleExplorer for pillar association
    - Incorporates pillar-specific iconography for visual reinforcement
    - Maintains consistent styling conventions from exploration to selection
@@ -41,13 +71,62 @@ The module cards represent a key UX decision point, balancing several competing 
 
 ### Responsive Approach
 
-The component implements carefully considered responsive behaviors:
+This component follows the [Responsive Design Guidelines](./DesignGuidelines.md#responsive-design-guidelines) with these specific adaptations:
 
 1. **Desktop Experience** - Optimized for precision and comparison:
    - Presents modules in a tabbed interface with pillars as tab headers
    - Displays modules in a two-column grid layout for efficient scanning
    - Uses an optimized UI with more detailed information visibility
    - Implements hover states and other desktop-specific interactions
+
+2. **Mobile Experience** - Adapted for touch and linear browsing:
+   - Reorganizes the interface for vertical scrolling
+   - Adapts card layouts for comfortable touch interaction
+   - Simplifies some visual elements while maintaining information hierarchy
+   - Creates appropriate tap targets for mobile interaction patterns
+
+## Technical Implementation
+
+### Props
+
+- `modules`: Array of all available module objects
+- `selectedModules`: Array of currently selected module IDs and their engagement models
+- `onModuleSelect`: Function to handle selection/deselection of modules
+- `onEngagementModelChange`: Function to handle changing engagement model
+
+### Component Structure
+
+1. **Pillar Navigation**
+   - Tab system for switching between strategic pillars
+   - Active state styling for current pillar
+   - Consistent pillar naming and iconography
+   - Count indicators showing selected modules per pillar
+
+2. **Module Grid**
+   - Responsive grid layout of module cards
+   - Consistent card components with standardized layout
+   - Appropriate spacing and organization for visual scanning
+   - Empty state handling for pillars with no modules
+
+3. **Module Cards**
+   - Header with module name and category
+   - Description area with concise module overview
+   - Engagement model toggles for selection options
+   - Selected state indicators with appropriate feedback
+
+### Integration Points
+
+- **ModuleExplorer**: Shares consistent visual language and selection state
+- **SummarySidebar**: Updates reflected in the sidebar when modules are selected
+- **PricingSummary**: Selected modules impact pricing calculations
+- **DetailedReportModal**: Provides selection data for the report generation
+
+## Related Components
+
+- [ModuleExplorer](./ModuleExplorer.md): Alternative module discovery interface
+- [SummarySidebar](./SummarySidebar.md): Displays modules selected in the selector
+- [JourneyPlanner](./JourneyPlanner.md): Alternative selection mechanism organized by transformation journey
+- [PricingSummary](./PricingSummary.md): Shows financial impact of module selections
 
 2. **Mobile Experience** - Adapted for touch and limited space:
    - Converts tabs to a dropdown selector for conserving vertical space

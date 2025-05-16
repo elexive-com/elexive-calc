@@ -1,12 +1,12 @@
-# Elexive Calculator Design Guidelines
+# Elexive Solution Builder Design Guidelines
 
 ## Overview
 
-This document defines the shared design principles, color system, interaction patterns, and customer journey integration guidelines for the Elexive Calculator application. These guidelines ensure consistency across all components while supporting the strategic business goals of reducing information asymmetry, managing complexity, and empowering customer control.
+This document defines the shared design principles, color system, interaction patterns, and customer journey integration guidelines for the Elexive Solution Builder application. These guidelines ensure consistency across all components while supporting the strategic business goals of reducing information asymmetry, managing complexity, and empowering customer control.
 
 ## Strategic Foundation
 
-The Elexive Calculator transforms the consulting sales process through a customer-centric digital experience that addresses key pain points identified in our research:
+The Elexive Solution Builder transforms the consulting sales process through a customer-centric digital experience that addresses key pain points identified in our research:
 
 1. **Information Asymmetry**: Traditional consulting sales processes obscure true costs and value
 2. **Complexity Overwhelm**: The multifaceted nature of transformation consulting often leads to analysis paralysis
@@ -14,20 +14,21 @@ The Elexive Calculator transforms the consulting sales process through a custome
 
 ## Customer Journey Phases
 
-The calculator is architected around a customer journey that builds trust, demonstrates value, and creates momentum toward conversion:
+The Solution Builder is architected around a customer journey that builds trust, demonstrates value, and creates momentum toward conversion:
+
 
 ### 1. **Intuitive Onboarding**
    - Meets executives where they are with business-focused language
    - Quickly personalizes the experience to their specific challenges
    - Creates immediate value through ready-made solutions for common business transformation scenarios
-   - **Key Components**: [CalculatorIntroduction](./CalculatorIntroduction.md), [OnboardingQuiz](./OnboardingQuiz.md)
+   - **Key Components**: [SolutionBuilderIntroduction](./CalculatorIntroduction.md), [OnboardingQuiz](./OnboardingQuiz.md)
 
 ### 2. **Guided Exploration**
    - Presents consulting modules through multiple navigation paradigms to match executive thinking styles
    - Organizes offerings by transformation pillars and journey stages
    - Uses visual storytelling to make complex service choices intuitive
    - Empowers self-guided discovery with filtering, search, and save functionality
-   - **Key Components**: [ModuleExplorer](./ModuleExplorer.md), [ModuleSelector](./ModuleSelector.md), [ProductionCapacitySelector](./ProductionCapacitySelector.md)
+   - **Key Components**: [ModuleExplorer](./ModuleExplorer.md), [ModuleSelector](./ModuleSelector.md), [ModuleDetails](./ModuleDetails.md), [ProductionCapacitySelector](./ProductionCapacitySelector.md)
 
 ### 3. **Strategic Optimization**
    - Frames consulting decisions in terms of business outcomes
@@ -47,9 +48,30 @@ The calculator is architected around a customer journey that builds trust, demon
    - Captures value-signaling data that enables personalized follow-up
    - **Implementation**: Integrated throughout components via strategic calls-to-action
 
+## Journey Impact Matrix
+
+| Phase                  | Component                    | Design Role                    | Strategic Goal                                |
+|------------------------|------------------------------|--------------------------------|-----------------------------------------------|
+| Intuitive Onboarding   | CalculatorIntroduction       | Establish trust, relevance     | Reduce bounce rate, increase config starts     |
+| Guided Exploration     | ModuleExplorer, Selector     | Encourage discovery             | Increase modules viewed, save events           |
+| Strategic Optimization | ResourceAllocationSelector   | Frame decisions in outcomes     | Improve scenario time, deepen engagement       |
+| Value Validation       | PricingSummary, Reports      | Visualize ROI, socialize config | Increase internal sharing, shorten cycle       |
+| Friction-Free Conversion | CTA Integration             | Create forward momentum         | Increase contact rate, reduce friction         |
+
+## Service-First Design Mindset
+
+The Elexive Solution Builder is not a scoping tool—it is the gateway to an ongoing, modular advisory service. Every design decision should support:
+
+- Re-engagement and persistent access
+- Clarity around long-term advisory pathways
+- Transparent delivery through Elastic Value Credits (EVCs)
+- Momentum toward relationship-building, not just transaction completion
+
+Our interface must reflect that this is a recurring service, not a one-off decision.
+
 ## Core Design Principles
 
-All components within the Elexive Calculator adhere to these foundational design principles:
+All components within the Elexive Solution Builder adhere to these foundational design principles:
 
 ### 1. **Visual Consistency**
    - Maintain strong visual relationships between related elements
@@ -68,6 +90,8 @@ All components within the Elexive Calculator adhere to these foundational design
    - Limit the number of choices presented at any given moment
    - Use consistent patterns and layouts across the interface
    - Provide visual cues that guide attention to important elements
+   - Support executive decision-making under time pressure
+   - Increase clarity of high-impact actions during reconfiguration
 
 ### 4. **Business-Focused Language**
    - Frame all information in executive-friendly terms
@@ -83,7 +107,7 @@ All components within the Elexive Calculator adhere to these foundational design
 
 ## Color System
 
-The Elexive Calculator implements a cohesive color system that creates meaningful associations while maintaining accessibility:
+The Elexive Solution Builder implements a cohesive color system that creates meaningful associations while maintaining accessibility:
 
 ### 1. **Brand Colors**
    - **Elexive Primary**: #2E2266 (Deep purple) - Used for primary UI elements, main headers
@@ -325,9 +349,130 @@ Component effectiveness should be measured against these key metrics:
 
 This document and associated design guidelines will evolve over time:
 
-- **Current Version**: 1.0
-- **Last Updated**: April 29, 2025
-- **Change History**: Initial consolidated guidelines
+- **Current Version**: 1.1
+- **Last Updated**: May 16, 2025
+- **Change History**: 
+  - 1.0 (April 29, 2025): Initial consolidated guidelines
+  - 1.1 (May 16, 2025): Added common UI/UX patterns, component implementation guidelines
+
+## Common Component Patterns
+
+These reusable design patterns appear across multiple components and should be implemented consistently to maintain visual cohesion and user experience continuity.
+
+### 1. **Card Design Pattern**
+   - **Purpose**: Used for presenting discrete, selectable options or information units
+   - **Visual Structure**:
+     - Consistent dimensions (typically height-flexible, fixed width)
+     - Clear header area with distinctive background color
+     - Well-defined content area with appropriate spacing
+     - Optional footer/action area visually separated from content
+   - **Selection States**:
+     - Distinctive border (2px solid in primary or accent color)
+     - Subtle background color change
+     - Selection indicator (checkmark, highlight, or icon) 
+     - Focus/hover states with appropriate visual feedback
+   - **Implementation**: 
+     - Use consistent border-radius (typically 8px)
+     - Maintain consistent shadow treatment (typically 0 2px 4px rgba(0,0,0,0.1))
+     - Implement hover, focus, and active states consistently
+   - **Used in**: ModuleSelector, ModuleExplorer, ModuleDetails, ProductionCapacitySelector, ResourceAllocationSelector, OnboardingQuiz
+
+### 2. **Expandable Section Pattern**
+   - **Purpose**: Used for progressive disclosure of related information
+   - **Visual Structure**:
+     - Consistent header with expansion indicator (typically chevron/arrow)
+     - Clear visual feedback for expanded/collapsed states
+     - Smooth animation for expansion/collapse transitions
+     - Content area with appropriate padding and hierarchy
+   - **Behavior**:
+     - Click/tap on header toggles expansion state
+     - Default open/closed state based on information priority
+     - Keyboard-accessible expansion control
+     - Optional group behavior (accordion-style)
+   - **Implementation**:
+     - Use consistent animation timing (typically 200-300ms)
+     - Apply aria-expanded and aria-controls attributes for accessibility
+     - Implement directionally appropriate indicators (down when closed, up when open)
+   - **Used in**: SummarySidebar, CalculatorIntroduction, ResourceAllocationSelector
+
+### 3. **Educational Content Pattern**
+   - **Purpose**: Used for providing explanatory information and guidance
+   - **Visual Structure**:
+     - Distinctive background color or border (typically using info/blue colors)
+     - Clear hierarchical organization (title, description, additional details)
+     - Optional icon indicating informational content
+     - Visual separation from interactive elements
+   - **Content Guidelines**:
+     - Use concise, business-focused language
+     - Implement progressive disclosure for detailed information
+     - Balance information completeness with cognitive load
+     - Maintain consistent tone across all educational elements
+   - **Implementation**:
+     - Use subtle visual treatment that doesn't compete with primary content
+     - Apply consistent typography for titles (typically H3 or H4)
+     - Consider expandable implementation for longer explanations
+   - **Used in**: FeatureIntroduction, EvcExplainer, ModuleDetails, ResourceAllocationSelector, OnboardingQuiz
+
+## Visual Selection Feedback Standards
+
+Consistent visual feedback for selection states creates predictable user experiences and reinforces the interaction model.
+
+### 1. **Option Selection**
+   - **Single-Select Options**:
+     - Apply accent-colored border (2px solid) to the selected item
+     - Use subtle background color change (#F8F9FA to #F0F7FF)
+     - Add visual indicator (checkmark or highlight) in consistent position
+     - Maintain clear visual distinction from unselected items
+   - **Multi-Select Options**:
+     - Use checkbox or toggle controls with consistent styling
+     - Provide clear visual feedback for partial and complete selection
+     - Implement distinguishable states (selected, unselected, disabled)
+     - Apply consistent hover/focus effects across selectable elements
+
+### 2. **Interactive Element States**
+   - **Buttons and Controls**:
+     - Provide distinctive hover state (typically lightened background)
+     - Implement active/pressed state (typically darkened background)
+     - Use consistent focus indicators (outline or glow effect)
+     - Apply disabled state with reduced opacity (typically 0.5-0.6)
+   - **Links and Toggles**:
+     - Use consistent hover effects (underline or color change)
+     - Apply clear active state indicators
+     - Implement keyboard focus states that meet accessibility standards
+
+### 3. **Selection Confirmation**
+   - Provide immediate visual feedback when selection changes
+   - Consider subtle transition animations for state changes
+   - Ensure selection state is clearly visible even at a glance
+   - Use appropriate ARIA attributes for screen reader users
+
+## Component-Specific Implementation Guidelines
+
+These guidelines explain how common patterns should be applied to specific component types.
+
+### 1. **Selection Components**
+   Selection components (ModuleSelector, ModuleDetails, ProductionCapacitySelector, ResourceAllocationSelector) should:
+   - Implement the Card Design Pattern with appropriate selection states
+   - Use consistent spacing between options (typically 16px)
+   - Provide both visual and programmatic grouping of related options
+   - Consider responsive adaptation for different viewport sizes
+   - Include clear instruction/explanation text above option groups
+
+### 2. **Information Display Components**
+   Information display components (SummarySidebar, DetailedReportModal, PricingSummary) should:
+   - Implement the Expandable Section Pattern for managing information density
+   - Apply consistent information hierarchy within sections
+   - Use appropriate typographic styles for different information types
+   - Provide sufficient context and labeling for numerical values
+   - Implement responsive layouts that prioritize critical information
+
+### 3. **Educational Components**
+   Educational components (FeatureIntroduction, EvcExplainer, CalculatorIntroduction) should:
+   - Implement the Educational Content Pattern with consistent styling
+   - Balance information completeness with cognitive load
+   - Use progressive disclosure for detailed explanations
+   - Maintain consistent tone and terminology across all educational content
+   - Consider context of use when determining information density
 
 ---
 

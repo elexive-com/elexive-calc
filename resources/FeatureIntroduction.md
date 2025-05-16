@@ -1,10 +1,14 @@
 # FeatureIntroduction Component
 
+> **Status**: Implemented  
+> **Last Updated**: May 16, 2025  
+> **AI Keywords**: feature, introduction, explanation, education, guidance, help, information
+
 ## Overview
 
-The FeatureIntroduction component provides a consistent, visually distinct way to present introductory information about various features in the Elexive Calculator. It creates a highlighted section with a title, description, and optional additional information, designed to make explanatory content stand out from the rest of the interface and support the customer's educational journey.
+The FeatureIntroduction component provides a consistent, visually distinct way to present introductory information about various features in the Elexive Solution Builder. It creates a highlighted section with a title, description, and optional additional information, designed to make explanatory content stand out from the rest of the interface and support the customer's educational journey.
 
-> **Note:** This component adheres to the [Elexive Calculator Design Guidelines](./DesignGuidelines.md) for visual design, interaction patterns, and customer journey integration.
+> **Note:** This component adheres to the [Elexive Solution Builder Design Guidelines](./DesignGuidelines.md) for visual design, interaction patterns, and customer journey integration.
 
 ## Strategic Purpose
 
@@ -15,25 +19,51 @@ The FeatureIntroduction addresses several key customer needs identified in our r
 3. **Cognitive Load Management**: By creating consistent, predictable patterns for finding help
 4. **Progressive Disclosure**: By separating essential information from deeper explanations
 
+## Core Functionality
+
+1. **Contextual Education**
+   - Provides essential information about calculator concepts
+   - Appears directly within the relevant component context
+   - Uses consistent visual styling for immediate recognition
+   - Creates appropriate information hierarchy for the explanation
+   
+2. **Progressive Information Disclosure**
+   - Distinguishes between primary explanations and supplementary details
+   - Visually differentiates between core concepts and additional information
+   - Creates appropriate cognitive grouping of related information
+   - Balances information completeness with cognitive load management
+
+3. **Visual Distinction**
+   - Creates clear visual separation from interactive elements
+   - Uses distinctive styling to highlight educational content
+   - Maintains consistent visual treatment across all calculator components
+   - Implements subtle decorative elements that reinforce educational purpose
+
+4. **Reusable Education Pattern**
+   - Implements a standardized approach to providing explanations
+   - Creates recognition through consistent application throughout the calculator
+   - Supports the broader educational strategy of the application
+   - Establishes predictable patterns for finding help information
+
 ## Component-Specific Design Decisions
 
 ### Information Architecture
 
-The component implements a deliberate information hierarchy:
+This component defines the foundational structure for the [Educational Content Pattern](./DesignGuidelines.md#3-educational-content-pattern) used throughout the application, with these specific implementation details:
 
-1. **Title** - The concept identifier:
+1. **Title** - Core concept identifier:
    - Uses distinctive typography with appropriate weight and size
    - Implements consistent styling with subtle accent elements
    - Creates immediate recognition of the explanatory nature
    - Establishes the topic with concise, clear language
 
-2. **Description** - The essential explanation:
+2. **Description** - Essential explanation layer:
    - Provides the core concept in business-friendly language
    - Uses appropriate typography for optimal readability
    - Maintains consistent tone and voice across all instances
    - Balances comprehensiveness with conciseness
 
-3. **Additional Information** - The supplementary details:
+3. **Additional Information** - Optional detail layer:
    - Creates clear visual distinction from the primary description
    - Provides deeper explanation for users who need more context
    - Implements subtle styling that indicates secondary importance
@@ -41,7 +71,7 @@ The component implements a deliberate information hierarchy:
 
 ### Visual Treatment
 
-The visual design carefully balances several competing needs:
+This component establishes the visual standards for educational content throughout the application:
 
 1. **Attention Management** - Creating appropriate visual emphasis:
    - Uses subtle background colors that attract attention without disrupting
@@ -55,20 +85,47 @@ The visual design carefully balances several competing needs:
    - Creates visual connection to related UI elements through consistent styling
    - Maintains the overall aesthetic quality of the application
 
-## Core Functionality
+## Technical Implementation
 
-1. **Standardized Information Display**
-   - Presents a title with distinctive styling
-   - Displays a primary description with appropriate typography
-   - Optionally shows additional information in a separate visual treatment
+### Props
 
-2. **Flexible Content Support**
-   - Accepts both string content and React nodes for description and additional info
-   - Renders appropriate containers based on content type
-   - Allows for rich content when needed while maintaining clean implementation
+- `title`: String representing the name of the feature or concept
+- `description`: String or React node containing the primary explanation
+- `additionalInfo`: Optional string or React node with supplementary details
+- `className`: Optional string for additional CSS classes
 
-3. **Visual Distinction**
-   - Implements consistent styling that makes introductory content stand out
+### Component Structure
+
+1. **Container**
+   - Styled div with consistent background color and border styling
+   - Appropriate padding and margin for visual separation
+   - Consistent border radius and shadow effects
+   - Optional class name support for layout integration
+
+2. **Title Section**
+   - Distinctive typography with appropriate size and weight
+   - Consistent color treatment for immediate recognition
+   - Subtle decorative elements to reinforce educational purpose
+   - Clear visual separation from the description content
+
+3. **Content Area**
+   - Primary description with appropriate typography
+   - Support for both string content and React nodes
+   - Visual distinction for additional information when provided
+   - Consistent spacing and typography throughout
+
+### Integration Points
+
+- **Used across multiple components**: Provides consistent educational patterns
+- **Supports the broader learning experience**: Creates recognizable help elements
+- **Adapts to various contexts**: Maintains visual consistency while fitting different spaces
+
+## Related Components
+
+- [EvcExplainer](./EvcExplainer.md): Uses FeatureIntroduction to explain EVC concept
+- [OnboardingQuiz](./OnboardingQuiz.md): Incorporates explanatory content using this component
+- [ProductionCapacitySelector](./ProductionCapacitySelector.md): Provides context about capacity options
+- [ResourceAllocationSelector](./ResourceAllocationSelector.md): Explains context switching concept
    - Uses background layers, decorative elements, and spacing for emphasis
    - Maintains clear visual relationship with surrounding content
 

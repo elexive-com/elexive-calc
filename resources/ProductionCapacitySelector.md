@@ -1,10 +1,14 @@
 # ProductionCapacitySelector Component
 
+> **Status**: Implemented  
+> **Last Updated**: May 16, 2025  
+> **AI Keywords**: capacity, selection, optimization, delivery, intensity, EVC, tiers
+
 ## Overview
 
 The ProductionCapacitySelector component enables users to define the weekly consulting service delivery capacity for their business transformation initiative. It presents a set of tiered capacity options (Pathfinder, Roadster, Jetpack, Rocket) that determine the speed and intensity of service delivery, serving as a key element in the "Strategic Optimization" phase of the customer journey.
 
-> **Note:** This component adheres to the [Elexive Calculator Design Guidelines](./DesignGuidelines.md) for visual design, interaction patterns, and customer journey integration.
+> **Note:** This component adheres to the [Elexive Solution Builder Design Guidelines](./DesignGuidelines.md) for visual design, interaction patterns, and customer journey integration.
 
 ## Strategic Purpose
 
@@ -14,30 +18,6 @@ The ProductionCapacitySelector addresses several key customer needs identified i
 2. **Timeline Control**: By empowering executives to match transformation pace to business readiness
 3. **Budget Alignment**: By directly connecting capacity investment to transformation outcomes
 4. **Commitment Flexibility**: By offering multiple service intensity options with clear differentiation
-
-## Component-Specific Design Decisions
-
-### Capacity Option Design
-
-The capacity option cards represent a key UX decision point, balancing several competing needs:
-
-1. **Card Structure** - The capacity presentation layout:
-   - Uses consistent card dimensions for visual harmony
-   - Implements clear visual hierarchy from name to EVC value to description
-   - Provides sufficient information for decision-making without overwhelming
-   - Creates appropriate visual distinction between different capacity tiers
-
-2. **Metaphorical Scale** - The conceptual framework:
-   - Uses transportation/velocity metaphors that business executives understand
-   - Creates intuitive progression from slower/smaller to faster/larger
-   - Implements appropriate iconography that reinforces the metaphors
-   - Provides immediate intuitive understanding of relative capacity
-
-3. **Visual Selection Feedback** - The interactive indicators:
-   - Implements distinct styling for the selected capacity option
-   - Uses subtle hover effects to indicate interactivity
-   - Provides appropriate color coding for different capacity levels
-   - Creates clear visual contrast between selected and unselected states
 
 ## Core Functionality
 
@@ -49,42 +29,49 @@ The capacity option cards represent a key UX decision point, balancing several c
    
 2. **Configuration-Driven Design**
    - Uses `calculatorConfig.json` to define capacity tiers and their properties
-   - Dynamically generates UI based on the configuration data
-   - Allows for easy modification of capacity options without code changes
+   - Dynamically generates options based on configuration data
+   - Supports extensibility for adding or modifying capacity tiers
    - Maintains consistent presentation regardless of configuration changes
 
-3. **Selection Mechanism**
-   - Implements a simple selection model where only one capacity tier can be active
-   - Uses distinct visual feedback to indicate the currently selected option
-   - Provides immediate UI feedback when selection changes
-   - Creates intuitive interaction patterns for changing selection
+3. **Cost Impact Calculation**
+   - Directly updates the EVC production rate in the calculator
+   - Influences overall transformation timeline and delivery intensity
+   - Affects cost calculations throughout the calculator experience
+   - Updates pricing visualizations in real-time as selections change
 
-4. **Business Impact Visualization**
-   - Clearly communicates the effect of capacity on transformation timeline
-   - Presents capacity in terms of business outcomes rather than technical metrics
-   - Uses executive-friendly language to describe benefits of each tier
-   - Creates appropriate expectations around service delivery intensity
+4. **Business Context Presentation**
+   - Provides clear descriptions of what each capacity tier means
+   - Includes business-relevant factors for selecting each option
+   - Uses consistent terminology aligned with the EVC explanation
+   - Sets appropriate expectations for implementation timelines
 
-## Technical Implementation
+## Component-Specific Design Decisions
 
-### Core Functionality
+### Capacity Option Design
 
-1. **Capacity Tier Selection**
-   - Presents multiple predefined capacity tiers (Pathfinder, Roadster, Jetpack, Rocket)
-   - Each tier represents a different level of weekly EVC (Elexive Value Credit) production
-   - Visually differentiates tiers using icons and styling that communicate scale
-   
-2. **Configuration-Driven Design**
-   - Uses `calculatorConfig.json` to define capacity tiers and their properties
-   - Dynamically generates UI based on the configuration data
-   - Allows for easy modification of capacity options without code changes
+This component implements the [Card Design Pattern](./DesignGuidelines.md#1-card-design-pattern) and follows the [Visual Selection Feedback Standards](./DesignGuidelines.md#visual-selection-feedback-standards) with the following specific adaptations:
 
-3. **Selection Mechanism**
-   - Implements a simple selection model where only one capacity tier can be active
-   - Uses distinct visual feedback to indicate the currently selected option
-   - Provides immediate UI feedback when selection changes
+1. **Capacity-Specific Card Structure** - Specialized for capacity selection:
+   - Implements clear visual hierarchy from name to EVC value to description
+   - Provides sufficient information for capacity decision-making without overwhelming
+   - Creates appropriate visual distinction between different capacity tiers
+   - Adapts card design to emphasize capacity differences
 
-### Responsive Design Implementation
+2. **Metaphorical Scale** - Unique conceptual framework:
+   - Uses transportation/velocity metaphors that business executives understand
+   - Creates intuitive progression from slower/smaller to faster/larger
+   - Implements appropriate iconography that reinforces the metaphors
+   - Provides immediate intuitive understanding of relative capacity
+
+3. **Visual Selection Feedback** - Capacity-specific indicators:
+   - Uses subtle hover effects to indicate interactivity
+   - Provides appropriate color coding for different capacity levels
+   - Creates clear visual contrast between selected and unselected states
+   - Implements feedback appropriate for mutually exclusive options
+
+### Responsive Design Approach
+
+This component follows the [Responsive Design Guidelines](./DesignGuidelines.md#responsive-design-guidelines) with these specific adaptations:
 
 1. **Layout Adaptation**
    - Uses a 3-column grid on desktop for side-by-side comparison
@@ -96,79 +83,47 @@ The capacity option cards represent a key UX decision point, balancing several c
    - Uses consistent iconography to represent capacity metaphorically
    - Provides supporting text that's visually de-emphasized but accessible
 
-### Integration with Calculator Logic
-
-The component directly influences the calculator's core calculations by:
-   - Setting the weekly production rate of EVCs
-   - Affecting the timeline for service delivery
-   - Impacting resource allocation calculations
-
-## Implementation Details
+## Technical Implementation
 
 ### Props
 
 - `productionCapacity`: String representing the currently selected capacity tier
 - `setProductionCapacity`: Function to update the selected capacity tier
+- `calculator`: Object containing the current calculator state
+- `updateCalculator`: Function to update the calculator with new capacity value
 
-### External Dependencies
+### Component Structure
 
-1. **Configuration Data**
-   - Imports capacity tier definitions from `calculatorConfig.json`
-   - Each tier contains:
-     - `label`: Human-readable name for the tier
-     - `weeklyEVCs`: Numeric value representing EVCs produced per week
-     - `valueProposition`: Description of the tier's benefits
-     - `colorClass`: CSS class for styling the EVC display
+1. **Header Section**
+   - Component title with appropriate typography
+   - Introductory text explaining the capacity selection concept
+   - FeatureIntroduction component with detailed guidance
+   - Visual separation from capacity option cards
 
-2. **UI Components**
-   - Uses `FeatureIntroduction` component to provide contextual guidance
-   - Leverages FontAwesome icons to represent capacity tiers visually
+2. **Capacity Option Grid**
+   - Responsive grid layout of capacity tier cards
+   - Consistent card components with standardized layout
+   - Selection state styling for the active option
+   - Appropriate iconography for each capacity level
 
-### Rendering Logic
+3. **Option Card Components**
+   - Clear capacity tier label (Pathfinder, Roadster, etc.)
+   - Prominent weekly EVC value display
+   - Supporting description text explaining benefits
+   - Visual selection indicators for the active option
 
-1. **Dynamic Option Generation**
-   - Maps through configuration data to generate capacity tier options
-   - Applies conditional styling based on selection state
-   - Assigns appropriate icons based on tier key
+### Integration Points
 
-2. **Visual Feedback**
-   - Selected tier receives highlighted styling with accent border
-   - Unselected tiers have subtle hover effects to indicate interactivity
-   - Uses consistent color coding from the application's design system
+- **Calculator Context**: Updates calculator state with selected capacity
+- **EVC Calculation**: Influences weekly production rate for timeline calculation
+- **Pricing Summary**: Affects cost and timeline projections based on selection
 
-## User Experience Considerations
+## Related Components
 
-1. **Simplified Decision Making**
-   - Presents clear, differentiated options to simplify user choice
-   - Provides adequate information for informed decisions without overwhelming
-   - Uses visual metaphors (pathfinder, roadster, jetpack, rocket) for intuitive understanding
-
-2. **Contextual Guidance**
-   - Incorporates the FeatureIntroduction component to explain the concept
-   - Clarifies the impact of the selection on project outcomes
-   - Mentions the ability to adjust capacity later to reduce commitment anxiety
-
-3. **Clear Visual Hierarchy**
-   - Emphasizes the weekly EVC value as the primary decision factor
-   - Supports the value with descriptive text explaining benefits
-   - Uses consistent visual language with the rest of the application
-
-## Performance Considerations
-
-1. **Efficient Rendering**
-   - Minimizes state changes by only updating on explicit selection
-   - Uses configuration data to avoid hardcoded options
-   - Implements clean component boundaries for efficient re-renders
-
-2. **Predictable Behavior**
-   - Maintains a single source of truth for selection state
-   - Provides immediate visual feedback for user actions
-   - Ensures consistent behavior across different device types
-
-## Future Enhancement Opportunities
-
-1. **Custom Capacity Input**
-   - Allow users to specify custom EVC/week values for more flexibility
+- [EvcExplainer](./EvcExplainer.md): Provides context for understanding the EVC concept
+- [PricingSummary](./PricingSummary.md): Displays cost impact of production capacity selection
+- [SummarySidebar](./SummarySidebar.md): Shows selected capacity in the configuration summary
+- [FeatureIntroduction](./FeatureIntroduction.md): Used to provide contextual education about capacity
    - Implement validation and guidance for custom inputs
 
 2. **Capacity Planning Tool**

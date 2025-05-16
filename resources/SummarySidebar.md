@@ -1,10 +1,47 @@
 # SummarySidebar Component
 
+> **Status**: Implemented  
+> **Last Updated**: May 16, 2025  
+> **AI Keywords**: sidebar, calculator, configuration, summary, pricing, EVC, customer journey
+
 ## Overview
 
 The SummarySidebar component provides a persistent, consolidated view of the user's current calculator configuration. It displays key selections, calculations, and summary information in a compact, easily scannable format that remains visible throughout the configuration process, serving as a continuous feedback mechanism across all phases of the customer journey.
 
-> **Note:** This component adheres to the [Elexive Calculator Design Guidelines](./DesignGuidelines.md) for visual design, interaction patterns, and customer journey integration.
+> **Note:** This component adheres to the [Elexive Solution Builder Design Guidelines](./DesignGuidelines.md) for visual design, interaction patterns, and customer journey integration.
+
+## Strategic Purpose
+
+The SummarySidebar addresses several key customer needs identified in our research:
+
+1. **Decision Visibility**: By providing persistent visualization of all selections and their implications
+2. **Configuration Awareness**: By showing the cumulative impact of multiple configuration decisions
+3. **Progress Reinforcement**: By displaying completed steps and remaining configuration options
+4. **Value Transparency**: By continuously updating pricing and timeline calculations based on selections
+
+## Core Functionality
+
+1. **Configuration Summary Display**
+   - Shows all key user selections in collapsible sections
+   - Presents critical calculations like estimated completion time
+   - Displays pricing information and resource allocation details
+   - Updates in real-time as configuration changes occur
+
+2. **Expandable Section Management**
+   - Implements collapsible sections to maximize information density
+   - Provides consistent toggle behavior with appropriate icons
+   - Creates appropriate progressive disclosure for complex information
+
+3. **Modal Integration**
+   - Serves as a launch point for the DetailedReportModal
+   - Provides access to the EvcExplainer modal for educational content
+   - Creates contextually relevant educational opportunities
+
+4. **Action Integration**
+   - Includes direct call-to-action buttons for next steps
+   - Provides email contact mechanism for sales inquiries
+   - Creates a clear pathway from configuration to engagement
+   - Enables seamless transition between journey phases
 
 ## Component-Specific Design Decisions
 
@@ -32,94 +69,18 @@ The sidebar implements a deliberate information architecture:
 
 ### Expandable Section Design
 
-The expandable sections balance several competing needs:
+This component implements the [Expandable Section Pattern](./DesignGuidelines.md#2-expandable-section-pattern) with the following specific adaptations:
 
-1. **Information Density Management** - The progressive disclosure approach:
-   - Implements collapsible sections to prevent information overload
-   - Uses consistent expansion/collapse indicators and behaviors
-   - Provides appropriate default states based on information importance
-   - Creates predictable interaction patterns for information exploration
+1. **Information Density Management** - Sidebar-specific progressive disclosure:
+   - Implements collapsible sections optimized for a persistent sidebar context
+   - Provides appropriate default states based on information importance in the customer journey
+   - Creates predictable interaction patterns for sidebar information exploration
+   - Balances information density with screen real estate constraints
 
-2. **Section Visual Treatment** - The categorical design system:
-   - Uses consistent header styling with appropriate iconography
+2. **Section Visual Treatment** - Specialized categorical design:
+   - Uses consistent header styling with sidebar-appropriate iconography
    - Implements subtle background treatments to distinguish section types
-   - Creates clear visual boundaries between information categories
-   - Maintains cohesive visual language across all expandable sections
-
-## Strategic Purpose
-
-The SummarySidebar addresses several key customer needs identified in our research:
-
-1. **Decision Visibility**: By providing persistent visualization of all selections and their implications
-2. **Configuration Awareness**: By showing the cumulative impact of multiple configuration decisions
-3. **Progress Reinforcement**: By displaying completed steps and remaining configuration options
-4. **Value Transparency**: By continuously updating pricing and timeline calculations based on selections
-
-## Design Principles
-
-The SummarySidebar's design follows the key principles established throughout the calculator:
-
-1. **Visual Consistency** - Maintains strong visual relationships with the broader application:
-   - Using the established color system for pillar and category indicators
-   - Ensuring summary elements have consistent visual treatment
-   - Applying coherent typographic hierarchy throughout the interface
-
-2. **Information Hierarchy** - Presents information in a logical order of importance:
-   - Pricing and timeline information as primary focal points
-   - Module selections and key configuration choices as secondary elements
-   - Supporting details and parameters as tertiary information
-   - Progressive disclosure through expandable sections for density management
-
-3. **Persistent Awareness** - Creates continuous visibility of configuration state:
-   - Maintaining fixed positioning during user navigation
-   - Updating in real-time as configuration changes
-   - Providing consistent visual feedback on all selection impacts
-   - Creating a comprehensive overview that reinforces the holistic solution
-
-4. **Action Integration** - Facilitates progression through the customer journey:
-   - Providing contextually appropriate calls-to-action
-   - Connecting exploration to validation through report generation
-   - Creating clear pathways to consulting engagement
-   - Enabling educational exploration through modal access points
-
-## Key UX Decisions
-
-### Information Organization
-
-The sidebar implements a deliberate information architecture:
-
-1. **Critical Metrics** - The key business outcomes:
-   - Presents price and timeline information with prominent visual treatment
-   - Uses distinctive typography to emphasize the most important figures
-   - Creates immediate visibility for decision-critical information
-   - Implements consistent visual patterns for financial and temporal data
-
-2. **Configuration Summary** - The selected options:
-   - Organizes selections into logical, collapsible sections
-   - Uses consistent iconography and visual treatment for each selection category
-   - Creates scannable overviews of complex configuration choices
-   - Maintains appropriate information density through progressive disclosure
-
-3. **Call-to-Action Area** - The progression pathway:
-   - Provides contextually appropriate action buttons
-   - Creates visual emphasis through distinctive styling
-   - Implements logical positioning at the conclusion of the summary
-   - Uses action-oriented language that frames next steps in terms of value
-
-### Expandable Section Design
-
-The expandable sections balance several competing needs:
-
-1. **Information Density Management** - The progressive disclosure approach:
-   - Implements collapsible sections to prevent information overload
-   - Uses consistent expansion/collapse indicators and behaviors
-   - Provides appropriate default states based on information importance
-   - Creates predictable interaction patterns for information exploration
-
-2. **Section Visual Treatment** - The categorical design system:
-   - Uses consistent header styling with appropriate iconography
-   - Implements subtle background treatments to distinguish section types
-   - Creates clear visual boundaries between information categories
+   - Creates clear visual boundaries between information categories within the sidebar
    - Maintains cohesive visual language across all expandable sections
 
 ### Integration with Customer Journey
@@ -144,26 +105,7 @@ The SummarySidebar serves as a continuous feedback mechanism throughout the cust
    - Creates clear calls-to-action for next steps in the consulting process
    - Enables seamless transition to conversion through integrated actions
 
-## Core Functionality
-
-1. **Configuration Summary Display**
-   - Shows all key user selections in collapsible sections
-   - Presents critical calculations like estimated completion time
-   - Displays pricing information and resource allocation details
-   - Lists selected modules with their EVC values
-   - Updates in real-time as configuration changes occur
-
-2. **Expandable Section Management**
-   - Implements collapsible sections to maximize information density
-   - Uses local state to track which sections are expanded
-   - Provides consistent toggle behavior with appropriate icons
-   - Creates appropriate progressive disclosure for complex information
-
-3. **Modal Integration**
-   - Serves as a launch point for the DetailedReportModal
-   - Provides access to the EvcExplainer modal for educational content
-   - Maintains modal state and appropriate handlers for modal interaction
-   - Creates contextually relevant educational opportunities
+## Technical Implementation
 
 4. **Action Integration**
    - Includes direct call-to-action buttons for next steps
@@ -293,3 +235,11 @@ The SummarySidebar serves as a continuous feedback mechanism throughout the cust
    - Allow users to pin preferred sections in open state
    - Implement custom ordering of information sections
    - Enable saving of preferred information display preferences
+
+## Related Components
+
+- [DetailedReportModal](./DetailedReportModal.md): Launched from the SummarySidebar to provide comprehensive reporting
+- [EvcExplainer](./EvcExplainer.md): Accessed via the SummarySidebar to provide educational content about EVCs
+- [ModuleSelector](./ModuleSelector.md): Provides content that is summarized in the SummarySidebar
+- [ProductionCapacitySelector](./ProductionCapacitySelector.md): Selection is reflected in the SummarySidebar
+- [ResourceAllocationSelector](./ResourceAllocationSelector.md): Selection is reflected in the SummarySidebar
