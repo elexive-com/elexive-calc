@@ -243,13 +243,13 @@ const CalculatorIntroduction = ({ onGetStarted }) => {
             </div>
           </div>
           
-          <div className="w-full md:w-1/4 mt-3 md:mt-0 md:pl-6 order-2">
-            <div className="sticky top-6">
-              <div className="aspect-square overflow-hidden mb-3 sm:mb-0">
+          <div className="w-4/5 mx-auto md:w-1/4 mt-3 md:mt-0 md:pl-6 order-2">
+            <div className="sticky md:top-6">
+              <div className="aspect-[21/9] sm:aspect-video md:aspect-square overflow-hidden mb-3">
                 <img 
                   src={`${process.env.PUBLIC_URL}/strategy-2.png`} 
                   alt="Bonsai tree representing growth and balance" 
-                  className="w-full h-full object-cover shadow-md rounded-tl-2xl rounded-tr-none rounded-br-2xl rounded-bl-none hidden sm:block" 
+                  className="w-full h-full object-cover shadow-md rounded-tl-2xl rounded-tr-none rounded-br-2xl rounded-bl-none" 
                 />
               </div>
             </div>
@@ -261,12 +261,12 @@ const CalculatorIntroduction = ({ onGetStarted }) => {
       <div className="elx-section">
         <h3 className="elx-heading-2">Critical Business Challenges We Solve</h3>
         <div className="w-full flex flex-col md:flex-row">
-          <div className="w-full md:w-1/4 mb-5 md:mb-0 md:pr-6 order-2 md:order-1">
-            <div className="aspect-square overflow-hidden mb-3 sm:mb-0">
+          <div className="w-4/5 mx-auto md:w-1/4 mb-5 md:mb-0 md:pr-6 order-2 md:order-1">
+            <div className="aspect-[21/9] sm:aspect-video md:aspect-square overflow-hidden mb-3">
               <img 
                 src={`${process.env.PUBLIC_URL}/bonsai-square-1.png`} 
                 alt="Bonsai tree representing growth and balance" 
-                className="w-full h-full object-cover shadow-md rounded-tl-2xl rounded-tr-none rounded-br-2xl rounded-bl-none hidden sm:block" 
+                className="w-full h-full object-cover shadow-md rounded-tl-2xl rounded-tr-none rounded-br-2xl rounded-bl-none" 
               />
             </div>
           </div>
@@ -496,16 +496,16 @@ const CalculatorIntroduction = ({ onGetStarted }) => {
             </div>
           </div>
           
-          <div className="w-full md:w-1/4 mt-4 md:mt-0 md:pl-6 order-2">
-            <div className="sticky top-6">
-              <div className="aspect-square overflow-hidden mb-3 sm:mb-0">
+          <div className="w-4/5 mx-auto md:w-1/4 mt-4 md:mt-0 md:pl-6 order-2">
+            <div className="sticky md:top-6">
+              <div className="aspect-[21/9] sm:aspect-video md:aspect-square overflow-hidden mb-3">
                 <img 
                   src={`${process.env.PUBLIC_URL}/nextgen.png`} 
                   alt="Bonsai tree representing growth and balance" 
-                  className="w-full h-full object-cover shadow-md rounded-tl-2xl rounded-tr-none rounded-br-2xl rounded-bl-none hidden sm:block" 
+                  className="w-full h-full object-cover shadow-md rounded-tl-2xl rounded-tr-none rounded-br-2xl rounded-bl-none" 
                 />
               </div>
-              <div className="mt-0 sm:mt-3 md:mt-4 p-3 md:p-4 bg-gray-50 rounded-lg border border-gray-200">
+              <div className="mt-3 p-3 md:p-4 bg-gray-50 rounded-lg border border-gray-200">
                 <div className="flex items-center mb-1 md:mb-2">
                   <FontAwesomeIcon icon={faInfoCircle} className="text-elx-primary mr-2 flex-shrink-0" />
                   <p className="text-sm font-medium text-elx-primary">
@@ -525,12 +525,12 @@ const CalculatorIntroduction = ({ onGetStarted }) => {
         </h3>
         
         <div className="w-full flex flex-col md:flex-row">
-          <div className="w-full md:w-1/4 mb-4 md:mb-0 md:pr-6 order-2 md:order-1">
-            <div className="aspect-square overflow-hidden mb-3 sm:mb-0">
+          <div className="w-4/5 mx-auto md:w-1/4 mb-4 md:mb-0 md:pr-6 order-2 md:order-1">
+            <div className="aspect-[21/9] sm:aspect-video md:aspect-square overflow-hidden mb-3">
               <img 
                 src={`${process.env.PUBLIC_URL}/bonsai-enterprise.png`} 
                 alt="Bonsai tree representing growth and balance" 
-                className="w-full h-full object-cover shadow-md rounded-tl-2xl rounded-tr-none rounded-br-2xl rounded-bl-none hidden sm:block" 
+                className="w-full h-full object-cover shadow-md rounded-tl-2xl rounded-tr-none rounded-br-2xl rounded-bl-none" 
               />
             </div>
           </div>
