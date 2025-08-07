@@ -1,0 +1,24 @@
+# Build outputs
+build/
+dist/
+
+# Dependencies
+node_modules/
+
+# Generated files
+*.min.js
+*.min.css
+
+# Config files that should maintain their format
+package-lock.json
+yarn.lock
+
+# Documentation
+*.md
+
+# Public assets
+public/
+
+# Legacy files
+src/service-worker.js
+src/serviceWorkerRegistration.js
