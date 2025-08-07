@@ -1,10 +1,9 @@
 @import url('https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@400;600;700&display=swap');
+@import './helpers/tailwind-helpers.css';
 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-
-@import './helpers/tailwind-helpers.css';
 
 /* Optional: Keep any custom styles below */
 body {
