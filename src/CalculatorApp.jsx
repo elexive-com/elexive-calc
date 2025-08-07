@@ -13,6 +13,7 @@ import EvcExplainer from './components/EvcExplainer';
 import ModuleDetails from './components/ModuleDetails';
 import { faLightbulb, faCompass, faRocket } from '@fortawesome/free-solid-svg-icons';
 import { useTabContext } from './contexts/TabContext';
+import { useRouterContext } from './contexts/RouterContext';
 import { debugLog } from './config/environment';
 import { generateModulePdf } from './pdf';
 import modulesConfig from './config/modulesConfig.json';
@@ -20,6 +21,7 @@ import modulesConfig from './config/modulesConfig.json';
 const CalculatorApp = () => {
   const calculator = useCalculator();
   const { activeTab, setActiveTab } = useTabContext();
+  const { navigateToTab } = useRouterContext();
   const [isEvcModalOpen, setIsEvcModalOpen] = useState(false);
   const [activeStep, setActiveStep] = useState(1); // Track current step
   const [expandedSteps, setExpandedSteps] = useState({
@@ -53,6 +55,7 @@ const CalculatorApp = () => {
   
   const handleGetStarted = () => {
     setActiveTab('calculator');
+    navigateToTab('calculator');
   };
 
   const openEvcExplainer = () => {

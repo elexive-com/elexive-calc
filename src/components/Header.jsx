@@ -9,10 +9,12 @@ import {
   faRoad
 } from '@fortawesome/free-solid-svg-icons';
 import { useTabContext } from '../contexts/TabContext';
+import { useRouterContext } from '../contexts/RouterContext';
 import { ENV, DEBUG } from '../config/environment';
 
 const Header = () => {
   const { activeTab, setActiveTab } = useTabContext();
+  const { navigateToTab } = useRouterContext();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   
   const toggleMobileMenu = () => {
@@ -26,7 +28,12 @@ const Header = () => {
       tab = 'introduction';
     }
     
+    // Update tab state immediately for responsive UI
     setActiveTab(tab);
+    
+    // Navigate to the route
+    navigateToTab(tab);
+    
     setMobileMenuOpen(false); // Close menu after selection on mobile
     
     // Scroll to top of the page
