@@ -1,0 +1,40 @@
+version: 1
+frontend:
+  phases:
+    preBuild:
+      commands:
+        # Set Node.js version to 24
+        - nvm use 24
+        - node --version
+        - npm --version
+        # Install dependencies with clean install for reproducible builds
+        - npm ci
+    build:
+      commands:
+        # Set environment variables for production build
+        - echo "Building for production environment"
+        # Build the React application
+        - npm run build
+  artifacts:
+    # Specify the build output directory
+    baseDirectory: build
+    files:
+      - '**/*'
+  cache:
+    paths:
+      # Cache node_modules for faster builds
+      - node_modules/**/*
+  customHeaders:
+    # Add security headers for better security posture
+    - pattern: '**/*'
+      headers:
+        - key: 'Strict-Transport-Security'
+          value: 'max-age=31536000; includeSubDomains'
+        - key: 'X-Content-Type-Options'
+          value: 'nosniff'
+        - key: 'X-Frame-Options'
+          value: 'DENY'
+        - key: 'X-XSS-Protection'
+          value: '1; mode=block'
+        - key: 'Referrer-Policy'
+          value: 'strict-origin-when-cross-origin'
