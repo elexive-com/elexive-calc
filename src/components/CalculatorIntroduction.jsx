@@ -10,7 +10,6 @@ import {
   faClock, faMoneyBillWave, faHandshake, faBolt,
   faShieldAlt, faChartLine
 } from '@fortawesome/free-solid-svg-icons';
-// Remove direct import and use process.env.PUBLIC_URL for images in public folder
 
 // Card component with self-contained state management - redesigned to match minimalist style
 const CollapsibleCard = ({ title, icon, content }) => {
@@ -247,7 +246,7 @@ const CalculatorIntroduction = ({ onGetStarted }) => {
             <div className="sticky md:top-6">
               <div className="aspect-[21/9] sm:aspect-video md:aspect-square overflow-hidden mb-3">
                 <img 
-                  src={`${process.env.PUBLIC_URL}/strategy-2.png`} 
+                  src="/strategy-2.png" 
                   alt="Bonsai tree representing growth and balance" 
                   className="w-full h-full object-cover shadow-md rounded-tl-2xl rounded-tr-none rounded-br-2xl rounded-bl-none" 
                 />
@@ -264,7 +263,7 @@ const CalculatorIntroduction = ({ onGetStarted }) => {
           <div className="w-4/5 mx-auto md:w-1/3 mb-5 md:mb-0 md:pr-6 order-2 md:order-1">
             <div className="aspect-[21/9] sm:aspect-video md:aspect-square overflow-hidden mb-3">
               <img 
-                src={`${process.env.PUBLIC_URL}/bonsai-square-1.png`} 
+                src="/bonsai-square-1.png" 
                 alt="Bonsai tree representing growth and balance" 
                 className="w-full h-full object-cover shadow-md rounded-tl-2xl rounded-tr-none rounded-br-2xl rounded-bl-none" 
               />
@@ -500,7 +499,7 @@ const CalculatorIntroduction = ({ onGetStarted }) => {
             <div className="sticky md:top-6">
               <div className="aspect-[21/9] sm:aspect-video md:aspect-square overflow-hidden mb-3">
                 <img 
-                  src={`${process.env.PUBLIC_URL}/nextgen.png`} 
+                  src="/nextgen.png" 
                   alt="Bonsai tree representing growth and balance" 
                   className="w-full h-full object-cover shadow-md rounded-tl-2xl rounded-tr-none rounded-br-2xl rounded-bl-none" 
                 />
@@ -529,7 +528,7 @@ const CalculatorIntroduction = ({ onGetStarted }) => {
             <div className="relative">
               <div className="aspect-[21/9] sm:aspect-video md:aspect-square overflow-hidden mb-3 relative">
                 <img 
-                  src={`${process.env.PUBLIC_URL}/bonsai-enterprise.png`} 
+                  src="/bonsai-enterprise.png" 
                   alt="Bonsai tree representing growth and balance" 
                   className="w-full h-full object-cover shadow-md rounded-tl-2xl rounded-tr-none rounded-br-2xl rounded-bl-none" 
                 />
