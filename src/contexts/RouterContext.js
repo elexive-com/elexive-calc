@@ -14,10 +14,10 @@ export const RouterProvider = ({ children }) => {
 
   // Map tab names to URL paths
   const tabToPath = {
-    'introduction': '/',
-    'calculator': '/calculator',
-    'modules': '/modules',
-    'journey': '/journey'
+    introduction: '/',
+    calculator: '/calculator',
+    modules: '/modules',
+    journey: '/journey',
   };
 
   // Map URL paths to tab names
@@ -25,11 +25,11 @@ export const RouterProvider = ({ children }) => {
     '/': 'introduction',
     '/calculator': 'calculator',
     '/modules': 'modules',
-    '/journey': 'journey'
+    '/journey': 'journey',
   };
 
   // Function to navigate to a specific tab/route
-  const navigateToTab = (tab) => {
+  const navigateToTab = tab => {
     const path = tabToPath[tab];
     if (path) {
       navigate(path);
@@ -37,7 +37,7 @@ export const RouterProvider = ({ children }) => {
   };
 
   // Function to navigate to a specific path
-  const navigateToPath = (path) => {
+  const navigateToPath = path => {
     navigate(path);
   };
 
@@ -52,7 +52,7 @@ export const RouterProvider = ({ children }) => {
     navigateToTab,
     navigateToPath,
     pathToTab,
-    tabToPath
+    tabToPath,
   };
 
   return (

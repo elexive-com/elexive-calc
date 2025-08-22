@@ -8,51 +8,81 @@ import styles from '../utils/pdfStyles';
 import { getPillarColor } from '../utils/colors';
 
 // Helper function to determine journey stage based on module configuration
-const determineJourneyStage = (module) => {
+const determineJourneyStage = module => {
   // Get the journey stage from modulesConfig based on the module's primaryJourneyStage
   const journeyStageId = module.primaryJourneyStage || 'journey-stage-3'; // Default to Build if not defined
-  const stageDefinition = modulesConfig.journeyStages.find(stage => stage.id === journeyStageId);
-  
+  const stageDefinition = modulesConfig.journeyStages.find(
+    stage => stage.id === journeyStageId
+  );
+
   if (stageDefinition) {
     return {
       id: stageDefinition.id,
       title: stageDefinition.title,
-      description: stageDefinition.description
+      description: stageDefinition.description,
     };
   }
-  
+
   // Fallback to default mapping if not found in config
-  if (module.category === 'Strategic Assessment') return { id: 'journey-stage-1', title: 'Discover', description: 'Understanding your current state and defining success metrics' };
-  if (module.category === 'Immediate Impact') return { id: 'journey-stage-3', title: 'Build', description: 'Implementing solutions and driving organizational change' };
-  if (module.category === 'Vested Value') return { id: 'journey-stage-4', title: 'Scale', description: 'Refining approaches and maximizing transformation outcomes' };
-  return { id: 'journey-stage-2', title: 'Design', description: 'Developing strategies and roadmaps for transformation success' }; // Default
+  if (module.category === 'Strategic Assessment')
+    return {
+      id: 'journey-stage-1',
+      title: 'Discover',
+      description:
+        'Understanding your current state and defining success metrics',
+    };
+  if (module.category === 'Immediate Impact')
+    return {
+      id: 'journey-stage-3',
+      title: 'Build',
+      description: 'Implementing solutions and driving organizational change',
+    };
+  if (module.category === 'Vested Value')
+    return {
+      id: 'journey-stage-4',
+      title: 'Scale',
+      description: 'Refining approaches and maximizing transformation outcomes',
+    };
+  return {
+    id: 'journey-stage-2',
+    title: 'Design',
+    description:
+      'Developing strategies and roadmaps for transformation success',
+  }; // Default
 };
 
 // Component for a page footer
 const PageFooter = ({ formattedDate, pageNumber, totalPages }) => (
-  <View style={{
-    position: 'absolute',
-    bottom: 30,
-    left: 40,
-    right: 40,
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    borderTopWidth: 1,
-    borderTopColor: '#eee',
-    paddingTop: 10,
-  }}>
-    <Text style={{
-      fontSize: 9,
-      color: '#888',
-    }}>
+  <View
+    style={{
+      position: 'absolute',
+      bottom: 30,
+      left: 40,
+      right: 40,
+      flexDirection: 'row',
+      justifyContent: 'space-between',
+      alignItems: 'center',
+      borderTopWidth: 1,
+      borderTopColor: '#eee',
+      paddingTop: 10,
+    }}
+  >
+    <Text
+      style={{
+        fontSize: 9,
+        color: '#888',
+      }}
+    >
       Elexive Ltd • Solution Brief
     </Text>
-    <Text style={{
-      fontSize: 9,
-      color: '#888',
-    }}>
-      Generated on {formattedDate || new Date().toLocaleDateString()} • Page {pageNumber} of {totalPages}
+    <Text
+      style={{
+        fontSize: 9,
+        color: '#888',
+      }}
+    >
+      Generated on {formattedDate || new Date().toLocaleDateString()} • Page{' '}
+      {pageNumber} of {totalPages}
     </Text>
   </View>
 );
@@ -61,22 +91,26 @@ const PageFooter = ({ formattedDate, pageNumber, totalPages }) => (
 const PageHeader = ({ pillarColor, logoUrl }) => (
   <>
     {/* Decorative header strip */}
-    <View style={{
-      position: 'absolute',
-      top: 0,
-      left: 0,
-      right: 0,
-      height: 12,
-      backgroundColor: pillarColor,
-    }} />
-    
+    <View
+      style={{
+        position: 'absolute',
+        top: 0,
+        left: 0,
+        right: 0,
+        height: 12,
+        backgroundColor: pillarColor,
+      }}
+    />
+
     {/* Small logo in top right */}
-    <View style={{
-      position: 'absolute',
-      top: 20,
-      right: 40,
-    }}>
-      <Image 
+    <View
+      style={{
+        position: 'absolute',
+        top: 20,
+        right: 40,
+      }}
+    >
+      <Image
         src={logoUrl}
         style={{
           width: 100,
@@ -332,47 +366,49 @@ const dynamicStyles = StyleSheet.create({
   },
 });
 
-const ModuleContentPage = ({ 
-  module, 
-  pillar, 
-  pageNumber, 
+const ModuleContentPage = ({
+  module,
+  pillar,
+  pageNumber,
   totalPages,
   getVariantDisplayName,
   getModuleTypeIcon,
-  moduleName
+  moduleName,
 }) => {
   let moduleData = module;
-  
+
   // Handle both use cases - when used from ModulePdfRenderer (moduleName) and when used from ReportContentPage (module object)
   if (!moduleData && moduleName) {
     // Look up the module by name (for individual module PDFs)
     moduleData = modulesConfig.modules.find(m => m.name === moduleName);
-    
+
     // Set default values for individual module PDFs
     pageNumber = 2;
     totalPages = 2;
     pillar = moduleData?.pillar;
-    
+
     // Default implementation of getVariantDisplayName if not provided
     if (!getVariantDisplayName) {
-      getVariantDisplayName = (variantType) => {
-        return variantType === 'insightPrimer' ? 'Insight Primer' : 'Integrated Execution';
+      getVariantDisplayName = variantType => {
+        return variantType === 'insightPrimer'
+          ? 'Insight Primer'
+          : 'Integrated Execution';
       };
     }
-    
+
     // Default implementation of getModuleTypeIcon if not provided
     if (!getModuleTypeIcon) {
       // Rename the imported function to avoid naming conflicts
-      const getModuleTypeIconUtil = (type) => {
+      const getModuleTypeIconUtil = type => {
         // Using window.location.origin ensures we have an absolute URL that works in the PDF
         return `${window.location.origin}/layer-group-solid-512.png`;
       };
-      
+
       // Assign the utility function to getModuleTypeIcon
       getModuleTypeIcon = getModuleTypeIconUtil;
     }
   }
-  
+
   // Early return if module still not found
   if (!moduleData) {
     return (
@@ -383,34 +419,39 @@ const ModuleContentPage = ({
       </Page>
     );
   }
-  
+
   // Format date for the footer
   const today = new Date();
-  const formattedDate = today.toLocaleDateString('en-GB', {
-    day: '2-digit', month: '2-digit', year: 'numeric'
-  }).replace(/\//g, '.');
-  
+  const formattedDate = today
+    .toLocaleDateString('en-GB', {
+      day: '2-digit',
+      month: '2-digit',
+      year: 'numeric',
+    })
+    .replace(/\//g, '.');
+
   // Get pillar-specific color
   const pillarColor = getPillarColor(pillar || moduleData.pillar);
-  
+
   // Get journey stage information
   const journeyStage = determineJourneyStage(moduleData);
-  
-  
+
   // Define journey stages for visualization from the centralized config
   const journeyStages = modulesConfig.journeyStages.map(stage => ({
     id: stage.id,
-    title: stage.title
+    title: stage.title,
   }));
-  
+
   // Use absolute URLs to ensure images are accessible in the PDF
   const moduleIconUrl = `${window.location.origin}/common-module-white.png`;
   const logoUrl = `${window.location.origin}/elexive-logo-text.png`;
 
   // Truncate description if it's too long to prevent layout issues
   const truncateText = (text, maxLength = 140) => {
-    if (!text) return "";
-    return text.length > maxLength ? `${text.substring(0, maxLength)}...` : text;
+    if (!text) return '';
+    return text.length > maxLength
+      ? `${text.substring(0, maxLength)}...`
+      : text;
   };
 
   return (
@@ -419,14 +460,19 @@ const ModuleContentPage = ({
       <Page size="A4" style={styles.page}>
         <View style={styles.contentPage}>
           <PageHeader pillarColor={pillarColor} logoUrl={logoUrl} />
-          
+
           {/* Main content container with extra top padding for the header strip */}
           <View style={dynamicStyles.contentContainer}>
             {/* 1. TOP BANNER SECTION */}
-            <View style={[dynamicStyles.bannerSection, { backgroundColor: pillarColor }]}>
+            <View
+              style={[
+                dynamicStyles.bannerSection,
+                { backgroundColor: pillarColor },
+              ]}
+            >
               {/* Module icon */}
               <View style={dynamicStyles.moduleIcon}>
-                <Image 
+                <Image
                   src={moduleIconUrl}
                   style={{
                     width: '100%',
@@ -434,80 +480,87 @@ const ModuleContentPage = ({
                   }}
                 />
               </View>
-              
+
               {/* Module info */}
               <View style={dynamicStyles.moduleInfo}>
                 {/* Pillar name as small header */}
                 <Text style={dynamicStyles.pillarName}>
                   {pillar || moduleData.pillar}
                 </Text>
-                
+
                 {/* Module name as large title */}
-                <Text style={dynamicStyles.moduleName}>
-                  {moduleData.name}
-                </Text>
-                
+                <Text style={dynamicStyles.moduleName}>{moduleData.name}</Text>
+
                 {/* Module type with badge styling */}
                 <View style={dynamicStyles.categoryBadge}>
                   <Text style={dynamicStyles.categoryText}>
-                    {moduleData.category || (moduleData.selectedVariant && getVariantDisplayName(moduleData.selectedVariant))}
+                    {moduleData.category ||
+                      (moduleData.selectedVariant &&
+                        getVariantDisplayName(moduleData.selectedVariant))}
                   </Text>
                 </View>
-                
+
                 {/* Transformation Journey visualization */}
                 <View style={dynamicStyles.journeySection}>
                   <Text style={dynamicStyles.journeyLabel}>
                     Transformation Journey:
                   </Text>
-                  
+
                   <View style={dynamicStyles.journeyRow}>
                     {journeyStages.map((stage, index) => {
                       const isActive = stage.id === journeyStage.id;
-                      const isSecondary = moduleData.secondaryJourneyStages && 
+                      const isSecondary =
+                        moduleData.secondaryJourneyStages &&
                         moduleData.secondaryJourneyStages.includes(stage.id);
-                      
+
                       return (
                         <View key={stage.id} style={dynamicStyles.stageItem}>
                           {/* Connector line */}
                           {index > 0 && (
                             <View style={dynamicStyles.connectorLine} />
                           )}
-                          
+
                           {/* Stage circle */}
-                          <View style={[
-                            dynamicStyles.stageCircle, 
-                            { 
-                              backgroundColor: isActive 
-                                ? 'white' 
-                                : isSecondary 
-                                  ? 'rgba(255, 255, 255, 0.6)' 
-                                  : 'rgba(255, 255, 255, 0.3)' 
-                            }
-                          ]}>
+                          <View
+                            style={[
+                              dynamicStyles.stageCircle,
+                              {
+                                backgroundColor: isActive
+                                  ? 'white'
+                                  : isSecondary
+                                    ? 'rgba(255, 255, 255, 0.6)'
+                                    : 'rgba(255, 255, 255, 0.3)',
+                              },
+                            ]}
+                          >
                             {isActive && (
-                              <View style={[
-                                dynamicStyles.stageIndicator,
-                                { backgroundColor: pillarColor }
-                              ]} />
+                              <View
+                                style={[
+                                  dynamicStyles.stageIndicator,
+                                  { backgroundColor: pillarColor },
+                                ]}
+                              />
                             )}
                           </View>
-                          
+
                           {/* Stage name */}
-                          <Text style={[
-                            dynamicStyles.stageName,
-                            { 
-                              color: isActive 
-                                ? 'white' 
-                                : isSecondary 
-                                  ? 'rgba(255, 255, 255, 0.9)' 
-                                  : 'rgba(255, 255, 255, 0.7)',
-                              fontWeight: isActive 
-                                ? 'bold' 
-                                : isSecondary 
-                                  ? 'medium' 
-                                  : 'normal'
-                            }
-                          ]}>
+                          <Text
+                            style={[
+                              dynamicStyles.stageName,
+                              {
+                                color: isActive
+                                  ? 'white'
+                                  : isSecondary
+                                    ? 'rgba(255, 255, 255, 0.9)'
+                                    : 'rgba(255, 255, 255, 0.7)',
+                                fontWeight: isActive
+                                  ? 'bold'
+                                  : isSecondary
+                                    ? 'medium'
+                                    : 'normal',
+                              },
+                            ]}
+                          >
                             {stage.title}
                           </Text>
                         </View>
@@ -517,27 +570,35 @@ const ModuleContentPage = ({
                 </View>
               </View>
             </View>
-            
+
             {/* 2. EXECUTIVE SUMMARY SECTION */}
-            <View style={[dynamicStyles.summarySection, { borderLeftColor: pillarColor }]}>
-              <Text style={dynamicStyles.sectionTitle}>
-                Executive Summary
-              </Text>
-              
+            <View
+              style={[
+                dynamicStyles.summarySection,
+                { borderLeftColor: pillarColor },
+              ]}
+            >
+              <Text style={dynamicStyles.sectionTitle}>Executive Summary</Text>
+
               {/* What is this module */}
               <View style={dynamicStyles.infoBlock}>
-                <Text style={[dynamicStyles.infoHeading, { color: pillarColor }]}>
+                <Text
+                  style={[dynamicStyles.infoHeading, { color: pillarColor }]}
+                >
                   What is this module?
                 </Text>
                 <Text style={dynamicStyles.infoText}>
-                  {truncateText(moduleData.description, 160) || "No description available."}
+                  {truncateText(moduleData.description, 160) ||
+                    'No description available.'}
                 </Text>
               </View>
-              
+
               {/* Only show if the module has outcomes */}
               {moduleData.outcomes && moduleData.outcomes.length > 0 && (
                 <View style={dynamicStyles.infoBlock}>
-                  <Text style={[dynamicStyles.infoHeading, { color: pillarColor }]}>
+                  <Text
+                    style={[dynamicStyles.infoHeading, { color: pillarColor }]}
+                  >
                     Key Outcomes
                   </Text>
                   <Text style={dynamicStyles.infoText}>
@@ -545,223 +606,285 @@ const ModuleContentPage = ({
                   </Text>
                 </View>
               )}
-              
+
               {/* Who is it for - use if available, otherwise skip */}
               {moduleData.whoIsItFor && (
                 <View style={dynamicStyles.infoBlock}>
-                  <Text style={[dynamicStyles.infoHeading, { color: pillarColor }]}>
+                  <Text
+                    style={[dynamicStyles.infoHeading, { color: pillarColor }]}
+                  >
                     Who is it for?
                   </Text>
                   <Text style={dynamicStyles.infoText}>
-                    {truncateText(moduleData.whoIsItFor, 120) || "No target audience specified."}
+                    {truncateText(moduleData.whoIsItFor, 120) ||
+                      'No target audience specified.'}
                   </Text>
                 </View>
               )}
-              
+
               {/* Why it matters now - show if available or if there's a module.fix field */}
               {(moduleData.whyItMatters || moduleData.fix) && (
                 <View>
-                  <Text style={[dynamicStyles.infoHeading, { color: pillarColor }]}>
+                  <Text
+                    style={[dynamicStyles.infoHeading, { color: pillarColor }]}
+                  >
                     Why it matters now?
                   </Text>
                   <Text style={dynamicStyles.infoText}>
-                    {truncateText(moduleData.whyItMatters || moduleData.fix, 160) || "No solution approach specified."}
+                    {truncateText(
+                      moduleData.whyItMatters || moduleData.fix,
+                      160
+                    ) || 'No solution approach specified.'}
                   </Text>
                 </View>
               )}
             </View>
-            
+
             {/* 3. STRATEGIC IMPACT CLUSTER */}
             <View style={dynamicStyles.benefitsSection}>
-              <Text style={dynamicStyles.sectionTitle}>
-                Strategic Impact
-              </Text>
-              
+              <Text style={dynamicStyles.sectionTitle}>Strategic Impact</Text>
+
               {/* Key Benefits */}
               <View style={dynamicStyles.benefitsContainer}>
-                <Text style={[dynamicStyles.infoHeading, { color: '#333', marginBottom: 8 }]}>
+                <Text
+                  style={[
+                    dynamicStyles.infoHeading,
+                    { color: '#333', marginBottom: 8 },
+                  ]}
+                >
                   Key Benefits
                 </Text>
-                
+
                 {/* Limit benefits to 4 to ensure they fit on page */}
-                {(moduleData.benefits || moduleData.outcomes || ["No benefits specified"]).slice(0, 4).map((benefit, index) => (
-                  <View key={index} style={dynamicStyles.benefitRow}>
-                    <View style={[
-                      dynamicStyles.benefitNumber,
-                      { backgroundColor: pillarColor }
-                    ]}>
-                      <Text style={dynamicStyles.benefitNumberText}>
-                        {index + 1}
+                {(
+                  moduleData.benefits ||
+                  moduleData.outcomes || ['No benefits specified']
+                )
+                  .slice(0, 4)
+                  .map((benefit, index) => (
+                    <View key={index} style={dynamicStyles.benefitRow}>
+                      <View
+                        style={[
+                          dynamicStyles.benefitNumber,
+                          { backgroundColor: pillarColor },
+                        ]}
+                      >
+                        <Text style={dynamicStyles.benefitNumberText}>
+                          {index + 1}
+                        </Text>
+                      </View>
+                      <Text style={dynamicStyles.benefitText}>
+                        {truncateText(benefit, 100)}
                       </Text>
                     </View>
-                    <Text style={dynamicStyles.benefitText}>
-                      {truncateText(benefit, 100)}
-                    </Text>
-                  </View>
-                ))}
+                  ))}
               </View>
             </View>
           </View>
-          
-          <PageFooter formattedDate={formattedDate} pageNumber={pageNumber} totalPages={totalPages} />
+
+          <PageFooter
+            formattedDate={formattedDate}
+            pageNumber={pageNumber}
+            totalPages={totalPages}
+          />
         </View>
       </Page>
-      
+
       {/* PAGE 2: Engagement Models & Call to Action */}
       <Page size="A4" style={styles.page}>
         <View style={styles.contentPage}>
           <PageHeader pillarColor={pillarColor} logoUrl={logoUrl} />
-          
+
           {/* Main content container with padding */}
           <View style={dynamicStyles.contentContainer}>
             {/* ENGAGEMENT MODELS */}
             <View style={dynamicStyles.engagementSection}>
-              <Text style={dynamicStyles.sectionTitle}>
-                Engagement Models
-              </Text>
-              
+              <Text style={dynamicStyles.sectionTitle}>Engagement Models</Text>
+
               <View style={dynamicStyles.variantsRow}>
                 {/* Use the provided getVariantDisplayName and getModuleTypeIcon functions if available */}
                 {/* If module has variants, use those, otherwise show the selected variant */}
-                {moduleData.variants && moduleData.variants.length > 0 ? (
-                  // Show all variants defined in the module
-                  moduleData.variants.map((variant, index) => {
-                    const isInsightPrimer = variant.type === "Insight Primer";
-                    const color = isInsightPrimer ? '#3498db' : '#2ecc71';
-                    const bgColor = isInsightPrimer ? '#e6f2ff' : '#e6fff2';
-                    
-                    // Find the variant definition to get additional information
-                    const variantDef = modulesConfig.variantDefinitions[variant.type];
-                    
-                    return (
-                      <View key={index} style={[dynamicStyles.variantCard, { backgroundColor: bgColor }]}>
-                        <Text style={dynamicStyles.variantHeader}>
-                          {variant.type}
-                        </Text>
-                        
-                        {/* Add tagline if available */}
-                        {variantDef?.tagline && (
-                          <Text style={dynamicStyles.variantTagline}>
-                            {truncateText(variantDef.tagline, 80)}
+                {moduleData.variants && moduleData.variants.length > 0
+                  ? // Show all variants defined in the module
+                    moduleData.variants.map((variant, index) => {
+                      const isInsightPrimer = variant.type === 'Insight Primer';
+                      const color = isInsightPrimer ? '#3498db' : '#2ecc71';
+                      const bgColor = isInsightPrimer ? '#e6f2ff' : '#e6fff2';
+
+                      // Find the variant definition to get additional information
+                      const variantDef =
+                        modulesConfig.variantDefinitions[variant.type];
+
+                      return (
+                        <View
+                          key={index}
+                          style={[
+                            dynamicStyles.variantCard,
+                            { backgroundColor: bgColor },
+                          ]}
+                        >
+                          <Text style={dynamicStyles.variantHeader}>
+                            {variant.type}
                           </Text>
-                        )}
-                        
+
+                          {/* Add tagline if available */}
+                          {variantDef?.tagline && (
+                            <Text style={dynamicStyles.variantTagline}>
+                              {truncateText(variantDef.tagline, 80)}
+                            </Text>
+                          )}
+
+                          <View style={dynamicStyles.variantDescription}>
+                            <Text style={dynamicStyles.variantDescriptionText}>
+                              {truncateText(
+                                variantDef?.description || variant.description,
+                                120
+                              ) || 'No description available.'}
+                            </Text>
+                          </View>
+
+                          <View style={dynamicStyles.variantDetailsRow}>
+                            <View>
+                              <Text style={dynamicStyles.variantDetailLabel}>
+                                Type
+                              </Text>
+                              <Text style={dynamicStyles.variantDetailValue}>
+                                {isInsightPrimer ? 'Fixed-scope' : 'Continuous'}
+                              </Text>
+                            </View>
+
+                            <View>
+                              <Text style={dynamicStyles.variantDetailLabel}>
+                                Value Units
+                              </Text>
+                              <Text
+                                style={[
+                                  dynamicStyles.variantDetailValue,
+                                  { color },
+                                ]}
+                              >
+                                {variant.evcValue || 0} EVCs
+                              </Text>
+                            </View>
+                          </View>
+                        </View>
+                      );
+                    })
+                  : // If no variants are defined but there's a selected variant, show that
+                    moduleData.selectedVariant && (
+                      <View
+                        style={[
+                          dynamicStyles.variantCard,
+                          {
+                            backgroundColor:
+                              moduleData.selectedVariant === 'insightPrimer'
+                                ? '#e6f2ff'
+                                : '#e6fff2',
+                          },
+                        ]}
+                      >
+                        <Text style={dynamicStyles.variantHeader}>
+                          {getVariantDisplayName
+                            ? getVariantDisplayName(moduleData.selectedVariant)
+                            : moduleData.selectedVariant === 'insightPrimer'
+                              ? 'Insight Primer'
+                              : 'Integrated Execution'}
+                        </Text>
+
                         <View style={dynamicStyles.variantDescription}>
                           <Text style={dynamicStyles.variantDescriptionText}>
-                            {truncateText(variantDef?.description || variant.description, 120) || "No description available."}
+                            {moduleData.selectedVariant === 'insightPrimer'
+                              ? 'Focused assessment and strategic recommendations without full implementation.'
+                              : 'End-to-end implementation support with comprehensive transformation services.'}
                           </Text>
                         </View>
-                        
+
                         <View style={dynamicStyles.variantDetailsRow}>
                           <View>
                             <Text style={dynamicStyles.variantDetailLabel}>
                               Type
                             </Text>
                             <Text style={dynamicStyles.variantDetailValue}>
-                              {isInsightPrimer ? "Fixed-scope" : "Continuous"}
+                              {moduleData.selectedVariant === 'insightPrimer'
+                                ? 'Fixed-scope'
+                                : 'Continuous'}
                             </Text>
                           </View>
-                          
+
                           <View>
                             <Text style={dynamicStyles.variantDetailLabel}>
                               Value Units
                             </Text>
-                            <Text style={[dynamicStyles.variantDetailValue, { color }]}>
-                              {variant.evcValue || 0} EVCs
+                            <Text
+                              style={[
+                                dynamicStyles.variantDetailValue,
+                                {
+                                  color:
+                                    moduleData.selectedVariant ===
+                                    'insightPrimer'
+                                      ? '#3498db'
+                                      : '#2ecc71',
+                                },
+                              ]}
+                            >
+                              {moduleData.evcValue || 0} EVCs
                             </Text>
                           </View>
                         </View>
                       </View>
-                    );
-                  })
-                ) : (
-                  // If no variants are defined but there's a selected variant, show that
-                  moduleData.selectedVariant && (
-                    <View style={[dynamicStyles.variantCard, { 
-                      backgroundColor: moduleData.selectedVariant === 'insightPrimer' ? '#e6f2ff' : '#e6fff2' 
-                    }]}>
-                      <Text style={dynamicStyles.variantHeader}>
-                        {getVariantDisplayName ? getVariantDisplayName(moduleData.selectedVariant) : 
-                          (moduleData.selectedVariant === 'insightPrimer' ? 'Insight Primer' : 'Integrated Execution')}
-                      </Text>
-                      
-                      <View style={dynamicStyles.variantDescription}>
-                        <Text style={dynamicStyles.variantDescriptionText}>
-                          {moduleData.selectedVariant === 'insightPrimer' ? 
-                            'Focused assessment and strategic recommendations without full implementation.' : 
-                            'End-to-end implementation support with comprehensive transformation services.'}
-                        </Text>
-                      </View>
-                      
-                      <View style={dynamicStyles.variantDetailsRow}>
-                        <View>
-                          <Text style={dynamicStyles.variantDetailLabel}>
-                            Type
-                          </Text>
-                          <Text style={dynamicStyles.variantDetailValue}>
-                            {moduleData.selectedVariant === 'insightPrimer' ? "Fixed-scope" : "Continuous"}
-                          </Text>
-                        </View>
-                        
-                        <View>
-                          <Text style={dynamicStyles.variantDetailLabel}>
-                            Value Units
-                          </Text>
-                          <Text style={[dynamicStyles.variantDetailValue, { 
-                            color: moduleData.selectedVariant === 'insightPrimer' ? '#3498db' : '#2ecc71' 
-                          }]}>
-                            {moduleData.evcValue || 0} EVCs
-                          </Text>
-                        </View>
-                      </View>
-                    </View>
-                  )
-                )}
+                    )}
               </View>
             </View>
-            
+
             {/* If there are more than 4 benefits or outcomes, show the remaining ones on page 2 */}
-            {((moduleData.benefits && moduleData.benefits.length > 4) || (moduleData.outcomes && moduleData.outcomes.length > 4)) && (
+            {((moduleData.benefits && moduleData.benefits.length > 4) ||
+              (moduleData.outcomes && moduleData.outcomes.length > 4)) && (
               <View style={{ marginBottom: 20 }}>
                 <Text style={dynamicStyles.sectionTitle}>
                   Additional Benefits
                 </Text>
-                
+
                 <View style={dynamicStyles.benefitsContainer}>
-                  {(moduleData.benefits || moduleData.outcomes).slice(4).map((benefit, index) => (
-                    <View key={index} style={dynamicStyles.benefitRow}>
-                      <View style={[
-                        dynamicStyles.benefitNumber,
-                        { backgroundColor: pillarColor }
-                      ]}>
-                        <Text style={dynamicStyles.benefitNumberText}>
-                          {index + 5}
-                        </Text>
+                  {(moduleData.benefits || moduleData.outcomes)
+                    .slice(4)
+                    .map((benefit, index) => (
+                      <View key={index} style={dynamicStyles.benefitRow}>
+                        <View
+                          style={[
+                            dynamicStyles.benefitNumber,
+                            { backgroundColor: pillarColor },
+                          ]}
+                        >
+                          <Text style={dynamicStyles.benefitNumberText}>
+                            {index + 5}
+                          </Text>
+                        </View>
+                        <Text style={dynamicStyles.benefitText}>{benefit}</Text>
                       </View>
-                      <Text style={dynamicStyles.benefitText}>
-                        {benefit}
-                      </Text>
-                    </View>
-                  ))}
+                    ))}
                 </View>
               </View>
             )}
-            
+
             {/* WHAT TO DO NOW (CTA) */}
             <View style={dynamicStyles.ctaSection}>
-              <Text style={dynamicStyles.sectionTitle}>
-                Next Steps
-              </Text>
-              
+              <Text style={dynamicStyles.sectionTitle}>Next Steps</Text>
+
               {/* CTA box */}
               <View style={dynamicStyles.ctaBox}>
                 <Text style={dynamicStyles.ctaTitle}>
                   Ready to get started?
                 </Text>
                 <Text style={dynamicStyles.ctaText}>
-                  {truncateText(moduleData.callToAction, 120) || "Add this module to your transformation journey and take the next step toward enhanced business capabilities."}
+                  {truncateText(moduleData.callToAction, 120) ||
+                    'Add this module to your transformation journey and take the next step toward enhanced business capabilities.'}
                 </Text>
-                <View style={[dynamicStyles.ctaButton, { backgroundColor: pillarColor }]}>
+                <View
+                  style={[
+                    dynamicStyles.ctaButton,
+                    { backgroundColor: pillarColor },
+                  ]}
+                >
                   <Text style={dynamicStyles.ctaButtonText}>
                     Contact us at transform@elexive.com
                   </Text>
@@ -769,8 +892,12 @@ const ModuleContentPage = ({
               </View>
             </View>
           </View>
-          
-          <PageFooter formattedDate={formattedDate} pageNumber={pageNumber} totalPages={totalPages} />
+
+          <PageFooter
+            formattedDate={formattedDate}
+            pageNumber={pageNumber}
+            totalPages={totalPages}
+          />
         </View>
       </Page>
     </>

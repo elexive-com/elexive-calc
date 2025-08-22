@@ -15,31 +15,35 @@ const ReportCoverPage = () => {
 
   return (
     <Page size="A4" style={styles.page}>
-      <View style={{
-        backgroundColor: '#2E2266', // primary color
-        height: '100%',
-        width: '100%',
-        display: 'flex',
-        flexDirection: 'column',
-        justifyContent: 'center',
-        alignItems: 'center',
-      }}>
+      <View
+        style={{
+          backgroundColor: '#2E2266', // primary color
+          height: '100%',
+          width: '100%',
+          display: 'flex',
+          flexDirection: 'column',
+          justifyContent: 'center',
+          alignItems: 'center',
+        }}
+      >
         {/* Logo at the top */}
-        <Image 
+        <Image
           src={logoUrl}
           style={{
             width: 200,
             marginBottom: 50,
           }}
         />
-        
+
         {/* "Solution Brief" text in the middle */}
-        <Text style={{
-          fontSize: 48,
-          fontWeight: 'bold',
-          color: '#FFBE59', // secondary accent color
-          textAlign: 'center',
-        }}>
+        <Text
+          style={{
+            fontSize: 48,
+            fontWeight: 'bold',
+            color: '#FFBE59', // secondary accent color
+            textAlign: 'center',
+          }}
+        >
           Solution Brief
         </Text>
       </View>

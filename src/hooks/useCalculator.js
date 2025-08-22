@@ -9,12 +9,16 @@ export default function useCalculator() {
   const [intent, setIntent] = useState('');
   const [selectedModules, setSelectedModules] = useState([]);
   const [selectedVariants, setSelectedVariants] = useState({});
-  const [resourceAllocation, setResourceAllocation] = useState(calculatorConfig.defaults.resourceAllocation);
+  const [resourceAllocation, setResourceAllocation] = useState(
+    calculatorConfig.defaults.resourceAllocation
+  );
   // Initial state for production capacity - changed from 'seedling' to 'roadster'
   const [productionCapacity, setProductionCapacity] = useState('roadster');
   // Track the recommended capacity for the current preset
   const [recommendedCapacity, setRecommendedCapacity] = useState(null);
-  const [paymentOption, setPaymentOption] = useState(calculatorConfig.defaults.paymentOption);
+  const [paymentOption, setPaymentOption] = useState(
+    calculatorConfig.defaults.paymentOption
+  );
   const [isEvcExplainerVisible, setIsEvcExplainerVisible] = useState(false);
   // Add state for saved modules that will be shared across components
   // Initialize from localStorage if available
@@ -22,18 +26,18 @@ export default function useCalculator() {
     const savedModulesFromStorage = localStorage.getItem('savedModules');
     return savedModulesFromStorage ? JSON.parse(savedModulesFromStorage) : [];
   });
-  
+
   // Sync savedModules with localStorage whenever it changes
   useEffect(() => {
     localStorage.setItem('savedModules', JSON.stringify(savedModules));
   }, [savedModules]);
-  
+
   // Get defaults from config
   const { defaults, evcBase, serviceParameters } = calculatorConfig;
-  
+
   // Get module definitions from modulesConfig
   const { modules } = modulesConfig;
-  
+
   // Initialize parameters from config
   const [parameters, setParameters] = useState(() => {
     const initialParameters = {};
@@ -42,9 +46,11 @@ export default function useCalculator() {
     });
     return initialParameters;
   });
-  
+
   // Additional state for producer-consumer model
-  const [weeklyProductionCapacity, setWeeklyProductionCapacity] = useState(defaults.weeklyCapacity || 10);
+  const [weeklyProductionCapacity, setWeeklyProductionCapacity] = useState(
+    defaults.weeklyCapacity || 10
+  );
   const [monthlyOutputValue, setMonthlyOutputValue] = useState(0);
   const [totalPrice, setTotalPrice] = useState(0);
   const [monthlyEvcs, setMonthlyEvcs] = useState(0);
@@ -56,71 +62,73 @@ export default function useCalculator() {
   // New state for completion time estimate
   const [completionTimeWeeks, setCompletionTimeWeeks] = useState(0);
   const [totalModuleEvcs, setTotalModuleEvcs] = useState(0);
-  
+
   // Get available pillars from config
   const availablePillars = calculatorConfig.pillars.map(pillar => pillar.label);
-  
+
   // State for active pillar tab - use the first pillar from config as default
   const [activePillar, setActivePillar] = useState(
-    availablePillars.length > 0 ? availablePillars[0] : "Transformation"
+    availablePillars.length > 0 ? availablePillars[0] : 'Transformation'
   );
-  
+
   // Function to toggle EVC explainer visibility
   const toggleEvcExplainer = () => {
     setIsEvcExplainerVisible(prev => !prev);
   };
-  
+
   // Function to reset calculator to defaults
   const resetCalculator = () => {
     // First clear intent to ensure proper reset
     setIntent('');
-    
+
     // Reset all other state
     setSelectedModules([]);
     setSelectedVariants({});
-    setResourceAllocation("focused"); // Default to "Focused" allocation
-    setProductionCapacity("pathfinder"); // Default to "Pathfinder" capacity
+    setResourceAllocation('focused'); // Default to "Focused" allocation
+    setProductionCapacity('pathfinder'); // Default to "Pathfinder" capacity
     setRecommendedCapacity(null); // Clear any recommended capacity
     setPaymentOption(defaults.paymentOption);
-    
+
     // Reset parameters to defaults
     const resetParams = {};
     serviceParameters.forEach(param => {
       resetParams[param.id] = param.defaultValue;
     });
     setParameters(resetParams);
-    
+
     // Reset active pillar to first pillar in config
-    setActivePillar(availablePillars.length > 0 ? availablePillars[0] : "Transformation");
-    
+    setActivePillar(
+      availablePillars.length > 0 ? availablePillars[0] : 'Transformation'
+    );
+
     // Force a recalculation to update all values
     calculatePricing();
   };
-  
+
   // Custom function to handle intent selection and apply presets
-  const handleIntentSelect = (intentName) => {
+  const handleIntentSelect = intentName => {
     // If "Full Custom" is selected, reset the calculator first, then set intent
-    if (intentName === "Full Custom") {
+    if (intentName === 'Full Custom') {
       resetCalculator(); // This already clears the intent
-      setIntent("Full Custom"); // Set it back to "Full Custom" after reset
+      setIntent('Full Custom'); // Set it back to "Full Custom" after reset
       return; // Exit early
     }
-    
+
     // For other intents, set the intent first
     setIntent(intentName);
-    
+
     // Apply preset if this is a preset intent
     if (intentName && calculatorPresets.presets[intentName]) {
-      debugLog("Applying preset for:", intentName);
+      debugLog('Applying preset for:', intentName);
       const preset = calculatorPresets.presets[intentName];
-      
+
       // Clear any existing selections first
       setSelectedModules([]);
       setSelectedVariants({});
-      
+
       // Apply the preset modules immediately
-      debugLog("Setting modules to:", preset.modules);
-      
+      debugLog('Setting modules to:', preset.modules);
+
       // Handle both old format (array of strings) and new format (array of objects)
       if (preset.modules && preset.modules.length > 0) {
         // Check if we're using the new format (objects with name and variant)
@@ -128,21 +136,23 @@ export default function useCalculator() {
           // New format with objects
           const moduleNames = preset.modules.map(module => module.name);
           setSelectedModules(moduleNames);
-          
+
           // Extract variants from the preset modules
           const newVariants = {};
           preset.modules.forEach(module => {
             // Map preset variant names to the format expected by the UI
             // "Insight Primer" becomes "insightPrimer", "Integrated Execution" becomes "integratedExecution"
-            const variantType = module.variant === "Insight Primer" ? 
-              'insightPrimer' : 'integratedExecution';
+            const variantType =
+              module.variant === 'Insight Primer'
+                ? 'insightPrimer'
+                : 'integratedExecution';
             newVariants[module.name] = variantType;
           });
           setSelectedVariants(newVariants);
         } else {
           // Old format with just strings
           setSelectedModules([...preset.modules]);
-          
+
           // Create default variants for the preset modules (set all to 'insightPrimer' by default)
           const newVariants = {};
           preset.modules.forEach(moduleName => {
@@ -151,20 +161,22 @@ export default function useCalculator() {
           setSelectedVariants(newVariants);
         }
       }
-      
+
       // Apply the preset capacity allocation
-      setResourceAllocation(preset.resourceAllocation || preset.capacityAllocation);
-      
+      setResourceAllocation(
+        preset.resourceAllocation || preset.capacityAllocation
+      );
+
       // Apply the preset payment option
       setPaymentOption(preset.paymentOption);
-      
+
       // Apply the preset parameters
       const newParameters = { ...parameters };
       for (const [paramId, value] of Object.entries(preset.parameters)) {
         newParameters[paramId] = value;
       }
       setParameters(newParameters);
-      
+
       // Apply the recommended production capacity if specified
       if (preset.recommendedCapacity) {
         setProductionCapacity(preset.recommendedCapacity);
@@ -172,43 +184,43 @@ export default function useCalculator() {
       } else {
         setRecommendedCapacity(null);
       }
-      
+
       // Force a recalculation to update all values
       calculatePricing();
     }
   };
-  
+
   // Function to toggle payment option
-  const togglePaymentOption = (option) => {
+  const togglePaymentOption = option => {
     if (option !== paymentOption) {
       setPaymentOption(option);
       // Recalculate pricing when payment option changes
       calculatePricing();
     }
   };
-  
+
   // Function to update parameters
   const updateParameter = (paramId, value) => {
     setParameters(prevParams => ({
       ...prevParams,
-      [paramId]: value
+      [paramId]: value,
     }));
   };
-  
+
   // Toggle modules selection
-  const toggleModule = (module) => {
+  const toggleModule = module => {
     setSelectedModules(
       selectedModules.includes(module)
         ? selectedModules.filter(m => m !== module)
         : [...selectedModules, module]
     );
   };
-  
+
   // Set production capacity with validation for resource allocation
-  const setProductionCapacityWithValidation = (capacity) => {
+  const setProductionCapacityWithValidation = capacity => {
     // Update production capacity
     setProductionCapacity(capacity);
-    
+
     // Validate current resource allocation against new capacity
     if (capacity === 'pathfinder' && resourceAllocation !== 'focused') {
       // Pathfinder can only use Laser Beam (focused)
@@ -222,53 +234,59 @@ export default function useCalculator() {
     }
     // Rocketship can use any resource allocation, so no changes needed
   };
-  
+
   // Calculate pricing whenever selections change
   const calculatePricing = useCallback(() => {
-    const { resourceAllocation: allocations, productionCapacity: capacities, evcBase } = calculatorConfig;
-    
+    const {
+      resourceAllocation: allocations,
+      productionCapacity: capacities,
+      evcBase,
+    } = calculatorConfig;
+
     // Calculate total EVCs needed based on selected modules (consumer side)
     let baseModuleEvcs = 0;
     if (selectedModules.length > 0) {
       // Find the selected modules and sum their EVC values based on the selected variant
-      const selectedModuleConfigs = modules.filter(module => 
+      const selectedModuleConfigs = modules.filter(module =>
         selectedModules.includes(module.name)
       );
-      
+
       // Instead of average, use specific variant EVC value based on user selection
       baseModuleEvcs = selectedModuleConfigs.reduce((total, module) => {
         // Default to first variant (Insight Primer) if no specific selection
         let variantType = selectedVariants[module.name];
-        
+
         // If no variant is selected yet, default to insightPrimer
         if (!variantType) {
           variantType = 'insightPrimer';
         }
-        
+
         // Find the corresponding EVC value based on the variant type
         const variantIndex = variantType === 'insightPrimer' ? 0 : 1;
-        const evcValue = module.variants[variantIndex]?.evcValue || module.variants[0].evcValue;
-        
+        const evcValue =
+          module.variants[variantIndex]?.evcValue ||
+          module.variants[0].evcValue;
+
         return total + evcValue;
       }, 0);
     } else {
       // When no modules are selected, set EVCs to 0 (previously was minimum of 1 EVC)
       baseModuleEvcs = 0;
     }
-    
+
     // Store the total module EVCs for completion time calculation
     setTotalModuleEvcs(baseModuleEvcs);
-    
+
     // Get resource allocation strategy
     const allocation = allocations[resourceAllocation];
-    
+
     // Get production capacity tier
     const capacityTier = capacities[productionCapacity];
     const weeklyEVCs = capacityTier.weeklyEVCs;
 
     // Store the base production capacity (without parameter modifications)
-    let baseProductionCapacity = weeklyEVCs;
-    
+    const baseProductionCapacity = weeklyEVCs;
+
     // Track add-on EVC costs separately - these don't contribute to module work capacity
     let totalAddOnEvcCosts = 0;
 
@@ -277,10 +295,10 @@ export default function useCalculator() {
       if (isEnabled) {
         const paramConfig = serviceParameters.find(p => p.id === paramId);
         if (paramConfig?.evcCost) {
-          if (paramConfig.evcCost.type === "absolute") {
+          if (paramConfig.evcCost.type === 'absolute') {
             // For absolute costs, add to the total add-on costs, not to production capacity
             totalAddOnEvcCosts += paramConfig.evcCost.value;
-          } else if (paramConfig.evcCost.type === "relative") {
+          } else if (paramConfig.evcCost.type === 'relative') {
             // For relative costs, calculate the EVC cost based on base weekly EVCs
             const relativeCost = weeklyEVCs * (paramConfig.evcCost.value / 100);
             totalAddOnEvcCosts += Math.ceil(relativeCost);
@@ -291,19 +309,19 @@ export default function useCalculator() {
 
     // Use only the base capacity for production work
     let adjustedProductionCapacity = baseProductionCapacity;
-    
+
     // Round production capacity
     adjustedProductionCapacity = Math.ceil(adjustedProductionCapacity);
-    
+
     // Calculate output value based on resource allocation strategy
     // The production capacity remains constant regardless of resource allocation
     // It represents the "raw" weekly capacity to produce EVCs
     const outputValue = adjustedProductionCapacity;
-    
+
     // Calculate resource allocation overhead for EVCs
     let resourceOverheadEvcs = 0;
     let effectiveModuleEvcs = baseModuleEvcs;
-    
+
     // Apply resource allocation overhead to the module EVCs if not using focused allocation
     if (resourceAllocation !== 'focused' && baseModuleEvcs > 0) {
       const overheadPercentage = allocation.switchingOverhead / 100;
@@ -311,7 +329,7 @@ export default function useCalculator() {
       resourceOverheadEvcs = Math.ceil(baseModuleEvcs * overheadPercentage);
       // Increase the effective EVCs needed by the overhead
       effectiveModuleEvcs = baseModuleEvcs + resourceOverheadEvcs;
-      
+
       debugLog(`
         Resource allocation overhead calculation:
         - Base Module EVCs: ${baseModuleEvcs}
@@ -321,7 +339,7 @@ export default function useCalculator() {
         - Effective EVCs with overhead: ${effectiveModuleEvcs}
       `);
     }
-    
+
     // Calculate estimated completion time in weeks
     if (outputValue === 0) {
       // Prevent division by zero
@@ -329,10 +347,10 @@ export default function useCalculator() {
     } else {
       // Calculate weeks by dividing effective EVCs needed by weekly output capacity
       const rawWeeks = effectiveModuleEvcs / outputValue;
-      
+
       // Force toString to avoid floating point issues, then parse back to number
       const preciseWeeks = Number(rawWeeks.toFixed(10));
-      
+
       debugLog(`
         Completion time calculation:
         - Base Module EVCs: ${baseModuleEvcs}
@@ -344,112 +362,140 @@ export default function useCalculator() {
         - Precise result: ${preciseWeeks}
         - Rounded up: ${Math.ceil(preciseWeeks)}
       `);
-      
+
       // Make sure we always show at least 1 week even for very small projects
       const minimumWeeks = 1;
       setCompletionTimeWeeks(Math.max(minimumWeeks, Math.ceil(preciseWeeks)));
     }
-    
+
     // Include both the resource allocation overhead and add-on costs in the total production capacity
     // This ensures the customer pays for both the overhead and add-on services
-    const totalPricingCapacity = adjustedProductionCapacity + totalAddOnEvcCosts + resourceOverheadEvcs;
-    
+    const totalPricingCapacity =
+      adjustedProductionCapacity + totalAddOnEvcCosts + resourceOverheadEvcs;
+
     // Store the values for display
     setWeeklyProductionCapacity(totalPricingCapacity);
     setMonthlyOutputValue(outputValue * 4); // 4 weeks output
-    
+
     // Set allocation descriptor
     setDeliverySpeed(allocation.description);
-    
+
     // Calculate base price per EVC
-    let pricePerEvc = evcBase.basePrice;
-    
+    const pricePerEvc = evcBase.basePrice;
+
     // Modified volume discount calculation - apply discount tiers with compounding effect
     // First, calculate the total price without any volume discounts
-    let totalPriceWithoutDiscount = totalPricingCapacity * pricePerEvc;
-    
+    const totalPriceWithoutDiscount = totalPricingCapacity * pricePerEvc;
+
     // Sort volume discounts by threshold in ascending order to process smaller thresholds first
-    const sortedDiscounts = [...evcBase.volumeDiscounts].sort((a, b) => a.threshold - b.threshold);
-    
+    const sortedDiscounts = [...evcBase.volumeDiscounts].sort(
+      (a, b) => a.threshold - b.threshold
+    );
+
     // Keep track of tiers and their applied discount multipliers
     const tiers = [];
-    
+
     // Build the tier structure
     for (let i = 0; i < sortedDiscounts.length; i++) {
       const { threshold, discount } = sortedDiscounts[i];
       if (totalPricingCapacity > threshold) {
         // Calculate EVCs in this tier
-        const evcsInThisTier = (i === sortedDiscounts.length - 1)
-          ? totalPricingCapacity - threshold // For the highest threshold, all remaining EVCs
-          : Math.min(sortedDiscounts[i+1].threshold, totalPricingCapacity) - threshold;
-        
+        const evcsInThisTier =
+          i === sortedDiscounts.length - 1
+            ? totalPricingCapacity - threshold // For the highest threshold, all remaining EVCs
+            : Math.min(sortedDiscounts[i + 1].threshold, totalPricingCapacity) -
+              threshold;
+
         // Store tier info
         tiers.push({
           evcs: evcsInThisTier,
           discount: discount,
-          threshold: threshold
+          threshold: threshold,
         });
       }
     }
-    
+
     // Add first tier (no discount) if there are EVCs below the first threshold
-    if (sortedDiscounts.length > 0 && sortedDiscounts[0].threshold > 0 && totalPricingCapacity > 0) {
-      const evcsInFirstTier = Math.min(totalPricingCapacity, sortedDiscounts[0].threshold);
+    if (
+      sortedDiscounts.length > 0 &&
+      sortedDiscounts[0].threshold > 0 &&
+      totalPricingCapacity > 0
+    ) {
+      const evcsInFirstTier = Math.min(
+        totalPricingCapacity,
+        sortedDiscounts[0].threshold
+      );
       if (evcsInFirstTier > 0) {
         tiers.unshift({
           evcs: evcsInFirstTier,
           discount: 1.0, // No discount
-          threshold: 0
+          threshold: 0,
         });
       }
     }
-    
+
     // Calculate price with all applicable tiers
     let discountedPrice = 0;
     for (const tier of tiers) {
       discountedPrice += tier.evcs * pricePerEvc * tier.discount;
     }
-    
+
     // If no tiers were applied (no EVCs or no thresholds crossed), use base price
     if (tiers.length === 0) {
       discountedPrice = totalPriceWithoutDiscount;
     }
-    
+
     // Calculate the total volume discount percentage
-    const volumeDiscount = (totalPriceWithoutDiscount - discountedPrice) / totalPriceWithoutDiscount * 100;
+    const volumeDiscount =
+      ((totalPriceWithoutDiscount - discountedPrice) /
+        totalPriceWithoutDiscount) *
+      100;
     setVolumeDiscountPercentage(volumeDiscount);
-    
+
     // Apply payment option modifier to the entire amount
     const paymentModifier = evcBase.paymentOptions[paymentOption].priceModifier;
     discountedPrice *= paymentModifier;
-    
+
     // Calculate effective price per EVC for display
-    const effectiveEvcPrice = totalPricingCapacity > 0 
-      ? discountedPrice / totalPricingCapacity 
-      : pricePerEvc * paymentModifier;
-    
+    const effectiveEvcPrice =
+      totalPricingCapacity > 0
+        ? discountedPrice / totalPricingCapacity
+        : pricePerEvc * paymentModifier;
+
     // Set final values
     setMonthlyEvcs(totalPricingCapacity);
     setEvcPricePerUnit(effectiveEvcPrice);
     setTotalPrice(Math.round(discountedPrice));
-  }, [selectedModules, resourceAllocation, productionCapacity, parameters, paymentOption, modules, selectedVariants, serviceParameters]);
-  
+  }, [
+    selectedModules,
+    resourceAllocation,
+    productionCapacity,
+    parameters,
+    paymentOption,
+    modules,
+    selectedVariants,
+    serviceParameters,
+  ]);
+
   // Use the memoized callback in useEffect
   useEffect(() => {
     calculatePricing();
   }, [calculatePricing]);
 
   // New function to calculate total modules from modulesByPillar
-  const calculateTotalModules = (modulesByPillar) => {
+  const calculateTotalModules = modulesByPillar => {
     return Object.values(modulesByPillar || {}).flat().length;
   };
 
   // New function to calculate module EVCs by pillar
-  const calculateModuleEvcsByPillar = (modulesByPillar) => {
+  const calculateModuleEvcsByPillar = modulesByPillar => {
     const evcsByPillar = {};
     if (modulesByPillar) {
       Object.entries(modulesByPillar).forEach(([pillar, modules]) => {
-        evcsByPillar[pillar] = modules.reduce((sum, module) => sum + module.evcValue, 0);
+        evcsByPillar[pillar] = modules.reduce(
+          (sum, module) => sum + module.evcValue,
+          0
+        );
       });
     }
     return evcsByPillar;
@@ -457,9 +503,10 @@ export default function useCalculator() {
 
   // New function to calculate overhead EVCs
   const calculateOverheadEvcs = (totalEvcSum, resourceAllocationKey) => {
-    const allocation = calculatorConfig.resourceAllocation[resourceAllocationKey];
+    const allocation =
+      calculatorConfig.resourceAllocation[resourceAllocationKey];
     const overheadPercentage = allocation?.switchingOverhead || 10;
-    
+
     // Only apply overhead if we're not using focused allocation and there are EVCs to calculate from
     if (resourceAllocationKey !== 'focused' && totalEvcSum > 0) {
       return Math.ceil((totalEvcSum * overheadPercentage) / 100);
@@ -470,7 +517,7 @@ export default function useCalculator() {
   // New function to calculate parameter impacts on EVCs
   const calculateParameterEvcCosts = (params, serviceParams, weeklyEvcs) => {
     if (!params || !serviceParams) return [];
-    
+
     return serviceParams
       .filter(param => params[param.id])
       .map(param => {
@@ -480,7 +527,7 @@ export default function useCalculator() {
           description: param.productionImpact || param.description,
           modifier: param.modifier,
           evcCost: evcCost,
-          isWeekly: true // Mark all parameter costs as weekly requirements
+          isWeekly: true, // Mark all parameter costs as weekly requirements
         };
       });
   };
@@ -488,15 +535,15 @@ export default function useCalculator() {
   // Helper function to calculate EVC cost for a parameter
   const calculateEvcCostForParameter = (param, weeklyEvcs) => {
     if (!param?.evcCost) return null;
-    
+
     const { type, value } = param.evcCost;
-    
+
     if (type === 'absolute') {
       return value;
     } else if (type === 'relative') {
       return Math.ceil((weeklyEvcs * value) / 100);
     }
-    
+
     return null;
   };
 
@@ -505,12 +552,12 @@ export default function useCalculator() {
     const paymentDetail = evcBase.paymentOptions[paymentOption];
     return {
       name: paymentDetail?.name || 'Standard',
-      priceModifier: paymentDetail?.priceModifier || 1
+      priceModifier: paymentDetail?.priceModifier || 1,
     };
   };
 
   // Function to toggle module in savedModules state
-  const toggleSaveModule = (moduleName) => {
+  const toggleSaveModule = moduleName => {
     setSavedModules(prevSavedModules => {
       if (prevSavedModules.includes(moduleName)) {
         return prevSavedModules.filter(name => name !== moduleName);
@@ -544,7 +591,7 @@ export default function useCalculator() {
     totalModuleEvcs,
     recommendedCapacity,
     savedModules,
-    
+
     // Config
     defaults,
     evcBase,
@@ -552,7 +599,7 @@ export default function useCalculator() {
     modules,
     pillars: calculatorConfig.pillars,
     availablePillars,
-    
+
     // Functions
     toggleEvcExplainer,
     resetCalculator,
@@ -564,7 +611,7 @@ export default function useCalculator() {
     setActivePillar,
     setResourceAllocation,
     calculatePricing,
-    
+
     // New utility functions for PDF report
     calculateTotalModules,
     calculateModuleEvcsByPillar,

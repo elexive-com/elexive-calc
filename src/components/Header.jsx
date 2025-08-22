@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { 
-  faLayerGroup, 
-  faHome, 
-  faBars, 
+import {
+  faLayerGroup,
+  faHome,
+  faBars,
   faTimes,
   faCubes,
-  faRoad
+  faRoad,
 } from '@fortawesome/free-solid-svg-icons';
 import { useTabContext } from '../contexts/TabContext';
 import { useRouterContext } from '../contexts/RouterContext';
@@ -16,58 +16,62 @@ const Header = () => {
   const { activeTab, setActiveTab } = useTabContext();
   const { navigateToTab } = useRouterContext();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  
+
   const toggleMobileMenu = () => {
     setMobileMenuOpen(!mobileMenuOpen);
   };
-  
-  const handleNavClick = (tab) => {
+
+  const handleNavClick = tab => {
     // Prevent accessing Journey Planner in production unless debug mode is enabled
     if (tab === 'journey' && ENV === 'production' && !DEBUG) {
       // Redirect to introduction instead
       tab = 'introduction';
     }
-    
+
     // Update tab state immediately for responsive UI
     setActiveTab(tab);
-    
+
     // Navigate to the route
     navigateToTab(tab);
-    
+
     setMobileMenuOpen(false); // Close menu after selection on mobile
-    
+
     // Scroll to top of the page
     window.scrollTo({
       top: 0,
-      behavior: 'smooth'
+      behavior: 'smooth',
     });
   };
-  
+
   return (
     <header className="elx-header relative">
       <div className="container mx-auto flex justify-between items-center p-4 max-w-[1100px]">
         <div className="flex items-center">
-          <a href="https://elexive.com/" target="_blank" rel="noopener noreferrer">
-            <img 
-              src="/elexive-logo-text.png" 
-              alt="Elexive" 
+          <a
+            href="https://elexive.com/"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <img
+              src="/elexive-logo-text.png"
+              alt="Elexive"
               className="elx-header-logo h-8"
             />
           </a>
         </div>
-        
+
         {/* Mobile hamburger button */}
-        <button 
+        <button
           className="md:hidden text-white focus:outline-none"
           onClick={toggleMobileMenu}
-          aria-label={mobileMenuOpen ? "Close menu" : "Open menu"}
+          aria-label={mobileMenuOpen ? 'Close menu' : 'Open menu'}
         >
-          <FontAwesomeIcon 
-            icon={mobileMenuOpen ? faTimes : faBars} 
+          <FontAwesomeIcon
+            icon={mobileMenuOpen ? faTimes : faBars}
             className="text-xl"
           />
         </button>
-        
+
         {/* Desktop navigation */}
         <nav className="hidden md:flex space-x-4">
           <button
@@ -118,7 +122,7 @@ const Header = () => {
           </button>
         </nav>
       </div>
-      
+
       {/* New mobile menu implementation - fixed positioning */}
       {mobileMenuOpen && (
         <div className="md:hidden fixed top-[70px] left-0 right-0 bg-elx-primary border-t border-gray-700 shadow-lg">

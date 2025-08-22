@@ -1,6 +1,6 @@
 /**
  * PDF Icon Utilities
- * 
+ *
  * This file contains utility functions for handling icons in PDF rendering.
  * Since React-PDF doesn't support Font Awesome icons directly, we use:
  * 1. PNG image references for high-quality icons that work reliably in PDFs
@@ -27,15 +27,21 @@ export const getModuleTypeIcon = (type, useImage = true) => {
  * @param {string} pillar - The pillar name
  * @returns {string} Path to a PNG icon
  */
-export const getPillarIcon = (pillar) => {
+export const getPillarIcon = pillar => {
   // Return paths to your PNG icons
-  switch(pillar.toLowerCase()) {
-    case 'transformation': return '/layer-group-solid-512.png';
-    case 'strategy': return '/layer-group-solid-512.png'; 
-    case 'technology': return '/layer-group-solid-512.png';
-    case 'discovery': return '/layer-group-solid-512.png';
-    case 'catalyst': return '/layer-group-solid-512.png';
-    default: return '/layer-group-solid-512.png';
+  switch (pillar.toLowerCase()) {
+    case 'transformation':
+      return '/layer-group-solid-512.png';
+    case 'strategy':
+      return '/layer-group-solid-512.png';
+    case 'technology':
+      return '/layer-group-solid-512.png';
+    case 'discovery':
+      return '/layer-group-solid-512.png';
+    case 'catalyst':
+      return '/layer-group-solid-512.png';
+    default:
+      return '/layer-group-solid-512.png';
   }
 };
 
@@ -50,11 +56,14 @@ export const getEngagementModelIcon = (model, useImage = true) => {
     // Using window.location.origin ensures we have an absolute URL that works in the PDF
     return `${window.location.origin}/layer-group-solid-512.png`;
   }
-  
+
   // Fallback to Unicode symbols
-  switch(model.toLowerCase()) {
-    case 'insight primer': return '💡';
-    case 'integrated execution': return '⚙️';
-    default: return '📊';
+  switch (model.toLowerCase()) {
+    case 'insight primer':
+      return '💡';
+    case 'integrated execution':
+      return '⚙️';
+    default:
+      return '📊';
   }
 };

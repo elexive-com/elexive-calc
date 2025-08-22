@@ -6,12 +6,12 @@
 
 /* Global CSS variables - mainly for backward compatibility */
 :root {
-  --elexive-bg: #FBFAFC;
-  --elexive-primary: #2E2266;
-  --elexive-accent: #FFBD59;
+  --elexive-bg: #fbfafc;
+  --elexive-primary: #2e2266;
+  --elexive-accent: #ffbd59;
   --elexive-accent-light: rgba(255, 189, 89, 0.5);
-  --elexive-secondary: #EB8258;
-  --elexive-evc: #FF006E;
+  --elexive-secondary: #eb8258;
+  --elexive-evc: #ff006e;
   --elexive-evc-light: rgba(255, 0, 110, 0.15);
   --elexive-border-radius: 12px;
   --elexive-button-radius: 8px;
@@ -71,87 +71,87 @@
 /* Custom pillar color classes with direct implementations */
 /* Transformation pillar - #FFBE59 */
 .elx-pillar-color-transformation {
-  color: #FFBE59;
+  color: #ffbe59;
 }
 
 .elx-pillar-bg-transformation {
-  background-color: #FFF6E8; /* Light amber background */
+  background-color: #fff6e8; /* Light amber background */
 }
 
 .elx-pillar-border-transformation {
-  border-color: #FFBE59;
+  border-color: #ffbe59;
 }
 
 .elx-pillar-hover-transformation:hover {
-  background-color: #FFEFD0; /* Slightly darker amber for hover */
+  background-color: #ffefd0; /* Slightly darker amber for hover */
 }
 
 /* Strategy pillar - #EB8258 */
 .elx-pillar-color-strategy {
-  color: #EB8258;
+  color: #eb8258;
 }
 
 .elx-pillar-bg-strategy {
-  background-color: #FFF0E8; /* Light orange background */
+  background-color: #fff0e8; /* Light orange background */
 }
 
 .elx-pillar-border-strategy {
-  border-color: #EB8258;
+  border-color: #eb8258;
 }
 
 .elx-pillar-hover-strategy:hover {
-  background-color: #FEDBC7; /* Slightly darker orange for hover */
+  background-color: #fedbc7; /* Slightly darker orange for hover */
 }
 
 /* Technology pillar - #1F776D */
 .elx-pillar-color-technology {
-  color: #1F776D;
+  color: #1f776d;
 }
 
 .elx-pillar-bg-technology {
-  background-color: #E6F2F0; /* Light teal background */
+  background-color: #e6f2f0; /* Light teal background */
 }
 
 .elx-pillar-border-technology {
-  border-color: #1F776D;
+  border-color: #1f776d;
 }
 
 .elx-pillar-hover-technology:hover {
-  background-color: #D1E7E3; /* Slightly darker teal for hover */
+  background-color: #d1e7e3; /* Slightly darker teal for hover */
 }
 
 /* Discovery pillar - #2E2266 (Elexive primary) */
 .elx-pillar-color-discovery {
-  color: #2E2266;
+  color: #2e2266;
 }
 
 .elx-pillar-bg-discovery {
-  background-color: #F1EFF7; /* Light purple background */
+  background-color: #f1eff7; /* Light purple background */
 }
 
 .elx-pillar-border-discovery {
-  border-color: #2E2266;
+  border-color: #2e2266;
 }
 
 .elx-pillar-hover-discovery:hover {
-  background-color: #E3E0EE; /* Slightly darker purple for hover */
+  background-color: #e3e0ee; /* Slightly darker purple for hover */
 }
 
 /* Catalyst pillar - #0A4DA1 (Dark blue) */
 .elx-pillar-color-catalyst {
-  color: #0A4DA1;
+  color: #0a4da1;
 }
 
 .elx-pillar-bg-catalyst {
-  background-color: #E8F0FB; /* Light blue background */
+  background-color: #e8f0fb; /* Light blue background */
 }
 
 .elx-pillar-border-catalyst {
-  border-color: #0A4DA1;
+  border-color: #0a4da1;
 }
 
 .elx-pillar-hover-catalyst:hover {
-  background-color: #D4E3F7; /* Slightly darker blue for hover */
+  background-color: #d4e3f7; /* Slightly darker blue for hover */
 }
 
 /* Expandable sections */
@@ -267,12 +267,12 @@
   .module-option-card {
     padding: 0.75rem;
   }
-  
+
   .module-selector-indicator {
     width: 20px;
     height: 20px;
   }
-  
+
   .module-option-card.selected .module-selector-indicator:after {
     width: 8px;
     height: 8px;

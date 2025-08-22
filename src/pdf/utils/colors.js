@@ -21,14 +21,14 @@ export const getColorFromCssVar = (varName, fallback = '#000000') => {
   } catch (err) {
     debugLog('Error accessing document for CSS variable:', err);
   }
-  
+
   // Fallback to hardcoded values if document is not available
   const cssVarMap = {
     '--elexive-primary': '#2E2266',
     '--elexive-secondary': '#FFBE59',
-    '--elexive-accent': '#D99000'
+    '--elexive-accent': '#D99000',
   };
-  
+
   return cssVarMap[varName] || fallback;
 };
 
@@ -37,13 +37,13 @@ export const getColorFromCssVar = (varName, fallback = '#000000') => {
  * @param {string} pillarName - Name of the pillar (e.g., 'Transformation')
  * @return {string} - The color value for the pillar
  */
-export const getPillarColor = (pillarName) => {
+export const getPillarColor = pillarName => {
   const pillarColorMap = {
-    'Transformation': '#D99000', // Amber/gold
-    'Strategy': '#C85A30',      // Orange/rust
-    'Technology': '#1F776D',    // Teal
-    'Discovery': '#2E2266',     // Deep purple (primary)
-    'Catalyst': '#0A4DA1'       // Dark blue (distinct from purple)
+    Transformation: '#D99000', // Amber/gold
+    Strategy: '#C85A30', // Orange/rust
+    Technology: '#1F776D', // Teal
+    Discovery: '#2E2266', // Deep purple (primary)
+    Catalyst: '#0A4DA1', // Dark blue (distinct from purple)
   };
   return pillarColorMap[pillarName] || '#2E2266';
 };
@@ -53,14 +53,14 @@ export const getPillarColor = (pillarName) => {
  * @param {string} variantType - Type of variant (e.g., 'Insight Primer')
  * @return {Object} - Style information for the variant
  */
-export const getVariantStyles = (variantType) => {
+export const getVariantStyles = variantType => {
   if (variantType === 'Insight Primer') {
     return {
       headerBg: '#EBF8FF',
       headerBorder: '#BEE3F8',
       iconBg: '#3182CE',
       titleColor: '#2C5282',
-      icon: '💡'
+      icon: '💡',
     };
   }
   return {
@@ -69,6 +69,6 @@ export const getVariantStyles = (variantType) => {
     headerBorder: '#C6F6D5',
     iconBg: '#38A169',
     titleColor: '#276749',
-    icon: '🚀'
+    icon: '🚀',
   };
 };

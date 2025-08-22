@@ -40,7 +40,7 @@ const colors = {
     discovery: '#2E2266', // Deep purple (primary)
     catalyst: '#0A4DA1', // Dark blue (distinct from purple)
     default: '#4B5563', // gray-600
-  }
+  },
 };
 
 // Define PDF styles
@@ -51,7 +51,7 @@ const styles = StyleSheet.create({
     backgroundColor: colors.background,
     padding: 0,
   },
-  
+
   // Error styling
   errorText: {
     color: colors.error,
@@ -60,7 +60,7 @@ const styles = StyleSheet.create({
     marginTop: 40,
     fontWeight: 'bold',
   },
-  
+
   // Cover page
   coverPage: {
     backgroundColor: colors.primary,
@@ -126,7 +126,7 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     color: colors.background,
   },
-  
+
   // Content page
   contentPage: {
     padding: 40,
@@ -181,7 +181,7 @@ const styles = StyleSheet.create({
     fontSize: 10,
     color: colors.lightText,
   },
-  
+
   // Shared styles
   row: {
     flexDirection: 'row',
@@ -213,7 +213,7 @@ const styles = StyleSheet.create({
     marginRight: 5,
     marginBottom: 5,
   },
-  
+
   // Report specific styles
   headerBanner: {
     backgroundColor: colors.primary,
@@ -333,7 +333,7 @@ const styles = StyleSheet.create({
   moduleIcon: {
     width: 50,
   },
-  
+
   // Additional report page styles
   summaryLabel: {
     fontSize: 12,
@@ -392,9 +392,9 @@ const styles = StyleSheet.create({
   resourceSegment: {
     height: '100%',
   },
-  
+
   // New styles for reimagined Report Content Pages
-  
+
   // Pillar Summary Cards
   pillarSummary: {
     padding: 10,
@@ -408,7 +408,7 @@ const styles = StyleSheet.create({
     color: '#505050',
     marginTop: 3,
   },
-  
+
   // Timeline Visualization
   timelineContainer: {
     marginTop: 15,
@@ -442,7 +442,7 @@ const styles = StyleSheet.create({
     fontSize: 10,
     fontWeight: 'bold',
   },
-  
+
   // Module Detail Cards
   moduleDetailCard: {
     padding: 12,
@@ -481,7 +481,7 @@ const styles = StyleSheet.create({
     paddingLeft: 10,
     lineHeight: 1.4,
   },
-  
+
   // Resource Allocation
   resourceAllocationContainer: {
     marginTop: 15,
@@ -547,7 +547,7 @@ const styles = StyleSheet.create({
     fontSize: 8,
     color: '#6B7280',
   },
-  
+
   // Service Delivery Timeline
   deliveryTimelineContainer: {
     marginTop: 15,
@@ -657,7 +657,7 @@ const styles = StyleSheet.create({
     color: '#1E40AF',
     lineHeight: 1.4,
   },
-  
+
   // Investment Breakdown
   investmentBreakdown: {
     marginTop: 10,
@@ -686,7 +686,7 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     color: colors.primary,
   },
-  
+
   // Value Timeline
   valueTimelineContainer: {
     marginTop: 15,
@@ -720,7 +720,7 @@ const styles = StyleSheet.create({
     fontSize: 10,
     color: '#505050',
   },
-  
+
   // Appendix Styles
   evcCalculationBox: {
     marginTop: 10,
@@ -773,7 +773,7 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     textAlign: 'center',
   },
-  
+
   // Engagement model features
   engagementModelFeatures: {
     marginTop: 10,
@@ -789,7 +789,7 @@ const styles = StyleSheet.create({
     marginBottom: 3,
     paddingLeft: 2,
   },
-  
+
   // Price Calculation Table Styles
   calculationTable: {
     marginTop: 30,
@@ -908,7 +908,7 @@ const styles = StyleSheet.create({
     borderLeftWidth: 3,
     borderLeftColor: '#DDDDDD',
   },
-  
+
   // Service Delivery Timeline styles
   deliveryTimelineCard: {
     backgroundColor: colors.background,
@@ -1037,7 +1037,7 @@ const styles = StyleSheet.create({
     lineHeight: 1.4,
     flex: 1,
   },
-  
+
   // Strategic Approach Page Styles
   twoColumnLayout: {
     flexDirection: 'row',
@@ -1258,7 +1258,7 @@ const styles = StyleSheet.create({
     fontSize: 8,
     color: '#505050',
     fontStyle: 'italic',
-  }
+  },
 });
 
 export default styles;

@@ -16,7 +16,7 @@ export const TabProvider = ({ children }) => {
         '/': 'introduction',
         '/calculator': 'calculator',
         '/modules': 'modules',
-        '/journey': 'journey'
+        '/journey': 'journey',
       };
       return pathToTab[path] || 'introduction';
     }
@@ -33,7 +33,7 @@ export const TabProvider = ({ children }) => {
         '/': 'introduction',
         '/calculator': 'calculator',
         '/modules': 'modules',
-        '/journey': 'journey'
+        '/journey': 'journey',
       };
       const newTab = pathToTab[path] || 'introduction';
       setActiveTab(newTab);

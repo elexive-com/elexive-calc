@@ -22,7 +22,7 @@ const ModuleDocument = ({ moduleName }) => {
  * @param {string} moduleName - Name of the module to generate PDF for
  * @returns {Promise} - Promise that resolves when PDF is generated
  */
-export const generateModulePdf = async (moduleName) => {
+export const generateModulePdf = async moduleName => {
   try {
     // Find module data to validate it exists
     const module = modulesConfig.modules.find(m => m.name === moduleName);
@@ -30,24 +30,24 @@ export const generateModulePdf = async (moduleName) => {
       console.error(`Module "${moduleName}" not found`);
       return { success: false, error: `Module "${moduleName}" not found` };
     }
-    
+
     debugLog(`Generating PDF for module: ${moduleName}`);
-    
+
     // Create document
     const blob = await pdf(<ModuleDocument moduleName={moduleName} />).toBlob();
-    
+
     // Create filename
     const filename = `elexive-module-${module.name.replace(/\s+/g, '-').toLowerCase()}.pdf`;
-    
+
     // Save file
     saveAs(blob, filename);
-    
+
     return { success: true, filename };
   } catch (error) {
     console.error('PDF generation failed:', error);
-    return { 
-      success: false, 
-      error: error.message || 'PDF generation failed'
+    return {
+      success: false,
+      error: error.message || 'PDF generation failed',
     };
   }
 };

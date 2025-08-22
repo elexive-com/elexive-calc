@@ -28,16 +28,16 @@ export const createTemporaryDiv = (width = 794, height = null) => {
  */
 export const formatNumberWithDecimals = (num, decimalPlaces = 0) => {
   if (num === undefined || num === null) return '0';
-  
+
   // Format with the specified number of decimal places
   const fixedNum = Number(num).toFixed(decimalPlaces);
-  
+
   // Split into integer and decimal parts
   const parts = fixedNum.split('.');
-  
+
   // Add thousand separators to the integer part
   parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ',');
-  
+
   // Join back with decimal part if it exists
   return parts.length > 1 ? parts.join('.') : parts[0];
 };
@@ -50,23 +50,25 @@ export const formatNumberWithDecimals = (num, decimalPlaces = 0) => {
  */
 export const setDivContent = (div, htmlContent) => {
   if (!div) return Promise.resolve();
-  
+
   // Set content using innerHTML
   div.innerHTML = htmlContent;
-  
+
   // Process any images to ensure they are loaded
   const images = div.querySelectorAll('img');
   if (images.length > 0) {
     // Return a promise that resolves when all images are loaded
-    return Promise.all(Array.from(images).map(img => {
-      if (img.complete) return Promise.resolve();
-      return new Promise(resolve => {
-        img.onload = resolve;
-        img.onerror = resolve; // Resolve even on error to prevent hanging
-      });
-    }));
+    return Promise.all(
+      Array.from(images).map(img => {
+        if (img.complete) return Promise.resolve();
+        return new Promise(resolve => {
+          img.onload = resolve;
+          img.onerror = resolve; // Resolve even on error to prevent hanging
+        });
+      })
+    );
   }
-  
+
   return Promise.resolve();
 };
 
@@ -74,7 +76,7 @@ export const setDivContent = (div, htmlContent) => {
  * Removes a temporary element from the DOM
  * @param {HTMLElement} element - The element to remove
  */
-export const cleanupElement = (element) => {
+export const cleanupElement = element => {
   if (element && element.parentNode) {
     element.parentNode.removeChild(element);
   }
@@ -84,6 +86,8 @@ export const cleanupElement = (element) => {
 // These can be replaced with actual images when needed
 export const PLACEHOLDER_IMAGES = {
   LOGO: 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP8z8BQDwAEhQGAhKmMIQAAAABJRU5ErkJggg==',
-  MODULE_ICON: 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP8z8BQDwAEhQGAhKmMIQAAAABJRU5ErkJggg==',
-  GENERIC_ICON: 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP8z8BQDwAEhQGAhKmMIQAAAABJRU5ErkJggg=='
+  MODULE_ICON:
+    'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP8z8BQDwAEhQGAhKmMIQAAAABJRU5ErkJggg==',
+  GENERIC_ICON:
+    'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP8z8BQDwAEhQGAhKmMIQAAAABJRU5ErkJggg==',
 };

@@ -92,7 +92,7 @@
       "label": "Jetpack",
       "description": "Enhanced capacity for growing businesses",
       "weeklyEVCs": 20,
-      "icon": "faJetFighterUp", 
+      "icon": "faJetFighterUp",
       "colorClass": "bg-blue-100",
       "valueProposition": "Accelerate your growth with increased capacity"
     },
