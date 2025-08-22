@@ -41,8 +41,39 @@ export const RouterProvider = ({ children }) => {
     navigate(path);
   };
 
+  // Helper function to generate module detail URL from slug
+  const getModuleUrl = slug => {
+    return `/modules/${slug}`;
+  };
+
+  // Helper function to navigate to a specific module detail page
+  const navigateToModule = slug => {
+    const moduleUrl = getModuleUrl(slug);
+    navigate(moduleUrl);
+  };
+
+  // Helper function to check if current route is a module detail page
+  const isModuleDetailRoute = () => {
+    return (
+      location.pathname.startsWith('/modules/') &&
+      location.pathname !== '/modules'
+    );
+  };
+
+  // Helper function to extract module slug from current URL
+  const getCurrentModuleSlug = () => {
+    if (isModuleDetailRoute()) {
+      return location.pathname.replace('/modules/', '');
+    }
+    return null;
+  };
+
   // Get current tab from URL
   const getCurrentTab = () => {
+    // Handle module detail routes (/modules/{slug}) - keep modules tab active
+    if (location.pathname.startsWith('/modules/')) {
+      return 'modules';
+    }
     return pathToTab[location.pathname] || 'introduction';
   };
 
@@ -53,6 +84,11 @@ export const RouterProvider = ({ children }) => {
     navigateToPath,
     pathToTab,
     tabToPath,
+    // Module-specific helper functions
+    getModuleUrl,
+    navigateToModule,
+    isModuleDetailRoute,
+    getCurrentModuleSlug,
   };
 
   return (
