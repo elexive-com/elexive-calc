@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
   faLayerGroup,
@@ -35,6 +36,7 @@ const ModuleSelector = ({
 }) => {
   // Get access to the shared savedModules state
   const { savedModules, toggleSaveModule } = useCalculator();
+  const navigate = useNavigate();
 
   // State for expanded pillars in the accordion
   const [expandedPillars, setExpandedPillars] = useState(() => {
@@ -104,15 +106,14 @@ const ModuleSelector = ({
     };
   });
 
-  // View module details function
+  // View module details function - navigate to module URL
   const viewModuleDetails = module => {
     if (externalViewModuleDetails) {
-      // Use the external function if provided (for full-screen view)
+      // Use the external function if provided (for backward compatibility)
       externalViewModuleDetails(module);
     } else {
-      // Fallback to local state for in-component view
-      setSelectedModule(module);
-      setIsDetailView(true);
+      // Navigate to module URL using React Router
+      navigate(`/modules/${module.id}`);
     }
   };
 

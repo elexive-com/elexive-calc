@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef, useMemo } from 'react';
+import { useNavigate } from 'react-router-dom';
 import useCalculator from './hooks/useCalculator';
 import CalculatorIntroduction from './components/CalculatorIntroduction';
 import OnboardingQuiz from './components/OnboardingQuiz';
@@ -26,6 +27,7 @@ const CalculatorApp = () => {
   const calculator = useCalculator();
   const { activeTab, setActiveTab } = useTabContext();
   const { navigateToTab } = useRouterContext();
+  const navigate = useNavigate();
   const [isEvcModalOpen, setIsEvcModalOpen] = useState(false);
   const [activeStep, setActiveStep] = useState(1); // Track current step
   const [expandedSteps, setExpandedSteps] = useState({
@@ -195,14 +197,9 @@ const CalculatorApp = () => {
     }
   };
 
-  // View module details function
+  // View module details function - navigate to module URL
   const viewModuleDetails = module => {
-    setSelectedModule(module);
-    setIsDetailView(true);
-    // Save current scroll position for when we return
-    window.sessionStorage.setItem('scrollPosition', window.pageYOffset);
-    // Scroll to top for full-screen view
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    navigate(`/modules/${module.id}`);
   };
 
   // Export to PDF function

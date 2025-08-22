@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useMemo } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
   faSearch,
@@ -28,6 +29,7 @@ import useCalculator from '../hooks/useCalculator';
 const JourneyPlanner = () => {
   // Get savedModules state and toggleSaveModule function from useCalculator hook
   const { savedModules, toggleSaveModule } = useCalculator();
+  const navigate = useNavigate();
 
   // State for module data and views
   const [modules, setModules] = useState([]);
@@ -300,10 +302,9 @@ const JourneyPlanner = () => {
     ).length;
   };
 
-  // View module details
+  // View module details - navigate to module URL
   const viewModuleDetails = module => {
-    setSelectedModule(module);
-    setIsDetailView(true);
+    navigate(`/modules/${module.id}`);
   };
 
   // Export module details to PDF

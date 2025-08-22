@@ -41,7 +41,7 @@
   - Ensure existing ModuleExplorer functionality remains unchanged
   - _Requirements: 1.1, 3.1, 3.3_
 
-- [ ] 7. Update other components that trigger module details
+- [x] 7. Update other components that trigger module details
   - Update `viewModuleDetails` function in `src/components/JourneyPlanner.jsx` to use URL navigation
   - Update `viewModuleDetails` function in `src/CalculatorApp.jsx` to use URL navigation
   - Update `ModuleSelector.jsx` if it has module detail functionality
