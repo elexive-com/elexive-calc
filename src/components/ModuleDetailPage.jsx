@@ -1,6 +1,5 @@
-import React, { useState, useEffect, useMemo } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import React, { useState, useEffect, useMemo, useCallback } from 'react';
+import { useParams, useNavigate, useLocation } from 'react-router-dom';
 import {
   faCompass,
   faLightbulb,
@@ -17,39 +16,108 @@ import { generateModulePdf } from '../pdf';
  *
  * Handles parameterized routes like /modules/{slug} and renders the
  * existing ModuleDetails component with the found module data.
+ * Includes enhanced browser navigation support and URL state management.
  */
 const ModuleDetailPage = () => {
   const { slug } = useParams();
   const navigate = useNavigate();
+  const location = useLocation();
   const [module, setModule] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [isExporting, setIsExporting] = useState(false);
+  const [navigationState, setNavigationState] = useState({
+    canGoBack: false,
+    referrer: null,
+  });
 
-  // Find module by slug
+  // Enhanced module loading with validation and error handling
   useEffect(() => {
-    try {
-      const foundModule = modulesConfig.modules.find(m => m.id === slug);
-      if (foundModule) {
-        setModule(foundModule);
-        setError(null);
-      } else {
-        setError('Module not found');
+    const loadModule = async () => {
+      setLoading(true);
+      setError(null);
+
+      try {
+        // Validate slug format (should be kebab-case)
+        if (!slug || !/^[a-z0-9]+(-[a-z0-9]+)*$/.test(slug)) {
+          setError('Invalid module identifier format');
+          setModule(null);
+          return;
+        }
+
+        // Find module by slug with case-insensitive fallback
+        let foundModule = modulesConfig.modules.find(m => m.id === slug);
+        
+        // If not found, try case-insensitive search as fallback
+        if (!foundModule) {
+          foundModule = modulesConfig.modules.find(m => 
+            m.id && m.id.toLowerCase() === slug.toLowerCase()
+          );
+        }
+
+        if (foundModule) {
+          setModule(foundModule);
+          setError(null);
+          
+          // Update document title for better browser navigation
+          document.title = `${foundModule.name} - Elexive Modules`;
+        } else {
+          setError('Module not found');
+          setModule(null);
+          document.title = 'Module Not Found - Elexive';
+        }
+      } catch (err) {
+        // eslint-disable-next-line no-console
+        console.error('Error loading module:', err);
+        setError('Error loading module configuration');
         setModule(null);
+        document.title = 'Error - Elexive';
+      } finally {
+        setLoading(false);
       }
-    } catch (err) {
-      console.error('Error loading module:', err);
-      setError('Error loading module configuration');
-      setModule(null);
-    } finally {
-      setLoading(false);
-    }
+    };
+
+    loadModule();
+
+    // Cleanup function to reset title when component unmounts
+    return () => {
+      document.title = 'Elexive Calculator';
+    };
   }, [slug]);
 
-  // Handle back navigation
-  const handleBack = () => {
-    navigate('/modules');
-  };
+  // Enhanced navigation state management
+  useEffect(() => {
+    // Check if user can go back in browser history
+    const canGoBack = window.history && window.history.length > 1;
+    
+    // Get referrer information from location state or document referrer
+    const referrer = location.state?.from || 
+                    (document.referrer && new URL(document.referrer).pathname) ||
+                    null;
+    
+    setNavigationState({
+      canGoBack,
+      referrer,
+    });
+  }, [location.state]);
+
+  // Enhanced back navigation with intelligent routing
+  const handleBack = useCallback(() => {
+    const { canGoBack, referrer } = navigationState;
+    
+    // If we have a referrer within our app and can go back, use browser back
+    if (canGoBack && referrer && referrer.startsWith('/')) {
+      // Check if referrer is within our app domain
+      if (referrer === '/modules' || referrer.startsWith('/modules') || 
+          referrer === '/calculator' || referrer === '/journey' || referrer === '/') {
+        window.history.back();
+        return;
+      }
+    }
+    
+    // Default fallback: navigate to modules page
+    navigate('/modules', { replace: false });
+  }, [navigate, navigationState]);
 
   // Export to PDF function
   const exportToPdf = async () => {
@@ -66,6 +134,7 @@ const ModuleDetailPage = () => {
         throw new Error(result.error || 'PDF generation failed');
       }
     } catch (error) {
+      // eslint-disable-next-line no-console
       console.error('PDF export failed:', error);
       alert('Failed to export PDF. Please try again.');
     } finally {

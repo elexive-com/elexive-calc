@@ -113,9 +113,20 @@ const ModuleExplorer = () => {
     showSavedOnly,
   ]);
 
-  // View module details - navigate to module URL
+  // View module details - navigate to module URL with state
   const viewModuleDetails = module => {
-    navigate(`/modules/${module.id}`);
+    navigate(`/modules/${module.id}`, {
+      state: {
+        from: '/modules',
+        moduleContext: 'explorer',
+        searchQuery: searchQuery,
+        filters: {
+          pillars: Array.from(selectedPillars),
+          categories: Array.from(selectedCategories),
+          showSavedOnly: showSavedOnly,
+        }
+      }
+    });
   };
 
   // Clear all filters

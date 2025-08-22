@@ -197,9 +197,19 @@ const CalculatorApp = () => {
     }
   };
 
-  // View module details function - navigate to module URL
+  // View module details function - navigate to module URL with state
   const viewModuleDetails = module => {
-    navigate(`/modules/${module.id}`);
+    navigate(`/modules/${module.id}`, {
+      state: {
+        from: '/calculator',
+        moduleContext: 'calculator',
+        calculatorState: {
+          selectedModules: calculator.selectedModules,
+          resourceAllocation: calculator.resourceAllocation,
+          productionCapacity: calculator.productionCapacity,
+        }
+      }
+    });
   };
 
   // Export to PDF function
@@ -217,6 +227,7 @@ const CalculatorApp = () => {
         throw new Error(result.error || 'PDF generation failed');
       }
     } catch (error) {
+      // eslint-disable-next-line no-console
       console.error('PDF export failed:', error);
       alert('Failed to export PDF. Please try again.');
     } finally {

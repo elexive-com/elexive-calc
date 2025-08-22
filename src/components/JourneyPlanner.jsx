@@ -41,7 +41,7 @@ const JourneyPlanner = () => {
   const [showSavedOnly, setShowSavedOnly] = useState(false);
 
   // State for interactive experience
-  const [selectedModule, setSelectedModule] = useState(null);
+  const [selectedModule] = useState(null);
   const [isDetailView, setIsDetailView] = useState(false);
   const [isExporting, setIsExporting] = useState(false);
   const [activeJourneyStep, setActiveJourneyStep] = useState(0);
@@ -302,9 +302,15 @@ const JourneyPlanner = () => {
     ).length;
   };
 
-  // View module details - navigate to module URL
+  // View module details - navigate to module URL with state
   const viewModuleDetails = module => {
-    navigate(`/modules/${module.id}`);
+    navigate(`/modules/${module.id}`, {
+      state: {
+        from: '/journey',
+        moduleContext: 'journey-planner',
+        journeyStage: activeSecondaryStage,
+      }
+    });
   };
 
   // Export module details to PDF
@@ -322,6 +328,7 @@ const JourneyPlanner = () => {
         throw new Error(result.error || 'PDF generation failed');
       }
     } catch (error) {
+      // eslint-disable-next-line no-console
       console.error('PDF export failed:', error);
       alert('Failed to export PDF. Please try again.');
     } finally {
