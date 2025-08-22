@@ -41,6 +41,7 @@ export default [
         IntersectionObserver: 'readonly',
         getComputedStyle: 'readonly',
         require: 'readonly',
+        navigator: 'readonly',
       },
     },
     settings: {

@@ -661,7 +661,7 @@
       "pillar": "Catalyst",
       "category": "Enablement",
       "heading": "Confidently apply AI in daily leadership decisions",
-      "description": "This practical session demystifies AI for strategic leaders. Learn to leverage tools like ChatGPT, Claude, and CoPilot to speed up decisions, elevate communication, and unlock personal productivity—without writing a line of code.",
+      "description": "This practical module demystifies AI for strategic leaders. Learn to leverage tools like ChatGPT, Claude, and CoPilot to speed up decisions, elevate communication, and unlock personal productivity—without writing a line of code.",
       "fix": "We give executives the mindset, tools, and real-world examples to responsibly and efficiently integrate generative AI into their workflows.",
       "benefits": [
         "AI Confidence for Non-Technical Leaders",
@@ -678,7 +678,7 @@
         {
           "type": "Insight Primer",
           "evcValue": 3,
-          "description": "Interactive half-day session with demos and tailored use cases"
+          "description": "Interactive sessions with demos, excercices and tailored use cases"
         }
       ]
     },

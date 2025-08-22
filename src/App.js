@@ -1,8 +1,8 @@
 import React from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import './App.css';
-import './custom.css';
 import CalculatorApp from './CalculatorApp';
+import StyleTest from './StyleTest';
+import DiagnosticTest from './DiagnosticTest';
 import Header from './components/Header';
 import EnvironmentBadge from './components/EnvironmentBadge';
 import { TabProvider } from './contexts/TabContext';
@@ -23,6 +23,8 @@ function App() {
                   <Route path="/calculator" element={<CalculatorApp />} />
                   <Route path="/modules" element={<CalculatorApp />} />
                   <Route path="/journey" element={<CalculatorApp />} />
+                  <Route path="/style-test" element={<StyleTest />} />
+                  <Route path="/diagnostic" element={<DiagnosticTest />} />
                   {/* Catch-all route for any unmatched paths */}
                   <Route path="*" element={<CalculatorApp />} />
                 </Routes>
