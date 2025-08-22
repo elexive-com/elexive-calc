@@ -13,14 +13,14 @@
   - Render existing `ModuleDetails` component with found module data
   - _Requirements: 1.1, 4.1, 4.3_
 
-- [ ] 3. Create ModuleNotFound error component
+- [x] 3. Create ModuleNotFound error component
   - Create `src/components/ModuleNotFound.jsx` for handling invalid module slugs
   - Display user-friendly error message with the attempted slug
   - Provide navigation button to return to main modules page
   - Style component consistent with existing design system
   - _Requirements: 1.2_
 
-- [ ] 4. Update App.js routing configuration
+- [x] 4. Update App.js routing configuration
   - Add new parameterized route `/modules/:slug` to React Router configuration
   - Import and configure `ModuleDetailPage` component for the new route
   - Ensure route ordering places parameterized route after exact `/modules` route
