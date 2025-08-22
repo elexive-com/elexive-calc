@@ -77,7 +77,8 @@
           "evcValue": 5,
           "description": "Rapid assessment with executive interviews and current state mapping"
         }
-      ]
+      ],
+      "id": "foundation-mapping"
     },
     {
       "name": "Leading Change",
@@ -109,7 +110,8 @@
           "evcValue": 40,
           "description": "Long-term change leadership development with set metrics and unified dashboards"
         }
-      ]
+      ],
+      "id": "leading-change"
     },
     {
       "name": "Culture Core",
@@ -141,7 +143,8 @@
           "evcValue": 40,
           "description": "Long-term cultural shift coaching"
         }
-      ]
+      ],
+      "id": "culture-core"
     },
     {
       "name": "AI-Augmented Leadership",
@@ -173,7 +176,8 @@
           "evcValue": 40,
           "description": "AI-powered leadership coaching"
         }
-      ]
+      ],
+      "id": "ai-augmented-leadership"
     },
     {
       "name": "Culture Power",
@@ -205,7 +209,8 @@
           "evcValue": 40,
           "description": "Ongoing implementation of personalized learning programs, career progression coaching, and talent retention strategies."
         }
-      ]
+      ],
+      "id": "culture-power"
     },
     {
       "name": "Strategic Leadership",
@@ -237,7 +242,8 @@
           "evcValue": 40,
           "description": "Ongoing strategy coaching & transformation leadership"
         }
-      ]
+      ],
+      "id": "strategic-leadership"
     },
     {
       "name": "Executive Agility",
@@ -269,7 +275,8 @@
           "evcValue": 40,
           "description": "Long-term adaptability coaching & market response strategy execution"
         }
-      ]
+      ],
+      "id": "executive-agility"
     },
     {
       "name": "Revenue Levers",
@@ -301,7 +308,8 @@
           "evcValue": 40,
           "description": "Ongoing revenue optimization & business model expansion"
         }
-      ]
+      ],
+      "id": "revenue-levers"
     },
     {
       "name": "Customer Centricity",
@@ -333,7 +341,8 @@
           "evcValue": 40,
           "description": "End-to-end implementation of a customer-led strategic framework"
         }
-      ]
+      ],
+      "id": "customer-centricity"
     },
     {
       "name": "Strategic Foresight",
@@ -365,7 +374,8 @@
           "evcValue": 40,
           "description": "Market trend tracking & adaptation consulting"
         }
-      ]
+      ],
+      "id": "strategic-foresight"
     },
     {
       "name": "Model Shift",
@@ -397,7 +407,8 @@
           "evcValue": 40,
           "description": "Long-term business model reinvention & operational scaling"
         }
-      ]
+      ],
+      "id": "model-shift"
     },
     {
       "name": "Brand Core",
@@ -429,7 +440,8 @@
           "evcValue": 40,
           "description": "Brand-led business transformation & customer engagement strategy"
         }
-      ]
+      ],
+      "id": "brand-core"
     },
     {
       "name": "Brand Power",
@@ -461,7 +473,8 @@
           "evcValue": 40,
           "description": "Long-term brand equity growth & leadership positioning"
         }
-      ]
+      ],
+      "id": "brand-power"
     },
     {
       "name": "AI Impact",
@@ -493,7 +506,8 @@
           "evcValue": 40,
           "description": "AI adoption strategy, AI governance & AI-enabled operations"
         }
-      ]
+      ],
+      "id": "ai-impact"
     },
     {
       "name": "Digital Fortress",
@@ -525,7 +539,8 @@
           "evcValue": 40,
           "description": "Ongoing cybersecurity coaching & real-time threat monitoring"
         }
-      ]
+      ],
+      "id": "digital-fortress"
     },
     {
       "name": "Resilient Digital",
@@ -557,7 +572,8 @@
           "evcValue": 40,
           "description": "Real-time threat monitoring, failover testing, and crisis management"
         }
-      ]
+      ],
+      "id": "resilient-digital"
     },
     {
       "name": "Distributed Cloud",
@@ -589,7 +605,8 @@
           "evcValue": 40,
           "description": "Cloud migration, infrastructure optimization & governance"
         }
-      ]
+      ],
+      "id": "distributed-cloud"
     },
     {
       "name": "Data Advantage",
@@ -621,7 +638,8 @@
           "evcValue": 40,
           "description": "Full data-driven transformation & AI-powered analytics adoption"
         }
-      ]
+      ],
+      "id": "data-advantage"
     },
     {
       "name": "Innovation Blueprint",
@@ -653,9 +671,9 @@
           "evcValue": 40,
           "description": "Ongoing innovation management & technology governance"
         }
-      ]
+      ],
+      "id": "innovation-blueprint"
     },
-
     {
       "name": "GenAI for Business Leaders",
       "pillar": "Catalyst",
@@ -680,7 +698,8 @@
           "evcValue": 3,
           "description": "Interactive sessions with demos, excercices and tailored use cases"
         }
-      ]
+      ],
+      "id": "genai-for-business-leaders"
     },
     {
       "name": "Strategic Storytelling",
@@ -706,7 +725,8 @@
           "evcValue": 2,
           "description": "Workshop with practical examples, slides-to-story rewrites, and executive coaching"
         }
-      ]
+      ],
+      "id": "strategic-storytelling"
     },
     {
       "name": "Culture Feedback Rituals",
@@ -732,7 +752,8 @@
           "evcValue": 3,
           "description": "Workshop to design, test, and scale one feedback ritual across a team or business unit"
         }
-      ]
+      ],
+      "id": "culture-feedback-rituals"
     }
   ]
 }
