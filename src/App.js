@@ -3,6 +3,7 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import CalculatorApp from './CalculatorApp';
 import StyleTest from './StyleTest';
 import DiagnosticTest from './DiagnosticTest';
+import ModuleDetailPage from './components/ModuleDetailPage';
 import Header from './components/Header';
 import EnvironmentBadge from './components/EnvironmentBadge';
 import { TabProvider } from './contexts/TabContext';
@@ -22,6 +23,7 @@ function App() {
                   <Route path="/" element={<CalculatorApp />} />
                   <Route path="/calculator" element={<CalculatorApp />} />
                   <Route path="/modules" element={<CalculatorApp />} />
+                  <Route path="/modules/:slug" element={<ModuleDetailPage />} />
                   <Route path="/journey" element={<CalculatorApp />} />
                   <Route path="/style-test" element={<StyleTest />} />
                   <Route path="/diagnostic" element={<DiagnosticTest />} />
