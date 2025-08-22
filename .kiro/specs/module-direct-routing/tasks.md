@@ -34,7 +34,7 @@
   - Test tab state management with new routing structure
   - _Requirements: 4.2, 3.3_
 
-- [ ] 6. Update ModuleExplorer navigation to use URL routing
+- [x] 6. Update ModuleExplorer navigation to use URL routing
   - Modify `viewModuleDetails` function in `src/components/ModuleExplorer.jsx` to navigate to module URL
   - Replace local state management with URL-based navigation using `useNavigate()`
   - Update "View Details" button click handlers to use new routing approach

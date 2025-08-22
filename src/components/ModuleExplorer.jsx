@@ -1,12 +1,10 @@
-import React, { useState, useEffect, useMemo } from 'react';
+import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
   faSearch,
   faBookmark,
   faChevronRight,
-  faLightbulb,
-  faRocket,
-  faCompass,
   faLayerGroup,
   faTimes,
   faList,
@@ -14,9 +12,6 @@ import {
 import { faBookmark as faBookmarkRegular } from '@fortawesome/free-regular-svg-icons';
 import modulesConfig from '../config/modulesConfig.json';
 import { getModuleIcon } from '../utils/iconUtils';
-import ModuleDetails from './ModuleDetails';
-// Import our PDF generation module
-import { generateModulePdf } from '../pdf';
 // Import useCalculator hook to access shared state
 import useCalculator from '../hooks/useCalculator';
 
@@ -30,6 +25,9 @@ const ModuleExplorer = () => {
   // Get savedModules state and toggleSaveModule function from useCalculator hook
   const { savedModules, toggleSaveModule } = useCalculator();
 
+  // Get navigate function for URL-based navigation
+  const navigate = useNavigate();
+
   // State for module data and views
   const [modules, setModules] = useState([]);
   const [filteredModules, setFilteredModules] = useState([]);
@@ -40,11 +38,6 @@ const ModuleExplorer = () => {
   );
   const [showSavedOnly, setShowSavedOnly] = useState(false);
 
-  // State for interactive experience
-  const [selectedModule, setSelectedModule] = useState(null);
-  const [isDetailView, setIsDetailView] = useState(false);
-  const [isExporting, setIsExporting] = useState(false);
-
   // Get unique pillars, categories, and variant types from modules
   const pillars = [
     ...new Set(modulesConfig.modules.map(module => module.pillar)),
@@ -52,35 +45,6 @@ const ModuleExplorer = () => {
   const categories = [
     ...new Set(modulesConfig.modules.map(module => module.category)),
   ];
-
-  // For journey stages reference in module details
-  const journeySteps = useMemo(() => {
-    return modulesConfig.journeyStages.map(stage => {
-      // Use a safer approach than eval to map string icon names to icon objects
-      let iconObject;
-      switch (stage.icon) {
-        case 'faCompass':
-          iconObject = faCompass;
-          break;
-        case 'faLightbulb':
-          iconObject = faLightbulb;
-          break;
-        case 'faRocket':
-          iconObject = faRocket;
-          break;
-        default:
-          iconObject = faCompass; // Default icon
-      }
-
-      return {
-        id: stage.id,
-        title: stage.title,
-        description: stage.description,
-        icon: iconObject,
-        categories: stage.categories,
-      };
-    });
-  }, []);
 
   // Load modules data on component mount
   useEffect(() => {
@@ -149,32 +113,9 @@ const ModuleExplorer = () => {
     showSavedOnly,
   ]);
 
-  // View module details
+  // View module details - navigate to module URL
   const viewModuleDetails = module => {
-    setSelectedModule(module);
-    setIsDetailView(true);
-  };
-
-  // Export module details to PDF
-  const exportToPdf = async () => {
-    if (!selectedModule) return;
-
-    setIsExporting(true);
-
-    try {
-      // Use our centralized PDF generation module with just the module name
-      const result = await generateModulePdf(selectedModule.name);
-
-      // Check the success status of the PDF generation
-      if (!result.success) {
-        throw new Error(result.error || 'PDF generation failed');
-      }
-    } catch (error) {
-      console.error('PDF export failed:', error);
-      alert('Failed to export PDF. Please try again.');
-    } finally {
-      setIsExporting(false);
-    }
+    navigate(`/modules/${module.id}`);
   };
 
   // Clear all filters
@@ -461,84 +402,74 @@ const ModuleExplorer = () => {
 
   return (
     <div className="p-4">
-      {isDetailView ? (
-        <ModuleDetails
-          selectedModule={selectedModule}
-          journeySteps={journeySteps}
-          exportToPdf={exportToPdf}
-          isExporting={isExporting}
-          onBack={() => setIsDetailView(false)}
-        />
-      ) : (
-        <div className="module-explorer">
-          {/* Header */}
-          <div className="mb-6">
-            <h2 className="text-2xl font-bold text-elx-primary mb-2">
-              Module Explorer
-            </h2>
-            <p className="text-gray-600 max-w-3xl">
-              Browse our complete catalog of consulting modules across all
-              pillars and categories. Use the filters to find modules that match
-              your specific requirements.
-            </p>
-          </div>
+      <div className="module-explorer">
+        {/* Header */}
+        <div className="mb-6">
+          <h2 className="text-2xl font-bold text-elx-primary mb-2">
+            Module Explorer
+          </h2>
+          <p className="text-gray-600 max-w-3xl">
+            Browse our complete catalog of consulting modules across all pillars
+            and categories. Use the filters to find modules that match your
+            specific requirements.
+          </p>
+        </div>
 
-          {/* Always visible modern filter panel */}
-          <ModernFilterPanel />
+        {/* Always visible modern filter panel */}
+        <ModernFilterPanel />
 
-          {/* Module listing */}
-          <div className="mb-8">
-            <div className="mb-4 flex justify-between items-center">
-              <div className="flex items-center">
-                <p className="text-sm text-gray-500">
-                  Showing{' '}
-                  <span className="font-medium text-gray-700">
-                    {filteredModules.length}
-                  </span>{' '}
-                  of {modules.length} modules
-                </p>
-              </div>
-
-              {filteredModules.length > 0 && (
-                <div className="flex items-center">
-                  <button className="p-2 rounded-md text-gray-500 hover:text-elx-primary hover:bg-gray-50">
-                    <FontAwesomeIcon icon={faList} />
-                  </button>
-                </div>
-              )}
+        {/* Module listing */}
+        <div className="mb-8">
+          <div className="mb-4 flex justify-between items-center">
+            <div className="flex items-center">
+              <p className="text-sm text-gray-500">
+                Showing{' '}
+                <span className="font-medium text-gray-700">
+                  {filteredModules.length}
+                </span>{' '}
+                of {modules.length} modules
+              </p>
             </div>
 
-            {filteredModules.length === 0 ? (
-              <div className="bg-white border border-gray-100 rounded-xl p-8 text-center shadow-sm">
-                <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-gray-100 mb-4">
-                  <FontAwesomeIcon
-                    icon={faSearch}
-                    className="text-gray-400 text-2xl"
-                  />
-                </div>
-                <p className="text-gray-600 mb-2">
-                  No modules match your current filters.
-                </p>
-                <p className="text-gray-500 text-sm mb-4">
-                  Try adjusting your search criteria or clearing filters.
-                </p>
-                <button
-                  onClick={clearAllFilters}
-                  className="elx-btn elx-btn-outline py-2 px-4"
-                >
-                  Clear all filters
+            {filteredModules.length > 0 && (
+              <div className="flex items-center">
+                <button className="p-2 rounded-md text-gray-500 hover:text-elx-primary hover:bg-gray-50">
+                  <FontAwesomeIcon icon={faList} />
                 </button>
-              </div>
-            ) : (
-              <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-                {filteredModules.map(module => (
-                  <ModuleCard key={module.name} module={module} />
-                ))}
               </div>
             )}
           </div>
+
+          {filteredModules.length === 0 ? (
+            <div className="bg-white border border-gray-100 rounded-xl p-8 text-center shadow-sm">
+              <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-gray-100 mb-4">
+                <FontAwesomeIcon
+                  icon={faSearch}
+                  className="text-gray-400 text-2xl"
+                />
+              </div>
+              <p className="text-gray-600 mb-2">
+                No modules match your current filters.
+              </p>
+              <p className="text-gray-500 text-sm mb-4">
+                Try adjusting your search criteria or clearing filters.
+              </p>
+              <button
+                onClick={clearAllFilters}
+                className="elx-btn elx-btn-outline py-2 px-4"
+              >
+                Clear all filters
+              </button>
+            </div>
+          ) : (
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+              {filteredModules.map(module => (
+                <ModuleCard key={module.name} module={module} />
+              ))}
+            </div>
+          )}
         </div>
-      )}
+      </div>
     </div>
   );
 };
