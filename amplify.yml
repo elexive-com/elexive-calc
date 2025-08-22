@@ -3,8 +3,8 @@ frontend:
   phases:
     preBuild:
       commands:
-        # Set Node.js version to 24
-        - nvm use 24
+        # Set Node.js version to 20 (LTS - supported by Amplify)
+        - nvm use 20
         - node --version
         - npm --version
         # Install dependencies with clean install for reproducible builds
