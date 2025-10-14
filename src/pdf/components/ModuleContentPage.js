@@ -422,11 +422,13 @@ const ModuleContentPage = ({
   // Get journey stage information
   const journeyStage = determineJourneyStage(moduleData);
 
-  // Define journey stages for visualization from the centralized config
-  const journeyStages = modulesConfig.journeyStages.map(stage => ({
-    id: stage.id,
-    title: stage.title,
-  }));
+  // Define journey stages for visualization
+  const journeyStages = [
+    { id: 'journey-stage-1', title: 'Discover' },
+    { id: 'journey-stage-2', title: 'Design' },
+    { id: 'journey-stage-3', title: 'Build' },
+    { id: 'journey-stage-4', title: 'Scale' },
+  ];
 
   // Use absolute URLs to ensure images are accessible in the PDF
   const moduleIconUrl = `${window.location.origin}/common-module-white.png`;
