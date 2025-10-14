@@ -9,7 +9,7 @@ import ProductionCapacitySelector from './components/ProductionCapacitySelector'
 import ServiceParameters from './components/ServiceParameters';
 import SummarySidebar from './components/SummarySidebar';
 import ModuleExplorer from './components/ModuleExplorer';
-import JourneyPlanner from './components/JourneyPlanner';
+
 import EvcExplainer from './components/EvcExplainer';
 import ModuleDetails from './components/ModuleDetails';
 import {
@@ -207,8 +207,8 @@ const CalculatorApp = () => {
           selectedModules: calculator.selectedModules,
           resourceAllocation: calculator.resourceAllocation,
           productionCapacity: calculator.productionCapacity,
-        }
-      }
+        },
+      },
     });
   };
 
@@ -247,29 +247,6 @@ const CalculatorApp = () => {
       }, 100);
     }
   };
-
-  // Build journey steps for ModuleDetails
-  const journeySteps = useMemo(() => {
-    const iconMap = {
-      faCompass: faCompass,
-      faLightbulb: faLightbulb,
-      faRocket: faRocket,
-    };
-
-    // Use modulesConfig.journeyStages instead of calculator.journeyStages
-    return modulesConfig.journeyStages.map(stage => {
-      // Map string icon names to icon objects
-      const iconObject = iconMap[stage.icon] || faCompass;
-
-      return {
-        id: stage.id,
-        title: stage.title,
-        description: stage.description,
-        icon: iconObject,
-        categories: stage.categories,
-      };
-    });
-  }, []);
 
   // Function to check if a step is complete
   const isStepComplete = stepNumber => {
@@ -426,7 +403,6 @@ const CalculatorApp = () => {
           onBack={closeModuleDetails}
           exportToPdf={exportToPdf}
           isExporting={isExporting}
-          journeySteps={journeySteps}
         />
       ) : (
         /* Otherwise, show the regular calculator interface */
@@ -514,8 +490,6 @@ const CalculatorApp = () => {
                 </div>
               ) : activeTab === 'modules' ? (
                 <ModuleExplorer />
-              ) : activeTab === 'journey' ? (
-                <JourneyPlanner />
               ) : null}
             </>
           )}

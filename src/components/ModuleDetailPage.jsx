@@ -1,11 +1,5 @@
-import React, { useState, useEffect, useMemo, useCallback } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { useParams, useNavigate, useLocation } from 'react-router-dom';
-import {
-  faCompass,
-  faLightbulb,
-  faRocket,
-  faChartLine,
-} from '@fortawesome/free-solid-svg-icons';
 import ModuleDetails from './ModuleDetails';
 import ModuleNotFound from './ModuleNotFound';
 import modulesConfig from '../config/modulesConfig.json';
@@ -47,18 +41,18 @@ const ModuleDetailPage = () => {
 
         // Find module by slug with case-insensitive fallback
         let foundModule = modulesConfig.modules.find(m => m.id === slug);
-        
+
         // If not found, try case-insensitive search as fallback
         if (!foundModule) {
-          foundModule = modulesConfig.modules.find(m => 
-            m.id && m.id.toLowerCase() === slug.toLowerCase()
+          foundModule = modulesConfig.modules.find(
+            m => m.id && m.id.toLowerCase() === slug.toLowerCase()
           );
         }
 
         if (foundModule) {
           setModule(foundModule);
           setError(null);
-          
+
           // Update document title for better browser navigation
           document.title = `${foundModule.name} - Elexive Modules`;
         } else {
@@ -89,12 +83,13 @@ const ModuleDetailPage = () => {
   useEffect(() => {
     // Check if user can go back in browser history
     const canGoBack = window.history && window.history.length > 1;
-    
+
     // Get referrer information from location state or document referrer
-    const referrer = location.state?.from || 
-                    (document.referrer && new URL(document.referrer).pathname) ||
-                    null;
-    
+    const referrer =
+      location.state?.from ||
+      (document.referrer && new URL(document.referrer).pathname) ||
+      null;
+
     setNavigationState({
       canGoBack,
       referrer,
@@ -104,17 +99,22 @@ const ModuleDetailPage = () => {
   // Enhanced back navigation with intelligent routing
   const handleBack = useCallback(() => {
     const { canGoBack, referrer } = navigationState;
-    
+
     // If we have a referrer within our app and can go back, use browser back
     if (canGoBack && referrer && referrer.startsWith('/')) {
       // Check if referrer is within our app domain
-      if (referrer === '/modules' || referrer.startsWith('/modules') || 
-          referrer === '/calculator' || referrer === '/journey' || referrer === '/') {
+      if (
+        referrer === '/modules' ||
+        referrer.startsWith('/modules') ||
+        referrer === '/calculator' ||
+        referrer === '/journey' ||
+        referrer === '/'
+      ) {
         window.history.back();
         return;
       }
     }
-    
+
     // Default fallback: navigate to modules page
     navigate('/modules', { replace: false });
   }, [navigate, navigationState]);
@@ -142,21 +142,6 @@ const ModuleDetailPage = () => {
     }
   };
 
-  // Build journey steps for ModuleDetails
-  const journeySteps = useMemo(() => {
-    const iconMap = {
-      faCompass: faCompass,
-      faLightbulb: faLightbulb,
-      faRocket: faRocket,
-      faChartLine: faChartLine,
-    };
-
-    return modulesConfig.journeyStages.map(stage => ({
-      ...stage,
-      icon: iconMap[stage.icon] || faCompass,
-    }));
-  }, []);
-
   // Loading state
   if (loading) {
     return (
@@ -181,7 +166,6 @@ const ModuleDetailPage = () => {
     <div className="w-full mx-0 px-4 py-0 elx-main-content">
       <ModuleDetails
         selectedModule={module}
-        journeySteps={journeySteps}
         exportToPdf={exportToPdf}
         isExporting={isExporting}
         onBack={handleBack}

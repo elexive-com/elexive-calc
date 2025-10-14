@@ -17,7 +17,6 @@ export const RouterProvider = ({ children }) => {
     introduction: '/',
     calculator: '/calculator',
     modules: '/modules',
-    journey: '/journey',
   };
 
   // Map URL paths to tab names
@@ -25,7 +24,6 @@ export const RouterProvider = ({ children }) => {
     '/': 'introduction',
     '/calculator': 'calculator',
     '/modules': 'modules',
-    '/journey': 'journey',
   };
 
   // Function to navigate to a specific tab/route
@@ -52,10 +50,10 @@ export const RouterProvider = ({ children }) => {
     const navigationOptions = {
       state: {
         from: location.pathname,
-        ...options.state
+        ...options.state,
       },
       replace: options.replace || false,
-      ...options
+      ...options,
     };
     navigate(moduleUrl, navigationOptions);
   };
@@ -86,7 +84,7 @@ export const RouterProvider = ({ children }) => {
   };
 
   // Helper function to validate if a module slug exists
-  const isValidModuleSlug = (slug) => {
+  const isValidModuleSlug = slug => {
     try {
       // This would need to import modulesConfig, but to avoid circular dependencies,
       // we'll validate format only here and let components handle existence

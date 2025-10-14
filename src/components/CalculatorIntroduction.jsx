@@ -90,7 +90,10 @@ const CalculatorIntroduction = ({ onGetStarted }) => {
   ];
 
   return (
-    <div className="elx-card p-3 sm:p-6 mb-6">
+    <div
+      className="elx-card p-3 sm:p-6 mb-6"
+      data-testid="calculator-introduction"
+    >
       {/* HEADER: Lead with control and speed */}
       <div className="flex flex-col md:flex-row items-start md:items-center justify-between mb-6">
         <div className="flex-1">

@@ -22,7 +22,6 @@ import useCalculator from '../hooks/useCalculator';
  */
 const ModuleDetails = ({
   selectedModule,
-  journeySteps,
   exportToPdf,
   isExporting,
   onBack,
@@ -48,7 +47,10 @@ const ModuleDetails = ({
   }));
 
   return (
-    <div className="module-detail w-full min-h-full">
+    <div
+      className="module-detail w-full min-h-full"
+      data-testid="module-details"
+    >
       <button
         onClick={onBack}
         className="mb-4 text-elx-primary hover:text-elx-primary-dark flex items-center"
@@ -145,47 +147,6 @@ const ModuleDetails = ({
                   className="mx-auto max-w-full h-auto w-1/2"
                 />
               </div>
-            </div>
-          </div>
-
-          {/* Journey context - improved vertical alignment */}
-          <div className="mb-6 p-4 border border-gray-200 rounded-lg bg-gray-50">
-            <h4 className="text-lg font-medium text-elx-primary mb-3">
-              Where This Fits in Your Transformation Journey
-            </h4>
-
-            <div className="flex items-center justify-start space-x-4">
-              {journeySteps.map((step, index) => {
-                const isActive = step.id === selectedModule.primaryJourneyStage;
-                const isSecondary =
-                  selectedModule.secondaryJourneyStages &&
-                  selectedModule.secondaryJourneyStages.includes(step.id);
-                return (
-                  <div
-                    key={step.id}
-                    className={`flex items-center space-x-1.5 ${
-                      isActive
-                        ? 'text-blue-800 font-medium'
-                        : isSecondary
-                          ? 'text-blue-600'
-                          : 'text-gray-600'
-                    }`}
-                  >
-                    <FontAwesomeIcon
-                      icon={
-                        isActive
-                          ? faCheckCircle
-                          : isSecondary
-                            ? faCheckCircle
-                            : faCircle
-                      }
-                      className={`${isActive ? 'text-blue-500' : isSecondary ? 'text-blue-300' : 'text-gray-400'}`}
-                      size="sm"
-                    />
-                    <span className="text-sm">{step.title}</span>
-                  </div>
-                );
-              })}
             </div>
           </div>
 
@@ -341,7 +302,7 @@ const ModuleDetails = ({
               </h4>
               <p className="text-sm text-gray-600">
                 {selectedModule.callToAction ||
-                  'Add this module to your transformation journey'}
+                  'Add this module to your service configuration'}
               </p>
             </div>
             <div className="flex space-x-3">

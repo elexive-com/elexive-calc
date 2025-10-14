@@ -22,12 +22,6 @@ const Header = () => {
   };
 
   const handleNavClick = tab => {
-    // Prevent accessing Journey Planner in production unless debug mode is enabled
-    if (tab === 'journey' && ENV === 'production' && !DEBUG) {
-      // Redirect to introduction instead
-      tab = 'introduction';
-    }
-
     // Update tab state immediately for responsive UI
     setActiveTab(tab);
 
@@ -96,19 +90,6 @@ const Header = () => {
             <FontAwesomeIcon icon={faCubes} className="mr-2" />
             Solution Builder
           </button>
-          {(ENV === 'development' || DEBUG) && (
-            <button
-              onClick={() => handleNavClick('journey')}
-              className={`flex items-center py-3 px-4 text-sm font-medium transition-colors ${
-                activeTab === 'journey'
-                  ? 'text-elx-accent border-b-2 border-elx-accent'
-                  : 'text-[#FBFAFC] hover:text-white hover:border-b-2 hover:border-gray-300'
-              }`}
-            >
-              <FontAwesomeIcon icon={faRoad} className="mr-2" />
-              Journey Planner
-            </button>
-          )}
           <button
             onClick={() => handleNavClick('modules')}
             className={`flex items-center py-3 px-4 text-sm font-medium transition-colors ${
@@ -149,19 +130,6 @@ const Header = () => {
               <FontAwesomeIcon icon={faCubes} className="mr-3" />
               Solution Builder
             </button>
-            {(ENV === 'development' || DEBUG) && (
-              <button
-                onClick={() => handleNavClick('journey')}
-                className={`w-full flex items-center py-4 px-4 text-base font-medium ${
-                  activeTab === 'journey'
-                    ? 'text-elx-accent bg-gray-800'
-                    : 'text-white hover:bg-gray-800'
-                }`}
-              >
-                <FontAwesomeIcon icon={faRoad} className="mr-3" />
-                Journey Planner
-              </button>
-            )}
             <button
               onClick={() => handleNavClick('modules')}
               className={`w-full flex items-center py-4 px-4 text-base font-medium ${
