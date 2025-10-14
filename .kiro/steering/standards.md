@@ -334,3 +334,16 @@ class CalculatorErrorBoundary extends React.Component {
 - Husky for pre-commit hooks
 - Jest for unit testing
 - React Testing Library for component testing
+
+## LLM-Assisted Development Workflow
+
+### Non-Interactive Testing
+- Use `npm test` for single-run tests (exits after completion)
+- Avoid `npm run test:watch` in LLM workflows to prevent resource consumption
+- Tests should complete and exit cleanly without user interaction
+
+### Development Process Sequence
+1. Run linting first (`npm run lint:fix` to auto-fix when possible)
+2. Build the code to verify compilation (`npm run build`)
+3. Run tests to verify functionality (`npm test`)
+4. Ensure all processes exit cleanly without hanging

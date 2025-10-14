@@ -55,7 +55,8 @@ npm run build      # Production build
 npm run preview    # Preview production build
 
 # Testing
-npm test           # Run tests with Vitest
+npm test           # Run tests once and exit
+npm run test:watch # Run tests in watch mode
 
 # Code Quality
 npm run lint       # Check code with ESLint

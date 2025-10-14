@@ -76,6 +76,10 @@ npm run build          # Production build with optimizations
 npm run test           # Run test suite with Jest
 npm run eject          # Eject from CRA (not recommended)
 
+# Testing
+npm test              # Run tests once and exit (LLM-friendly)
+npm run test:watch    # Run tests in watch mode (development)
+
 # Code Quality
 npm run lint           # ESLint checking (if configured)
 npm run format         # Prettier formatting (if configured)
