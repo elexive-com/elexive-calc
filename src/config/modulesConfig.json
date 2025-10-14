@@ -411,39 +411,6 @@
       "id": "model-shift"
     },
     {
-      "name": "Brand Core",
-      "pillar": "Strategy",
-      "category": "Immediate Impact",
-      "heading": "Building a Brand-Led Business Strategy",
-      "description": "Your brand isn't just marketing—it's the heartbeat of your business. Companies that lead with their brand build deep connections, inspire customer loyalty, and set themselves apart by staying true to who they are.",
-      "fix": "We help organizations build a brand-first business strategy, ensuring positioning, customer experience, and engagement to drive market leadership.",
-      "benefits": [
-        "Distinct Market Position",
-        "Align marketing & business strategy",
-        "Deepen Customer Loyalty",
-        "Sustainable Brand Growth"
-      ],
-      "callToAction": "Turn your brand into your biggest growth engine.",
-      "whoIsItFor": "Leaders passionate about building a brand that's authentic, memorable, and resonates deeply.",
-      "icon": "faBullseye",
-      "primaryJourneyStage": "journey-stage-2",
-      "secondaryJourneyStages": ["journey-stage-3"],
-      "journeyStageRationale": "This brand strategy module focuses primarily on designing brand positioning and strategy but extends into the build phase to implement brand-led initiatives and customer experience improvements.",
-      "variants": [
-        {
-          "type": "Insight Primer",
-          "evcValue": 10,
-          "description": "Brand strategy audit & positioning refinement"
-        },
-        {
-          "type": "Integrated Execution",
-          "evcValue": 40,
-          "description": "Brand-led business transformation & customer engagement strategy"
-        }
-      ],
-      "id": "brand-core"
-    },
-    {
       "name": "Pragmatic AI",
       "pillar": "Strategy",
       "category": "Immediate Impact",
@@ -489,7 +456,7 @@
         "Establish category leadership and brand authority",
         "Sustain Competitive Differentiation"
       ],
-      "callToAction": "",
+      "callToAction": "Build iconic brands known for quality, leadership, and premium pricing",
       "whoIsItFor": "Leaders aiming to build iconic brands known for quality, leadership, and premium pricing.",
       "icon": "faBullseye",
       "primaryJourneyStage": "journey-stage-4",
@@ -499,12 +466,12 @@
         {
           "type": "Insight Primer",
           "evcValue": 10,
-          "description": "Brand equity assessment & competitive differentiation strategy"
+          "description": "Brand foundation assessment, positioning strategy, and premium brand development roadmap"
         },
         {
           "type": "Integrated Execution",
           "evcValue": 40,
-          "description": "Long-term brand equity growth & leadership positioning"
+          "description": "Long-term brand equity growth & leadership positioning with premium pricing strategy"
         }
       ],
       "id": "brand-power"
