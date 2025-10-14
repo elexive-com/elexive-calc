@@ -444,6 +444,39 @@
       "id": "brand-core"
     },
     {
+      "name": "Pragmatic AI",
+      "pillar": "Strategy",
+      "category": "Immediate Impact",
+      "heading": "AI Business Case Development and Solution Prototyping",
+      "description": "Identify genuine AI opportunities that drive measurable business outcomes. Start with your strategic objectives—revenue growth, cost reduction, competitive differentiation—then determine which AI applications create real value and prototype solutions using appropriate approaches like custom ML models, LLM fine-tuning, RAG systems, or specialized infrastructure.",
+      "fix": "We help executives identify specific business problems where AI creates measurable value, develop clear use cases with defined ROI, then prototype comprehensive solutions encompassing business processes, organizational requirements, and optimal technical approaches—whether custom models via SageMaker, fine-tuned LLMs, RAG implementations, inference-optimized hardware, or API integrations.",
+      "benefits": [
+        "Identify High-Value AI Use Cases",
+        "Develop Clear Business ROI Framework",
+        "Prototype Complete AI Solutions",
+        "Validate Technical Approach Before Full Investment"
+      ],
+      "callToAction": "Start with business value, then prototype the right AI solution",
+      "whoIsItFor": "Strategic leaders who need to identify where AI can genuinely impact their business performance and prototype comprehensive solutions that integrate appropriate technology approaches with business processes and organizational capabilities.",
+      "icon": "faChartLine",
+      "primaryJourneyStage": "journey-stage-2",
+      "secondaryJourneyStages": ["journey-stage-1"],
+      "journeyStageRationale": "This strategic AI module focuses primarily on designing business-driven AI strategies, with discovery elements to assess current business challenges and identify genuine AI opportunities.",
+      "variants": [
+        {
+          "type": "Insight Primer",
+          "evcValue": 10,
+          "description": "AI business case identification and use case development with technical approach evaluation and solution prototyping recommendations"
+        },
+        {
+          "type": "Integrated Execution",
+          "evcValue": 40,
+          "description": "Comprehensive AI strategy starting with business case development, use case validation, ROI modeling, and solution prototyping across multiple technical approaches including custom models, fine-tuning, RAG, and infrastructure options"
+        }
+      ],
+      "id": "pragmatic-ai"
+    },
+    {
       "name": "Brand Power",
       "pillar": "Strategy",
       "category": "Vested Value",

@@ -446,12 +446,9 @@ const ModuleContentPage = ({
   const moduleIconUrl = `${window.location.origin}/common-module-white.png`;
   const logoUrl = `${window.location.origin}/elexive-logo-text.png`;
 
-  // Truncate description if it's too long to prevent layout issues
-  const truncateText = (text, maxLength = 140) => {
-    if (!text) return '';
-    return text.length > maxLength
-      ? `${text.substring(0, maxLength)}...`
-      : text;
+  // Helper function to ensure text is available
+  const getText = text => {
+    return text || '';
   };
 
   return (
@@ -588,7 +585,7 @@ const ModuleContentPage = ({
                   What is this module?
                 </Text>
                 <Text style={dynamicStyles.infoText}>
-                  {truncateText(moduleData.description, 160) ||
+                  {getText(moduleData.description) ||
                     'No description available.'}
                 </Text>
               </View>
@@ -616,7 +613,7 @@ const ModuleContentPage = ({
                     Who is it for?
                   </Text>
                   <Text style={dynamicStyles.infoText}>
-                    {truncateText(moduleData.whoIsItFor, 120) ||
+                    {getText(moduleData.whoIsItFor) ||
                       'No target audience specified.'}
                   </Text>
                 </View>
@@ -631,10 +628,8 @@ const ModuleContentPage = ({
                     Why it matters now?
                   </Text>
                   <Text style={dynamicStyles.infoText}>
-                    {truncateText(
-                      moduleData.whyItMatters || moduleData.fix,
-                      160
-                    ) || 'No solution approach specified.'}
+                    {getText(moduleData.whyItMatters || moduleData.fix) ||
+                      'No solution approach specified.'}
                   </Text>
                 </View>
               )}
@@ -674,7 +669,7 @@ const ModuleContentPage = ({
                         </Text>
                       </View>
                       <Text style={dynamicStyles.benefitText}>
-                        {truncateText(benefit, 100)}
+                        {getText(benefit)}
                       </Text>
                     </View>
                   ))}
@@ -730,15 +725,14 @@ const ModuleContentPage = ({
                           {/* Add tagline if available */}
                           {variantDef?.tagline && (
                             <Text style={dynamicStyles.variantTagline}>
-                              {truncateText(variantDef.tagline, 80)}
+                              {getText(variantDef.tagline)}
                             </Text>
                           )}
 
                           <View style={dynamicStyles.variantDescription}>
                             <Text style={dynamicStyles.variantDescriptionText}>
-                              {truncateText(
-                                variantDef?.description || variant.description,
-                                120
+                              {getText(
+                                variantDef?.description || variant.description
                               ) || 'No description available.'}
                             </Text>
                           </View>
@@ -876,7 +870,7 @@ const ModuleContentPage = ({
                   Ready to get started?
                 </Text>
                 <Text style={dynamicStyles.ctaText}>
-                  {truncateText(moduleData.callToAction, 120) ||
+                  {getText(moduleData.callToAction) ||
                     'Add this module to your transformation journey and take the next step toward enhanced business capabilities.'}
                 </Text>
                 <View
