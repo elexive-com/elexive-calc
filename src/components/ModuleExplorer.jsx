@@ -124,8 +124,8 @@ const ModuleExplorer = () => {
           pillars: Array.from(selectedPillars),
           categories: Array.from(selectedCategories),
           showSavedOnly: showSavedOnly,
-        }
-      }
+        },
+      },
     });
   };
 
@@ -473,10 +473,25 @@ const ModuleExplorer = () => {
               </button>
             </div>
           ) : (
-            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-              {filteredModules.map(module => (
-                <ModuleCard key={module.name} module={module} />
-              ))}
+            <div className="space-y-8">
+              {/* Group modules by pillar and render each pillar section */}
+              {pillars.map(pillar => {
+                const pillarModules = filteredModules.filter(
+                  module => module.pillar === pillar
+                );
+
+                if (pillarModules.length === 0) return null;
+
+                return (
+                  <div key={pillar} className="pillar-section">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+                      {pillarModules.map(module => (
+                        <ModuleCard key={module.name} module={module} />
+                      ))}
+                    </div>
+                  </div>
+                );
+              })}
             </div>
           )}
         </div>
