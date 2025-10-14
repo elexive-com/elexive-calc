@@ -734,13 +734,6 @@ const ModuleContentPage = ({
                               {getText(
                                 variantDef?.description || variant.description
                               ) || 'No description available.'}
-                              {variant.isFlexible ? (
-                                <Text style={{ fontStyle: 'italic' }}>
-                                  {' '}
-                                  Flexible EVC bandwidth starting from{' '}
-                                  {variant.minEvcPerWeek || 2} EVCs per week.
-                                </Text>
-                              ) : null}
                             </Text>
                           </View>
 
@@ -764,9 +757,7 @@ const ModuleContentPage = ({
                                   { color },
                                 ]}
                               >
-                                {variant.isFlexible
-                                  ? `${variant.recommendedEvcPerWeek || variant.evcValue || 0} EVCs/week (flexible)`
-                                  : `${variant.evcValue || 0} EVCs`}
+                                {variant.evcValue || 0} EVCs
                               </Text>
                             </View>
                           </View>
@@ -866,95 +857,6 @@ const ModuleContentPage = ({
                       </View>
                     ))}
                 </View>
-              </View>
-            )}
-
-            {/* ENHANCED DATA SECTIONS - Only show if module has enhanced data */}
-            {moduleData.executiveSummary && (
-              <View style={dynamicStyles.infoBlock}>
-                <Text
-                  style={[dynamicStyles.infoHeading, { color: pillarColor }]}
-                >
-                  Executive Summary
-                </Text>
-                <Text style={dynamicStyles.infoText}>
-                  {getText(moduleData.executiveSummary)}
-                </Text>
-              </View>
-            )}
-
-            {moduleData.businessChallenge && (
-              <View style={dynamicStyles.infoBlock}>
-                <Text
-                  style={[dynamicStyles.infoHeading, { color: pillarColor }]}
-                >
-                  {moduleData.businessChallenge.title || 'Business Challenge'}
-                </Text>
-                <Text style={dynamicStyles.infoText}>
-                  {getText(moduleData.businessChallenge.problem)}
-                </Text>
-                {moduleData.businessChallenge.opportunity && (
-                  <Text style={[dynamicStyles.infoText, { marginTop: 8 }]}>
-                    <Text style={{ fontWeight: 'bold' }}>Opportunity: </Text>
-                    {getText(moduleData.businessChallenge.opportunity)}
-                  </Text>
-                )}
-              </View>
-            )}
-
-            {moduleData.approach && (
-              <View style={dynamicStyles.infoBlock}>
-                <Text
-                  style={[dynamicStyles.infoHeading, { color: pillarColor }]}
-                >
-                  {moduleData.approach.title || 'Our Approach'}
-                </Text>
-                <Text style={dynamicStyles.infoText}>
-                  {getText(moduleData.approach.methodology)}
-                </Text>
-                {moduleData.approach.differentiators && (
-                  <Text style={[dynamicStyles.infoText, { marginTop: 8 }]}>
-                    <Text style={{ fontWeight: 'bold' }}>
-                      Key Differentiators:{' '}
-                    </Text>
-                    {getText(moduleData.approach.differentiators)}
-                  </Text>
-                )}
-              </View>
-            )}
-
-            {moduleData.expectedOutcomes && (
-              <View style={dynamicStyles.infoBlock}>
-                <Text
-                  style={[dynamicStyles.infoHeading, { color: pillarColor }]}
-                >
-                  {moduleData.expectedOutcomes.title || 'Expected Outcomes'}
-                </Text>
-                {moduleData.expectedOutcomes.outcomes &&
-                  moduleData.expectedOutcomes.outcomes.length > 0 && (
-                    <View style={{ marginBottom: 8 }}>
-                      {moduleData.expectedOutcomes.outcomes
-                        .slice(0, 3)
-                        .map((outcome, index) => (
-                          <Text
-                            key={index}
-                            style={[
-                              dynamicStyles.infoText,
-                              { marginBottom: 4 },
-                            ]}
-                          >
-                            • {getText(outcome)}
-                          </Text>
-                        ))}
-                    </View>
-                  )}
-                {moduleData.expectedOutcomes.timeline && (
-                  <Text
-                    style={[dynamicStyles.infoText, { fontStyle: 'italic' }]}
-                  >
-                    Timeline: {getText(moduleData.expectedOutcomes.timeline)}
-                  </Text>
-                )}
               </View>
             )}
 
