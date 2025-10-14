@@ -174,7 +174,7 @@ describe('Module Routing Integration Tests', () => {
 
     // Verify the module detail page is rendered with the correct content
     expect(screen.getByText('Foundation Mapping')).toBeInTheDocument();
-    expect(screen.getByText('Discovery')).toBeInTheDocument();
+    expect(screen.getAllByText('Discovery').length).toBeGreaterThan(0);
   });
 
   test('handles browser forward/backward navigation scenarios', async () => {

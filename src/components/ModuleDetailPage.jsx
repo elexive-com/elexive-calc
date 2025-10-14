@@ -434,7 +434,7 @@ const ModuleDetailPage = () => {
               </div>
 
               <aside
-                className="lg:w-[360px] p-8 lg:p-10 flex flex-col gap-6"
+                className="lg:w-[360px] p-8 lg:p-10 flex flex-col gap-6 justify-between"
                 style={{ backgroundColor: pillarTheme.canvasBg }}
               >
                 <div className="flex flex-col items-center text-center space-y-6">
@@ -458,18 +458,18 @@ const ModuleDetailPage = () => {
                   )}
                 </div>
 
-                <div className="bg-white border border-gray-100 rounded-3xl shadow-sm p-6 space-y-4">
+                <div className="flex flex-col gap-3 mt-auto">
                   <button
                     onClick={exportToPdf}
                     disabled={isExporting}
-                    className="inline-flex items-center justify-center gap-2 rounded-2xl px-6 py-3 text-sm font-semibold text-white bg-elx-primary hover:bg-elx-accent transition disabled:opacity-70"
+                    className="w-full inline-flex items-center justify-center gap-2 rounded-2xl px-6 py-3 text-sm font-semibold text-white bg-white/20 hover:bg-white/30 backdrop-blur-sm border border-white/30 transition disabled:opacity-70"
                   >
                     <FontAwesomeIcon icon={faDownload} className="h-4" />
                     {isExporting ? 'Exporting…' : 'Export PDF'}
                   </button>
                   <a
                     href={contactHref}
-                    className="inline-flex items-center justify-center gap-2 rounded-2xl px-6 py-3 text-sm font-semibold text-elx-primary border border-elx-primary hover:bg-elx-primary hover:text-white transition"
+                    className="w-full inline-flex items-center justify-center gap-2 rounded-2xl px-6 py-3 text-sm font-semibold text-white border border-white/50 hover:bg-white/20 backdrop-blur-sm transition"
                   >
                     <FontAwesomeIcon icon={faEnvelope} className="h-4" />
                     Discuss This Module
