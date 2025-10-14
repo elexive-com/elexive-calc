@@ -31,6 +31,28 @@
 - Use CSS custom properties for dynamic styling when needed
 - Implement consistent spacing and typography scales
 
+## Feature Removal Standards
+
+### Safe Feature Removal Process
+
+When removing major features from the calculator:
+
+1. **Test-First Approach**: Write tests defining expected behavior after removal
+2. **Configuration Cleanup**: Remove feature data from JSON configs before touching components
+3. **Component Cascade**: Update components in dependency order:
+   - Main app component (`CalculatorApp.jsx`)
+   - Navigation contexts (`TabContext.js`, `RouterContext.js`)
+   - Header and routing (`Header.jsx`, `App.js`)
+   - Detail components (`ModuleDetails.jsx`, `ModuleDetailPage.jsx`)
+4. **Verification**: Ensure core functionality remains intact
+
+### Configuration-Component Coupling
+
+**Critical Pattern**: Components are tightly coupled to configuration structure:
+- Changes to `modulesConfig.json` require coordinated component updates
+- Missing configuration properties cause runtime errors
+- Always validate configuration changes with component tests
+
 ## State Management Standards
 
 ### Calculator State Architecture
@@ -74,6 +96,28 @@ const TabProvider = ({ children }) => {
 - Implement proper dependency arrays in useEffect hooks
 - Avoid prop drilling - use context for deeply nested state
 - Keep component state local when possible
+
+### Test-Driven Development Insights
+
+**Journey Removal Learning**: TDD proved essential for safe feature removal:
+- Tests defined expected behavior before implementation
+- Caught configuration-component mismatches early
+- Verified core functionality preservation throughout process
+- Enabled confident refactoring of tightly coupled components
+
+**Testing Pattern for Feature Changes**:
+```javascript
+// Define expected behavior first
+describe('[Feature-Removal] When feature is removed', () => {
+  it('should not display feature UI elements', () => {
+    // Test implementation
+  });
+  
+  it('should maintain core functionality', () => {
+    // Test implementation  
+  });
+});
+```
 
 ## File Organization
 

@@ -174,6 +174,39 @@ Each major step in the calculator flow is implemented as a focused component:
 6. **ServiceParameters**: Fine-tuning and customization
 7. **SummarySidebar**: Real-time pricing and summary
 
+### Component Dependency Patterns
+
+**Critical Discovery**: Components have tight coupling to configuration structure. When removing features:
+
+- **Configuration-First Approach**: Always clean `modulesConfig.json` before updating components
+- **Cascading Dependencies**: Changes to config structure require updates across multiple components:
+  - `CalculatorApp.jsx` (main orchestrator)
+  - `ModuleDetails.jsx` and `ModuleDetailPage.jsx` (detail views)
+  - PDF generation components
+- **Test-Driven Validation**: Essential for catching configuration-component mismatches
+
+### Navigation Architecture Insights
+
+**Key Discovery**: Navigation system uses dual-context pattern:
+- **TabContext**: Manages active tab state and browser history integration
+- **RouterContext**: Provides navigation utilities and path mappings
+
+**Critical Dependencies**:
+- Both contexts must be updated simultaneously when adding/removing routes
+- Path mappings in both contexts must stay synchronized
+- Header component depends on both contexts for navigation state
+
+**Route Structure**:
+```javascript
+// Simplified after journey removal
+const routes = {
+  '/': 'introduction',
+  '/calculator': 'calculator', 
+  '/modules': 'modules',
+  '/modules/:slug': 'module-detail'
+};
+```
+
 ### Interactive Component Patterns
 
 ```jsx
