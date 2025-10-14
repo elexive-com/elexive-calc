@@ -2,11 +2,18 @@
 
 ## Development Status
 - **Current Branch**: main
-- **Last Commit**: e86b031 - "Improve Module Explorer layout: group modules by pillar"
+- **Last Commit**: b8661e8 - "docs: update steering docs with journey removal learnings"
 - **Environment**: Production-ready with active development
 - **Deployment**: Netlify with continuous deployment
 
 ## Recent Major Enhancements (August-October 2024)
+
+### Journey Functionality Removal (October 2024)
+- **Complete Feature Removal**: Eliminated JourneyPlanner component and all journey-related functionality
+- **Configuration Cleanup**: Removed journeyStages and journey properties from modulesConfig.json
+- **Navigation Simplification**: Streamlined TabContext and RouterContext to exclude journey mappings
+- **Test-Driven Approach**: Used TDD methodology to ensure safe feature removal while preserving core functionality
+- **Documentation**: Captured configuration-component coupling patterns and safe removal processes
 
 ### URL Routing & Navigation (Major Feature)
 - **Browser Navigation Support**: Full back/forward button functionality
@@ -36,12 +43,11 @@
 
 ## Current Component Architecture
 
-### Core Components (20+ components)
+### Core Components (19 components)
 - **CalculatorApp**: Main application orchestrator
 - **ModuleSelector**: Service module configuration
 - **ModuleExplorer**: Browse and filter modules with pillar grouping
 - **ModuleDetailPage**: Individual module detail views with routing
-- **JourneyPlanner**: Implementation timeline visualization
 - **SummarySidebar**: Real-time pricing and configuration summary
 
 ### State Management

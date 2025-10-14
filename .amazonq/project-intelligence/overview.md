@@ -33,4 +33,4 @@ The Elexive Pricing Calculator transforms traditional B2B consulting sales by pr
 - **Module-Based Services**: Configurable consulting offerings across service pillars
 - **Real-time Calculations**: Dynamic pricing updates based on user selections
 - **PDF Generation**: Professional proposal documents generated client-side
-- **Journey Planning**: Implementation timeline visualization and resource allocation
+- **Progressive Disclosure**: Step-by-step guided configuration experience

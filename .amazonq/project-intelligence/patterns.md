@@ -2,6 +2,28 @@
 
 ## Component Architecture Patterns
 
+### Safe Feature Removal Pattern
+Recent journey functionality removal demonstrated key patterns for safe feature elimination:
+
+```javascript
+// Test-driven removal approach
+describe('[Journey-Removal] When journey is removed', () => {
+  it('should not display journey UI elements', () => {
+    // Test implementation
+  });
+  
+  it('should maintain core functionality', () => {
+    // Test implementation  
+  });
+});
+```
+
+**Critical Dependencies for Feature Removal:**
+1. **Configuration-First**: Clean JSON configs before updating components
+2. **Navigation Contexts**: Update both TabContext and RouterContext simultaneously
+3. **Component Cascade**: Main app → Navigation contexts → Header → Detail components
+4. **Validation**: Ensure core functionality remains intact
+
 ### Progressive Disclosure Pattern
 The application uses a step-by-step guided experience where users can focus on current tasks while maintaining context:
 
@@ -213,6 +235,28 @@ export const FEATURES = {
 ```
 
 ## Testing Patterns
+
+### Test-Driven Development Insights
+
+**Journey Removal Learning**: TDD proved essential for safe feature removal:
+- Tests defined expected behavior before implementation
+- Caught configuration-component mismatches early
+- Verified core functionality preservation throughout process
+- Enabled confident refactoring of tightly coupled components
+
+**Testing Pattern for Feature Changes**:
+```javascript
+// Define expected behavior first
+describe('[Feature-Removal] When feature is removed', () => {
+  it('should not display feature UI elements', () => {
+    // Test implementation
+  });
+  
+  it('should maintain core functionality', () => {
+    // Test implementation  
+  });
+});
+```
 
 ### Component Testing
 React Testing Library for component tests:

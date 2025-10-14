@@ -29,11 +29,10 @@
 
 ```
 src/
-├── components/         # React components (20+ components)
+├── components/         # React components (19 components)
 │   ├── CalculatorIntroduction.jsx
 │   ├── ModuleSelector.jsx
 │   ├── ModuleExplorer.jsx
-│   ├── JourneyPlanner.jsx
 │   ├── SummarySidebar.jsx
 │   └── ...
 ├── hooks/              # Custom React hooks
