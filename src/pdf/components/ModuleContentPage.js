@@ -1,5 +1,5 @@
 // filepath: /Users/rolle/git/elexive-calc/src/pdf/components/ModuleContentPage.js
-// Content page component for PDF generation
+// Solution brief content for module PDF exports
 
 import React from 'react';
 import { Text, View, Image, Page, StyleSheet } from '@react-pdf/renderer';
@@ -7,76 +7,55 @@ import modulesConfig from '../../config/modulesConfig.json';
 import styles from '../utils/pdfStyles';
 import { getPillarColor } from '../utils/colors';
 
-// Helper function to determine journey stage based on module configuration
-const determineJourneyStage = module => {
-  // Fallback to default mapping based on category
-  if (module.category === 'Strategic Assessment')
-    return {
-      id: 'journey-stage-1',
-      title: 'Discover',
-      description:
-        'Understanding your current state and defining success metrics',
-    };
-  if (module.category === 'Immediate Impact')
-    return {
-      id: 'journey-stage-3',
-      title: 'Build',
-      description: 'Implementing solutions and driving organizational change',
-    };
-  if (module.category === 'Vested Value')
-    return {
-      id: 'journey-stage-4',
-      title: 'Scale',
-      description: 'Refining approaches and maximizing transformation outcomes',
-    };
-  return {
-    id: 'journey-stage-2',
-    title: 'Design',
-    description:
-      'Developing strategies and roadmaps for transformation success',
-  }; // Default
+// Pillar theme map aligns with the interactive layout
+const pillarThemes = {
+  Transformation: {
+    accent: '#D99000',
+    chipBg: 'rgba(217,144,0,0.14)',
+    chipBorder: 'rgba(217,144,0,0.32)',
+    factBg: 'rgba(217,144,0,0.12)',
+  },
+  Strategy: {
+    accent: '#C85A30',
+    chipBg: 'rgba(200,90,48,0.14)',
+    chipBorder: 'rgba(200,90,48,0.32)',
+    factBg: 'rgba(200,90,48,0.12)',
+  },
+  Technology: {
+    accent: '#1F776D',
+    chipBg: 'rgba(31,119,109,0.14)',
+    chipBorder: 'rgba(31,119,109,0.32)',
+    factBg: 'rgba(31,119,109,0.12)',
+  },
+  Discovery: {
+    accent: '#2E2266',
+    chipBg: 'rgba(46,34,102,0.16)',
+    chipBorder: 'rgba(46,34,102,0.32)',
+    factBg: 'rgba(46,34,102,0.12)',
+  },
+  Catalyst: {
+    accent: '#0A4DA1',
+    chipBg: 'rgba(10,77,161,0.16)',
+    chipBorder: 'rgba(10,77,161,0.32)',
+    factBg: 'rgba(10,77,161,0.12)',
+  },
 };
 
-// Component for a page footer
+const defaultTheme = pillarThemes.Discovery;
+
+// Footer rendered on each page
 const PageFooter = ({ formattedDate, pageNumber, totalPages }) => (
-  <View
-    style={{
-      position: 'absolute',
-      bottom: 30,
-      left: 40,
-      right: 40,
-      flexDirection: 'row',
-      justifyContent: 'space-between',
-      alignItems: 'center',
-      borderTopWidth: 1,
-      borderTopColor: '#eee',
-      paddingTop: 10,
-    }}
-  >
-    <Text
-      style={{
-        fontSize: 9,
-        color: '#888',
-      }}
-    >
-      Elexive Ltd • Solution Brief
-    </Text>
-    <Text
-      style={{
-        fontSize: 9,
-        color: '#888',
-      }}
-    >
-      Generated on {formattedDate || new Date().toLocaleDateString()} • Page{' '}
-      {pageNumber} of {totalPages}
+  <View style={footerStyles.container}>
+    <Text style={footerStyles.meta}>Elexive Ltd • Solution Brief</Text>
+    <Text style={footerStyles.meta}>
+      Generated on {formattedDate} • Page {pageNumber} of {totalPages}
     </Text>
   </View>
 );
 
-// Component for header with logo
+// Header renders a pillar strip and logo
 const PageHeader = ({ pillarColor, logoUrl }) => (
   <>
-    {/* Decorative header strip */}
     <View
       style={{
         position: 'absolute',
@@ -87,315 +66,294 @@ const PageHeader = ({ pillarColor, logoUrl }) => (
         backgroundColor: pillarColor,
       }}
     />
-
-    {/* Small logo in top right */}
     <View
       style={{
         position: 'absolute',
-        top: 20,
+        top: 18,
         right: 40,
       }}
     >
-      <Image
-        src={logoUrl}
-        style={{
-          width: 100,
-        }}
-      />
+      <Image src={logoUrl} style={{ width: 100 }} />
     </View>
   </>
 );
 
-// Create static styles to optimize rendering
 const dynamicStyles = StyleSheet.create({
   contentContainer: {
-    paddingTop: 40,
-    paddingBottom: 20,
+    paddingTop: 42,
+    paddingBottom: 24,
   },
-  bannerSection: {
-    borderRadius: 8,
-    padding: 20, // Reduced padding from 25 to 20
-    marginBottom: 20, // Reduced margin from 25 to 20
-    position: 'relative',
-  },
-  moduleIcon: {
-    position: 'absolute',
-    right: 20, // Moved icon closer to edge
-    top: 20,
-    width: 70, // Slightly smaller icon
-    height: 70,
-    opacity: 0.9,
-  },
-  moduleInfo: {
-    width: '75%',
-  },
-  pillarName: {
-    color: 'white',
-    fontSize: 11, // Smaller font
-    opacity: 0.9,
-    textTransform: 'uppercase',
-    letterSpacing: 1,
-    marginBottom: 3, // Reduced margin
-  },
-  moduleName: {
-    color: 'white',
-    fontSize: 24, // Smaller font
-    fontWeight: 'bold',
-    marginBottom: 8, // Reduced margin
-  },
-  categoryBadge: {
-    backgroundColor: 'rgba(255, 255, 255, 0.2)',
-    paddingVertical: 3, // Reduced padding
-    paddingHorizontal: 8,
-    borderRadius: 4,
-    alignSelf: 'flex-start',
-    marginBottom: 12, // Reduced margin
-  },
-  categoryText: {
-    color: 'white',
-    fontSize: 12, // Smaller font
-    fontWeight: 'medium',
-  },
-  journeySection: {
-    marginTop: 8, // Reduced margin
-  },
-  journeyLabel: {
-    color: 'white',
-    fontSize: 11, // Smaller font
-    marginBottom: 6, // Reduced margin
-    opacity: 0.9,
-  },
-  journeyRow: {
+  heroContainer: {
     flexDirection: 'row',
-    justifyContent: 'flex-start',
-    alignItems: 'center',
-    marginTop: 3, // Reduced margin
+    borderWidth: 1,
+    borderColor: '#E5E7EB',
+    borderRadius: 16,
+    padding: 24,
+    marginBottom: 24,
   },
-  stageItem: {
-    alignItems: 'center',
-    marginRight: 18, // Reduced margin
-    position: 'relative',
+  heroLeft: {
+    flex: 1,
+    paddingRight: 18,
   },
-  connectorLine: {
-    position: 'absolute',
-    top: 10,
-    left: -23,
-    width: 18, // Shorter line
-    height: 2,
-    backgroundColor: 'rgba(255, 255, 255, 0.4)',
+  chipRow: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    marginBottom: 14,
   },
-  stageCircle: {
-    width: 18, // Smaller circle
-    height: 18,
-    borderRadius: 9,
-    marginBottom: 4, // Reduced margin
+  chip: {
+    borderRadius: 999,
+    paddingVertical: 4,
+    paddingHorizontal: 12,
+    marginRight: 8,
+    marginBottom: 8,
+    fontSize: 10,
+    fontWeight: 600,
+  },
+  heroTitle: {
+    fontSize: 26,
+    fontWeight: 'bold',
+    color: '#111827',
+    marginBottom: 6,
+  },
+  heroHeading: {
+    fontSize: 13,
+    color: '#374151',
+    lineHeight: 1.5,
+    marginBottom: 16,
+  },
+  sectionLabel: {
+    fontSize: 9,
+    letterSpacing: 1.6,
+    textTransform: 'uppercase',
+    color: '#6B7280',
+    marginBottom: 6,
+  },
+  valueHeadlineRow: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    marginBottom: 18,
+  },
+  valueChip: {
+    borderRadius: 999,
+    paddingVertical: 5,
+    paddingHorizontal: 12,
+    marginRight: 8,
+    marginBottom: 8,
+    fontSize: 10.5,
+    fontWeight: 600,
+  },
+  quickFacts: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    borderTopWidth: 1,
+    borderTopColor: '#E5E7EB',
+    paddingTop: 16,
+  },
+  factCard: {
+    width: '33%',
+    paddingRight: 12,
+    marginBottom: 12,
+  },
+  factLabel: {
+    fontSize: 8.5,
+    letterSpacing: 1.4,
+    textTransform: 'uppercase',
+    color: '#6B7280',
+    marginBottom: 4,
+  },
+  factValue: {
+    fontSize: 12,
+    fontWeight: 'bold',
+    color: '#111827',
+    lineHeight: 1.4,
+  },
+  heroRight: {
+    width: 180,
+    borderRadius: 18,
+    padding: 20,
     justifyContent: 'center',
     alignItems: 'center',
   },
-  stageIndicator: {
-    width: 7, // Smaller indicator
-    height: 7,
-    borderRadius: 3.5,
+  heroPillar: {
+    fontSize: 11,
+    letterSpacing: 2,
+    textTransform: 'uppercase',
+    color: '#FFFFFF',
+    marginBottom: 16,
   },
-  stageName: {
-    fontSize: 9, // Smaller font
+  heroIcon: {
+    width: 110,
+    height: 110,
+    marginBottom: 16,
   },
-  summarySection: {
-    marginBottom: 20, // Reduced margin
-    backgroundColor: '#f8f9fa',
-    padding: 15, // Reduced padding from 20 to 15
-    borderRadius: 8,
-    borderLeft: '4 solid',
+  heroCTA: {
+    fontSize: 10,
+    color: '#FFFFFF',
+    textAlign: 'center',
+    lineHeight: 1.4,
+  },
+  section: {
+    marginBottom: 26,
   },
   sectionTitle: {
-    fontSize: 16, // Smaller font
+    fontSize: 16,
     fontWeight: 'bold',
-    color: '#333',
-    marginBottom: 12, // Reduced margin
+    color: '#111827',
+    marginBottom: 12,
   },
-  infoBlock: {
-    marginBottom: 12, // Reduced margin
+  paragraph: {
+    fontSize: 11.5,
+    color: '#374151',
+    lineHeight: 1.6,
+    marginBottom: 10,
   },
-  infoHeading: {
-    fontSize: 13, // Smaller font
+  card: {
+    borderWidth: 1,
+    borderColor: '#E5E7EB',
+    borderRadius: 12,
+    padding: 16,
+    marginBottom: 12,
+    backgroundColor: '#F9FAFB',
+  },
+  subheading: {
+    fontSize: 11,
     fontWeight: 'bold',
-    marginBottom: 3, // Reduced margin
+    color: '#1F2937',
+    marginBottom: 6,
   },
-  infoText: {
-    fontSize: 11, // Smaller font
-    lineHeight: 1.5, // Reduced line height
-    color: '#444',
+  bulletList: {
+    marginLeft: 10,
+    marginTop: 4,
   },
-  benefitsSection: {
-    marginBottom: 20, // Reduced margin
-  },
-  benefitsContainer: {
-    backgroundColor: '#f0f4f8',
-    padding: 15, // Reduced padding from 20 to 15
-    borderRadius: 8,
-    marginBottom: 10, // Reduced margin
-  },
-  benefitRow: {
+  bulletItem: {
     flexDirection: 'row',
     alignItems: 'flex-start',
-    marginBottom: 6, // Reduced margin
+    marginBottom: 6,
   },
-  benefitNumber: {
-    width: 20, // Smaller circle
-    height: 20,
-    borderRadius: 10,
-    justifyContent: 'center',
-    alignItems: 'center',
-    marginRight: 6, // Reduced margin
+  bulletSymbol: {
+    fontSize: 10,
+    color: '#9CA3AF',
+    marginRight: 5,
   },
-  benefitNumberText: {
-    fontSize: 9, // Smaller font
-    color: 'white',
-    fontWeight: 'bold',
-  },
-  benefitText: {
-    fontSize: 11, // Smaller font
-    color: '#444',
-    lineHeight: 1.5, // Reduced line height
+  bulletText: {
+    fontSize: 11,
+    color: '#374151',
+    lineHeight: 1.5,
     flex: 1,
   },
-  // Page 2 styles
-  engagementSection: {
-    marginBottom: 20, // Reduced margin
+  timeline: {
+    marginTop: 6,
+    fontSize: 11,
+    color: '#374151',
   },
-  variantsRow: {
+  variantGrid: {
     flexDirection: 'row',
-    gap: 15,
-    marginBottom: 18, // Reduced margin
+    flexWrap: 'wrap',
+    marginLeft: -10,
+    marginRight: -10,
   },
   variantCard: {
-    flex: 1,
-    padding: 15, // Reduced padding from 20 to 15
-    borderRadius: 8,
+    width: '50%',
+    padding: 10,
+  },
+  variantInner: {
+    borderWidth: 1,
+    borderColor: '#E5E7EB',
+    borderRadius: 12,
+    padding: 14,
+    backgroundColor: '#FFFFFF',
   },
   variantHeader: {
-    color: 'white',
-    fontSize: 14, // Smaller font
+    fontSize: 12,
     fontWeight: 'bold',
-    marginBottom: 10, // Reduced margin
-    backgroundColor: '#2E2266',
-    padding: 8, // Reduced padding from 10 to 8
-    borderRadius: 4,
-    textTransform: 'uppercase',
+    marginBottom: 4,
   },
   variantTagline: {
-    fontSize: 11, // Smaller font
-    color: '#555',
-    marginBottom: 8, // Reduced margin
+    fontSize: 10.5,
+    color: '#4B5563',
     fontStyle: 'italic',
+    marginBottom: 8,
   },
-  variantDescription: {
-    backgroundColor: 'rgba(255, 255, 255, 0.7)',
-    padding: 8, // Reduced padding from 10 to 8
-    borderRadius: 5,
-    marginBottom: 12, // Reduced margin
+  variantMeta: {
+    fontSize: 10,
+    color: '#374151',
+    lineHeight: 1.4,
+    marginBottom: 6,
   },
-  variantDescriptionText: {
-    fontSize: 10, // Smaller font
-    fontStyle: 'italic',
-    color: '#444',
-    lineHeight: 1.4, // Reduced line height
+  highlightBox: {
+    borderRadius: 12,
+    padding: 16,
+    borderWidth: 1,
+    borderColor: '#E5E7EB',
+    backgroundColor: '#F8FAFC',
+    marginBottom: 14,
   },
-  variantDetailsRow: {
+  highlightTitle: {
+    fontSize: 12,
+    fontWeight: 'bold',
+    textTransform: 'uppercase',
+    letterSpacing: 1.2,
+    color: '#1F2937',
+    marginBottom: 6,
+  },
+});
+
+const footerStyles = StyleSheet.create({
+  container: {
+    position: 'absolute',
+    bottom: 30,
+    left: 40,
+    right: 40,
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
+    borderTopWidth: 1,
+    borderTopColor: '#E5E7EB',
+    paddingTop: 10,
   },
-  variantDetailLabel: {
-    fontSize: 10, // Smaller font
-    color: '#666',
-  },
-  variantDetailValue: {
-    fontSize: 13, // Smaller font
-    fontWeight: 'bold',
-    color: '#333',
-  },
-  ctaSection: {
-    marginBottom: 15, // Reduced margin
-  },
-  ctaBox: {
-    backgroundColor: '#f8f9fa',
-    padding: 15, // Reduced padding from 20 to 15
-    borderRadius: 8,
-    alignItems: 'center',
-    borderWidth: 1,
-    borderColor: '#e0e0e0',
-  },
-  ctaTitle: {
-    fontSize: 15, // Smaller font
-    fontWeight: 'bold',
-    color: '#333',
-    marginBottom: 8, // Reduced margin
-  },
-  ctaText: {
-    fontSize: 11, // Smaller font
-    color: '#444',
-    textAlign: 'center',
-    marginBottom: 12, // Reduced margin
-    lineHeight: 1.5, // Reduced line height
-    maxWidth: '80%',
-  },
-  ctaButton: {
-    paddingVertical: 8, // Reduced padding
-    paddingHorizontal: 20, // Reduced padding
-    borderRadius: 5,
-  },
-  ctaButtonText: {
-    color: 'white',
-    fontSize: 13, // Smaller font
-    fontWeight: 'bold',
+  meta: {
+    fontSize: 9,
+    color: '#6B7280',
   },
 });
+
+const renderList = (items, fallback) => {
+  if (!items || items.length === 0) {
+    return fallback ? (
+      <Text style={dynamicStyles.paragraph}>{fallback}</Text>
+    ) : null;
+  }
+
+  return (
+    <View style={dynamicStyles.bulletList}>
+      {items.map((item, index) => (
+        <View key={`${item}-${index}`} style={dynamicStyles.bulletItem}>
+          <Text style={dynamicStyles.bulletSymbol}>•</Text>
+          <Text style={dynamicStyles.bulletText}>{item}</Text>
+        </View>
+      ))}
+    </View>
+  );
+};
 
 const ModuleContentPage = ({
   module,
   pillar,
   pageNumber,
   totalPages,
-  getVariantDisplayName,
-  getModuleTypeIcon,
+  getVariantDisplayName: _getVariantDisplayName,
+  getModuleTypeIcon: _getModuleTypeIcon,
   moduleName,
 }) => {
   let moduleData = module;
 
-  // Handle both use cases - when used from ModulePdfRenderer (moduleName) and when used from ReportContentPage (module object)
   if (!moduleData && moduleName) {
-    // Look up the module by name (for individual module PDFs)
     moduleData = modulesConfig.modules.find(m => m.name === moduleName);
-
-    // Set default values for individual module PDFs
-    pageNumber = 2;
-    totalPages = 2;
     pillar = moduleData?.pillar;
-
-    // Default implementation of getVariantDisplayName if not provided
-    if (!getVariantDisplayName) {
-      getVariantDisplayName = variantType => {
-        return variantType === 'insightPrimer'
-          ? 'Insight Primer'
-          : 'Integrated Execution';
-      };
-    }
-
-    // Default implementation of getModuleTypeIcon if not provided
-    if (!getModuleTypeIcon) {
-      // Rename the imported function to avoid naming conflicts
-      const getModuleTypeIconUtil = type => {
-        // Using window.location.origin ensures we have an absolute URL that works in the PDF
-        return `${window.location.origin}/layer-group-solid-512.png`;
-      };
-
-      // Assign the utility function to getModuleTypeIcon
-      getModuleTypeIcon = getModuleTypeIconUtil;
-    }
+    pageNumber = pageNumber || 2;
+    totalPages = totalPages || 2;
   }
 
-  // Early return if module still not found
   if (!moduleData) {
     return (
       <Page size="A4" style={styles.page}>
@@ -406,7 +364,6 @@ const ModuleContentPage = ({
     );
   }
 
-  // Format date for the footer
   const today = new Date();
   const formattedDate = today
     .toLocaleDateString('en-GB', {
@@ -416,473 +373,465 @@ const ModuleContentPage = ({
     })
     .replace(/\//g, '.');
 
-  // Get pillar-specific color
   const pillarColor = getPillarColor(pillar || moduleData.pillar);
+  const theme = pillarThemes[moduleData.pillar] || defaultTheme;
 
-  // Get journey stage information
-  const journeyStage = determineJourneyStage(moduleData);
-
-  // Define journey stages for visualization
-  const journeyStages = [
-    { id: 'journey-stage-1', title: 'Discover' },
-    { id: 'journey-stage-2', title: 'Design' },
-    { id: 'journey-stage-3', title: 'Build' },
-    { id: 'journey-stage-4', title: 'Scale' },
-  ];
-
-  // Use absolute URLs to ensure images are accessible in the PDF
   const moduleIconUrl = `${window.location.origin}/common-module-white.png`;
   const logoUrl = `${window.location.origin}/elexive-logo-text.png`;
 
-  // Helper function to ensure text is available
-  const getText = text => {
-    return text || '';
+  const valueHeadlines =
+    moduleData.businessValue
+      ?.split(',')
+      .map(item => item.trim())
+      .filter(Boolean) || [];
+
+  const variantTypes =
+    moduleData.variants?.map(variant => variant.type).filter(Boolean) || [];
+
+  const variantDurations = Array.from(
+    new Set(
+      (moduleData.variants || [])
+        .map(variant => variant.duration)
+        .filter(Boolean)
+    )
+  );
+
+  const timelineSummary =
+    moduleData.expectedOutcomes?.timeline ||
+    (variantDurations.length > 0 ? variantDurations.join(' • ') : null);
+
+  const quickFacts = [
+    moduleData.category && {
+      label: 'Module Type',
+      value: moduleData.category,
+    },
+    variantTypes.length > 0 && {
+      label: 'Engagement Models',
+      value: variantTypes.join(' • '),
+    },
+    timelineSummary && {
+      label: 'Timeline',
+      value: timelineSummary,
+    },
+  ].filter(Boolean);
+
+  const businessChallenge = moduleData.businessChallenge || {};
+  const approach = moduleData.approach || {};
+  const expectedOutcomes = moduleData.expectedOutcomes || {
+    outcomes: moduleData.outcomes,
   };
+  const implementation = moduleData.implementation || {};
+  const caseStudy = moduleData.caseStudy || null;
 
   return (
-    <>
-      {/* PAGE 1: Top Banner, Executive Summary & Strategic Impact */}
-      <Page size="A4" style={styles.page}>
-        <View style={styles.contentPage}>
-          <PageHeader pillarColor={pillarColor} logoUrl={logoUrl} />
+    <Page size="A4" style={styles.page} wrap>
+      <View style={styles.contentPage}>
+        <PageHeader pillarColor={pillarColor} logoUrl={logoUrl} />
 
-          {/* Main content container with extra top padding for the header strip */}
-          <View style={dynamicStyles.contentContainer}>
-            {/* 1. TOP BANNER SECTION */}
-            <View
-              style={[
-                dynamicStyles.bannerSection,
-                { backgroundColor: pillarColor },
-              ]}
-            >
-              {/* Module icon */}
-              <View style={dynamicStyles.moduleIcon}>
-                <Image
-                  src={moduleIconUrl}
-                  style={{
-                    width: '100%',
-                    height: '100%',
-                  }}
-                />
-              </View>
-
-              {/* Module info */}
-              <View style={dynamicStyles.moduleInfo}>
-                {/* Pillar name as small header */}
-                <Text style={dynamicStyles.pillarName}>
-                  {pillar || moduleData.pillar}
-                </Text>
-
-                {/* Module name as large title */}
-                <Text style={dynamicStyles.moduleName}>{moduleData.name}</Text>
-
-                {/* Module type with badge styling */}
-                <View style={dynamicStyles.categoryBadge}>
-                  <Text style={dynamicStyles.categoryText}>
-                    {moduleData.category ||
-                      (moduleData.selectedVariant &&
-                        getVariantDisplayName(moduleData.selectedVariant))}
-                  </Text>
-                </View>
-
-                {/* Transformation Journey visualization */}
-                <View style={dynamicStyles.journeySection}>
-                  <Text style={dynamicStyles.journeyLabel}>
-                    Transformation Journey:
-                  </Text>
-
-                  <View style={dynamicStyles.journeyRow}>
-                    {journeyStages.map((stage, index) => {
-                      const isActive = stage.id === journeyStage.id;
-                      const isSecondary =
-                        moduleData.secondaryJourneyStages &&
-                        moduleData.secondaryJourneyStages.includes(stage.id);
-
-                      return (
-                        <View key={stage.id} style={dynamicStyles.stageItem}>
-                          {/* Connector line */}
-                          {index > 0 && (
-                            <View style={dynamicStyles.connectorLine} />
-                          )}
-
-                          {/* Stage circle */}
-                          <View
-                            style={[
-                              dynamicStyles.stageCircle,
-                              {
-                                backgroundColor: isActive
-                                  ? 'white'
-                                  : isSecondary
-                                    ? 'rgba(255, 255, 255, 0.6)'
-                                    : 'rgba(255, 255, 255, 0.3)',
-                              },
-                            ]}
-                          >
-                            {isActive && (
-                              <View
-                                style={[
-                                  dynamicStyles.stageIndicator,
-                                  { backgroundColor: pillarColor },
-                                ]}
-                              />
-                            )}
-                          </View>
-
-                          {/* Stage name */}
-                          <Text
-                            style={[
-                              dynamicStyles.stageName,
-                              {
-                                color: isActive
-                                  ? 'white'
-                                  : isSecondary
-                                    ? 'rgba(255, 255, 255, 0.9)'
-                                    : 'rgba(255, 255, 255, 0.7)',
-                                fontWeight: isActive
-                                  ? 'bold'
-                                  : isSecondary
-                                    ? 'medium'
-                                    : 'normal',
-                              },
-                            ]}
-                          >
-                            {stage.title}
-                          </Text>
-                        </View>
-                      );
-                    })}
-                  </View>
-                </View>
-              </View>
-            </View>
-
-            {/* 2. EXECUTIVE SUMMARY SECTION */}
-            <View
-              style={[
-                dynamicStyles.summarySection,
-                { borderLeftColor: pillarColor },
-              ]}
-            >
-              <Text style={dynamicStyles.sectionTitle}>Executive Summary</Text>
-
-              {/* What is this module */}
-              <View style={dynamicStyles.infoBlock}>
-                <Text
-                  style={[dynamicStyles.infoHeading, { color: pillarColor }]}
-                >
-                  What is this module?
-                </Text>
-                <Text style={dynamicStyles.infoText}>
-                  {getText(moduleData.description) ||
-                    'No description available.'}
-                </Text>
-              </View>
-
-              {/* Only show if the module has outcomes */}
-              {moduleData.outcomes && moduleData.outcomes.length > 0 && (
-                <View style={dynamicStyles.infoBlock}>
-                  <Text
-                    style={[dynamicStyles.infoHeading, { color: pillarColor }]}
-                  >
-                    Key Outcomes
-                  </Text>
-                  <Text style={dynamicStyles.infoText}>
-                    {moduleData.outcomes[0]}
-                  </Text>
-                </View>
-              )}
-
-              {/* Who is it for - use if available, otherwise skip */}
-              {moduleData.whoIsItFor && (
-                <View style={dynamicStyles.infoBlock}>
-                  <Text
-                    style={[dynamicStyles.infoHeading, { color: pillarColor }]}
-                  >
-                    Who is it for?
-                  </Text>
-                  <Text style={dynamicStyles.infoText}>
-                    {getText(moduleData.whoIsItFor) ||
-                      'No target audience specified.'}
-                  </Text>
-                </View>
-              )}
-
-              {/* Why it matters now - show if available or if there's a module.fix field */}
-              {(moduleData.whyItMatters || moduleData.fix) && (
-                <View>
-                  <Text
-                    style={[dynamicStyles.infoHeading, { color: pillarColor }]}
-                  >
-                    Why it matters now?
-                  </Text>
-                  <Text style={dynamicStyles.infoText}>
-                    {getText(moduleData.whyItMatters || moduleData.fix) ||
-                      'No solution approach specified.'}
-                  </Text>
-                </View>
-              )}
-            </View>
-
-            {/* 3. STRATEGIC IMPACT CLUSTER */}
-            <View style={dynamicStyles.benefitsSection}>
-              <Text style={dynamicStyles.sectionTitle}>Strategic Impact</Text>
-
-              {/* Key Benefits */}
-              <View style={dynamicStyles.benefitsContainer}>
+        <View style={dynamicStyles.contentContainer}>
+          {/* Hero */}
+          <View style={dynamicStyles.heroContainer}>
+            <View style={dynamicStyles.heroLeft}>
+              <View style={dynamicStyles.chipRow}>
                 <Text
                   style={[
-                    dynamicStyles.infoHeading,
-                    { color: '#333', marginBottom: 8 },
+                    dynamicStyles.chip,
+                    {
+                      backgroundColor: theme.chipBg,
+                      color: theme.accent,
+                      borderWidth: 1,
+                      borderColor: theme.chipBorder,
+                    },
                   ]}
                 >
-                  Key Benefits
+                  {moduleData.pillar}
                 </Text>
+                {moduleData.category && (
+                  <Text
+                    style={[
+                      dynamicStyles.chip,
+                      { backgroundColor: '#F3F4F6', color: '#374151' },
+                    ]}
+                  >
+                    {moduleData.category}
+                  </Text>
+                )}
+              </View>
 
-                {/* Limit benefits to 4 to ensure they fit on page */}
-                {(
-                  moduleData.benefits ||
-                  moduleData.outcomes || ['No benefits specified']
-                )
-                  .slice(0, 4)
-                  .map((benefit, index) => (
-                    <View key={index} style={dynamicStyles.benefitRow}>
-                      <View
-                        style={[
-                          dynamicStyles.benefitNumber,
-                          { backgroundColor: pillarColor },
-                        ]}
-                      >
-                        <Text style={dynamicStyles.benefitNumberText}>
-                          {index + 1}
-                        </Text>
-                      </View>
-                      <Text style={dynamicStyles.benefitText}>
-                        {getText(benefit)}
-                      </Text>
+              <Text style={dynamicStyles.heroTitle}>{moduleData.name}</Text>
+              {moduleData.heading && (
+                <Text style={dynamicStyles.heroHeading}>
+                  {moduleData.heading}
+                </Text>
+              )}
+
+              <Text style={dynamicStyles.sectionLabel}>Value Headlines</Text>
+              <View style={dynamicStyles.valueHeadlineRow}>
+                {valueHeadlines.length > 0 ? (
+                  valueHeadlines.map((headline, index) => (
+                    <Text
+                      key={`${headline}-${index}`}
+                      style={[
+                        dynamicStyles.valueChip,
+                        {
+                          backgroundColor: theme.chipBg,
+                          color: theme.accent,
+                          borderWidth: 1,
+                          borderColor: theme.chipBorder,
+                        },
+                      ]}
+                    >
+                      {headline}
+                    </Text>
+                  ))
+                ) : (
+                  <Text style={dynamicStyles.paragraph}>
+                    Define measurable outcomes to quantify this engagement.
+                  </Text>
+                )}
+              </View>
+
+              {quickFacts.length > 0 && (
+                <View style={dynamicStyles.quickFacts}>
+                  {quickFacts.map((fact, index) => (
+                    <View
+                      key={`${fact.label}-${index}`}
+                      style={dynamicStyles.factCard}
+                    >
+                      <Text style={dynamicStyles.factLabel}>{fact.label}</Text>
+                      <Text style={dynamicStyles.factValue}>{fact.value}</Text>
                     </View>
                   ))}
-              </View>
+                </View>
+              )}
+            </View>
+
+            <View
+              style={[
+                dynamicStyles.heroRight,
+                {
+                  backgroundColor: pillarColor,
+                },
+              ]}
+            >
+              <Text style={dynamicStyles.heroPillar}>{moduleData.pillar}</Text>
+              <Image src={moduleIconUrl} style={dynamicStyles.heroIcon} />
+              {moduleData.callToAction && (
+                <Text style={dynamicStyles.heroCTA}>
+                  {moduleData.callToAction}
+                </Text>
+              )}
             </View>
           </View>
 
-          <PageFooter
-            formattedDate={formattedDate}
-            pageNumber={pageNumber}
-            totalPages={totalPages}
-          />
-        </View>
-      </Page>
-
-      {/* PAGE 2: Engagement Models & Call to Action */}
-      <Page size="A4" style={styles.page}>
-        <View style={styles.contentPage}>
-          <PageHeader pillarColor={pillarColor} logoUrl={logoUrl} />
-
-          {/* Main content container with padding */}
-          <View style={dynamicStyles.contentContainer}>
-            {/* ENGAGEMENT MODELS */}
-            <View style={dynamicStyles.engagementSection}>
-              <Text style={dynamicStyles.sectionTitle}>Engagement Models</Text>
-
-              <View style={dynamicStyles.variantsRow}>
-                {/* Use the provided getVariantDisplayName and getModuleTypeIcon functions if available */}
-                {/* If module has variants, use those, otherwise show the selected variant */}
-                {moduleData.variants && moduleData.variants.length > 0
-                  ? // Show all variants defined in the module
-                    moduleData.variants.map((variant, index) => {
-                      const isInsightPrimer = variant.type === 'Insight Primer';
-                      const color = isInsightPrimer ? '#3498db' : '#2ecc71';
-                      const bgColor = isInsightPrimer ? '#e6f2ff' : '#e6fff2';
-
-                      // Find the variant definition to get additional information
-                      const variantDef =
-                        modulesConfig.variantDefinitions[variant.type];
-
-                      return (
-                        <View
-                          key={index}
-                          style={[
-                            dynamicStyles.variantCard,
-                            { backgroundColor: bgColor },
-                          ]}
-                        >
-                          <Text style={dynamicStyles.variantHeader}>
-                            {variant.type}
-                          </Text>
-
-                          {/* Add tagline if available */}
-                          {variantDef?.tagline && (
-                            <Text style={dynamicStyles.variantTagline}>
-                              {getText(variantDef.tagline)}
-                            </Text>
-                          )}
-
-                          <View style={dynamicStyles.variantDescription}>
-                            <Text style={dynamicStyles.variantDescriptionText}>
-                              {getText(
-                                variantDef?.description || variant.description
-                              ) || 'No description available.'}
-                            </Text>
-                          </View>
-
-                          <View style={dynamicStyles.variantDetailsRow}>
-                            <View>
-                              <Text style={dynamicStyles.variantDetailLabel}>
-                                Type
-                              </Text>
-                              <Text style={dynamicStyles.variantDetailValue}>
-                                {isInsightPrimer ? 'Fixed-scope' : 'Continuous'}
-                              </Text>
-                            </View>
-
-                            <View>
-                              <Text style={dynamicStyles.variantDetailLabel}>
-                                Value Units
-                              </Text>
-                              <Text
-                                style={[
-                                  dynamicStyles.variantDetailValue,
-                                  { color },
-                                ]}
-                              >
-                                {variant.evcValue || 0} EVCs
-                              </Text>
-                            </View>
-                          </View>
-                        </View>
-                      );
-                    })
-                  : // If no variants are defined but there's a selected variant, show that
-                    moduleData.selectedVariant && (
-                      <View
-                        style={[
-                          dynamicStyles.variantCard,
-                          {
-                            backgroundColor:
-                              moduleData.selectedVariant === 'insightPrimer'
-                                ? '#e6f2ff'
-                                : '#e6fff2',
-                          },
-                        ]}
-                      >
-                        <Text style={dynamicStyles.variantHeader}>
-                          {getVariantDisplayName
-                            ? getVariantDisplayName(moduleData.selectedVariant)
-                            : moduleData.selectedVariant === 'insightPrimer'
-                              ? 'Insight Primer'
-                              : 'Integrated Execution'}
-                        </Text>
-
-                        <View style={dynamicStyles.variantDescription}>
-                          <Text style={dynamicStyles.variantDescriptionText}>
-                            {moduleData.selectedVariant === 'insightPrimer'
-                              ? 'Focused assessment and strategic recommendations without full implementation.'
-                              : 'End-to-end implementation support with comprehensive transformation services.'}
-                          </Text>
-                        </View>
-
-                        <View style={dynamicStyles.variantDetailsRow}>
-                          <View>
-                            <Text style={dynamicStyles.variantDetailLabel}>
-                              Type
-                            </Text>
-                            <Text style={dynamicStyles.variantDetailValue}>
-                              {moduleData.selectedVariant === 'insightPrimer'
-                                ? 'Fixed-scope'
-                                : 'Continuous'}
-                            </Text>
-                          </View>
-
-                          <View>
-                            <Text style={dynamicStyles.variantDetailLabel}>
-                              Value Units
-                            </Text>
-                            <Text
-                              style={[
-                                dynamicStyles.variantDetailValue,
-                                {
-                                  color:
-                                    moduleData.selectedVariant ===
-                                    'insightPrimer'
-                                      ? '#3498db'
-                                      : '#2ecc71',
-                                },
-                              ]}
-                            >
-                              {moduleData.evcValue || 0} EVCs
-                            </Text>
-                          </View>
-                        </View>
-                      </View>
-                    )}
-              </View>
-            </View>
-
-            {/* If there are more than 4 benefits or outcomes, show the remaining ones on page 2 */}
-            {((moduleData.benefits && moduleData.benefits.length > 4) ||
-              (moduleData.outcomes && moduleData.outcomes.length > 4)) && (
-              <View style={{ marginBottom: 20 }}>
-                <Text style={dynamicStyles.sectionTitle}>
-                  Additional Benefits
+          {/* Executive Summary */}
+          <View style={dynamicStyles.section}>
+            <Text style={dynamicStyles.sectionTitle}>Executive Summary</Text>
+            {moduleData.executiveSummary && (
+              <Text style={dynamicStyles.paragraph}>
+                {moduleData.executiveSummary}
+              </Text>
+            )}
+            {moduleData.description && (
+              <Text style={dynamicStyles.paragraph}>
+                {moduleData.description}
+              </Text>
+            )}
+            {moduleData.fix && (
+              <View style={dynamicStyles.highlightBox}>
+                <Text style={dynamicStyles.highlightTitle}>
+                  How Elexive Unlocks Value
                 </Text>
-
-                <View style={dynamicStyles.benefitsContainer}>
-                  {(moduleData.benefits || moduleData.outcomes)
-                    .slice(4)
-                    .map((benefit, index) => (
-                      <View key={index} style={dynamicStyles.benefitRow}>
-                        <View
-                          style={[
-                            dynamicStyles.benefitNumber,
-                            { backgroundColor: pillarColor },
-                          ]}
-                        >
-                          <Text style={dynamicStyles.benefitNumberText}>
-                            {index + 5}
-                          </Text>
-                        </View>
-                        <Text style={dynamicStyles.benefitText}>{benefit}</Text>
-                      </View>
-                    ))}
-                </View>
+                <Text style={dynamicStyles.paragraph}>{moduleData.fix}</Text>
               </View>
             )}
-
-            {/* WHAT TO DO NOW (CTA) */}
-            <View style={dynamicStyles.ctaSection}>
-              <Text style={dynamicStyles.sectionTitle}>Next Steps</Text>
-
-              {/* CTA box */}
-              <View style={dynamicStyles.ctaBox}>
-                <Text style={dynamicStyles.ctaTitle}>
-                  Ready to get started?
+            {moduleData.whoIsItFor && (
+              <View style={dynamicStyles.card}>
+                <Text style={dynamicStyles.subheading}>Who This Supports</Text>
+                <Text style={dynamicStyles.paragraph}>
+                  {moduleData.whoIsItFor}
                 </Text>
-                <Text style={dynamicStyles.ctaText}>
-                  {getText(moduleData.callToAction) ||
-                    'Add this module to your transformation journey and take the next step toward enhanced business capabilities.'}
-                </Text>
-                <View
-                  style={[
-                    dynamicStyles.ctaButton,
-                    { backgroundColor: pillarColor },
-                  ]}
-                >
-                  <Text style={dynamicStyles.ctaButtonText}>
-                    Contact us at transform@elexive.com
-                  </Text>
-                </View>
               </View>
-            </View>
+            )}
           </View>
 
-          <PageFooter
-            formattedDate={formattedDate}
-            pageNumber={pageNumber}
-            totalPages={totalPages}
-          />
+          {/* Business Challenge */}
+          {(businessChallenge.problem ||
+            businessChallenge.opportunity ||
+            businessChallenge.marketContext) && (
+            <View style={dynamicStyles.section}>
+              <Text style={dynamicStyles.sectionTitle}>
+                Business Challenge & Opportunity
+              </Text>
+              {businessChallenge.problem && (
+                <View style={dynamicStyles.card}>
+                  <Text style={dynamicStyles.subheading}>Core Challenge</Text>
+                  <Text style={dynamicStyles.paragraph}>
+                    {businessChallenge.problem}
+                  </Text>
+                </View>
+              )}
+              {businessChallenge.opportunity && (
+                <View style={dynamicStyles.card}>
+                  <Text style={dynamicStyles.subheading}>Opportunity</Text>
+                  <Text style={dynamicStyles.paragraph}>
+                    {businessChallenge.opportunity}
+                  </Text>
+                </View>
+              )}
+              {businessChallenge.marketContext && (
+                <View style={dynamicStyles.card}>
+                  <Text style={dynamicStyles.subheading}>Market Context</Text>
+                  <Text style={dynamicStyles.paragraph}>
+                    {businessChallenge.marketContext}
+                  </Text>
+                </View>
+              )}
+            </View>
+          )}
+
+          {/* Approach */}
+          {(approach.methodology ||
+            approach.framework ||
+            approach.differentiators) && (
+            <View style={dynamicStyles.section}>
+              <Text style={dynamicStyles.sectionTitle}>
+                Our Approach & Methodology
+              </Text>
+              {approach.methodology && (
+                <Text style={dynamicStyles.paragraph}>
+                  {approach.methodology}
+                </Text>
+              )}
+              {approach.framework && (
+                <View style={dynamicStyles.highlightBox}>
+                  <Text style={dynamicStyles.highlightTitle}>
+                    Primary Framework
+                  </Text>
+                  <Text style={dynamicStyles.paragraph}>
+                    {approach.framework}
+                  </Text>
+                </View>
+              )}
+              {approach.differentiators && (
+                <View style={dynamicStyles.card}>
+                  <Text style={dynamicStyles.subheading}>
+                    What Makes It Different
+                  </Text>
+                  <Text style={dynamicStyles.paragraph}>
+                    {approach.differentiators}
+                  </Text>
+                </View>
+              )}
+            </View>
+          )}
+
+          {/* Expected Outcomes */}
+          {(expectedOutcomes.outcomes ||
+            expectedOutcomes.metrics ||
+            expectedOutcomes.timeline) && (
+            <View style={dynamicStyles.section}>
+              <Text style={dynamicStyles.sectionTitle}>
+                Expected Outcomes & Success Metrics
+              </Text>
+              {renderList(expectedOutcomes.outcomes, null)}
+              {expectedOutcomes.metrics &&
+                expectedOutcomes.metrics.length > 0 && (
+                  <View style={dynamicStyles.card}>
+                    <Text style={dynamicStyles.subheading}>Key Metrics</Text>
+                    {renderList(expectedOutcomes.metrics)}
+                  </View>
+                )}
+              {expectedOutcomes.timeline && (
+                <Text style={dynamicStyles.timeline}>
+                  Timeline: {expectedOutcomes.timeline}
+                </Text>
+              )}
+            </View>
+          )}
+
+          {/* Benefits */}
+          {moduleData.benefits && moduleData.benefits.length > 0 && (
+            <View style={dynamicStyles.section}>
+              <Text style={dynamicStyles.sectionTitle}>Strategic Benefits</Text>
+              <View style={dynamicStyles.card}>
+                {renderList(moduleData.benefits)}
+              </View>
+            </View>
+          )}
+
+          {/* Implementation */}
+          {(implementation.phases && implementation.phases.length > 0) ||
+          (implementation.keyMilestones &&
+            implementation.keyMilestones.length > 0) ? (
+            <View style={dynamicStyles.section}>
+              <Text style={dynamicStyles.sectionTitle}>
+                Implementation Roadmap
+              </Text>
+              {implementation.phases &&
+                implementation.phases.map((phase, index) => (
+                  <View
+                    key={`${phase.name}-${index}`}
+                    style={dynamicStyles.card}
+                  >
+                    <Text style={dynamicStyles.subheading}>
+                      {phase.name} {phase.duration ? `• ${phase.duration}` : ''}
+                    </Text>
+                    {renderList(phase.activities)}
+                  </View>
+                ))}
+              {implementation.keyMilestones &&
+                implementation.keyMilestones.length > 0 && (
+                  <View style={dynamicStyles.highlightBox}>
+                    <Text style={dynamicStyles.highlightTitle}>
+                      Key Milestones
+                    </Text>
+                    {renderList(implementation.keyMilestones)}
+                  </View>
+                )}
+            </View>
+          ) : null}
+
+          {/* Case Study */}
+          {caseStudy && (
+            <View style={dynamicStyles.section}>
+              <Text style={dynamicStyles.sectionTitle}>Success Story</Text>
+              {caseStudy.clientType && (
+                <Text style={dynamicStyles.paragraph}>
+                  Client: {caseStudy.clientType}
+                </Text>
+              )}
+              {caseStudy.challenge && (
+                <View style={dynamicStyles.card}>
+                  <Text style={dynamicStyles.subheading}>Challenge</Text>
+                  <Text style={dynamicStyles.paragraph}>
+                    {caseStudy.challenge}
+                  </Text>
+                </View>
+              )}
+              {caseStudy.solution && (
+                <View style={dynamicStyles.card}>
+                  <Text style={dynamicStyles.subheading}>Solution</Text>
+                  <Text style={dynamicStyles.paragraph}>
+                    {caseStudy.solution}
+                  </Text>
+                </View>
+              )}
+              {caseStudy.results && (
+                <View style={dynamicStyles.highlightBox}>
+                  <Text style={dynamicStyles.highlightTitle}>Results</Text>
+                  <Text style={dynamicStyles.paragraph}>
+                    {caseStudy.results}
+                  </Text>
+                </View>
+              )}
+            </View>
+          )}
+
+          {/* Engagement Models */}
+          {moduleData.variants && moduleData.variants.length > 0 && (
+            <View style={dynamicStyles.section}>
+              <Text style={dynamicStyles.sectionTitle}>Engagement Models</Text>
+              <View style={dynamicStyles.variantGrid}>
+                {moduleData.variants.map((variant, index) => {
+                  const variantDef =
+                    modulesConfig.variantDefinitions?.[variant.type] || {};
+                  const isPrimer = variant.type === 'Insight Primer';
+                  const accent = isPrimer ? '#2563EB' : '#0EA5E9';
+                  return (
+                    <View
+                      key={`${variant.type}-${index}`}
+                      style={dynamicStyles.variantCard}
+                    >
+                      <View style={dynamicStyles.variantInner}>
+                        <Text
+                          style={[
+                            dynamicStyles.variantHeader,
+                            { color: accent },
+                          ]}
+                        >
+                          {variant.type}
+                        </Text>
+                        {variantDef.tagline && (
+                          <Text style={dynamicStyles.variantTagline}>
+                            {variantDef.tagline}
+                          </Text>
+                        )}
+                        <Text style={dynamicStyles.variantMeta}>
+                          {variantDef.description || variant.description}
+                        </Text>
+                        {variant.duration && (
+                          <Text style={dynamicStyles.variantMeta}>
+                            Duration: {variant.duration}
+                          </Text>
+                        )}
+                        <Text style={dynamicStyles.variantMeta}>
+                          Value Units:{' '}
+                          {variant.isFlexible
+                            ? `Starting from ${variant.minEvcPerWeek || 0} EVCs/week`
+                            : `${variant.evcValue || 0} EVCs`}
+                        </Text>
+                        {variant.deliverables &&
+                          variant.deliverables.length > 0 && (
+                            <>
+                              <Text
+                                style={[
+                                  dynamicStyles.subheading,
+                                  { marginTop: 10 },
+                                ]}
+                              >
+                                Key Deliverables
+                              </Text>
+                              {renderList(variant.deliverables)}
+                            </>
+                          )}
+                        {variant.scalingFactors &&
+                          Array.isArray(variant.scalingFactors) &&
+                          variant.scalingFactors.length > 0 && (
+                            <>
+                              <Text
+                                style={[
+                                  dynamicStyles.subheading,
+                                  { marginTop: 6 },
+                                ]}
+                              >
+                                Scaling Factors
+                              </Text>
+                              {renderList(variant.scalingFactors)}
+                            </>
+                          )}
+                      </View>
+                    </View>
+                  );
+                })}
+              </View>
+            </View>
+          )}
+
+          {/* Next Steps */}
+          <View style={dynamicStyles.section}>
+            <View style={dynamicStyles.highlightBox}>
+              <Text style={dynamicStyles.highlightTitle}>Next Steps</Text>
+              <Text style={dynamicStyles.paragraph}>
+                {moduleData.callToAction ||
+                  'Add this module to your transformation roadmap and align stakeholders on investment and execution scope.'}
+              </Text>
+              <Text style={dynamicStyles.paragraph}>
+                Contact us at{' '}
+                <Text style={{ fontWeight: 'bold' }}>sales@elexive.com</Text> to
+                align this module with your objectives.
+              </Text>
+            </View>
+          </View>
         </View>
-      </Page>
-    </>
+
+        <PageFooter
+          formattedDate={formattedDate}
+          pageNumber={pageNumber || 2}
+          totalPages={totalPages || 2}
+        />
+      </View>
+    </Page>
   );
 };
 
