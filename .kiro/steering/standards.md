@@ -27,6 +27,7 @@
 - Custom CSS only when necessary in component-specific CSS files
 - Follow mobile-first responsive design approach
 - Use Elexive brand colors: `elx-primary`, `elx-accent`, `elx-secondary`, `elx-bg`, `elx-evc`
+- Use Elexive logos: `public/logos/` 
 - Avoid inline styles - use Tailwind classes for maintainability
 - Use CSS custom properties for dynamic styling when needed
 - Implement consistent spacing and typography scales
