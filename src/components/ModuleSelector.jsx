@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import EvcBandwidthSelector from './EvcBandwidthSelector';
 import {
   faLayerGroup,
   faLightbulb,
@@ -32,6 +33,8 @@ const ModuleSelector = ({
   setActivePillar,
   selectedVariants = {},
   setSelectedVariants,
+  evcBandwidth = {},
+  setEvcBandwidth,
   viewModuleDetails: externalViewModuleDetails,
 }) => {
   // Get access to the shared savedModules state
@@ -168,6 +171,14 @@ const ModuleSelector = ({
     if (selectedModules.includes(moduleName)) {
       toggleModule(moduleName);
     }
+  };
+
+  // Handle EVC bandwidth changes for flexible variants
+  const handleEvcBandwidthChange = (moduleName, bandwidth) => {
+    setEvcBandwidth({
+      ...evcBandwidth,
+      [moduleName]: bandwidth,
+    });
   };
 
   // Group modules by pillar
@@ -676,12 +687,28 @@ const ModuleSelector = ({
                                       </div>
                                     </div>
                                     <span className="elx-evc-label">
-                                      {module.variants[1]
-                                        ? module.variants[1].evcValue
-                                        : module.variants[0].evcValue}{' '}
-                                      EVC
+                                      {module.variants[1]?.isFlexible
+                                        ? `${evcBandwidth[module.name] || module.variants[1].recommendedEvcPerWeek || module.variants[1].evcValue} EVC/week`
+                                        : `${module.variants[1]?.evcValue || module.variants[0].evcValue} EVC`}
                                     </span>
                                   </div>
+
+                                  {/* EVC Bandwidth Selector for flexible variants */}
+                                  {selectedModules.includes(module.name) &&
+                                    selectedVariants[module.name] ===
+                                      'integratedExecution' &&
+                                    module.variants[1]?.isFlexible && (
+                                      <EvcBandwidthSelector
+                                        moduleName={module.name}
+                                        variant={module.variants[1]}
+                                        currentBandwidth={
+                                          evcBandwidth[module.name]
+                                        }
+                                        onBandwidthChange={
+                                          handleEvcBandwidthChange
+                                        }
+                                      />
+                                    )}
                                 </>
                               )}
                             </div>

@@ -461,6 +461,8 @@ const CalculatorApp = () => {
                         setActivePillar={calculator.setActivePillar}
                         selectedVariants={calculator.selectedVariants}
                         setSelectedVariants={calculator.setSelectedVariants}
+                        evcBandwidth={calculator.evcBandwidth}
+                        setEvcBandwidth={calculator.setEvcBandwidth}
                         viewModuleDetails={viewModuleDetails}
                       />
                     )}

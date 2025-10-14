@@ -2,6 +2,15 @@ import React, { useState, useEffect, useCallback } from 'react';
 import { useParams, useNavigate, useLocation } from 'react-router-dom';
 import ModuleDetails from './ModuleDetails';
 import ModuleNotFound from './ModuleNotFound';
+import ExecutiveSummary from './ExecutiveSummary';
+import BusinessChallengeContent from './BusinessChallengeContent';
+import ApproachContent from './ApproachContent';
+import ExpectedOutcomesContent from './ExpectedOutcomesContent';
+import ImplementationContent from './ImplementationContent';
+import CaseStudyContent from './CaseStudyContent';
+import EngagementModels from './InvestmentOptions';
+import ExpandableSection from './ExpandableSection';
+import ShowAllToggle from './ShowAllToggle';
 import modulesConfig from '../config/modulesConfig.json';
 import { generateModulePdf } from '../pdf';
 
@@ -23,6 +32,16 @@ const ModuleDetailPage = () => {
   const [navigationState, setNavigationState] = useState({
     canGoBack: false,
     referrer: null,
+  });
+
+  // Solution brief state management
+  const [allExpanded, setAllExpanded] = useState(false);
+  const [expandedSections, setExpandedSections] = useState({
+    businessChallenge: false,
+    approach: false,
+    expectedOutcomes: false,
+    implementation: false,
+    caseStudy: false,
   });
 
   // Enhanced module loading with validation and error handling
@@ -119,6 +138,33 @@ const ModuleDetailPage = () => {
     navigate('/modules', { replace: false });
   }, [navigate, navigationState]);
 
+  // Toggle all sections functionality
+  const toggleAllSections = () => {
+    const newState = !allExpanded;
+    setAllExpanded(newState);
+    setExpandedSections(
+      Object.keys(expandedSections).reduce((acc, key) => {
+        acc[key] = newState;
+        return acc;
+      }, {})
+    );
+  };
+
+  // Handle individual section toggle
+  const handleSectionToggle = (sectionKey, isExpanded) => {
+    setExpandedSections(prev => ({
+      ...prev,
+      [sectionKey]: isExpanded,
+    }));
+
+    // Update allExpanded state based on whether all sections are expanded
+    const updatedSections = { ...expandedSections, [sectionKey]: isExpanded };
+    const allSectionsExpanded = Object.values(updatedSections).every(
+      expanded => expanded
+    );
+    setAllExpanded(allSectionsExpanded);
+  };
+
   // Export to PDF function
   const exportToPdf = async () => {
     if (!module) return;
@@ -161,16 +207,175 @@ const ModuleDetailPage = () => {
     return <ModuleNotFound slug={slug} />;
   }
 
-  // Render module details
+  // Check if module has enhanced solution brief data
+  const hasEnhancedData =
+    module.executiveSummary ||
+    module.businessChallenge ||
+    module.approach ||
+    module.expectedOutcomes;
+
+  // Define pillar color mapping (same as ModuleDetails)
+  const pillarColorMap = {
+    Transformation: '#D99000', // Amber/gold
+    Strategy: '#C85A30', // Orange/rust
+    Technology: '#1F776D', // Teal
+    Discovery: '#2E2266', // Deep purple (primary)
+    Catalyst: '#0A4DA1', // Dark blue
+  };
+
+  // If module has enhanced data, render solution brief
+  if (hasEnhancedData) {
+    return (
+      <div
+        className="w-full mx-0 px-4 py-0 elx-main-content"
+        data-testid="solution-brief"
+      >
+        <div className="max-w-4xl mx-auto">
+          {/* Module Header */}
+          <div className="mb-6">
+            <button
+              onClick={handleBack}
+              className="mb-4 text-elx-primary hover:text-elx-accent flex items-center space-x-2"
+            >
+              <span>← Back to Modules</span>
+            </button>
+
+            <div className="flex items-center justify-between mb-4">
+              <div>
+                <div className="text-sm text-gray-600 mb-1">
+                  {module.pillar} • {module.category}
+                </div>
+                <h1 className="text-3xl font-bold text-elx-primary">
+                  {module.name}
+                </h1>
+                {module.heading && (
+                  <p className="text-lg text-gray-700 mt-2">{module.heading}</p>
+                )}
+              </div>
+
+              <button
+                onClick={exportToPdf}
+                disabled={isExporting}
+                className="px-4 py-2 bg-elx-primary text-white rounded-md hover:bg-elx-accent transition-colors duration-200 disabled:opacity-50"
+              >
+                {isExporting ? 'Exporting...' : 'Export PDF'}
+              </button>
+            </div>
+          </div>
+
+          {/* Executive Summary with Pillar Section */}
+          <div className="flex flex-col md:flex-row gap-6 mb-6">
+            {/* Executive Summary */}
+            <div className="md:w-2/3">
+              <ExecutiveSummary module={module} />
+            </div>
+
+            {/* Pillar Section */}
+            <div
+              className="p-5 rounded-lg shadow-md md:w-1/3 flex flex-col items-center justify-center"
+              style={{
+                backgroundColor: pillarColorMap[module.pillar] || '#2E2266',
+              }}
+            >
+              <h3 className="elx-pillar-title">{module.pillar}</h3>
+              <div className="text-white text-center">
+                <img
+                  src="/common-module-white.png"
+                  alt="Module visualization"
+                  className="mx-auto max-w-full h-auto w-1/2"
+                />
+              </div>
+            </div>
+          </div>
+
+          {/* Show All Toggle */}
+          <ShowAllToggle
+            onToggle={toggleAllSections}
+            allExpanded={allExpanded}
+          />
+
+          {/* Progressive Disclosure Sections */}
+          {module.businessChallenge && (
+            <ExpandableSection
+              title={
+                module.businessChallenge.title ||
+                'Business Challenge & Opportunity'
+              }
+              defaultExpanded={expandedSections.businessChallenge}
+              onToggle={isExpanded =>
+                handleSectionToggle('businessChallenge', isExpanded)
+              }
+            >
+              <BusinessChallengeContent challenge={module.businessChallenge} />
+            </ExpandableSection>
+          )}
+
+          {module.approach && (
+            <ExpandableSection
+              title={module.approach.title || 'Our Approach & Methodology'}
+              defaultExpanded={expandedSections.approach}
+              onToggle={isExpanded =>
+                handleSectionToggle('approach', isExpanded)
+              }
+            >
+              <ApproachContent approach={module.approach} />
+            </ExpandableSection>
+          )}
+
+          {module.expectedOutcomes && (
+            <ExpandableSection
+              title={
+                module.expectedOutcomes.title ||
+                'Expected Outcomes & Success Metrics'
+              }
+              defaultExpanded={expandedSections.expectedOutcomes}
+              onToggle={isExpanded =>
+                handleSectionToggle('expectedOutcomes', isExpanded)
+              }
+            >
+              <ExpectedOutcomesContent outcomes={module.expectedOutcomes} />
+            </ExpandableSection>
+          )}
+
+          {module.implementation && (
+            <ExpandableSection
+              title={module.implementation.title || 'Implementation Timeline'}
+              defaultExpanded={expandedSections.implementation}
+              onToggle={isExpanded =>
+                handleSectionToggle('implementation', isExpanded)
+              }
+            >
+              <ImplementationContent implementation={module.implementation} />
+            </ExpandableSection>
+          )}
+
+          {module.caseStudy && (
+            <ExpandableSection
+              title={module.caseStudy.title || 'Success Story'}
+              defaultExpanded={expandedSections.caseStudy}
+              onToggle={isExpanded =>
+                handleSectionToggle('caseStudy', isExpanded)
+              }
+            >
+              <CaseStudyContent caseStudy={module.caseStudy} />
+            </ExpandableSection>
+          )}
+
+          {/* Engagement Models - Always Visible */}
+          <EngagementModels variants={module.variants} />
+        </div>
+      </div>
+    );
+  }
+
+  // For modules without enhanced data, use original ModuleDetails component
   return (
-    <div className="w-full mx-0 px-4 py-0 elx-main-content">
-      <ModuleDetails
-        selectedModule={module}
-        exportToPdf={exportToPdf}
-        isExporting={isExporting}
-        onBack={handleBack}
-      />
-    </div>
+    <ModuleDetails
+      selectedModule={module}
+      exportToPdf={exportToPdf}
+      isExporting={isExporting}
+      onBack={handleBack}
+    />
   );
 };
 

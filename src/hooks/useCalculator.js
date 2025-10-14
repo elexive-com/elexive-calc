@@ -9,6 +9,7 @@ export default function useCalculator() {
   const [intent, setIntent] = useState('');
   const [selectedModules, setSelectedModules] = useState([]);
   const [selectedVariants, setSelectedVariants] = useState({});
+  const [evcBandwidth, setEvcBandwidth] = useState({}); // EVC per week for flexible variants
   const [resourceAllocation, setResourceAllocation] = useState(
     calculatorConfig.defaults.resourceAllocation
   );
@@ -84,6 +85,7 @@ export default function useCalculator() {
     // Reset all other state
     setSelectedModules([]);
     setSelectedVariants({});
+    setEvcBandwidth({});
     setResourceAllocation('focused'); // Default to "Focused" allocation
     setProductionCapacity('pathfinder'); // Default to "Pathfinder" capacity
     setRecommendedCapacity(null); // Clear any recommended capacity
@@ -125,6 +127,7 @@ export default function useCalculator() {
       // Clear any existing selections first
       setSelectedModules([]);
       setSelectedVariants({});
+      setEvcBandwidth({});
 
       // Apply the preset modules immediately
       debugLog('Setting modules to:', preset.modules);
@@ -261,13 +264,16 @@ export default function useCalculator() {
           variantType = 'insightPrimer';
         }
 
-        // Find the corresponding EVC value based on the variant type
+        // Find the corresponding variant
         const variantIndex = variantType === 'insightPrimer' ? 0 : 1;
-        const evcValue =
-          module.variants[variantIndex]?.evcValue ||
-          module.variants[0].evcValue;
+        const variant = module.variants[variantIndex] || module.variants[0];
 
-        return total + evcValue;
+        // For flexible variants, use the selected EVC bandwidth, otherwise use fixed EVC value
+        if (variant.isFlexible && evcBandwidth[module.name]) {
+          return total + evcBandwidth[module.name];
+        } else {
+          return total + variant.evcValue;
+        }
       }, 0);
     } else {
       // When no modules are selected, set EVCs to 0 (previously was minimum of 1 EVC)
@@ -475,6 +481,7 @@ export default function useCalculator() {
     modules,
     selectedVariants,
     serviceParameters,
+    evcBandwidth,
   ]);
 
   // Use the memoized callback in useEffect
@@ -573,6 +580,8 @@ export default function useCalculator() {
     selectedModules,
     selectedVariants,
     setSelectedVariants,
+    evcBandwidth,
+    setEvcBandwidth,
     resourceAllocation,
     productionCapacity,
     setProductionCapacity: setProductionCapacityWithValidation,

@@ -134,6 +134,7 @@ This project is deployed on Netlify with continuous deployment from GitHub. The 
 ## Documentation
 
 Each major component is documented in the `/resources` directory with implementation details and enhancement opportunities.
+For contributor onboarding and workflow guardrails, see [AGENTS.md](./AGENTS.md).
 
 ## License
 

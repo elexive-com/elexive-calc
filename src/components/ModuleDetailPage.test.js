@@ -35,7 +35,10 @@ vi.mock('./ModuleNotFound', () => ({
 }));
 
 // Helper function to render component with router
-const renderWithRouter = (initialPath = '/modules/foundation-mapping', historyEntries = null) => {
+const renderWithRouter = (
+  initialPath = '/modules/foundation-mapping',
+  historyEntries = null
+) => {
   const entries = historyEntries || [initialPath];
   return render(
     <MemoryRouter initialEntries={entries}>
@@ -53,7 +56,7 @@ const mockHistoryForward = vi.fn();
 beforeEach(() => {
   // Reset mocks
   vi.clearAllMocks();
-  
+
   // Mock window.history
   Object.defineProperty(window, 'history', {
     value: {
@@ -76,7 +79,7 @@ describe('ModuleDetailPage Browser Navigation', () => {
     renderWithRouter('/modules/foundation-mapping');
 
     await waitFor(() => {
-      expect(screen.getByTestId('module-details')).toBeInTheDocument();
+      expect(screen.getByTestId('solution-brief')).toBeInTheDocument();
       expect(screen.getByText('Foundation Mapping')).toBeInTheDocument();
     });
   });
@@ -86,7 +89,9 @@ describe('ModuleDetailPage Browser Navigation', () => {
 
     await waitFor(() => {
       expect(screen.getByTestId('module-not-found')).toBeInTheDocument();
-      expect(screen.getByText('Module "invalid-slug" not found')).toBeInTheDocument();
+      expect(
+        screen.getByText('Module "invalid-slug" not found')
+      ).toBeInTheDocument();
     });
   });
 
@@ -109,21 +114,23 @@ describe('ModuleDetailPage Browser Navigation', () => {
   test('validates slug format correctly', async () => {
     // Test invalid slug formats
     const invalidSlugs = [
-      'Invalid_Slug',  // underscore
-      'invalid slug',  // space (will be URL encoded)
-      'Invalid-Slug',  // uppercase
+      'Invalid_Slug', // underscore
+      'invalid slug', // space (will be URL encoded)
+      'Invalid-Slug', // uppercase
       'invalid--slug', // double hyphen
       '-invalid-slug', // leading hyphen
       'invalid-slug-', // trailing hyphen
     ];
 
     for (const slug of invalidSlugs) {
-      const { unmount } = renderWithRouter(`/modules/${encodeURIComponent(slug)}`);
-      
+      const { unmount } = renderWithRouter(
+        `/modules/${encodeURIComponent(slug)}`
+      );
+
       await waitFor(() => {
         expect(screen.getByTestId('module-not-found')).toBeInTheDocument();
       });
-      
+
       unmount();
     }
   });
@@ -148,11 +155,12 @@ describe('ModuleDetailPage Browser Navigation', () => {
     renderWithRouter('/modules/foundation-mapping');
 
     await waitFor(() => {
-      expect(screen.getByTestId('module-details')).toBeInTheDocument();
+      // Foundation mapping has enhanced data, so it renders solution brief
+      expect(screen.getByTestId('solution-brief')).toBeInTheDocument();
     });
 
-    // Click back button
-    const backButton = screen.getByTestId('back-button');
+    // Click back button - it's in the solution brief, not the mock
+    const backButton = screen.getByText('← Back to Modules');
     fireEvent.click(backButton);
 
     // Should call window.history.back when history is available
@@ -173,11 +181,12 @@ describe('ModuleDetailPage Browser Navigation', () => {
     renderWithRouter('/modules/foundation-mapping');
 
     await waitFor(() => {
-      expect(screen.getByTestId('module-details')).toBeInTheDocument();
+      // Foundation mapping has enhanced data, so it renders solution brief
+      expect(screen.getByTestId('solution-brief')).toBeInTheDocument();
     });
 
     // Click back button - should navigate to /modules instead of using history.back
-    const backButton = screen.getByTestId('back-button');
+    const backButton = screen.getByText('← Back to Modules');
     fireEvent.click(backButton);
 
     // Should not call window.history.back when no history
@@ -189,7 +198,8 @@ describe('ModuleDetailPage Browser Navigation', () => {
     const { rerender } = renderWithRouter('/modules/foundation-mapping');
 
     await waitFor(() => {
-      expect(screen.getByTestId('module-details')).toBeInTheDocument();
+      // Foundation mapping has enhanced data, so it renders solution brief
+      expect(screen.getByTestId('solution-brief')).toBeInTheDocument();
     });
 
     // Simulate refresh by re-rendering with Routes
@@ -202,26 +212,22 @@ describe('ModuleDetailPage Browser Navigation', () => {
     );
 
     await waitFor(() => {
-      expect(screen.getByTestId('module-details')).toBeInTheDocument();
+      expect(screen.getByTestId('solution-brief')).toBeInTheDocument();
       expect(screen.getByText('Foundation Mapping')).toBeInTheDocument();
     });
   });
 
   test('handles direct URL access for all valid module slugs', async () => {
     // Test a few known module slugs
-    const validSlugs = [
-      'foundation-mapping',
-      'leading-change',
-      'culture-core',
-    ];
+    const validSlugs = ['foundation-mapping', 'leading-change', 'culture-core'];
 
     for (const slug of validSlugs) {
       const { unmount } = renderWithRouter(`/modules/${slug}`);
-      
+
       await waitFor(() => {
-        expect(screen.getByTestId('module-details')).toBeInTheDocument();
+        expect(screen.getByTestId('solution-brief')).toBeInTheDocument();
       });
-      
+
       unmount();
     }
   });
@@ -244,7 +250,10 @@ describe('ModuleDetailPage Browser Navigation', () => {
     renderWithRouter('/modules/foundation-mapping');
 
     await waitFor(() => {
-      expect(screen.getByTestId('module-details') || screen.getByTestId('module-not-found')).toBeInTheDocument();
+      expect(
+        screen.getByTestId('solution-brief') ||
+          screen.getByTestId('module-not-found')
+      ).toBeInTheDocument();
     });
   });
 
@@ -253,7 +262,10 @@ describe('ModuleDetailPage Browser Navigation', () => {
     renderWithRouter('/modules/foundation-mapping');
 
     await waitFor(() => {
-      expect(screen.getByTestId('module-details') || screen.getByTestId('module-not-found')).toBeInTheDocument();
+      expect(
+        screen.getByTestId('solution-brief') ||
+          screen.getByTestId('module-not-found')
+      ).toBeInTheDocument();
     });
   });
 });
@@ -264,7 +276,8 @@ describe('ModuleDetailPage Navigation State', () => {
     renderWithRouter('/modules/foundation-mapping');
 
     await waitFor(() => {
-      expect(screen.getByTestId('module-details')).toBeInTheDocument();
+      // Foundation mapping has enhanced data, so it renders solution brief
+      expect(screen.getByTestId('solution-brief')).toBeInTheDocument();
     });
   });
 
@@ -272,11 +285,12 @@ describe('ModuleDetailPage Navigation State', () => {
     renderWithRouter('/modules/foundation-mapping');
 
     await waitFor(() => {
-      expect(screen.getByTestId('module-details')).toBeInTheDocument();
+      // Foundation mapping has enhanced data, so it renders solution brief
+      expect(screen.getByTestId('solution-brief')).toBeInTheDocument();
     });
 
     // Component should still work without location state
-    const backButton = screen.getByTestId('back-button');
+    const backButton = screen.getByText('← Back to Modules');
     expect(backButton).toBeInTheDocument();
   });
 });
