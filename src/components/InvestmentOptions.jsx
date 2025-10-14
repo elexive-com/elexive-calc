@@ -28,114 +28,148 @@ const EngagementModels = ({ variants, onSelectVariant }) => {
     return faSliders;
   };
 
-  const getVariantColor = variant => {
-    if (variant.type === 'Insight Primer')
-      return 'border-yellow-300 bg-yellow-50';
-    if (variant.type === 'Integrated Execution')
-      return 'border-blue-300 bg-blue-50';
-    return 'border-gray-300 bg-gray-50';
+  const getVariantTheme = variant => {
+    if (variant.type === 'Insight Primer') {
+      return {
+        accent: '#D97706',
+        badge: 'Fixed scope • 2–4 weeks',
+      };
+    }
+
+    if (variant.type === 'Integrated Execution') {
+      return {
+        accent: '#1D4ED8',
+        badge: 'Flexible engagement',
+      };
+    }
+
+    return {
+      accent: '#334155',
+      badge: null,
+    };
   };
 
   return (
-    <div className="bg-white p-6 rounded-lg border border-gray-200">
-      <h3 className="text-xl font-bold text-elx-primary mb-6">
+    <div className="bg-white border border-gray-200 rounded-2xl shadow-sm p-6 md:p-8">
+      <h3 className="text-2xl font-bold text-gray-900 mb-6">
         Engagement Models
       </h3>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-        {variants.map((variant, index) => (
-          <div
-            key={index}
-            className={`p-6 rounded-lg border-2 ${getVariantColor(variant)} hover:shadow-md transition-shadow duration-200`}
-          >
-            <div className="flex items-start space-x-4">
-              <div className="flex-shrink-0 w-12 h-12 bg-white rounded-full flex items-center justify-center shadow-sm">
-                <FontAwesomeIcon
-                  icon={getVariantIcon(variant)}
-                  className="text-elx-primary text-lg"
-                />
-              </div>
+        {variants.map((variant, index) => {
+          const variantTheme = getVariantTheme(variant);
 
-              <div className="flex-1">
-                <h4 className="text-lg font-semibold text-gray-900 mb-2">
-                  {variant.type}
-                </h4>
-
-                <div className="mb-3">
-                  <span className="text-2xl font-bold text-elx-primary">
-                    {formatEvcValue(variant)}
-                  </span>
-                  {variant.isFlexible && (
-                    <div className="text-sm text-gray-600 mt-1">
-                      Recommended: {variant.recommendedEvcPerWeek} EVCs/week
-                    </div>
-                  )}
+          return (
+            <div
+              key={index}
+              className="p-6 rounded-2xl border border-gray-200 bg-white shadow-sm hover:shadow-md hover:-translate-y-0.5 transition"
+            >
+              {variantTheme.badge && (
+                <p
+                  className="text-xs font-semibold uppercase tracking-wide mb-3 inline-flex px-2.5 py-1 rounded-full"
+                  style={{
+                    backgroundColor: `${variantTheme.accent}14`,
+                    color: variantTheme.accent,
+                  }}
+                >
+                  {variantTheme.badge}
+                </p>
+              )}
+              <div className="flex items-start space-x-4">
+                <div
+                  className="flex-shrink-0 w-12 h-12 rounded-xl flex items-center justify-center shadow-sm"
+                  style={{
+                    backgroundColor: `${variantTheme.accent}1a`,
+                    color: variantTheme.accent,
+                  }}
+                >
+                  <FontAwesomeIcon
+                    icon={getVariantIcon(variant)}
+                    className="text-lg"
+                  />
                 </div>
 
-                {variant.description && (
-                  <p className="text-gray-700 text-sm mb-4 leading-relaxed">
-                    {variant.description}
-                  </p>
-                )}
+                <div className="flex-1">
+                  <h4 className="text-lg font-semibold text-gray-900">
+                    {variant.type}
+                  </h4>
 
-                {variant.duration && (
-                  <div className="flex items-center space-x-2 text-sm text-gray-600 mb-3">
-                    <FontAwesomeIcon icon={faClock} className="text-xs" />
-                    <span>{variant.duration}</span>
+                  <div className="mt-2 mb-3 space-y-1">
+                    <span className="text-xl font-semibold text-gray-900">
+                      {formatEvcValue(variant)}
+                    </span>
+                    {variant.isFlexible && (
+                      <div className="text-xs text-gray-500">
+                        Recommended: {variant.recommendedEvcPerWeek} EVCs/week
+                      </div>
+                    )}
                   </div>
-                )}
 
-                {variant.deliverables && variant.deliverables.length > 0 && (
-                  <div className="mb-4">
-                    <h5 className="text-sm font-semibold text-gray-900 mb-2">
-                      Key Deliverables:
-                    </h5>
-                    <ul className="text-sm text-gray-600 space-y-1">
-                      {variant.deliverables.map((deliverable, delIndex) => (
-                        <li
-                          key={delIndex}
-                          className="flex items-center space-x-2"
-                        >
-                          <span className="w-1.5 h-1.5 bg-elx-primary rounded-full"></span>
-                          <span>{deliverable}</span>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                )}
+                  {variant.description && (
+                    <p className="text-sm text-gray-700 leading-relaxed mb-4">
+                      {variant.description}
+                    </p>
+                  )}
 
-                {variant.scalingFactors &&
-                  variant.scalingFactors.length > 0 && (
+                  {variant.duration && (
+                    <div className="flex items-center gap-2 text-sm text-gray-600 mb-4">
+                      <FontAwesomeIcon icon={faClock} className="text-xs" />
+                      <span>{variant.duration}</span>
+                    </div>
+                  )}
+
+                  {variant.deliverables && variant.deliverables.length > 0 && (
                     <div className="mb-4">
                       <h5 className="text-sm font-semibold text-gray-900 mb-2">
-                        Scaling Factors:
+                        Key Deliverables
                       </h5>
                       <ul className="text-sm text-gray-600 space-y-1">
-                        {variant.scalingFactors.map((factor, factorIndex) => (
+                        {variant.deliverables.map((deliverable, delIndex) => (
                           <li
-                            key={factorIndex}
+                            key={delIndex}
                             className="flex items-center space-x-2"
                           >
-                            <span className="w-1.5 h-1.5 bg-blue-500 rounded-full"></span>
-                            <span>{factor}</span>
+                            <span className="w-1.5 h-1.5 rounded-full bg-gray-400"></span>
+                            <span>{deliverable}</span>
                           </li>
                         ))}
                       </ul>
                     </div>
                   )}
 
-                {onSelectVariant && (
-                  <button
-                    onClick={() => onSelectVariant(variant)}
-                    className="w-full mt-4 px-4 py-2 bg-elx-primary text-white rounded-md hover:bg-elx-accent transition-colors duration-200 text-sm font-medium"
-                  >
-                    Select {variant.type}
-                  </button>
-                )}
+                  {variant.scalingFactors &&
+                    variant.scalingFactors.length > 0 && (
+                      <div className="mb-4">
+                        <h5 className="text-sm font-semibold text-gray-900 mb-2">
+                          Scaling Factors
+                        </h5>
+                        <ul className="text-sm text-gray-600 space-y-1">
+                          {variant.scalingFactors.map((factor, factorIndex) => (
+                            <li
+                              key={factorIndex}
+                              className="flex items-center space-x-2"
+                            >
+                              <span className="w-1.5 h-1.5 rounded-full bg-gray-400"></span>
+                              <span>{factor}</span>
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+                    )}
+
+                  {onSelectVariant && (
+                    <button
+                      onClick={() => onSelectVariant(variant)}
+                      className="w-full mt-4 px-4 py-2 bg-elx-primary text-white rounded-md hover:bg-elx-accent transition-colors duration-200 text-sm font-medium"
+                    >
+                      Select {variant.type}
+                    </button>
+                  )}
+                </div>
               </div>
             </div>
-          </div>
-        ))}
+          );
+        })}
       </div>
     </div>
   );

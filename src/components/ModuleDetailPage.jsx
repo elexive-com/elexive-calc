@@ -13,6 +13,16 @@ import ExpandableSection from './ExpandableSection';
 import ShowAllToggle from './ShowAllToggle';
 import modulesConfig from '../config/modulesConfig.json';
 import { generateModulePdf } from '../pdf';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import {
+  faArrowLeft,
+  faDownload,
+  faLayerGroup,
+  faClock,
+  faRocket,
+  faEnvelope,
+} from '@fortawesome/free-solid-svg-icons';
+import { getIcon } from '../utils/iconUtils';
 
 /**
  * ModuleDetailPage component for direct URL routing
@@ -214,155 +224,416 @@ const ModuleDetailPage = () => {
     module.approach ||
     module.expectedOutcomes;
 
-  // Define pillar color mapping (same as ModuleDetails)
-  const pillarColorMap = {
-    Transformation: '#D99000', // Amber/gold
-    Strategy: '#C85A30', // Orange/rust
-    Technology: '#1F776D', // Teal
-    Discovery: '#2E2266', // Deep purple (primary)
-    Catalyst: '#0A4DA1', // Dark blue
+  const pillarThemes = {
+    Transformation: {
+      accent: '#D99000',
+      gradient:
+        'linear-gradient(135deg, rgba(217,144,0,0.95) 0%, rgba(245,198,99,0.9) 54%, rgba(255,248,230,0.92) 100%)',
+      badgeBg: 'rgba(217,144,0,0.12)',
+      chipBg: 'rgba(217,144,0,0.14)',
+      chipBorder: 'rgba(217,144,0,0.32)',
+      iconBg: 'rgba(255,255,255,0.2)',
+      canvasBg: '#D99000',
+    },
+    Strategy: {
+      accent: '#C85A30',
+      gradient:
+        'linear-gradient(135deg, rgba(200,90,48,0.95) 0%, rgba(226,143,102,0.9) 52%, rgba(255,234,223,0.92) 100%)',
+      badgeBg: 'rgba(200,90,48,0.12)',
+      chipBg: 'rgba(200,90,48,0.14)',
+      chipBorder: 'rgba(200,90,48,0.32)',
+      iconBg: 'rgba(255,255,255,0.2)',
+      canvasBg: '#C85A30',
+    },
+    Technology: {
+      accent: '#1F776D',
+      gradient:
+        'linear-gradient(135deg, rgba(31,119,109,0.95) 0%, rgba(61,161,150,0.9) 55%, rgba(219,244,240,0.92) 100%)',
+      badgeBg: 'rgba(31,119,109,0.12)',
+      chipBg: 'rgba(31,119,109,0.14)',
+      chipBorder: 'rgba(31,119,109,0.32)',
+      iconBg: 'rgba(255,255,255,0.2)',
+      canvasBg: '#1F776D',
+    },
+    Discovery: {
+      accent: '#2E2266',
+      gradient:
+        'linear-gradient(135deg, rgba(46,34,102,0.95) 0%, rgba(88,69,160,0.9) 55%, rgba(234,230,255,0.92) 100%)',
+      badgeBg: 'rgba(46,34,102,0.14)',
+      chipBg: 'rgba(46,34,102,0.16)',
+      chipBorder: 'rgba(46,34,102,0.32)',
+      iconBg: 'rgba(255,255,255,0.2)',
+      canvasBg: '#2E2266',
+    },
+    Catalyst: {
+      accent: '#0A4DA1',
+      gradient:
+        'linear-gradient(135deg, rgba(10,77,161,0.95) 0%, rgba(58,129,221,0.9) 54%, rgba(223,236,255,0.92) 100%)',
+      badgeBg: 'rgba(10,77,161,0.12)',
+      chipBg: 'rgba(10,77,161,0.14)',
+      chipBorder: 'rgba(10,77,161,0.32)',
+      iconBg: 'rgba(255,255,255,0.2)',
+      canvasBg: '#0A4DA1',
+    },
   };
+
+  const pillarTheme = pillarThemes[module.pillar] ||
+    pillarThemes.Discovery || {
+      accent: '#2E2266',
+      gradient:
+        'linear-gradient(135deg, rgba(46,34,102,0.95) 0%, rgba(88,69,160,0.9) 55%, rgba(234,230,255,0.92) 100%)',
+      badgeBg: 'rgba(46,34,102,0.16)',
+      chipBg: 'rgba(46,34,102,0.16)',
+      chipBorder: 'rgba(46,34,102,0.32)',
+      iconBg: 'rgba(255,255,255,0.2)',
+      canvasBg: '#2E2266',
+    };
+
+  const moduleIcon = getIcon(
+    module.icon || modulesConfig.pillarIcons[module.pillar]
+  );
+
+  const businessValueItems =
+    module.businessValue
+      ?.split(',')
+      .map(item => item.trim())
+      .filter(Boolean) || [];
+
+  const variantTypes =
+    module.variants?.map(variant => variant.type).filter(Boolean) || [];
+
+  const variantDurations = Array.from(
+    new Set(
+      (module.variants || []).map(variant => variant.duration).filter(Boolean)
+    )
+  );
+
+  const timelineSummary =
+    module.expectedOutcomes?.timeline ||
+    (variantDurations.length > 0 ? variantDurations.join(' • ') : null);
+
+  const quickFacts = [
+    module.category && {
+      label: 'Module Type',
+      value: module.category,
+      icon: faLayerGroup,
+    },
+    variantTypes.length > 0 && {
+      label: 'Engagement Models',
+      value: variantTypes.join(' • '),
+      icon: faRocket,
+    },
+    timelineSummary && {
+      label: 'Timeline',
+      value: timelineSummary,
+      icon: faClock,
+    },
+  ].filter(Boolean);
+
+  const contactHref = `mailto:sales@elexive.com?subject=${encodeURIComponent(
+    `Elexive Module Inquiry – ${module.name}`
+  )}`;
 
   // If module has enhanced data, render solution brief
   if (hasEnhancedData) {
     return (
       <div
-        className="w-full mx-0 px-4 py-0 elx-main-content"
+        className="w-full px-4 py-8 elx-main-content"
         data-testid="solution-brief"
       >
-        <div className="max-w-4xl mx-auto">
-          {/* Module Header */}
-          <div className="mb-6">
-            <button
-              onClick={handleBack}
-              className="mb-4 text-elx-primary hover:text-elx-accent flex items-center space-x-2"
-            >
-              <span>← Back to Modules</span>
-            </button>
+        <div className="max-w-6xl mx-auto space-y-8">
+          <button
+            onClick={handleBack}
+            className="inline-flex items-center text-sm font-medium text-elx-primary hover:text-elx-accent transition-colors"
+          >
+            <FontAwesomeIcon icon={faArrowLeft} className="mr-2 h-4" />
+            Back to Modules
+          </button>
 
-            <div className="flex items-center justify-between mb-4">
-              <div>
-                <div className="text-sm text-gray-600 mb-1">
-                  {module.pillar} • {module.category}
+          {/* Hero */}
+          <section className="bg-white border border-gray-200 rounded-3xl shadow-sm overflow-hidden">
+            <div className="flex flex-col lg:flex-row">
+              <div className="flex-1 p-8 lg:p-10 flex flex-col gap-8">
+                <div className="flex flex-wrap items-center gap-3 text-sm font-medium">
+                  <span
+                    className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full"
+                    style={{
+                      backgroundColor: `${pillarTheme.accent}14`,
+                      color: pillarTheme.accent,
+                    }}
+                  >
+                    <FontAwesomeIcon icon={moduleIcon} className="h-3.5" />
+                    {module.pillar}
+                  </span>
+                  <span className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-gray-100 text-gray-700">
+                    {module.category}
+                  </span>
                 </div>
-                <h1 className="text-3xl font-bold text-elx-primary">
-                  {module.name}
-                </h1>
-                {module.heading && (
-                  <p className="text-lg text-gray-700 mt-2">{module.heading}</p>
+
+                <header className="space-y-3">
+                  <h1 className="text-3xl sm:text-4xl font-bold text-gray-900">
+                    {module.name}
+                  </h1>
+                  {module.heading && (
+                    <p className="text-lg text-gray-700 leading-relaxed">
+                      {module.heading}
+                    </p>
+                  )}
+                </header>
+
+                {businessValueItems.length > 0 && (
+                  <div className="space-y-3">
+                    <p className="text-xs font-semibold uppercase tracking-[0.2em] text-gray-500">
+                      Value Headlines
+                    </p>
+                    <div className="flex flex-wrap gap-3">
+                      {businessValueItems.map((value, index) => (
+                        <span
+                          key={index}
+                          className="inline-flex items-center px-4 py-2 rounded-full text-sm font-medium shadow-sm"
+                          style={{
+                            backgroundColor: pillarTheme.chipBg,
+                            border: `1px solid ${pillarTheme.chipBorder}`,
+                            color: pillarTheme.accent,
+                          }}
+                        >
+                          {value}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+                )}
+
+                {quickFacts.length > 0 && (
+                  <div className="pt-4">
+                    <div className="grid gap-6 md:grid-cols-3">
+                      {quickFacts.map((fact, index) => (
+                        <div key={index} className="flex items-start gap-3">
+                          <div
+                            className="w-12 h-12 rounded-2xl flex items-center justify-center flex-shrink-0"
+                            style={{
+                              backgroundColor: `${pillarTheme.accent}12`,
+                              color: pillarTheme.accent,
+                            }}
+                          >
+                            <FontAwesomeIcon icon={fact.icon} className="h-5" />
+                          </div>
+                          <div className="space-y-1">
+                            <p className="text-xs font-semibold uppercase tracking-[0.2em] text-gray-500">
+                              {fact.label}
+                            </p>
+                            <p className="text-sm font-semibold text-gray-900 leading-snug">
+                              {fact.value}
+                            </p>
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
                 )}
               </div>
 
-              <button
-                onClick={exportToPdf}
-                disabled={isExporting}
-                className="px-4 py-2 bg-elx-primary text-white rounded-md hover:bg-elx-accent transition-colors duration-200 disabled:opacity-50"
+              <aside
+                className="lg:w-[360px] p-8 lg:p-10 flex flex-col gap-6"
+                style={{ backgroundColor: pillarTheme.canvasBg }}
               >
-                {isExporting ? 'Exporting...' : 'Export PDF'}
-              </button>
-            </div>
-          </div>
+                <div className="flex flex-col items-center text-center space-y-6">
+                  <div className="w-full text-white">
+                    <h3 className="text-lg font-semibold tracking-[0.3em] text-white uppercase mb-6">
+                      {module.pillar}
+                    </h3>
+                    <div className="text-white">
+                      <img
+                        src="/common-module-white.png"
+                        alt={`${module.pillar} pillar`}
+                        className="mx-auto max-w-full h-auto w-28"
+                      />
+                    </div>
+                  </div>
 
-          {/* Executive Summary with Pillar Section */}
-          <div className="flex flex-col md:flex-row gap-6 mb-6">
-            {/* Executive Summary */}
-            <div className="md:w-2/3">
+                  {module.callToAction && (
+                    <p className="text-sm text-white leading-relaxed">
+                      {module.callToAction}
+                    </p>
+                  )}
+                </div>
+
+                <div className="bg-white border border-gray-100 rounded-3xl shadow-sm p-6 space-y-4">
+                  <button
+                    onClick={exportToPdf}
+                    disabled={isExporting}
+                    className="inline-flex items-center justify-center gap-2 rounded-2xl px-6 py-3 text-sm font-semibold text-white bg-elx-primary hover:bg-elx-accent transition disabled:opacity-70"
+                  >
+                    <FontAwesomeIcon icon={faDownload} className="h-4" />
+                    {isExporting ? 'Exporting…' : 'Export PDF'}
+                  </button>
+                  <a
+                    href={contactHref}
+                    className="inline-flex items-center justify-center gap-2 rounded-2xl px-6 py-3 text-sm font-semibold text-elx-primary border border-elx-primary hover:bg-elx-primary hover:text-white transition"
+                  >
+                    <FontAwesomeIcon icon={faEnvelope} className="h-4" />
+                    Discuss This Module
+                  </a>
+                </div>
+              </aside>
+            </div>
+          </section>
+
+          <div className="grid gap-8 lg:grid-cols-[2fr_1fr]">
+            <div className="space-y-6">
               <ExecutiveSummary module={module} />
-            </div>
 
-            {/* Pillar Section */}
-            <div
-              className="p-5 rounded-lg shadow-md md:w-1/3 flex flex-col items-center justify-center"
-              style={{
-                backgroundColor: pillarColorMap[module.pillar] || '#2E2266',
-              }}
-            >
-              <h3 className="elx-pillar-title">{module.pillar}</h3>
-              <div className="text-white text-center">
-                <img
-                  src="/common-module-white.png"
-                  alt="Module visualization"
-                  className="mx-auto max-w-full h-auto w-1/2"
+              <div className="flex items-center justify-between gap-4 flex-wrap">
+                <h2 className="text-lg font-semibold text-gray-900">
+                  Solution Brief
+                </h2>
+                <ShowAllToggle
+                  onToggle={toggleAllSections}
+                  allExpanded={allExpanded}
+                  className="mb-0"
+                  accentColor={pillarTheme.accent}
                 />
               </div>
+
+              {module.businessChallenge && (
+                <ExpandableSection
+                  title={
+                    module.businessChallenge.title ||
+                    'Business Challenge & Opportunity'
+                  }
+                  defaultExpanded={expandedSections.businessChallenge}
+                  onToggle={isExpanded =>
+                    handleSectionToggle('businessChallenge', isExpanded)
+                  }
+                  accentColor={pillarTheme.accent}
+                  className="bg-white shadow-sm"
+                >
+                  <BusinessChallengeContent
+                    challenge={module.businessChallenge}
+                  />
+                </ExpandableSection>
+              )}
+
+              {module.approach && (
+                <ExpandableSection
+                  title={module.approach.title || 'Our Approach & Methodology'}
+                  defaultExpanded={expandedSections.approach}
+                  onToggle={isExpanded =>
+                    handleSectionToggle('approach', isExpanded)
+                  }
+                  accentColor={pillarTheme.accent}
+                  className="bg-white shadow-sm"
+                >
+                  <ApproachContent approach={module.approach} />
+                </ExpandableSection>
+              )}
+
+              {module.expectedOutcomes && (
+                <ExpandableSection
+                  title={
+                    module.expectedOutcomes.title ||
+                    'Expected Outcomes & Success Metrics'
+                  }
+                  defaultExpanded={expandedSections.expectedOutcomes}
+                  onToggle={isExpanded =>
+                    handleSectionToggle('expectedOutcomes', isExpanded)
+                  }
+                  accentColor={pillarTheme.accent}
+                  className="bg-white shadow-sm"
+                >
+                  <ExpectedOutcomesContent outcomes={module.expectedOutcomes} />
+                </ExpandableSection>
+              )}
+
+              {module.implementation && (
+                <ExpandableSection
+                  title={
+                    module.implementation.title || 'Implementation Timeline'
+                  }
+                  defaultExpanded={expandedSections.implementation}
+                  onToggle={isExpanded =>
+                    handleSectionToggle('implementation', isExpanded)
+                  }
+                  accentColor={pillarTheme.accent}
+                  className="bg-white shadow-sm"
+                >
+                  <ImplementationContent
+                    implementation={module.implementation}
+                  />
+                </ExpandableSection>
+              )}
+
+              {module.caseStudy && (
+                <ExpandableSection
+                  title={module.caseStudy.title || 'Success Story'}
+                  defaultExpanded={expandedSections.caseStudy}
+                  onToggle={isExpanded =>
+                    handleSectionToggle('caseStudy', isExpanded)
+                  }
+                  accentColor={pillarTheme.accent}
+                  className="bg-white shadow-sm"
+                >
+                  <CaseStudyContent caseStudy={module.caseStudy} />
+                </ExpandableSection>
+              )}
+
+              <EngagementModels variants={module.variants} />
             </div>
+
+            <aside className="space-y-6">
+              {module.whoIsItFor && (
+                <div className="bg-white border border-gray-200 rounded-2xl shadow-sm p-6 space-y-3">
+                  <h3 className="text-sm font-semibold uppercase tracking-wide text-gray-500">
+                    Ideal Executive
+                  </h3>
+                  <p className="text-sm text-gray-700 leading-relaxed">
+                    {module.whoIsItFor}
+                  </p>
+                </div>
+              )}
+
+              {module.benefits && module.benefits.length > 0 && (
+                <div className="bg-white border border-gray-200 rounded-2xl shadow-sm p-6">
+                  <h3 className="text-sm font-semibold uppercase tracking-wide text-gray-500 mb-3">
+                    Strategic Benefits
+                  </h3>
+                  <ul className="space-y-2">
+                    {module.benefits.map((benefit, index) => (
+                      <li
+                        key={index}
+                        className="text-sm text-gray-800 leading-snug border-l-2 pl-3"
+                        style={{ borderColor: pillarTheme.accent }}
+                      >
+                        {benefit}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              )}
+
+              {module.executiveSummary && (
+                <div className="bg-white border border-gray-200 rounded-2xl shadow-sm p-6 space-y-3">
+                  <h3 className="text-sm font-semibold uppercase tracking-wide text-gray-500">
+                    Executive Snapshot
+                  </h3>
+                  <p className="text-sm text-gray-700 leading-relaxed">
+                    {module.executiveSummary}
+                  </p>
+                </div>
+              )}
+
+              {module.businessValue && (
+                <div className="bg-white border border-gray-200 rounded-2xl shadow-sm p-6 space-y-3">
+                  <h3 className="text-sm font-semibold uppercase tracking-wide text-gray-500">
+                    KPI Impact
+                  </h3>
+                  <p className="text-sm text-gray-700 leading-relaxed">
+                    {module.businessValue}
+                  </p>
+                </div>
+              )}
+            </aside>
           </div>
-
-          {/* Show All Toggle */}
-          <ShowAllToggle
-            onToggle={toggleAllSections}
-            allExpanded={allExpanded}
-          />
-
-          {/* Progressive Disclosure Sections */}
-          {module.businessChallenge && (
-            <ExpandableSection
-              title={
-                module.businessChallenge.title ||
-                'Business Challenge & Opportunity'
-              }
-              defaultExpanded={expandedSections.businessChallenge}
-              onToggle={isExpanded =>
-                handleSectionToggle('businessChallenge', isExpanded)
-              }
-            >
-              <BusinessChallengeContent challenge={module.businessChallenge} />
-            </ExpandableSection>
-          )}
-
-          {module.approach && (
-            <ExpandableSection
-              title={module.approach.title || 'Our Approach & Methodology'}
-              defaultExpanded={expandedSections.approach}
-              onToggle={isExpanded =>
-                handleSectionToggle('approach', isExpanded)
-              }
-            >
-              <ApproachContent approach={module.approach} />
-            </ExpandableSection>
-          )}
-
-          {module.expectedOutcomes && (
-            <ExpandableSection
-              title={
-                module.expectedOutcomes.title ||
-                'Expected Outcomes & Success Metrics'
-              }
-              defaultExpanded={expandedSections.expectedOutcomes}
-              onToggle={isExpanded =>
-                handleSectionToggle('expectedOutcomes', isExpanded)
-              }
-            >
-              <ExpectedOutcomesContent outcomes={module.expectedOutcomes} />
-            </ExpandableSection>
-          )}
-
-          {module.implementation && (
-            <ExpandableSection
-              title={module.implementation.title || 'Implementation Timeline'}
-              defaultExpanded={expandedSections.implementation}
-              onToggle={isExpanded =>
-                handleSectionToggle('implementation', isExpanded)
-              }
-            >
-              <ImplementationContent implementation={module.implementation} />
-            </ExpandableSection>
-          )}
-
-          {module.caseStudy && (
-            <ExpandableSection
-              title={module.caseStudy.title || 'Success Story'}
-              defaultExpanded={expandedSections.caseStudy}
-              onToggle={isExpanded =>
-                handleSectionToggle('caseStudy', isExpanded)
-              }
-            >
-              <CaseStudyContent caseStudy={module.caseStudy} />
-            </ExpandableSection>
-          )}
-
-          {/* Engagement Models - Always Visible */}
-          <EngagementModels variants={module.variants} />
         </div>
       </div>
     );

@@ -160,7 +160,9 @@ describe('ModuleDetailPage Browser Navigation', () => {
     });
 
     // Click back button - it's in the solution brief, not the mock
-    const backButton = screen.getByText('← Back to Modules');
+    const backButton = screen.getByRole('button', {
+      name: /back to modules/i,
+    });
     fireEvent.click(backButton);
 
     // Should call window.history.back when history is available
@@ -186,7 +188,9 @@ describe('ModuleDetailPage Browser Navigation', () => {
     });
 
     // Click back button - should navigate to /modules instead of using history.back
-    const backButton = screen.getByText('← Back to Modules');
+    const backButton = screen.getByRole('button', {
+      name: /back to modules/i,
+    });
     fireEvent.click(backButton);
 
     // Should not call window.history.back when no history
@@ -290,7 +294,9 @@ describe('ModuleDetailPage Navigation State', () => {
     });
 
     // Component should still work without location state
-    const backButton = screen.getByText('← Back to Modules');
+    const backButton = screen.getByRole('button', {
+      name: /back to modules/i,
+    });
     expect(backButton).toBeInTheDocument();
   });
 });
