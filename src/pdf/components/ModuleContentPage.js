@@ -734,13 +734,13 @@ const ModuleContentPage = ({
                               {getText(
                                 variantDef?.description || variant.description
                               ) || 'No description available.'}
-                              {variant.isFlexible && (
+                              {variant.isFlexible ? (
                                 <Text style={{ fontStyle: 'italic' }}>
                                   {' '}
                                   Flexible EVC bandwidth starting from{' '}
                                   {variant.minEvcPerWeek || 2} EVCs per week.
                                 </Text>
-                              )}
+                              ) : null}
                             </Text>
                           </View>
 
