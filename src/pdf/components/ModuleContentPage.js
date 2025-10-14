@@ -9,21 +9,7 @@ import { getPillarColor } from '../utils/colors';
 
 // Helper function to determine journey stage based on module configuration
 const determineJourneyStage = module => {
-  // Get the journey stage from modulesConfig based on the module's primaryJourneyStage
-  const journeyStageId = module.primaryJourneyStage || 'journey-stage-3'; // Default to Build if not defined
-  const stageDefinition = modulesConfig.journeyStages.find(
-    stage => stage.id === journeyStageId
-  );
-
-  if (stageDefinition) {
-    return {
-      id: stageDefinition.id,
-      title: stageDefinition.title,
-      description: stageDefinition.description,
-    };
-  }
-
-  // Fallback to default mapping if not found in config
+  // Fallback to default mapping based on category
   if (module.category === 'Strategic Assessment')
     return {
       id: 'journey-stage-1',
