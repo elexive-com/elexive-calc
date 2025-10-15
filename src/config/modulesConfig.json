@@ -53,7 +53,7 @@
         "Organizational Alignment"
       ],
       "callToAction": "Begin with clarity before your transformation journey",
-      "whoIsItFor": "Leaders seeking to understand their starting point before embarking on strategic transformation initiatives.",
+      "whoIsItFor": "You're seeking clarity on your starting point before embarking on strategic transformation.",
       "icon": "faMap",
       "singleSizeOnly": true,
       "variants": [
@@ -110,7 +110,7 @@
         "Agile Leadership Mindset"
       ],
       "callToAction": "Let's talk Leadership Today",
-      "whoIsItFor": "Change-makers who are ready to turn big ideas into real actions without confusion or burnout.",
+      "whoIsItFor": "You're ready to turn big ideas into real actions without confusion or burnout.",
       "icon": "faCheck",
       "variants": [
         {
@@ -223,7 +223,7 @@
         "Accountability and Trust"
       ],
       "callToAction": "Let's talk Leadership Today",
-      "whoIsItFor": "Leaders looking to ignite motivation, inspire teams, and get everyone moving together.",
+      "whoIsItFor": "You're looking to ignite motivation, inspire your team, and get everyone moving together.",
       "icon": "faPuzzlePiece",
       "variants": [
         {
@@ -336,7 +336,7 @@
         "Future-proof Your Leadership"
       ],
       "callToAction": "Let's talk Leadership Today",
-      "whoIsItFor": "Forward-thinking leaders excited to use AI to elevate their decisions and sharpen their edge.",
+      "whoIsItFor": "You're excited to use AI to elevate your decisions and sharpen your competitive edge.",
       "icon": "faRobot",
       "variants": [
         {
@@ -406,7 +406,7 @@
         "Culture of Belonging"
       ],
       "callToAction": "Let's talk Leadership Today",
-      "whoIsItFor": "People-focused leaders determined to build a workplace employees want to advocate for.",
+      "whoIsItFor": "You're determined to build a workplace your employees want to advocate for.",
       "icon": "faUsers",
       "variants": [
         {
@@ -476,7 +476,7 @@
         "Future-proof Your Business"
       ],
       "callToAction": "Shape the future with fearless decision-making.",
-      "whoIsItFor": "Visionaries who want to clearly define what's next and inspire others to follow.",
+      "whoIsItFor": "You want to clearly define what's next and inspire others to follow.",
       "icon": "faChartLine",
       "variants": [
         {
@@ -546,7 +546,7 @@
         "Lead Transformational Change"
       ],
       "callToAction": "Stay sharp, adapt fast, and thrive in uncertainty.",
-      "whoIsItFor": "Leaders navigating unpredictable environments who need quick pivots and steady nerves.",
+      "whoIsItFor": "You're navigating unpredictable environments and need quick pivots with steady nerves.",
       "icon": "faArrowRight",
       "variants": [
         {
@@ -616,7 +616,7 @@
         "Grow Customer Value"
       ],
       "callToAction": "Charge right, grow fast, and maximize revenue.",
-      "whoIsItFor": "Leaders who sense they could charge more, sell smarter, or create new income streams.",
+      "whoIsItFor": "You sense you could charge more, sell smarter, or create new income streams.",
       "icon": "faMoneyBillWave",
       "variants": [
         {
@@ -686,7 +686,7 @@
         "Build Competitive Edge"
       ],
       "callToAction": "Make customers your strategy's secret weapon.",
-      "whoIsItFor": "Leaders who deeply care about understanding their customers and want every strategy to reflect that.",
+      "whoIsItFor": "You deeply care about understanding your customers and want every strategy to reflect that.",
       "icon": "faUsers",
       "variants": [
         {
@@ -756,7 +756,7 @@
         "Uncertainty to Opportunity"
       ],
       "callToAction": "Spot market shifts early and stay ahead.",
-      "whoIsItFor": "Leaders who want to see around corners, predict trends, and lead proactively.",
+      "whoIsItFor": "You want to see around corners, predict trends, and lead proactively.",
       "icon": "faChartLine",
       "variants": [
         {
@@ -826,7 +826,7 @@
         "Future-Proof Business Growth"
       ],
       "callToAction": "Reinvent your business before the market forces you to.",
-      "whoIsItFor": "Innovators ready to reinvent their business and outsmart industry disruptions.",
+      "whoIsItFor": "You're ready to reinvent your business and outsmart industry disruptions.",
       "icon": "faPuzzlePiece",
       "variants": [
         {
@@ -896,7 +896,7 @@
         "Validate Technical Approach Before Full Investment"
       ],
       "callToAction": "Start with business value, then prototype the right AI solution",
-      "whoIsItFor": "Strategic leaders who need to identify where AI can genuinely impact their business performance and prototype comprehensive solutions that integrate appropriate technology approaches with business processes and organizational capabilities.",
+      "whoIsItFor": "You need to identify where AI can genuinely impact your business and prototype solutions before full investment.",
       "icon": "faChartLine",
       "variants": [
         {
@@ -966,7 +966,7 @@
         "Sustain Competitive Differentiation"
       ],
       "callToAction": "Build iconic brands known for quality, leadership, and premium pricing",
-      "whoIsItFor": "Leaders aiming to build iconic brands known for quality, leadership, and premium pricing.",
+      "whoIsItFor": "You're aiming to build an iconic brand known for quality, leadership, and premium pricing.",
       "icon": "faBullseye",
       "variants": [
         {
@@ -1036,7 +1036,7 @@
         "Use AI responsibly"
       ],
       "callToAction": "Put AI to work and make smarter moves today.",
-      "whoIsItFor": "Leaders ready to see immediate impact by putting AI into daily workflows.",
+      "whoIsItFor": "You're ready to see impact by putting AI into your daily workflows.",
       "icon": "faRobot",
       "variants": [
         {
@@ -1105,7 +1105,7 @@
         "Make compliance seamless"
       ],
       "callToAction": "Lock down security before a cyber threat hits.",
-      "whoIsItFor": "Leaders determined to protect their teams and customers without constant worry about cybersecurity.",
+      "whoIsItFor": "You're determined to protect your team and customers without constant worry about cybersecurity.",
       "icon": "faShieldAlt",
       "variants": [
         {
@@ -1175,7 +1175,7 @@
         "Prevent revenue loss"
       ],
       "callToAction": "Keep your business online, no matter what.",
-      "whoIsItFor": "Leaders committed to keeping business running smoothly, even during disruptions.",
+      "whoIsItFor": "You're committed to keeping your business running smoothly, even during disruptions.",
       "icon": "faShieldAlt",
       "variants": [
         {
@@ -1245,7 +1245,7 @@
         "Enable real-time processing"
       ],
       "callToAction": "Scale with secure, flexible cloud systems.",
-      "whoIsItFor": "Leaders looking to flexibly scale their technology to support growth anywhere in the world.",
+      "whoIsItFor": "You're looking to flexibly scale your technology to support growth anywhere in the world.",
       "icon": "faCloud",
       "variants": [
         {
@@ -1315,7 +1315,7 @@
         "Improve data security & compliance"
       ],
       "callToAction": "Turn data into decisions that drive results.",
-      "whoIsItFor": "Leaders seeking trustworthy data insights to make confident, informed decisions.",
+      "whoIsItFor": "You're seeking trustworthy data insights to make confident, informed decisions.",
       "icon": "faDatabase",
       "variants": [
         {
@@ -1385,7 +1385,7 @@
         "Scale technology innovation effectively"
       ],
       "callToAction": "Turn emerging tech into real business impact.",
-      "whoIsItFor": "Creative leaders eager to move from inspiring ideas to real-world innovation.",
+      "whoIsItFor": "You're eager to move from inspiring ideas to real-world innovation.",
       "icon": "faGears",
       "variants": [
         {
@@ -1455,7 +1455,7 @@
         "Immediate Personal Productivity Boost"
       ],
       "callToAction": "Upgrade your leadership with AI in one day",
-      "whoIsItFor": "Executives, founders, and senior managers who want to make better decisions, faster—with AI as a thinking partner.",
+      "whoIsItFor": "You want to make better decisions faster—with AI as a thinking partner.",
       "icon": "faRobot",
       "singleSizeOnly": true,
       "variants": [
@@ -1513,7 +1513,7 @@
         "Stronger Influence with Stakeholders"
       ],
       "callToAction": "Tell stories that move strategy forward",
-      "whoIsItFor": "Leaders presenting to boards, exec teams, investors, or cross-functional stakeholders.",
+      "whoIsItFor": "You're presenting to boards, exec teams, investors, or cross-functional stakeholders.",
       "icon": "faBullhorn",
       "singleSizeOnly": true,
       "variants": [
@@ -1571,7 +1571,7 @@
         "Scalable, Low-Friction Implementation"
       ],
       "callToAction": "Level up your culture—one ritual at a time",
-      "whoIsItFor": "People-first leaders seeking modern, practical ways to boost feedback and trust without HR bloat.",
+      "whoIsItFor": "You're seeking modern, practical ways to boost feedback and trust without HR bloat.",
       "icon": "faComments",
       "singleSizeOnly": true,
       "variants": [
