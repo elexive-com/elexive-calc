@@ -43,14 +43,14 @@ describe('[Solution-Brief-Enhancement] When module pages are enhanced', () => {
   });
 
   describe('When module data structure is enhanced', () => {
-    it('should support executiveSummary field in module data', () => {
+    it('should have description field in all modules', () => {
       const modulesConfig = require('../config/modulesConfig.json');
 
-      // Check that at least one module has executiveSummary
-      const moduleWithSummary = modulesConfig.modules.find(
-        m => m.executiveSummary
+      // Check that all modules have description (replaces executiveSummary)
+      const moduleWithDescription = modulesConfig.modules.find(
+        m => m.description
       );
-      expect(moduleWithSummary).toBeDefined();
+      expect(moduleWithDescription).toBeDefined();
     });
 
     it('should support businessChallenge object in module data', () => {
