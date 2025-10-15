@@ -21,7 +21,7 @@
           "description": "Focused guidance with minimal hands-on execution"
         },
         "standard": {
-          "multiplier": 1.0,
+          "multiplier": 1,
           "description": "Balanced approach with strategic guidance and implementation support"
         },
         "intensive": {
@@ -92,11 +92,6 @@
           "Strategic transformation roadmap with prioritized initiatives",
           "Stakeholder alignment on transformation priorities and approach"
         ],
-        "metrics": [
-          "100% stakeholder alignment on current state assessment",
-          "Clear prioritization of top 3-5 transformation initiatives",
-          "Defined success metrics for each transformation area"
-        ],
         "timeline": "Results visible within 2-4 weeks with immediate strategic clarity"
       }
     },
@@ -133,7 +128,6 @@
           "type": "Integrated Execution",
           "isFlexible": true,
           "minEvcPerWeek": 2,
-
           "recommendedEvcPerWeek": 10,
           "description": "Continuous delivery with flexible EVC bandwidth based on your needs and capacity",
           "scalingFactors": [
@@ -146,7 +140,7 @@
       ],
       "id": "leading-change",
       "executiveSummary": "Transform organizational agility and leadership effectiveness to drive sustainable competitive advantage through structured change management frameworks.",
-      "businessValue": "3-5x faster decision-making, 40% improvement in team alignment, measurable revenue impact within 12-18 months",
+      "businessValue": "Faster decision-making, improved team alignment, measurable revenue impact",
       "businessChallenge": {
         "title": "Business Challenge & Opportunity",
         "problem": "Organizations struggle with change fatigue, misaligned teams, and leaders who lack frameworks for navigating complex transformations effectively.",
@@ -165,11 +159,6 @@
           "Leadership team aligned on transformation priorities and execution approach",
           "Measurable improvement in organizational agility and decision-making speed",
           "Sustainable change capability embedded throughout the organization"
-        ],
-        "metrics": [
-          "40% reduction in decision-making cycle time",
-          "3x improvement in change initiative success rate",
-          "25% increase in employee engagement scores"
         ],
         "timeline": "Initial results visible within 4-6 weeks, full transformation impact realized in 6-12 months"
       },
@@ -251,7 +240,6 @@
           "type": "Integrated Execution",
           "isFlexible": true,
           "minEvcPerWeek": 2,
-
           "recommendedEvcPerWeek": 10,
           "description": "Continuous delivery with flexible EVC bandwidth based on your needs and capacity",
           "scalingFactors": [
@@ -283,11 +271,6 @@
           "Leadership team demonstrating consistent high-performance behaviors",
           "Clear accountability systems driving execution excellence",
           "Measurable improvement in team performance and engagement"
-        ],
-        "metrics": [
-          "25% improvement in team performance metrics",
-          "40% increase in leadership effectiveness scores",
-          "30% reduction in execution gaps and missed commitments"
         ],
         "timeline": "Leadership behavior changes visible within 4 weeks, full culture transformation realized in 4-6 months"
       },
@@ -369,7 +352,6 @@
           "type": "Integrated Execution",
           "isFlexible": true,
           "minEvcPerWeek": 2,
-
           "recommendedEvcPerWeek": 10,
           "description": "Continuous delivery with flexible EVC bandwidth based on your needs and capacity",
           "scalingFactors": [
@@ -382,7 +364,7 @@
       ],
       "id": "ai-augmented-leadership",
       "executiveSummary": "Integrate AI capabilities into leadership decision-making to amplify human intuition, accelerate strategic thinking, and maintain competitive advantage in an AI-driven business landscape.",
-      "businessValue": "50% faster strategic decision-making, 30% improvement in decision quality, enhanced competitive positioning through AI-augmented leadership capabilities",
+      "businessValue": "Faster strategic decision-making, improved decision quality, enhanced competitive positioning through AI-augmented leadership capabilities",
       "businessChallenge": {
         "title": "Business Challenge & Opportunity",
         "problem": "Leaders struggle to effectively integrate AI into their decision-making processes, missing opportunities for enhanced strategic thinking and competitive advantage.",
@@ -402,12 +384,6 @@
           "Effective AI tool integration in leadership workflows",
           "Improved competitive intelligence and market responsiveness",
           "Responsible AI governance and ethical decision frameworks"
-        ],
-        "metrics": [
-          "50% reduction in strategic decision cycle time",
-          "30% improvement in decision outcome quality scores",
-          "25% increase in market opportunity identification",
-          "100% leadership team AI literacy achievement"
         ],
         "timeline": "AI leadership capabilities developed within 2-3 months with sustained improvement over 6-12 months"
       }
@@ -445,7 +421,6 @@
           "type": "Integrated Execution",
           "isFlexible": true,
           "minEvcPerWeek": 2,
-
           "recommendedEvcPerWeek": 10,
           "description": "Continuous delivery with flexible EVC bandwidth based on your needs and capacity",
           "scalingFactors": [
@@ -458,7 +433,7 @@
       ],
       "id": "culture-power",
       "executiveSummary": "Build an inspiring workplace culture that attracts top talent, accelerates employee development, and creates sustainable competitive advantage through engaged, high-performing teams.",
-      "businessValue": "40% improvement in employee retention, 35% increase in team engagement, 25% faster talent development, measurable culture transformation within 6 months",
+      "businessValue": "Improved employee retention, increased team engagement, faster talent development, measurable culture transformation",
       "businessChallenge": {
         "title": "Business Challenge & Opportunity",
         "problem": "Organizations struggle to create workplace cultures that attract and retain top talent, leading to high turnover, low engagement, and missed growth opportunities.",
@@ -478,12 +453,6 @@
           "Enhanced talent development and career progression systems",
           "Stronger workplace culture and sense of belonging",
           "Increased team engagement and productivity"
-        ],
-        "metrics": [
-          "40% improvement in employee retention rates",
-          "35% increase in employee engagement scores",
-          "25% faster internal promotion and development cycles",
-          "50% improvement in workplace culture survey results"
         ],
         "timeline": "Culture improvements visible within 3-4 months with sustained transformation over 12-18 months"
       }
@@ -521,7 +490,6 @@
           "type": "Integrated Execution",
           "isFlexible": true,
           "minEvcPerWeek": 2,
-
           "recommendedEvcPerWeek": 10,
           "description": "Continuous delivery with flexible EVC bandwidth based on your needs and capacity",
           "scalingFactors": [
@@ -534,7 +502,7 @@
       ],
       "id": "strategic-leadership",
       "executiveSummary": "Develop visionary leadership capabilities that anticipate market shifts, drive innovation, and make strategic decisions that position your organization for long-term success.",
-      "businessValue": "40% improvement in strategic decision quality, 3x faster innovation cycles, enhanced competitive positioning within 6-12 months",
+      "businessValue": "Improved strategic decision quality, faster innovation cycles, enhanced competitive positioning",
       "businessChallenge": {
         "title": "Business Challenge & Opportunity",
         "problem": "Many leaders get trapped in operational thinking, missing strategic opportunities and failing to position their organizations for future success.",
@@ -554,12 +522,6 @@
           "Improved innovation pipeline and execution capabilities",
           "Stronger competitive positioning and market anticipation",
           "Increased organizational agility and adaptability"
-        ],
-        "metrics": [
-          "40% improvement in strategic decision quality scores",
-          "3x increase in innovation project success rate",
-          "25% faster response to market opportunities",
-          "Measurable improvement in competitive positioning metrics"
         ],
         "timeline": "Strategic leadership transformation visible within 3-6 months with sustained impact over 12-18 months"
       }
@@ -597,7 +559,6 @@
           "type": "Integrated Execution",
           "isFlexible": true,
           "minEvcPerWeek": 2,
-
           "recommendedEvcPerWeek": 10,
           "description": "Continuous delivery with flexible EVC bandwidth based on your needs and capacity",
           "scalingFactors": [
@@ -610,7 +571,7 @@
       ],
       "id": "executive-agility",
       "executiveSummary": "Develop adaptive leadership capabilities that enable executives to thrive in uncertainty, make rapid strategic pivots, and lead organizations through complex change with confidence and resilience.",
-      "businessValue": "60% faster adaptation to market changes, 45% improvement in crisis response effectiveness, enhanced organizational resilience and competitive agility",
+      "businessValue": "Faster adaptation to market changes, improved crisis response effectiveness, enhanced organizational resilience and competitive agility",
       "businessChallenge": {
         "title": "Business Challenge & Opportunity",
         "problem": "Executives struggle to maintain effectiveness in rapidly changing environments, leading to delayed responses, missed opportunities, and organizational stress during transitions.",
@@ -630,12 +591,6 @@
           "Faster strategic decision-making and pivot capabilities",
           "Improved crisis response and change management effectiveness",
           "Stronger organizational resilience and adaptability"
-        ],
-        "metrics": [
-          "60% faster response time to market changes",
-          "45% improvement in crisis management effectiveness",
-          "35% increase in successful strategic pivot execution",
-          "50% improvement in team confidence during uncertainty"
         ],
         "timeline": "Agility improvements visible within 6-8 weeks with sustained capability development over 6-12 months"
       }
@@ -673,7 +628,6 @@
           "type": "Integrated Execution",
           "isFlexible": true,
           "minEvcPerWeek": 2,
-
           "recommendedEvcPerWeek": 10,
           "description": "Continuous delivery with flexible EVC bandwidth based on your needs and capacity",
           "scalingFactors": [
@@ -686,7 +640,7 @@
       ],
       "id": "revenue-levers",
       "executiveSummary": "Optimize pricing strategies and unlock new revenue streams through data-driven insights, innovative business models, and strategic monetization frameworks that maximize growth potential.",
-      "businessValue": "15-25% revenue increase, improved pricing confidence, new revenue stream identification, enhanced competitive positioning through strategic pricing",
+      "businessValue": "Revenue increase potential, improved pricing confidence, new revenue stream identification, enhanced competitive positioning through strategic pricing",
       "businessChallenge": {
         "title": "Business Challenge & Opportunity",
         "problem": "Organizations often undervalue their offerings and miss revenue opportunities due to outdated pricing models, lack of market insights, and limited monetization strategies.",
@@ -706,12 +660,6 @@
           "New revenue stream identification and development",
           "Enhanced competitive positioning and market confidence",
           "Improved revenue predictability and growth trajectory"
-        ],
-        "metrics": [
-          "15-25% increase in revenue within 6-12 months",
-          "20-30% improvement in pricing confidence and market positioning",
-          "2-3 new revenue streams identified and validated",
-          "10-15% improvement in customer lifetime value"
         ],
         "timeline": "Revenue improvements visible within 2-3 months with sustained growth over 12-18 months"
       }
@@ -749,7 +697,6 @@
           "type": "Integrated Execution",
           "isFlexible": true,
           "minEvcPerWeek": 2,
-
           "recommendedEvcPerWeek": 10,
           "description": "Continuous delivery with flexible EVC bandwidth based on your needs and capacity",
           "scalingFactors": [
@@ -762,7 +709,7 @@
       ],
       "id": "customer-centricity",
       "executiveSummary": "Embed customer-first thinking into business strategy and operations to drive loyalty, innovation, and sustainable competitive advantage through deep customer understanding and experience optimization.",
-      "businessValue": "30% improvement in customer satisfaction, 25% increase in customer lifetime value, enhanced market positioning through customer-led innovation",
+      "businessValue": "Improved customer satisfaction, increased customer lifetime value, enhanced market positioning through customer-led innovation",
       "businessChallenge": {
         "title": "Business Challenge & Opportunity",
         "problem": "Organizations often develop strategies based on internal assumptions rather than genuine customer insights, leading to misaligned offerings and missed market opportunities.",
@@ -782,12 +729,6 @@
           "Enhanced customer experience and satisfaction",
           "Customer-driven innovation and product development",
           "Stronger market positioning and competitive advantage"
-        ],
-        "metrics": [
-          "30% improvement in customer satisfaction scores",
-          "25% increase in customer lifetime value",
-          "40% improvement in customer retention rates",
-          "20% increase in customer-driven innovation success"
         ],
         "timeline": "Customer experience improvements visible within 2-3 months with strategic transformation over 6-12 months"
       }
@@ -825,7 +766,6 @@
           "type": "Integrated Execution",
           "isFlexible": true,
           "minEvcPerWeek": 2,
-
           "recommendedEvcPerWeek": 10,
           "description": "Continuous delivery with flexible EVC bandwidth based on your needs and capacity",
           "scalingFactors": [
@@ -838,7 +778,7 @@
       ],
       "id": "strategic-foresight",
       "executiveSummary": "Develop strategic foresight capabilities to anticipate market disruptions, identify emerging opportunities, and position your organization ahead of industry changes through predictive intelligence and scenario planning.",
-      "businessValue": "50% faster response to market changes, 3x better opportunity identification, enhanced competitive positioning through predictive strategic planning",
+      "businessValue": "Faster response to market changes, better opportunity identification, enhanced competitive positioning through predictive strategic planning",
       "businessChallenge": {
         "title": "Business Challenge & Opportunity",
         "problem": "Organizations often react to market changes rather than anticipating them, missing opportunities and struggling to maintain competitive advantage in rapidly evolving markets.",
@@ -858,12 +798,6 @@
           "Improved strategic positioning and competitive advantage",
           "Better opportunity identification and market timing",
           "Increased organizational adaptability and resilience"
-        ],
-        "metrics": [
-          "50% faster response time to market opportunities",
-          "3x improvement in early opportunity identification",
-          "40% better strategic decision timing and positioning",
-          "25% increase in successful strategic initiative outcomes"
         ],
         "timeline": "Foresight capabilities developed within 3-4 months with sustained strategic advantage over 12-24 months"
       }
@@ -901,7 +835,6 @@
           "type": "Integrated Execution",
           "isFlexible": true,
           "minEvcPerWeek": 2,
-
           "recommendedEvcPerWeek": 10,
           "description": "Continuous delivery with flexible EVC bandwidth based on your needs and capacity",
           "scalingFactors": [
@@ -914,7 +847,7 @@
       ],
       "id": "model-shift",
       "executiveSummary": "Reinvent and adapt business models to capture new opportunities, optimize revenue streams, and ensure sustainable competitive advantage in evolving markets.",
-      "businessValue": "25-50% revenue growth through new models, improved operational efficiency, enhanced market positioning and future-ready business architecture",
+      "businessValue": "Revenue growth potential through new models, improved operational efficiency, enhanced market positioning and future-ready business architecture",
       "businessChallenge": {
         "title": "Business Challenge & Opportunity",
         "problem": "Traditional business models become obsolete as markets evolve, leaving organizations vulnerable to disruption and missing growth opportunities.",
@@ -934,12 +867,6 @@
           "New revenue streams and monetization strategies",
           "Enhanced operational efficiency and cost structure",
           "Future-ready business architecture and capabilities"
-        ],
-        "metrics": [
-          "25-50% revenue growth through model optimization",
-          "30% improvement in operational efficiency",
-          "2-3 new revenue streams identified and launched",
-          "40% better market positioning and competitive advantage"
         ],
         "timeline": "Business model improvements visible within 3-6 months with full transformation over 12-18 months"
       }
@@ -977,7 +904,6 @@
           "type": "Integrated Execution",
           "isFlexible": true,
           "minEvcPerWeek": 2,
-
           "recommendedEvcPerWeek": 10,
           "description": "Continuous delivery with flexible EVC bandwidth based on your needs and capacity",
           "scalingFactors": [
@@ -990,7 +916,7 @@
       ],
       "id": "pragmatic-ai",
       "executiveSummary": "Identify high-impact AI opportunities and develop practical implementation strategies that deliver measurable business value through strategic AI integration and solution prototyping.",
-      "businessValue": "20-30% operational efficiency gains, accelerated decision-making, reduced costs, and competitive advantage through strategic AI implementation",
+      "businessValue": "Operational efficiency gains, accelerated decision-making, reduced costs, and competitive advantage through strategic AI implementation",
       "businessChallenge": {
         "title": "Business Challenge & Opportunity",
         "problem": "Organizations struggle to identify where AI can create genuine business value and often invest in AI solutions without clear strategic alignment or measurable outcomes.",
@@ -1010,12 +936,6 @@
           "Validated AI use cases with measurable business impact",
           "Practical implementation roadmap with risk mitigation",
           "Enhanced operational efficiency and decision-making capabilities"
-        ],
-        "metrics": [
-          "20-30% improvement in targeted operational processes",
-          "3-5 validated AI use cases with clear ROI",
-          "50% faster decision-making in AI-enhanced processes",
-          "25% reduction in operational costs through AI optimization"
         ],
         "timeline": "AI strategy and use cases developed within 4-6 weeks with implementation results visible within 3-6 months"
       }
@@ -1053,7 +973,6 @@
           "type": "Integrated Execution",
           "isFlexible": true,
           "minEvcPerWeek": 2,
-
           "recommendedEvcPerWeek": 10,
           "description": "Continuous delivery with flexible EVC bandwidth based on your needs and capacity",
           "scalingFactors": [
@@ -1066,7 +985,7 @@
       ],
       "id": "brand-power",
       "executiveSummary": "Build iconic brand equity that commands premium pricing, establishes market leadership, and creates sustainable competitive differentiation through strategic brand positioning and value creation.",
-      "businessValue": "20-40% premium pricing capability, enhanced market positioning, stronger customer loyalty, measurable brand equity growth within 12 months",
+      "businessValue": "Premium pricing capability, enhanced market positioning, stronger customer loyalty, measurable brand equity growth",
       "businessChallenge": {
         "title": "Business Challenge & Opportunity",
         "problem": "Organizations struggle to build strong brand equity and often compete on price rather than value, limiting growth potential and market positioning.",
@@ -1086,12 +1005,6 @@
           "Premium pricing capability and improved margins",
           "Stronger competitive differentiation and positioning",
           "Increased customer loyalty and brand advocacy"
-        ],
-        "metrics": [
-          "20-40% improvement in pricing power and margins",
-          "35% increase in brand recognition and recall",
-          "30% improvement in customer loyalty scores",
-          "25% increase in market share within target segments"
         ],
         "timeline": "Brand positioning improvements visible within 3-6 months with sustained equity growth over 12-24 months"
       }
@@ -1129,7 +1042,6 @@
           "type": "Integrated Execution",
           "isFlexible": true,
           "minEvcPerWeek": 2,
-
           "recommendedEvcPerWeek": 10,
           "description": "Continuous delivery with flexible EVC bandwidth based on your needs and capacity",
           "scalingFactors": [
@@ -1142,7 +1054,7 @@
       ],
       "id": "ai-impact",
       "executiveSummary": "Transform your business operations with practical AI implementation that delivers immediate value and competitive advantage.",
-      "businessValue": "30-50% efficiency gains, automated decision-making, reduced operational costs within 3-6 months",
+      "businessValue": "Efficiency gains, automated decision-making, reduced operational costs",
       "businessChallenge": {
         "title": "Business Challenge & Opportunity",
         "problem": "Organizations struggle to move beyond AI hype to practical implementation that delivers real business value and ROI.",
@@ -1161,11 +1073,6 @@
           "Automated key business processes with 30-50% efficiency gains",
           "Enhanced decision-making capabilities with data-driven insights",
           "Scalable AI framework for continuous innovation and improvement"
-        ],
-        "metrics": [
-          "30-50% reduction in manual processing time",
-          "25% improvement in decision accuracy and speed",
-          "ROI positive within 3-6 months of implementation"
         ],
         "timeline": "Initial automation results within 4-6 weeks, full impact within 3-6 months"
       }
@@ -1203,7 +1110,6 @@
           "type": "Integrated Execution",
           "isFlexible": true,
           "minEvcPerWeek": 2,
-
           "recommendedEvcPerWeek": 10,
           "description": "Continuous delivery with flexible EVC bandwidth based on your needs and capacity",
           "scalingFactors": [
@@ -1216,7 +1122,7 @@
       ],
       "id": "digital-fortress",
       "executiveSummary": "Build comprehensive cybersecurity resilience that protects business operations, maintains customer trust, and ensures regulatory compliance through proactive security strategies and incident response capabilities.",
-      "businessValue": "90% reduction in security incidents, enhanced customer trust, regulatory compliance assurance, and protected revenue streams through robust cybersecurity",
+      "businessValue": "Reduction in security incidents, enhanced customer trust, regulatory compliance assurance, and protected revenue streams through robust cybersecurity",
       "businessChallenge": {
         "title": "Business Challenge & Opportunity",
         "problem": "Cyber threats pose significant risks to business continuity, customer trust, and regulatory compliance, with potential for devastating financial and reputational damage.",
@@ -1236,12 +1142,6 @@
           "Enhanced regulatory compliance and audit readiness",
           "Improved incident response and recovery capabilities",
           "Increased customer trust and business confidence"
-        ],
-        "metrics": [
-          "90% reduction in successful security incidents",
-          "100% regulatory compliance achievement",
-          "75% faster incident detection and response times",
-          "50% improvement in customer trust and confidence scores"
         ],
         "timeline": "Security improvements visible within 4-6 weeks with full fortress implementation over 3-6 months"
       }
@@ -1279,7 +1179,6 @@
           "type": "Integrated Execution",
           "isFlexible": true,
           "minEvcPerWeek": 2,
-
           "recommendedEvcPerWeek": 10,
           "description": "Continuous delivery with flexible EVC bandwidth based on your needs and capacity",
           "scalingFactors": [
@@ -1292,7 +1191,7 @@
       ],
       "id": "resilient-digital",
       "executiveSummary": "Ensure business continuity and operational resilience through robust digital infrastructure that prevents downtime, protects revenue, and maintains seamless operations during disruptions.",
-      "businessValue": "99.9% uptime achievement, protected revenue streams, enhanced operational resilience, and competitive advantage through reliable digital infrastructure",
+      "businessValue": "High uptime achievement, protected revenue streams, enhanced operational resilience, and competitive advantage through reliable digital infrastructure",
       "businessChallenge": {
         "title": "Business Challenge & Opportunity",
         "problem": "Digital disruptions and system failures can cause significant revenue loss, operational disruption, and damage to customer relationships and business reputation.",
@@ -1312,12 +1211,6 @@
           "Improved disaster recovery and business continuity",
           "Reduced operational risk and revenue protection",
           "Increased customer confidence and satisfaction"
-        ],
-        "metrics": [
-          "99.9% system uptime and availability achievement",
-          "90% reduction in system-related disruptions",
-          "75% faster recovery from incidents and outages",
-          "50% improvement in operational efficiency and reliability"
         ],
         "timeline": "Resilience improvements visible within 6-8 weeks with full implementation over 3-6 months"
       }
@@ -1355,7 +1248,6 @@
           "type": "Integrated Execution",
           "isFlexible": true,
           "minEvcPerWeek": 2,
-
           "recommendedEvcPerWeek": 10,
           "description": "Continuous delivery with flexible EVC bandwidth based on your needs and capacity",
           "scalingFactors": [
@@ -1368,7 +1260,7 @@
       ],
       "id": "distributed-cloud",
       "executiveSummary": "Build scalable, secure cloud infrastructure that enables global operations, optimizes costs, and provides the flexibility to innovate and grow without technical constraints.",
-      "businessValue": "40% reduction in infrastructure costs, enhanced scalability and performance, improved security posture, and accelerated innovation capabilities",
+      "businessValue": "Reduced infrastructure costs, enhanced scalability and performance, improved security posture, and accelerated innovation capabilities",
       "businessChallenge": {
         "title": "Business Challenge & Opportunity",
         "problem": "Organizations struggle with inflexible, costly IT infrastructure that limits growth, innovation, and global expansion while creating security and compliance risks.",
@@ -1388,12 +1280,6 @@
           "Enhanced security and compliance posture",
           "Improved performance and global accessibility",
           "Accelerated innovation and deployment capabilities"
-        ],
-        "metrics": [
-          "40% reduction in infrastructure costs",
-          "99.9% uptime and availability achievement",
-          "50% faster deployment and scaling capabilities",
-          "30% improvement in security and compliance scores"
         ],
         "timeline": "Cloud optimization visible within 6-8 weeks with full transformation over 3-6 months"
       }
@@ -1431,7 +1317,6 @@
           "type": "Integrated Execution",
           "isFlexible": true,
           "minEvcPerWeek": 2,
-
           "recommendedEvcPerWeek": 10,
           "description": "Continuous delivery with flexible EVC bandwidth based on your needs and capacity",
           "scalingFactors": [
@@ -1444,7 +1329,7 @@
       ],
       "id": "data-advantage",
       "executiveSummary": "Transform data into strategic advantage through robust analytics, governance frameworks, and decision-making systems that drive business intelligence and competitive insights.",
-      "businessValue": "50% improvement in decision quality, 30% faster insights generation, enhanced competitive intelligence, and data-driven growth acceleration",
+      "businessValue": "Improved decision quality, faster insights generation, enhanced competitive intelligence, and data-driven growth acceleration",
       "businessChallenge": {
         "title": "Business Challenge & Opportunity",
         "problem": "Organizations have vast amounts of data but struggle to extract actionable insights, make data-driven decisions, or maintain data quality and governance.",
@@ -1464,12 +1349,6 @@
           "Enhanced analytics capabilities and business intelligence",
           "Improved decision-making speed and accuracy",
           "Competitive advantage through data-driven insights"
-        ],
-        "metrics": [
-          "50% improvement in decision quality and speed",
-          "30% faster insights generation and reporting",
-          "90% improvement in data quality and reliability",
-          "25% increase in data-driven business outcomes"
         ],
         "timeline": "Data improvements visible within 4-6 weeks with full advantage realization over 6-12 months"
       }
@@ -1507,7 +1386,6 @@
           "type": "Integrated Execution",
           "isFlexible": true,
           "minEvcPerWeek": 2,
-
           "recommendedEvcPerWeek": 10,
           "description": "Continuous delivery with flexible EVC bandwidth based on your needs and capacity",
           "scalingFactors": [
@@ -1520,7 +1398,7 @@
       ],
       "id": "innovation-blueprint",
       "executiveSummary": "Develop systematic innovation capabilities that turn emerging technologies into competitive advantages through structured experimentation, rapid prototyping, and strategic technology adoption.",
-      "businessValue": "3x faster innovation cycles, 40% higher success rate for new initiatives, enhanced competitive positioning through technology leadership",
+      "businessValue": "Faster innovation cycles, higher success rate for new initiatives, enhanced competitive positioning through technology leadership",
       "businessChallenge": {
         "title": "Business Challenge & Opportunity",
         "problem": "Organizations struggle to systematically innovate and often miss opportunities to leverage emerging technologies for competitive advantage and growth.",
@@ -1540,12 +1418,6 @@
           "Enhanced capability to identify and leverage emerging technologies",
           "Faster innovation cycles and higher success rates",
           "Sustainable competitive advantage through technology leadership"
-        ],
-        "metrics": [
-          "3x faster innovation cycle times",
-          "40% higher success rate for innovation initiatives",
-          "50% improvement in technology adoption speed",
-          "25% increase in market-leading technology implementations"
         ],
         "timeline": "Innovation capabilities developed within 6-8 weeks with sustained technology leadership over 12-24 months"
       }
@@ -1583,7 +1455,7 @@
       ],
       "id": "genai-for-business-leaders",
       "executiveSummary": "Empower non-technical leaders to confidently leverage generative AI tools for enhanced decision-making, communication, and personal productivity without requiring technical expertise.",
-      "businessValue": "50% faster decision-making, 40% improvement in communication quality, immediate productivity gains through practical AI tool integration",
+      "businessValue": "Faster decision-making, improved communication quality, immediate productivity gains through practical AI tool integration",
       "businessChallenge": {
         "title": "Business Challenge & Opportunity",
         "problem": "Many executives lack confidence in using AI tools effectively, missing opportunities to enhance their leadership capabilities and personal productivity.",
@@ -1603,12 +1475,6 @@
           "Enhanced decision-making speed and quality",
           "Improved communication and strategic thinking",
           "Immediate personal productivity improvements"
-        ],
-        "metrics": [
-          "50% faster decision-making and analysis",
-          "40% improvement in communication quality and clarity",
-          "2-3 hours per day productivity gains",
-          "100% leadership team AI tool adoption"
         ],
         "timeline": "Immediate productivity gains within 1 day with sustained improvement over 2-4 weeks"
       }
@@ -1646,7 +1512,7 @@
       ],
       "id": "strategic-storytelling",
       "executiveSummary": "Master strategic storytelling frameworks that transform business logic into compelling narratives that secure buy-in, drive decisions, and inspire action across all stakeholder levels.",
-      "businessValue": "60% improvement in stakeholder buy-in, 45% faster decision approval, enhanced executive influence and communication effectiveness",
+      "businessValue": "Improved stakeholder buy-in, faster decision approval, enhanced executive influence and communication effectiveness",
       "businessChallenge": {
         "title": "Business Challenge & Opportunity",
         "problem": "Leaders often struggle to communicate strategy effectively, relying on data and slides that fail to inspire action or secure stakeholder commitment.",
@@ -1666,12 +1532,6 @@
           "Improved stakeholder buy-in and decision approval rates",
           "Stronger executive presence and influence",
           "More effective board and investor communications"
-        ],
-        "metrics": [
-          "60% improvement in stakeholder buy-in rates",
-          "45% faster decision and approval cycles",
-          "50% increase in executive communication effectiveness",
-          "Measurable improvement in presentation impact scores"
         ],
         "timeline": "Immediate storytelling improvements with sustained mastery over 2-4 weeks of practice"
       }
@@ -1709,7 +1569,7 @@
       ],
       "id": "culture-feedback-rituals",
       "executiveSummary": "Implement scalable, continuous feedback systems that build psychological safety, accelerate team performance, and create a culture of trust and accountability without HR complexity.",
-      "businessValue": "40% improvement in team performance, 50% increase in psychological safety, enhanced accountability and trust through structured feedback rituals",
+      "businessValue": "Improved team performance, increased psychological safety, enhanced accountability and trust through structured feedback rituals",
       "businessChallenge": {
         "title": "Business Challenge & Opportunity",
         "problem": "Traditional annual feedback systems fail to build trust or drive performance, while leaders struggle to implement continuous feedback without creating bureaucracy.",
@@ -1729,12 +1589,6 @@
           "Enhanced psychological safety and trust",
           "Improved team performance and accountability",
           "Scalable feedback culture across the organization"
-        ],
-        "metrics": [
-          "40% improvement in team performance metrics",
-          "50% increase in psychological safety scores",
-          "80% team adoption of feedback rituals",
-          "30% improvement in peer accountability and trust"
         ],
         "timeline": "Feedback rituals implemented within 2-4 weeks with sustained culture impact over 3-6 months"
       }
