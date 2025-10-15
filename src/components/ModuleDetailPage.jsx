@@ -219,10 +219,7 @@ const ModuleDetailPage = () => {
 
   // Check if module has enhanced solution brief data
   const hasEnhancedData =
-    module.executiveSummary ||
-    module.businessChallenge ||
-    module.approach ||
-    module.expectedOutcomes;
+    module.businessChallenge || module.approach || module.expectedOutcomes;
 
   const pillarThemes = {
     Transformation: {
@@ -591,17 +588,6 @@ const ModuleDetailPage = () => {
                   </h3>
                   <p className="text-sm text-gray-700 leading-relaxed">
                     {module.whoIsItFor}
-                  </p>
-                </div>
-              )}
-
-              {module.executiveSummary && (
-                <div className="bg-white border border-gray-200 rounded-2xl shadow-sm p-6 space-y-3">
-                  <h3 className="text-sm font-semibold uppercase tracking-wide text-gray-500">
-                    Executive Snapshot
-                  </h3>
-                  <p className="text-sm text-gray-700 leading-relaxed">
-                    {module.executiveSummary}
                   </p>
                 </div>
               )}

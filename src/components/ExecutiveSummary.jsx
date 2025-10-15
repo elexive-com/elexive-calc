@@ -3,7 +3,7 @@ import React from 'react';
 /**
  * ExecutiveSummary Component
  *
- * Displays the executive summary and business value - always visible in solution brief
+ * Displays the module description and business value - always visible in solution brief
  */
 const ExecutiveSummary = ({ module }) => {
   if (!module) return null;
@@ -25,24 +25,13 @@ const ExecutiveSummary = ({ module }) => {
         </h2>
       </header>
 
-      {module.executiveSummary && (
+      {module.description && (
         <p className="text-base text-gray-800 leading-relaxed">
-          {module.executiveSummary}
+          {module.description}
         </p>
       )}
 
-      {module.description && (
-        <div className="space-y-2">
-          <h3 className="text-sm font-semibold text-gray-700 uppercase tracking-wide">
-            Opportunity Landscape
-          </h3>
-          <p className="text-base text-gray-700 leading-relaxed">
-            {module.description}
-          </p>
-        </div>
-      )}
-
-      {!module.executiveSummary && businessValueItems.length > 0 && (
+      {businessValueItems.length > 0 && (
         <div className="border border-gray-100 rounded-2xl bg-white p-5">
           <h3 className="text-sm font-semibold text-gray-700 uppercase tracking-wide mb-3">
             Expected Business Value
