@@ -42,15 +42,6 @@ const ExecutiveSummary = ({ module }) => {
         </div>
       )}
 
-      {module.fix && (
-        <div className="border border-gray-100 rounded-2xl bg-gray-50 p-5">
-          <h3 className="text-sm font-semibold text-gray-700 uppercase tracking-wide mb-2">
-            How Elexive unlocks value
-          </h3>
-          <p className="text-sm text-gray-700 leading-relaxed">{module.fix}</p>
-        </div>
-      )}
-
       {!module.executiveSummary && businessValueItems.length > 0 && (
         <div className="border border-gray-100 rounded-2xl bg-white p-5">
           <h3 className="text-sm font-semibold text-gray-700 uppercase tracking-wide mb-3">

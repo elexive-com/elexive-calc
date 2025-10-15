@@ -354,22 +354,6 @@ const ModuleDetailPage = () => {
           <section className="bg-white border border-gray-200 rounded-3xl shadow-sm overflow-hidden">
             <div className="flex flex-col lg:flex-row">
               <div className="flex-1 p-8 lg:p-10 flex flex-col gap-8">
-                <div className="flex flex-wrap items-center gap-3 text-sm font-medium">
-                  <span
-                    className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full"
-                    style={{
-                      backgroundColor: `${pillarTheme.accent}14`,
-                      color: pillarTheme.accent,
-                    }}
-                  >
-                    <FontAwesomeIcon icon={moduleIcon} className="h-3.5" />
-                    {module.pillar}
-                  </span>
-                  <span className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-gray-100 text-gray-700">
-                    {module.category}
-                  </span>
-                </div>
-
                 <header className="space-y-3">
                   <h1 className="text-3xl sm:text-4xl font-bold text-gray-900">
                     {module.name}
@@ -581,17 +565,6 @@ const ModuleDetailPage = () => {
             </div>
 
             <aside className="space-y-6">
-              {module.whoIsItFor && (
-                <div className="bg-white border border-gray-200 rounded-2xl shadow-sm p-6 space-y-3">
-                  <h3 className="text-sm font-semibold uppercase tracking-wide text-gray-500">
-                    Ideal Executive
-                  </h3>
-                  <p className="text-sm text-gray-700 leading-relaxed">
-                    {module.whoIsItFor}
-                  </p>
-                </div>
-              )}
-
               {module.benefits && module.benefits.length > 0 && (
                 <div className="bg-white border border-gray-200 rounded-2xl shadow-sm p-6">
                   <h3 className="text-sm font-semibold uppercase tracking-wide text-gray-500 mb-3">
@@ -611,6 +584,17 @@ const ModuleDetailPage = () => {
                 </div>
               )}
 
+              {module.whoIsItFor && (
+                <div className="bg-white border border-gray-200 rounded-2xl shadow-sm p-6 space-y-3">
+                  <h3 className="text-sm font-semibold uppercase tracking-wide text-gray-500">
+                    Ideal Executive
+                  </h3>
+                  <p className="text-sm text-gray-700 leading-relaxed">
+                    {module.whoIsItFor}
+                  </p>
+                </div>
+              )}
+
               {module.executiveSummary && (
                 <div className="bg-white border border-gray-200 rounded-2xl shadow-sm p-6 space-y-3">
                   <h3 className="text-sm font-semibold uppercase tracking-wide text-gray-500">
@@ -618,6 +602,17 @@ const ModuleDetailPage = () => {
                   </h3>
                   <p className="text-sm text-gray-700 leading-relaxed">
                     {module.executiveSummary}
+                  </p>
+                </div>
+              )}
+
+              {module.fix && (
+                <div className="bg-white border border-gray-200 rounded-2xl shadow-sm p-6 space-y-3">
+                  <h3 className="text-sm font-semibold uppercase tracking-wide text-gray-500">
+                    How Elexive Unlocks Value
+                  </h3>
+                  <p className="text-sm text-gray-700 leading-relaxed">
+                    {module.fix}
                   </p>
                 </div>
               )}
