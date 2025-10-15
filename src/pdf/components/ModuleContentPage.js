@@ -43,6 +43,25 @@ const pillarThemes = {
 
 const defaultTheme = pillarThemes.Discovery;
 
+const applyOpacity = (hex, alpha) => {
+  if (!hex || hex[0] !== '#') return hex;
+  let r;
+  let g;
+  let b;
+  if (hex.length === 4) {
+    r = parseInt(hex[1] + hex[1], 16);
+    g = parseInt(hex[2] + hex[2], 16);
+    b = parseInt(hex[3] + hex[3], 16);
+  } else if (hex.length === 7) {
+    r = parseInt(hex.slice(1, 3), 16);
+    g = parseInt(hex.slice(3, 5), 16);
+    b = parseInt(hex.slice(5, 7), 16);
+  } else {
+    return hex;
+  }
+  return `rgba(${r}, ${g}, ${b}, ${alpha})`;
+};
+
 // Footer rendered on each page
 const PageFooter = ({ formattedDate, pageNumber, totalPages }) => (
   <View style={footerStyles.container}>
@@ -422,6 +441,372 @@ const ModuleContentPage = ({
   };
   const implementation = moduleData.implementation || {};
   const caseStudy = moduleData.caseStudy || null;
+
+  if (!module && moduleName) {
+    const pages = [];
+
+    const addPage = sections => {
+      const filtered = sections.filter(Boolean);
+      if (filtered.length > 0) {
+        pages.push(filtered);
+      }
+    };
+
+    const heroSection = (
+      <View
+        key="hero"
+        style={[
+          standaloneStyles.hero,
+          {
+            borderColor: applyOpacity(theme.accent, 0.35),
+            backgroundColor: applyOpacity(theme.accent, 0.08),
+          },
+        ]}
+        wrap={false}
+      >
+        <View style={standaloneStyles.heroLeft}>
+          <Text style={[standaloneStyles.pillarLabel, { color: theme.accent }]}>
+            {moduleData.pillar}
+          </Text>
+          <Text style={standaloneStyles.heroTitle}>{moduleData.name}</Text>
+          {moduleData.heading && (
+            <Text style={standaloneStyles.heroHeading}>
+              {moduleData.heading}
+            </Text>
+          )}
+          {valueHeadlines.length > 0 && (
+            <View style={standaloneStyles.heroList}>
+              {valueHeadlines.map((headline, idx) => (
+                <View
+                  key={`headline-${idx}`}
+                  style={standaloneStyles.heroListItem}
+                >
+                  <Text style={standaloneStyles.heroBullet}>•</Text>
+                  <Text style={standaloneStyles.heroListText}>{headline}</Text>
+                </View>
+              ))}
+            </View>
+          )}
+          {quickFacts.length > 0 && (
+            <View style={standaloneStyles.quickFactGrid}>
+              {quickFacts.map((fact, idx) => (
+                <View key={`fact-${idx}`} style={standaloneStyles.quickFact}>
+                  <Text
+                    style={[
+                      standaloneStyles.quickFactLabel,
+                      { color: theme.accent },
+                    ]}
+                  >
+                    {fact.label}
+                  </Text>
+                  <Text style={standaloneStyles.quickFactValue}>
+                    {fact.value}
+                  </Text>
+                </View>
+              ))}
+            </View>
+          )}
+        </View>
+        <View style={standaloneStyles.heroRight}>
+          <View
+            style={[
+              standaloneStyles.heroIconWrap,
+              { borderColor: applyOpacity('#FFFFFF', 0.45) },
+            ]}
+          >
+            <Image src={moduleIconUrl} style={standaloneStyles.heroIcon} />
+          </View>
+          {moduleData.callToAction && (
+            <Text style={standaloneStyles.heroCTA}>
+              {moduleData.callToAction}
+            </Text>
+          )}
+        </View>
+      </View>
+    );
+
+    addPage([
+      heroSection,
+      moduleData.benefits && moduleData.benefits.length > 0 && (
+        <View key="benefits" style={standaloneStyles.card} wrap={false}>
+          <Text style={standaloneStyles.cardTitle}>Strategic Benefits</Text>
+          {renderList(moduleData.benefits)}
+        </View>
+      ),
+      (moduleData.executiveSummary || moduleData.description) && (
+        <View key="summary" style={standaloneStyles.card} wrap={false}>
+          <Text style={standaloneStyles.cardTitle}>Executive Summary</Text>
+          {moduleData.executiveSummary && (
+            <Text style={standaloneStyles.paragraph}>
+              {moduleData.executiveSummary}
+            </Text>
+          )}
+          {moduleData.description && (
+            <Text style={standaloneStyles.paragraph}>
+              {moduleData.description}
+            </Text>
+          )}
+        </View>
+      ),
+      moduleData.whoIsItFor && (
+        <View key="ideal-exec" style={standaloneStyles.card} wrap={false}>
+          <Text style={standaloneStyles.cardTitle}>Ideal Executive</Text>
+          <Text style={standaloneStyles.paragraph}>
+            {moduleData.whoIsItFor}
+          </Text>
+        </View>
+      ),
+    ]);
+
+    addPage([
+      (businessChallenge.problem ||
+        businessChallenge.opportunity ||
+        businessChallenge.marketContext) && (
+        <View key="challenge" style={standaloneStyles.card} wrap={false}>
+          <Text style={standaloneStyles.cardTitle}>
+            Business Challenge & Opportunity
+          </Text>
+          {businessChallenge.problem && (
+            <View style={standaloneStyles.subCard}>
+              <Text style={standaloneStyles.subTitle}>Core Challenge</Text>
+              <Text style={standaloneStyles.paragraph}>
+                {businessChallenge.problem}
+              </Text>
+            </View>
+          )}
+          {businessChallenge.opportunity && (
+            <View style={standaloneStyles.subCard}>
+              <Text style={standaloneStyles.subTitle}>Opportunity</Text>
+              <Text style={standaloneStyles.paragraph}>
+                {businessChallenge.opportunity}
+              </Text>
+            </View>
+          )}
+          {businessChallenge.marketContext && (
+            <View style={standaloneStyles.subCard}>
+              <Text style={standaloneStyles.subTitle}>Market Context</Text>
+              <Text style={standaloneStyles.paragraph}>
+                {businessChallenge.marketContext}
+              </Text>
+            </View>
+          )}
+        </View>
+      ),
+      (approach.methodology ||
+        approach.framework ||
+        approach.differentiators) && (
+        <View key="approach" style={standaloneStyles.card} wrap={false}>
+          <Text style={standaloneStyles.cardTitle}>
+            Our Approach & Methodology
+          </Text>
+          {approach.methodology && (
+            <Text style={standaloneStyles.paragraph}>
+              {approach.methodology}
+            </Text>
+          )}
+          {approach.framework && (
+            <View style={standaloneStyles.subCard}>
+              <Text style={standaloneStyles.subTitle}>Primary Framework</Text>
+              <Text style={standaloneStyles.paragraph}>
+                {approach.framework}
+              </Text>
+            </View>
+          )}
+          {approach.differentiators && (
+            <View style={standaloneStyles.subCard}>
+              <Text style={standaloneStyles.subTitle}>
+                What Makes This Different
+              </Text>
+              <Text style={standaloneStyles.paragraph}>
+                {approach.differentiators}
+              </Text>
+            </View>
+          )}
+        </View>
+      ),
+      (expectedOutcomes.outcomes ||
+        expectedOutcomes.metrics ||
+        expectedOutcomes.timeline) && (
+        <View key="outcomes" style={standaloneStyles.card} wrap={false}>
+          <Text style={standaloneStyles.cardTitle}>
+            Expected Outcomes & Success Metrics
+          </Text>
+          {expectedOutcomes.outcomes &&
+            expectedOutcomes.outcomes.length > 0 &&
+            renderList(expectedOutcomes.outcomes)}
+          {expectedOutcomes.metrics && expectedOutcomes.metrics.length > 0 && (
+            <View style={standaloneStyles.subCard}>
+              <Text style={standaloneStyles.subTitle}>Key Metrics</Text>
+              {renderList(expectedOutcomes.metrics)}
+            </View>
+          )}
+          {expectedOutcomes.timeline && (
+            <Text style={standaloneStyles.paragraph}>
+              Timeline: {expectedOutcomes.timeline}
+            </Text>
+          )}
+        </View>
+      ),
+      moduleData.fix && (
+        <View key="how-we-help" style={standaloneStyles.card} wrap={false}>
+          <Text style={standaloneStyles.cardTitle}>
+            How Elexive Unlocks Value
+          </Text>
+          <Text style={standaloneStyles.paragraph}>{moduleData.fix}</Text>
+        </View>
+      ),
+      moduleData.businessValue && (
+        <View key="kpi" style={standaloneStyles.card} wrap={false}>
+          <Text style={standaloneStyles.cardTitle}>KPI Impact</Text>
+          <Text style={standaloneStyles.paragraph}>
+            {moduleData.businessValue}
+          </Text>
+        </View>
+      ),
+    ]);
+
+    addPage([
+      (implementation.phases || implementation.keyMilestones) && (
+        <View key="implementation" style={standaloneStyles.card} wrap={false}>
+          <Text style={standaloneStyles.cardTitle}>Implementation Roadmap</Text>
+          {implementation.phases &&
+            implementation.phases.map((phase, idx) => (
+              <View key={`phase-${idx}`} style={standaloneStyles.subCard}>
+                <Text style={standaloneStyles.subTitle}>
+                  {phase.name}
+                  {phase.duration ? ` • ${phase.duration}` : ''}
+                </Text>
+                {renderList(phase.activities)}
+              </View>
+            ))}
+          {implementation.keyMilestones &&
+            implementation.keyMilestones.length > 0 && (
+              <View style={standaloneStyles.subCard}>
+                <Text style={standaloneStyles.subTitle}>Key Milestones</Text>
+                {renderList(implementation.keyMilestones)}
+              </View>
+            )}
+        </View>
+      ),
+      caseStudy && (
+        <View key="case-study" style={standaloneStyles.card} wrap={false}>
+          <Text style={standaloneStyles.cardTitle}>Success Story</Text>
+          {caseStudy.clientType && (
+            <Text style={standaloneStyles.paragraph}>
+              Client: {caseStudy.clientType}
+            </Text>
+          )}
+          {caseStudy.challenge && (
+            <View style={standaloneStyles.subCard}>
+              <Text style={standaloneStyles.subTitle}>Challenge</Text>
+              <Text style={standaloneStyles.paragraph}>
+                {caseStudy.challenge}
+              </Text>
+            </View>
+          )}
+          {caseStudy.solution && (
+            <View style={standaloneStyles.subCard}>
+              <Text style={standaloneStyles.subTitle}>Solution</Text>
+              <Text style={standaloneStyles.paragraph}>
+                {caseStudy.solution}
+              </Text>
+            </View>
+          )}
+          {caseStudy.results && (
+            <View style={standaloneStyles.subCard}>
+              <Text style={standaloneStyles.subTitle}>Results</Text>
+              <Text style={standaloneStyles.paragraph}>
+                {caseStudy.results}
+              </Text>
+            </View>
+          )}
+        </View>
+      ),
+      moduleData.variants && moduleData.variants.length > 0 && (
+        <View key="engagement" style={standaloneStyles.card} wrap={false}>
+          <Text style={standaloneStyles.cardTitle}>Engagement Models</Text>
+          {moduleData.variants.map((variant, idx) => {
+            const variantDef =
+              modulesConfig.variantDefinitions?.[variant.type] || {};
+            return (
+              <View
+                key={`variant-${idx}`}
+                style={standaloneStyles.variantBlock}
+              >
+                <Text style={standaloneStyles.subTitle}>{variant.type}</Text>
+                {(variantDef.tagline || variant.description) && (
+                  <Text style={standaloneStyles.paragraph}>
+                    {variantDef.tagline || variant.description}
+                  </Text>
+                )}
+                <Text style={standaloneStyles.paragraph}>
+                  Value Units:{' '}
+                  {variant.isFlexible
+                    ? `Starting from ${variant.minEvcPerWeek || 0} EVCs/week`
+                    : `${variant.evcValue || 0} EVCs`}
+                </Text>
+                {variant.duration && (
+                  <Text style={standaloneStyles.paragraph}>
+                    Duration: {variant.duration}
+                  </Text>
+                )}
+                {variant.deliverables && variant.deliverables.length > 0 && (
+                  <View style={standaloneStyles.subCard}>
+                    <Text style={standaloneStyles.subTitle}>
+                      Key Deliverables
+                    </Text>
+                    {renderList(variant.deliverables)}
+                  </View>
+                )}
+                {variant.scalingFactors &&
+                  Array.isArray(variant.scalingFactors) &&
+                  variant.scalingFactors.length > 0 && (
+                    <View style={standaloneStyles.subCard}>
+                      <Text style={standaloneStyles.subTitle}>
+                        Scaling Factors
+                      </Text>
+                      {renderList(variant.scalingFactors)}
+                    </View>
+                  )}
+              </View>
+            );
+          })}
+        </View>
+      ),
+      <View key="next-steps" style={standaloneStyles.card} wrap={false}>
+        <Text style={standaloneStyles.cardTitle}>Next Steps</Text>
+        <Text style={standaloneStyles.paragraph}>
+          {moduleData.callToAction ||
+            'Add this module to your transformation roadmap and align stakeholders on investment and execution scope.'}
+        </Text>
+        <Text style={standaloneStyles.paragraph}>
+          Contact us at{' '}
+          <Text style={{ fontWeight: 'bold' }}>sales@elexive.com</Text> to align
+          this module with your objectives.
+        </Text>
+      </View>,
+    ]);
+
+    const totalPages = pages.length + 1;
+
+    return pages.map((sections, index) => (
+      <Page key={`standalone-${index}`} size="A4" style={styles.page} wrap>
+        <View style={styles.contentPage}>
+          <PageHeader pillarColor={pillarColor} logoUrl={logoUrl} />
+          <View style={standaloneStyles.pageBody}>
+            {sections.map((section, idx) => (
+              <View key={`section-${index}-${idx}`}>{section}</View>
+            ))}
+          </View>
+          <PageFooter
+            formattedDate={formattedDate}
+            pageNumber={index + 2}
+            totalPages={totalPages}
+          />
+        </View>
+      </Page>
+    ));
+  }
 
   return (
     <Page size="A4" style={styles.page} wrap>
@@ -836,3 +1221,156 @@ const ModuleContentPage = ({
 };
 
 export default ModuleContentPage;
+
+const standaloneStyles = StyleSheet.create({
+  pageBody: {
+    paddingTop: 36,
+    paddingBottom: 32,
+    paddingHorizontal: 40,
+    gap: 16,
+  },
+  hero: {
+    borderRadius: 16,
+    borderWidth: 1,
+    padding: 24,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'stretch',
+  },
+  heroLeft: {
+    flex: 1,
+    paddingRight: 20,
+  },
+  heroRight: {
+    width: 140,
+    alignItems: 'center',
+    justifyContent: 'center',
+    gap: 12,
+  },
+  pillarLabel: {
+    fontSize: 9,
+    letterSpacing: 1.8,
+    textTransform: 'uppercase',
+    fontWeight: 'bold',
+    marginBottom: 6,
+  },
+  heroTitle: {
+    fontSize: 24,
+    fontWeight: 'bold',
+    color: '#1F2937',
+  },
+  heroHeading: {
+    fontSize: 11.5,
+    color: '#374151',
+    lineHeight: 1.5,
+    marginTop: 6,
+    marginBottom: 10,
+  },
+  heroList: {
+    marginTop: 8,
+    gap: 4,
+  },
+  heroListItem: {
+    flexDirection: 'row',
+    alignItems: 'flex-start',
+  },
+  heroBullet: {
+    fontSize: 10,
+    color: '#4B5563',
+    marginRight: 4,
+    marginTop: 1,
+  },
+  heroListText: {
+    fontSize: 11,
+    lineHeight: 1.45,
+    color: '#374151',
+    flex: 1,
+  },
+  quickFactGrid: {
+    marginTop: 12,
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    gap: 12,
+  },
+  quickFact: {
+    width: '45%',
+    borderRadius: 10,
+    borderWidth: 1,
+    borderColor: '#E5E7EB',
+    backgroundColor: '#FFFFFF',
+    paddingVertical: 6,
+    paddingHorizontal: 8,
+  },
+  quickFactLabel: {
+    fontSize: 8,
+    textTransform: 'uppercase',
+    letterSpacing: 1.2,
+    marginBottom: 2,
+    fontWeight: 'bold',
+  },
+  quickFactValue: {
+    fontSize: 11,
+    color: '#1F2937',
+    lineHeight: 1.4,
+  },
+  heroIconWrap: {
+    width: 110,
+    height: 110,
+    borderRadius: 14,
+    borderWidth: 1,
+    backgroundColor: 'rgba(255,255,255,0.25)',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  heroIcon: {
+    width: 72,
+    height: 72,
+  },
+  heroCTA: {
+    fontSize: 10,
+    color: '#1F2937',
+    textAlign: 'center',
+    lineHeight: 1.4,
+  },
+  card: {
+    borderRadius: 14,
+    borderWidth: 1,
+    borderColor: '#E5E7EB',
+    backgroundColor: '#FFFFFF',
+    padding: 18,
+    gap: 8,
+  },
+  cardTitle: {
+    fontSize: 13,
+    fontWeight: 'bold',
+    color: '#1F2937',
+    textTransform: 'uppercase',
+    letterSpacing: 1,
+  },
+  paragraph: {
+    fontSize: 10.8,
+    color: '#374151',
+    lineHeight: 1.5,
+  },
+  subCard: {
+    marginTop: 8,
+    paddingTop: 8,
+    borderTopWidth: 1,
+    borderTopColor: '#E5E7EB',
+    gap: 6,
+  },
+  subTitle: {
+    fontSize: 10.5,
+    fontWeight: 'bold',
+    color: '#1F2937',
+    textTransform: 'uppercase',
+    letterSpacing: 0.8,
+  },
+  variantBlock: {
+    marginTop: 10,
+    paddingTop: 10,
+    borderTopWidth: 1,
+    borderTopColor: '#E5E7EB',
+    gap: 6,
+  },
+});
