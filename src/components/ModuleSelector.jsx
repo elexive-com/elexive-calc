@@ -82,8 +82,13 @@ const ModuleSelector = ({
     }
   };
 
-  // Journey steps for ModuleDetails
-  const journeySteps = modulesConfig.journeyStages.map(stage => {
+  // Journey steps hardcoded (journeyStages removed from config)
+  const journeySteps = [
+    { id: 'journey-stage-1', title: 'Discover', icon: 'faCompass' },
+    { id: 'journey-stage-2', title: 'Design', icon: 'faLightbulb' },
+    { id: 'journey-stage-3', title: 'Build', icon: 'faRocket' },
+    { id: 'journey-stage-4', title: 'Scale', icon: 'faChartLine' },
+  ].map(stage => {
     // Map string icon names to icon objects
     let iconObject;
     switch (stage.icon) {
