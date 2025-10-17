@@ -550,7 +550,7 @@ const ModuleContentPage = ({
       ),
       moduleData.whoIsItFor && (
         <View key="ideal-exec" style={standaloneStyles.card} wrap={false}>
-          <Text style={standaloneStyles.cardTitle}>Ideal Executive</Text>
+          <Text style={standaloneStyles.cardTitle}>Right For You If</Text>
           <Text style={standaloneStyles.paragraph}>
             {moduleData.whoIsItFor}
           </Text>
@@ -559,26 +559,14 @@ const ModuleContentPage = ({
     ]);
 
     addPage([
-      (businessChallenge.problem ||
-        businessChallenge.opportunity ||
-        businessChallenge.marketContext) && (
+      (businessChallenge.problem || businessChallenge.marketContext) && (
         <View key="challenge" style={standaloneStyles.card} wrap={false}>
-          <Text style={standaloneStyles.cardTitle}>
-            Business Challenge & Opportunity
-          </Text>
+          <Text style={standaloneStyles.cardTitle}>Business Challenge</Text>
           {businessChallenge.problem && (
             <View style={standaloneStyles.subCard}>
-              <Text style={standaloneStyles.subTitle}>Core Challenge</Text>
+              <Text style={standaloneStyles.subTitle}>The Challenge</Text>
               <Text style={standaloneStyles.paragraph}>
                 {businessChallenge.problem}
-              </Text>
-            </View>
-          )}
-          {businessChallenge.opportunity && (
-            <View style={standaloneStyles.subCard}>
-              <Text style={standaloneStyles.subTitle}>Opportunity</Text>
-              <Text style={standaloneStyles.paragraph}>
-                {businessChallenge.opportunity}
               </Text>
             </View>
           )}
@@ -597,30 +585,12 @@ const ModuleContentPage = ({
         approach.differentiators) && (
         <View key="approach" style={standaloneStyles.card} wrap={false}>
           <Text style={standaloneStyles.cardTitle}>
-            Our Approach & Methodology
+            What Makes Us Different
           </Text>
-          {approach.methodology && (
-            <Text style={standaloneStyles.paragraph}>
-              {approach.methodology}
-            </Text>
-          )}
-          {approach.framework && (
-            <View style={standaloneStyles.subCard}>
-              <Text style={standaloneStyles.subTitle}>Primary Framework</Text>
-              <Text style={standaloneStyles.paragraph}>
-                {approach.framework}
-              </Text>
-            </View>
-          )}
           {approach.differentiators && (
-            <View style={standaloneStyles.subCard}>
-              <Text style={standaloneStyles.subTitle}>
-                What Makes This Different
-              </Text>
-              <Text style={standaloneStyles.paragraph}>
-                {approach.differentiators}
-              </Text>
-            </View>
+            <Text style={standaloneStyles.paragraph}>
+              {approach.differentiators}
+            </Text>
           )}
         </View>
       ),
@@ -941,16 +911,12 @@ const ModuleContentPage = ({
           </View>
 
           {/* Business Challenge */}
-          {(businessChallenge.problem ||
-            businessChallenge.opportunity ||
-            businessChallenge.marketContext) && (
+          {(businessChallenge.problem || businessChallenge.marketContext) && (
             <View style={dynamicStyles.section}>
-              <Text style={dynamicStyles.sectionTitle}>
-                Business Challenge & Opportunity
-              </Text>
+              <Text style={dynamicStyles.sectionTitle}>Business Challenge</Text>
               {businessChallenge.problem && (
                 <View style={dynamicStyles.card}>
-                  <Text style={dynamicStyles.subheading}>Core Challenge</Text>
+                  <Text style={dynamicStyles.subheading}>The Challenge</Text>
                   <Text style={dynamicStyles.paragraph}>
                     {businessChallenge.problem}
                   </Text>
@@ -976,38 +942,14 @@ const ModuleContentPage = ({
           )}
 
           {/* Approach */}
-          {(approach.methodology ||
-            approach.framework ||
-            approach.differentiators) && (
+          {approach.differentiators && (
             <View style={dynamicStyles.section}>
               <Text style={dynamicStyles.sectionTitle}>
-                Our Approach & Methodology
+                What Makes Us Different
               </Text>
-              {approach.methodology && (
-                <Text style={dynamicStyles.paragraph}>
-                  {approach.methodology}
-                </Text>
-              )}
-              {approach.framework && (
-                <View style={dynamicStyles.highlightBox}>
-                  <Text style={dynamicStyles.highlightTitle}>
-                    Primary Framework
-                  </Text>
-                  <Text style={dynamicStyles.paragraph}>
-                    {approach.framework}
-                  </Text>
-                </View>
-              )}
-              {approach.differentiators && (
-                <View style={dynamicStyles.card}>
-                  <Text style={dynamicStyles.subheading}>
-                    What Makes It Different
-                  </Text>
-                  <Text style={dynamicStyles.paragraph}>
-                    {approach.differentiators}
-                  </Text>
-                </View>
-              )}
+              <Text style={dynamicStyles.paragraph}>
+                {approach.differentiators}
+              </Text>
             </View>
           )}
 
