@@ -66,7 +66,6 @@ const applyOpacity = (hex, alpha) => {
 const PageFooter = ({ formattedDate }) => (
   <View
     style={footerStyles.container}
-    fixed
     render={({ pageNumber, totalPages }) => (
       <View style={footerStyles.container}>
         <Text style={footerStyles.meta}>Elexive Ltd • Solution Brief</Text>
@@ -80,32 +79,30 @@ const PageFooter = ({ formattedDate }) => (
 
 // Header renders a pillar strip and logo
 const PageHeader = ({ pillarColor, logoUrl }) => (
-  <View fixed>
+  <>
     <View
       style={{
-        position: 'absolute',
-        top: 0,
-        left: 0,
-        right: 0,
         height: 12,
         backgroundColor: pillarColor,
+        marginBottom: 6,
       }}
     />
     <View
       style={{
-        position: 'absolute',
-        top: 18,
-        right: 40,
+        flexDirection: 'row',
+        justifyContent: 'flex-end',
+        marginBottom: 20,
+        paddingHorizontal: 40,
       }}
     >
       <Image src={logoUrl} style={{ width: 100 }} />
     </View>
-  </View>
+  </>
 );
 
 const dynamicStyles = StyleSheet.create({
   contentContainer: {
-    paddingTop: 42,
+    paddingTop: 10,
     paddingBottom: 24,
   },
   heroContainer: {
@@ -311,10 +308,8 @@ const dynamicStyles = StyleSheet.create({
 
 const footerStyles = StyleSheet.create({
   container: {
-    position: 'absolute',
-    bottom: 30,
-    left: 40,
-    right: 40,
+    marginTop: 20,
+    marginHorizontal: 40,
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
