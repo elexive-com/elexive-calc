@@ -759,12 +759,12 @@ const ModuleContentPage = ({
               </View>
             ))}
           </View>
-          <PageFooter
-            formattedDate={formattedDate}
-            pageNumber={index + 2}
-            totalPages={totalPages}
-          />
         </View>
+        <PageFooter
+          formattedDate={formattedDate}
+          pageNumber={index + 2}
+          totalPages={totalPages}
+        />
       </Page>
     ));
   }
@@ -1142,13 +1142,12 @@ const ModuleContentPage = ({
             </View>
           </View>
         </View>
-
-        <PageFooter
-          formattedDate={formattedDate}
-          pageNumber={pageNumber || 2}
-          totalPages={totalPages || 2}
-        />
       </View>
+      <PageFooter
+        formattedDate={formattedDate}
+        pageNumber={pageNumber || 2}
+        totalPages={totalPages || 2}
+      />
     </Page>
   );
 };
