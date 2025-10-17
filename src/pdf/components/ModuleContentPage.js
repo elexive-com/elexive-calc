@@ -104,8 +104,6 @@ const dynamicStyles = StyleSheet.create({
   },
   heroContainer: {
     flexDirection: 'row',
-    borderWidth: 1,
-    borderColor: '#E5E7EB',
     borderRadius: 16,
     padding: 24,
     marginBottom: 24,
@@ -131,12 +129,12 @@ const dynamicStyles = StyleSheet.create({
   heroTitle: {
     fontSize: 26,
     fontWeight: 'bold',
-    color: '#111827',
+    color: '#FFFFFF',
     marginBottom: 6,
   },
   heroHeading: {
     fontSize: 13,
-    color: '#374151',
+    color: '#FFFFFF',
     lineHeight: 1.5,
     marginBottom: 16,
   },
@@ -227,12 +225,8 @@ const dynamicStyles = StyleSheet.create({
     marginBottom: 10,
   },
   card: {
-    borderWidth: 1,
-    borderColor: '#E5E7EB',
-    borderRadius: 12,
     padding: 16,
     marginBottom: 12,
-    backgroundColor: '#F9FAFB',
   },
   subheading: {
     fontSize: 11,
@@ -276,11 +270,7 @@ const dynamicStyles = StyleSheet.create({
     padding: 10,
   },
   variantInner: {
-    borderWidth: 1,
-    borderColor: '#E5E7EB',
-    borderRadius: 12,
     padding: 14,
-    backgroundColor: '#FFFFFF',
   },
   variantHeader: {
     fontSize: 12,
@@ -300,11 +290,7 @@ const dynamicStyles = StyleSheet.create({
     marginBottom: 6,
   },
   highlightBox: {
-    borderRadius: 12,
     padding: 16,
-    borderWidth: 1,
-    borderColor: '#E5E7EB',
-    backgroundColor: '#F8FAFC',
     marginBottom: 14,
   },
   highlightTitle: {
@@ -458,8 +444,7 @@ const ModuleContentPage = ({
         style={[
           standaloneStyles.hero,
           {
-            borderColor: applyOpacity(theme.accent, 0.35),
-            backgroundColor: applyOpacity(theme.accent, 0.08),
+            backgroundColor: theme.primary,
           },
         ]}
         wrap={false}
@@ -1218,14 +1203,14 @@ const standaloneStyles = StyleSheet.create({
   },
   heroBullet: {
     fontSize: 10,
-    color: '#4B5563',
+    color: '#FFFFFF',
     marginRight: 4,
     marginTop: 1,
   },
   heroListText: {
     fontSize: 11,
     lineHeight: 1.45,
-    color: '#374151',
+    color: '#FFFFFF',
     flex: 1,
   },
   quickFactGrid: {
