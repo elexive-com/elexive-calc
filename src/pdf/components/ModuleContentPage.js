@@ -510,8 +510,11 @@ const ModuleContentPage = ({
       </View>
     );
 
+    // Page 1: Hero section only
+    addPage([heroSection]);
+
+    // Page 2: Benefits, Summary, Who is it for
     addPage([
-      heroSection,
       moduleData.benefits && moduleData.benefits.length > 0 && (
         <View key="benefits" style={standaloneStyles.card} wrap={false}>
           <Text style={standaloneStyles.cardTitle}>Strategic Benefits</Text>
@@ -543,6 +546,7 @@ const ModuleContentPage = ({
       ),
     ]);
 
+    // Page 3: Challenge and Approach
     addPage([
       (businessChallenge.problem || businessChallenge.marketContext) && (
         <View key="challenge" style={standaloneStyles.card} wrap={false}>
@@ -745,12 +749,14 @@ const ModuleContentPage = ({
     const totalPages = pages.length + 1;
 
     return pages.map((sections, index) => (
-      <Page key={`standalone-${index}`} size="A4" style={styles.page} wrap>
+      <Page key={`standalone-${index}`} size="A4" style={styles.page}>
         <View style={styles.contentPage}>
           <PageHeader pillarColor={pillarColor} logoUrl={logoUrl} />
           <View style={standaloneStyles.pageBody}>
             {sections.map((section, idx) => (
-              <View key={`section-${index}-${idx}`}>{section}</View>
+              <View key={`section-${index}-${idx}`} wrap={false}>
+                {section}
+              </View>
             ))}
           </View>
           <PageFooter
@@ -764,7 +770,7 @@ const ModuleContentPage = ({
   }
 
   return (
-    <Page size="A4" style={styles.page} wrap>
+    <Page size="A4" style={styles.page}>
       <View style={styles.contentPage}>
         <PageHeader pillarColor={pillarColor} logoUrl={logoUrl} />
 
