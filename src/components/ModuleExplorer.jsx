@@ -54,7 +54,6 @@ const ModuleExplorer = () => {
         ...module,
         iconObject: getModuleIcon(module.pillar, module.name),
         pillarIcon: modulesConfig.pillarIcons[module.pillar],
-        journeyStage: determineJourneyStage(module),
         variantDefinitions: module.variants.map(variant => ({
           ...variant,
           ...modulesConfig.variantDefinitions[variant.type],
@@ -65,12 +64,6 @@ const ModuleExplorer = () => {
     setModules(enhancedModules);
     setFilteredModules(enhancedModules);
   }, []);
-
-  // Determine which journey stage a module belongs to
-  const determineJourneyStage = module => {
-    // Return the primary journey stage ID from the module configuration
-    return module.primaryJourneyStage || 'journey-stage-3'; // Default to 'Build' if not defined
-  };
 
   // Handle filtering of modules
   useEffect(() => {

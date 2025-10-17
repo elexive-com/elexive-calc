@@ -136,7 +136,6 @@ const ModuleDetailPage = () => {
         referrer === '/modules' ||
         referrer.startsWith('/modules') ||
         referrer === '/calculator' ||
-        referrer === '/journey' ||
         referrer === '/'
       ) {
         window.history.back();

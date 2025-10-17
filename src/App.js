@@ -24,7 +24,6 @@ function App() {
                   <Route path="/calculator" element={<CalculatorApp />} />
                   <Route path="/modules" element={<CalculatorApp />} />
                   <Route path="/modules/:slug" element={<ModuleDetailPage />} />
-                  <Route path="/journey" element={<CalculatorApp />} />
                   <Route path="/style-test" element={<StyleTest />} />
                   <Route path="/diagnostic" element={<DiagnosticTest />} />
                   {/* Catch-all route for any unmatched paths */}

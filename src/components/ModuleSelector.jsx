@@ -82,38 +82,6 @@ const ModuleSelector = ({
     }
   };
 
-  // Journey steps hardcoded (journeyStages removed from config)
-  const journeySteps = [
-    { id: 'journey-stage-1', title: 'Discover', icon: 'faCompass' },
-    { id: 'journey-stage-2', title: 'Design', icon: 'faLightbulb' },
-    { id: 'journey-stage-3', title: 'Build', icon: 'faRocket' },
-    { id: 'journey-stage-4', title: 'Scale', icon: 'faChartLine' },
-  ].map(stage => {
-    // Map string icon names to icon objects
-    let iconObject;
-    switch (stage.icon) {
-      case 'faCompass':
-        iconObject = faCompass;
-        break;
-      case 'faLightbulb':
-        iconObject = faLightbulb;
-        break;
-      case 'faRocket':
-        iconObject = faRocket;
-        break;
-      default:
-        iconObject = faCompass; // Default icon
-    }
-
-    return {
-      id: stage.id,
-      title: stage.title,
-      description: stage.description,
-      icon: iconObject,
-      categories: stage.categories,
-    };
-  });
-
   // View module details function - navigate to module URL
   const viewModuleDetails = module => {
     if (externalViewModuleDetails) {
@@ -269,7 +237,6 @@ const ModuleSelector = ({
         <div className="w-full h-full">
           <ModuleDetails
             selectedModule={selectedModule}
-            journeySteps={journeySteps}
             exportToPdf={exportToPdf}
             isExporting={isExporting}
             onBack={() => setIsDetailView(false)}
