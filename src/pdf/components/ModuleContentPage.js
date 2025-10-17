@@ -62,19 +62,25 @@ const applyOpacity = (hex, alpha) => {
   return `rgba(${r}, ${g}, ${b}, ${alpha})`;
 };
 
-// Footer rendered on each page
-const PageFooter = ({ formattedDate, pageNumber, totalPages }) => (
-  <View style={footerStyles.container}>
-    <Text style={footerStyles.meta}>Elexive Ltd • Solution Brief</Text>
-    <Text style={footerStyles.meta}>
-      Generated on {formattedDate} • Page {pageNumber} of {totalPages}
-    </Text>
-  </View>
+// Footer rendered on each page with dynamic page numbers
+const PageFooter = ({ formattedDate }) => (
+  <View
+    style={footerStyles.container}
+    fixed
+    render={({ pageNumber, totalPages }) => (
+      <View style={footerStyles.container}>
+        <Text style={footerStyles.meta}>Elexive Ltd • Solution Brief</Text>
+        <Text style={footerStyles.meta}>
+          Generated on {formattedDate} • Page {pageNumber} of {totalPages}
+        </Text>
+      </View>
+    )}
+  />
 );
 
 // Header renders a pillar strip and logo
 const PageHeader = ({ pillarColor, logoUrl }) => (
-  <>
+  <View fixed>
     <View
       style={{
         position: 'absolute',
@@ -94,7 +100,7 @@ const PageHeader = ({ pillarColor, logoUrl }) => (
     >
       <Image src={logoUrl} style={{ width: 100 }} />
     </View>
-  </>
+  </View>
 );
 
 const dynamicStyles = StyleSheet.create({
@@ -760,11 +766,7 @@ const ModuleContentPage = ({
             ))}
           </View>
         </View>
-        <PageFooter
-          formattedDate={formattedDate}
-          pageNumber={index + 2}
-          totalPages={totalPages}
-        />
+        <PageFooter formattedDate={formattedDate} />
       </Page>
     ));
   }
@@ -1143,11 +1145,7 @@ const ModuleContentPage = ({
           </View>
         </View>
       </View>
-      <PageFooter
-        formattedDate={formattedDate}
-        pageNumber={pageNumber || 2}
-        totalPages={totalPages || 2}
-      />
+      <PageFooter formattedDate={formattedDate} />
     </Page>
   );
 };
