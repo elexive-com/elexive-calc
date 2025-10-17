@@ -65,6 +65,7 @@ const applyOpacity = (hex, alpha) => {
 // Footer rendered on each page with dynamic page numbers
 const PageFooter = ({ formattedDate }) => (
   <View
+    fixed
     style={footerStyles.container}
     render={({ pageNumber, totalPages }) => (
       <View style={footerStyles.container}>
@@ -79,25 +80,25 @@ const PageFooter = ({ formattedDate }) => (
 
 // Header renders a pillar strip and logo
 const PageHeader = ({ pillarColor, logoUrl }) => (
-  <>
+  <View fixed>
     <View
       style={{
         height: 12,
         backgroundColor: pillarColor,
-        marginBottom: 6,
       }}
     />
     <View
       style={{
         flexDirection: 'row',
         justifyContent: 'flex-end',
-        marginBottom: 20,
-        paddingHorizontal: 40,
+        paddingTop: 6,
+        paddingRight: 40,
+        paddingBottom: 10,
       }}
     >
       <Image src={logoUrl} style={{ width: 100 }} />
     </View>
-  </>
+  </View>
 );
 
 const dynamicStyles = StyleSheet.create({
