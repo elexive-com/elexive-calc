@@ -66,14 +66,27 @@ const applyOpacity = (hex, alpha) => {
 const PageFooter = ({ formattedDate }) => (
   <View
     fixed
-    style={footerStyles.container}
+    style={{
+      position: 'absolute',
+      bottom: 30,
+      left: 40,
+      right: 40,
+      flexDirection: 'row',
+      justifyContent: 'space-between',
+      alignItems: 'center',
+      borderTopWidth: 1,
+      borderTopColor: '#E5E7EB',
+      paddingTop: 10,
+    }}
     render={({ pageNumber, totalPages }) => (
-      <View style={footerStyles.container}>
-        <Text style={footerStyles.meta}>Elexive Ltd • Solution Brief</Text>
-        <Text style={footerStyles.meta}>
+      <>
+        <Text style={{ fontSize: 9, color: '#6B7280' }}>
+          Elexive Ltd • Solution Brief
+        </Text>
+        <Text style={{ fontSize: 9, color: '#6B7280' }}>
           Generated on {formattedDate} • Page {pageNumber} of {totalPages}
         </Text>
-      </View>
+      </>
     )}
   />
 );
@@ -83,17 +96,19 @@ const PageHeader = ({ pillarColor, logoUrl }) => (
   <View fixed>
     <View
       style={{
+        position: 'absolute',
+        top: 0,
+        left: 0,
+        right: 0,
         height: 12,
         backgroundColor: pillarColor,
       }}
     />
     <View
       style={{
-        flexDirection: 'row',
-        justifyContent: 'flex-end',
-        paddingTop: 6,
-        paddingRight: 40,
-        paddingBottom: 10,
+        position: 'absolute',
+        top: 18,
+        right: 40,
       }}
     >
       <Image src={logoUrl} style={{ width: 100 }} />
@@ -103,8 +118,9 @@ const PageHeader = ({ pillarColor, logoUrl }) => (
 
 const dynamicStyles = StyleSheet.create({
   contentContainer: {
-    paddingTop: 10,
-    paddingBottom: 24,
+    paddingTop: 42,
+    paddingBottom: 60,
+    paddingHorizontal: 40,
   },
   heroContainer: {
     flexDirection: 'row',
