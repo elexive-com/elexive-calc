@@ -1158,7 +1158,6 @@ const standaloneStyles = StyleSheet.create({
   },
   hero: {
     borderRadius: 16,
-    borderWidth: 1,
     padding: 24,
     flexDirection: 'row',
     justifyContent: 'space-between',
@@ -1221,10 +1220,6 @@ const standaloneStyles = StyleSheet.create({
   },
   quickFact: {
     width: '45%',
-    borderRadius: 10,
-    borderWidth: 1,
-    borderColor: '#E5E7EB',
-    backgroundColor: '#FFFFFF',
     paddingVertical: 6,
     paddingHorizontal: 8,
   },
@@ -1260,10 +1255,6 @@ const standaloneStyles = StyleSheet.create({
     lineHeight: 1.4,
   },
   card: {
-    borderRadius: 14,
-    borderWidth: 1,
-    borderColor: '#E5E7EB',
-    backgroundColor: '#FFFFFF',
     padding: 18,
     gap: 8,
   },
@@ -1282,8 +1273,6 @@ const standaloneStyles = StyleSheet.create({
   subCard: {
     marginTop: 8,
     paddingTop: 8,
-    borderTopWidth: 1,
-    borderTopColor: '#E5E7EB',
     gap: 6,
   },
   subTitle: {
